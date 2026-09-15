@@ -908,19 +908,11 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
 }
 
-/* Hero (slide 1): text + a placeholder mockup, side by side. */
+/* Hero (slide 1): centered text, matching the other slider slides. */
 .hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4rem;
-  text-align: left;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-}
-
-.hero-text {
-  flex: 1 1 480px;
+  text-align: center;
 }
 
 .hero-eyebrow {
@@ -947,49 +939,7 @@ nav ul li a.cta-demo-header:hover {
   font-size: 1.15rem;
   line-height: 1.6;
   max-width: 46ch;
-  margin: 0 0 0.5rem;
-}
-
-.hero-mockup {
-  flex: 1 1 420px;
-  display: flex;
-  justify-content: center;
-}
-
-.hero-mockup-stack {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-}
-
-/* Nivo Slider clones this slide's markup into its own `.nivoSlider`
-   container, whose stylesheet forces every <img> to
-   `position: absolute; top:0; left:0; max-width:none` (see
-   lib/nivo-slider/css/nivo-slider.css, `.nivoSlider img`). That rule's
-   specificity (class + type) beats a bare `.hero-mockup-primary` class
-   selector, which is what made the mockup images ignore their sizing
-   and pile up at the slide's top-left corner. Qualifying the selector
-   with the parent class raises our specificity above it. */
-.hero-mockup-stack .hero-mockup-secondary {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 65%;
-  border-radius: 12px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
-  z-index: 1;
-}
-
-.hero-mockup-stack .hero-mockup-primary {
-  position: relative;
-  display: block;
-  width: 85%;
-  margin-top: 20%;
-  margin-left: auto;
-  border-radius: 16px;
-  border: 3px solid #fff;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-  z-index: 2;
+  margin: 0 auto 0.5rem;
 }
 
 .layer-1-3 {
@@ -997,60 +947,17 @@ nav ul li a.cta-demo-header:hover {
   flex-wrap: wrap;
   gap: 15px;
   align-items: center;
-}
-
-@media (max-width: 991px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero-text {
-    flex: 1 1 auto;
-  }
-
-  .layer-1-3 {
-    justify-content: center;
-  }
-
-  .hero-subtitle {
-    max-width: none;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-mockup-stack {
-    max-width: 320px;
-  }
-}
-
-/* Between 768-991px the hero switches to a stacked column (text above,
-   mockup below — see the flex-direction:column rule above), which needs
-   more vertical room than the slide's auto-computed height provides.
-   Without this, the mockup gets silently cut off by the slide's
-   overflow:hidden, the same clipping the narrower breakpoint below
-   already works around. */
-@media (min-width: 768px) and (max-width: 991px) {
-  .slider-area,
-  .nivoSlider {
-    min-height: 820px !important;
-  }
+  justify-content: center;
 }
 
 /* Nivo Slider's caption box is clipped to the slide's own height (which
    auto-computes from the background image and is very short on narrow
    viewports) — without a forced min-height here, everything past the
-   title gets silently cut off by that ancestor's overflow:hidden. The
-   mockup placeholder is dropped on mobile too, since it added little
-   value at this size and kept pushing the required height even higher. */
+   title gets silently cut off by that ancestor's overflow:hidden. */
 @media (max-width: 767px) {
   .slider-area,
   .nivoSlider {
     min-height: 400px !important;
-  }
-
-  .hero-mockup {
-    display: none;
   }
 
   .hero-eyebrow {
