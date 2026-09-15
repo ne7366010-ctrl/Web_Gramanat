@@ -959,28 +959,36 @@ nav ul li a.cta-demo-header:hover {
 .hero-mockup-stack {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  padding: 24px 0 0 24px;
+  max-width: 420px;
 }
 
-.hero-mockup-secondary {
+/* Nivo Slider clones this slide's markup into its own `.nivoSlider`
+   container, whose stylesheet forces every <img> to
+   `position: absolute; top:0; left:0; max-width:none` (see
+   lib/nivo-slider/css/nivo-slider.css, `.nivoSlider img`). That rule's
+   specificity (class + type) beats a bare `.hero-mockup-primary` class
+   selector, which is what made the mockup images ignore their sizing
+   and pile up at the slide's top-left corner. Qualifying the selector
+   with the parent class raises our specificity above it. */
+.hero-mockup-stack .hero-mockup-secondary {
   position: absolute;
   top: 0;
   left: 0;
-  width: 80%;
-  border-radius: 14px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+  width: 65%;
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
   z-index: 1;
 }
 
-.hero-mockup-primary {
+.hero-mockup-stack .hero-mockup-primary {
   position: relative;
   display: block;
-  width: 88%;
+  width: 85%;
+  margin-top: 20%;
   margin-left: auto;
   border-radius: 16px;
   border: 3px solid #fff;
-  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
   z-index: 2;
 }
 
@@ -1013,6 +1021,19 @@ nav ul li a.cta-demo-header:hover {
 
   .hero-mockup-stack {
     max-width: 320px;
+  }
+}
+
+/* Between 768-991px the hero switches to a stacked column (text above,
+   mockup below — see the flex-direction:column rule above), which needs
+   more vertical room than the slide's auto-computed height provides.
+   Without this, the mockup gets silently cut off by the slide's
+   overflow:hidden, the same clipping the narrower breakpoint below
+   already works around. */
+@media (min-width: 768px) and (max-width: 991px) {
+  .slider-area,
+  .nivoSlider {
+    min-height: 820px !important;
   }
 }
 
