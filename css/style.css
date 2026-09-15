@@ -912,12 +912,30 @@ nav ul li a.cta-demo-header:hover {
    the mockup column is gone. .hero-text is the sole flex item, so
    flex-grow still stretches it across the whole .hero-content width. */
 .hero-content {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Dark-to-transparent gradient behind the hero text, so it reads clearly
+   over the laptop background photo. Breaks out to full viewport width
+   (the 50% + 100vw + translateX(-50%) trick) since .hero-content itself
+   is inset by the slide's centered container padding. */
+.hero-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0) 75%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .hero-text {
