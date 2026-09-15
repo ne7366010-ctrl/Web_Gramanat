@@ -1337,28 +1337,6 @@ nav ul li a.cta-demo-header:hover {
   box-shadow: 0 14px 28px rgba(42, 95, 255, 0.18);
 }
 
-#services .card-badge {
-  position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--color-brand);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.35em 0.9em;
-  border-radius: 999px;
-  box-shadow: 0 4px 10px rgba(42, 95, 255, 0.35);
-  white-space: nowrap;
-}
-
-#services .card-featured:hover .card-badge {
-  background: #fff;
-  color: var(--color-brand);
-}
-
 .custom-cards .icon-wrapper {
   background-color: var(--color-brand);
   color: #fff;
