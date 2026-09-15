@@ -908,11 +908,20 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
 }
 
-/* Hero (slide 1): centered text, matching the other slider slides. */
+/* Hero (slide 1): left-aligned text using the full slide width now that
+   the mockup column is gone. .hero-text is the sole flex item, so
+   flex-grow still stretches it across the whole .hero-content width. */
 .hero-content {
-  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+}
+
+.hero-text {
+  flex: 1 1 480px;
 }
 
 .hero-eyebrow {
@@ -939,7 +948,7 @@ nav ul li a.cta-demo-header:hover {
   font-size: 1.15rem;
   line-height: 1.6;
   max-width: 46ch;
-  margin: 0 auto 0.5rem;
+  margin: 0 0 0.5rem;
 }
 
 .layer-1-3 {
@@ -947,7 +956,27 @@ nav ul li a.cta-demo-header:hover {
   flex-wrap: wrap;
   gap: 15px;
   align-items: center;
-  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text {
+    flex: 1 1 auto;
+  }
+
+  .layer-1-3 {
+    justify-content: center;
+  }
+
+  .hero-subtitle {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* Nivo Slider's caption box is clipped to the slide's own height (which
