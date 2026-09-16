@@ -2926,7 +2926,7 @@ nav ul li a.cta-demo-header:hover {
 
 .client-logo-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin-bottom: 30px;
 }
