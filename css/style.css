@@ -3642,6 +3642,24 @@ nav ul li a.cta-demo-header:hover {
   font-size: 14px;
 }
 
+/* "Agendar ahora" as a solid button instead of plain link text — brand
+   blue matches this card's own icon color, rather than the orange
+   reserved for the site's primary hero CTAs. */
+.single-icon p a.contact-cta-btn {
+  display: inline-block;
+  margin-top: 0.9rem;
+  padding: 10px 26px;
+  background-color: var(--color-brand);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+}
+
+.single-icon p a.contact-cta-btn:hover {
+  background-color: #1d49d1;
+  color: #fff;
+}
+
 .contact-area iframe {
   border-radius: 10px;
   margin: 50px 20px 20px 10px;
