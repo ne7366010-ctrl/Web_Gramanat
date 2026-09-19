@@ -4358,6 +4358,19 @@ body.page-administrative-business .ab-features-col li i {
   flex-shrink: 0;
 }
 
+/* "Personal Business" wants a larger "Principales Características" title
+   and list than the shared Administrative Business styling above. Scoped
+   with the extra .page-personal-business class (added to that page's
+   <body> only) so administrative-business.html, which shares
+   .page-administrative-business, is unaffected. */
+body.page-administrative-business.page-personal-business .ab-features-title {
+  font-size: 3rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-features-col li {
+  font-size: 2rem;
+}
+
 /* --- Video --- */
 
 body.page-administrative-business .ab-video {
@@ -4557,6 +4570,14 @@ body.page-administrative-business .ab-req-item p {
 
   body.page-administrative-business .ab-features-col li {
     font-size: 1.35rem;
+  }
+
+  body.page-administrative-business.page-personal-business .ab-features-title {
+    font-size: 2.16rem;
+  }
+
+  body.page-administrative-business.page-personal-business .ab-features-col li {
+    font-size: 1.62rem;
   }
 
   body.page-administrative-business .ab-cta-btn {
