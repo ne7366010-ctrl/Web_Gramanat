@@ -5128,6 +5128,15 @@ body.page-admin-pos .ab-req-item p {
   transform: translateY(-2px);
 }
 
+/* "Ver videos" is bigger on this page only — .ab-videos-btn itself is
+   shared, unscoped, with Administrative Business and Administrativo y
+   Punto de Venta, so this override is scoped to .page-personal-business
+   to avoid resizing it on those other two pages. */
+body.page-personal-business .ab-videos-btn {
+  font-size: 1.5rem;
+  padding: 21px 28px;
+}
+
 /* ==========================================================
    Webinars (page-webinars)
    ========================================================== */
