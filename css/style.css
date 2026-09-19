@@ -4217,6 +4217,34 @@ body.page-administrative-business .ab-region-note i {
   flex-shrink: 0;
 }
 
+/* Hero text block gets a soft card treatment on this page only — a
+   panel that reads as more formal than sitting directly on the
+   section's --color-bg. Scoped to .page-personal-business (in addition
+   to the shared .page-administrative-business) so the hero on
+   Administrative Business / Administrativo y Punto de Venta, which
+   reuses this same CSS, is unaffected. */
+body.page-administrative-business.page-personal-business .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+/* A bit more breathing room between the eyebrow/title/description now
+   that they sit inside a defined card. */
+body.page-administrative-business.page-personal-business .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
 body.page-administrative-business .ab-cta-btn {
   display: inline-block;
   /* Site's reserved accent/action orange, per brand spec — CTAs only,
@@ -4594,6 +4622,10 @@ body.page-administrative-business .ab-req-item p {
 
   body.page-administrative-business .ab-lead {
     font-size: 1.1rem;
+  }
+
+  body.page-administrative-business.page-personal-business .ab-hero-content {
+    padding: 1.75rem 1.5rem;
   }
 
   body.page-administrative-business .ab-features-title {
