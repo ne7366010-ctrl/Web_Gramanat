@@ -4364,11 +4364,11 @@ body.page-administrative-business .ab-features-col li i {
    <body> only) so administrative-business.html, which shares
    .page-administrative-business, is unaffected. */
 body.page-administrative-business.page-personal-business .ab-features-title {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 body.page-administrative-business.page-personal-business .ab-features-col li {
-  font-size: 2rem;
+  font-size: 1.15rem;
 }
 
 /* The bigger font-size above needs more room than the shared grid's
