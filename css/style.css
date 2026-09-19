@@ -4245,6 +4245,30 @@ body.page-administrative-business.page-personal-business .ab-lead {
   margin-bottom: 1.6rem;
 }
 
+/* Same hero card treatment as Personal Business above, applied to
+   Administrative Business only via its own .page-admin-business-main
+   class — administrativo-punto-de-venta.html uses the separate
+   .page-admin-pos block below and is unaffected either way. */
+body.page-administrative-business.page-admin-business-main .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
 body.page-administrative-business .ab-cta-btn {
   display: inline-block;
   /* Site's reserved accent/action orange, per brand spec — CTAs only,
@@ -4625,6 +4649,10 @@ body.page-administrative-business .ab-req-item p {
   }
 
   body.page-administrative-business.page-personal-business .ab-hero-content {
+    padding: 1.75rem 1.5rem;
+  }
+
+  body.page-administrative-business.page-admin-business-main .ab-hero-content {
     padding: 1.75rem 1.5rem;
   }
 
