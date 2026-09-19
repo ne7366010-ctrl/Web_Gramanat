@@ -4792,6 +4792,31 @@ body.page-admin-pos .ab-region-note i {
   flex-shrink: 0;
 }
 
+/* Same hero card treatment as Administrative Business / Personal
+   Business. .page-admin-pos is already exclusive to this one page (no
+   other HTML file uses it), so no extra disambiguating class is needed
+   here the way .page-personal-business / .page-admin-business-main
+   were for the two pages that share .page-administrative-business. */
+body.page-admin-pos .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+body.page-admin-pos .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-admin-pos .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-admin-pos .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
 body.page-admin-pos .ab-cta-btn {
   display: inline-block;
   /* Mismo naranja que el CTA "Solicita tu demo" de Administrative
@@ -5104,6 +5129,10 @@ body.page-admin-pos .ab-req-item p {
 
   body.page-admin-pos .ab-lead {
     font-size: 1.1rem;
+  }
+
+  body.page-admin-pos .ab-hero-content {
+    padding: 1.75rem 1.5rem;
   }
 
   body.page-admin-pos .ab-cta-btn {
