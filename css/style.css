@@ -2401,7 +2401,7 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
   font-size: 28px;
   text-transform: uppercase;
-  margin-bottom: 25px;
+  margin-bottom: 36px;
   letter-spacing: 1.8px;
 }
 
@@ -2411,6 +2411,13 @@ nav ul li a.cta-demo-header:hover {
   background: var(--color-brand);
   margin: 0 auto 30px;
   position: relative;
+}
+
+/* .decorative-line is shared with other sections/pages, so the extra
+   breathing room requested for this "Impulsa tu negocio" block is
+   scoped here instead of changing the shared rule above. */
+.work-right-text .decorative-line {
+  margin-bottom: 45px;
 }
 
 .decorative-line::after {
@@ -2430,7 +2437,7 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
   font-size: 15px;
   line-height: 1.8;
-  margin-bottom: 35px;
+  margin-bottom: 52px;
   padding: 0 10px;
 }
 
