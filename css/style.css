@@ -3599,11 +3599,12 @@ nav ul li a.cta-demo-header:hover {
   border-radius: 1px;
   background: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  /* Was a fixed 260px, sized for the original 3 short cards. The new
-     "Solicita una Reunión" card's longer copy needs more room, so this
-     grew to 340px — applied to all 4 cards equally so the row stays a
-     uniform set rather than one taller card breaking the row. */
-  height: 340px;
+  /* Was a fixed 260px, sized for the original 3 short cards. The
+     "Solicita una Reunión" card (icon + title + description + button)
+     is the tallest of the 4, so this grew to fit it — applied to all 4
+     cards equally so the row stays a uniform set rather than one taller
+     card breaking the row. */
+  height: 320px;
   cursor: pointer;
 }
 
