@@ -2401,7 +2401,7 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
   font-size: 28px;
   text-transform: uppercase;
-  margin-bottom: 25px;
+  margin-bottom: 36px;
   letter-spacing: 1.8px;
 }
 
@@ -2411,6 +2411,13 @@ nav ul li a.cta-demo-header:hover {
   background: var(--color-brand);
   margin: 0 auto 30px;
   position: relative;
+}
+
+/* .decorative-line is shared with other sections/pages, so the extra
+   breathing room requested for this "Impulsa tu negocio" block is
+   scoped here instead of changing the shared rule above. */
+.work-right-text .decorative-line {
+  margin-bottom: 45px;
 }
 
 .decorative-line::after {
@@ -2430,7 +2437,7 @@ nav ul li a.cta-demo-header:hover {
   color: #fff;
   font-size: 15px;
   line-height: 1.8;
-  margin-bottom: 35px;
+  margin-bottom: 52px;
   padding: 0 10px;
 }
 
@@ -3599,7 +3606,12 @@ nav ul li a.cta-demo-header:hover {
   border-radius: 1px;
   background: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  height: 260px;
+  /* Was a fixed 260px, sized for the original 3 short cards. The
+     "Solicita una Reunión" card (icon + title + description + button)
+     is the tallest of the 4, so this grew to fit it — applied to all 4
+     cards equally so the row stays a uniform set rather than one taller
+     card breaking the row. */
+  height: 320px;
   cursor: pointer;
 }
 
@@ -3636,6 +3648,24 @@ nav ul li a.cta-demo-header:hover {
   display: block;
   color: #777;
   font-size: 14px;
+}
+
+/* "Agendar ahora" as a solid button instead of plain link text — brand
+   blue matches this card's own icon color, rather than the orange
+   reserved for the site's primary hero CTAs. */
+.single-icon p a.contact-cta-btn {
+  display: inline-block;
+  margin-top: 0.9rem;
+  padding: 10px 26px;
+  background-color: var(--color-brand);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+}
+
+.single-icon p a.contact-cta-btn:hover {
+  background-color: #1d49d1;
+  color: #fff;
 }
 
 .contact-area iframe {
@@ -4217,6 +4247,58 @@ body.page-administrative-business .ab-region-note i {
   flex-shrink: 0;
 }
 
+/* Hero text block gets a soft card treatment on this page only — a
+   panel that reads as more formal than sitting directly on the
+   section's --color-bg. Scoped to .page-personal-business (in addition
+   to the shared .page-administrative-business) so the hero on
+   Administrative Business / Administrativo y Punto de Venta, which
+   reuses this same CSS, is unaffected. */
+body.page-administrative-business.page-personal-business .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+/* A bit more breathing room between the eyebrow/title/description now
+   that they sit inside a defined card. */
+body.page-administrative-business.page-personal-business .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
+/* Same hero card treatment as Personal Business above, applied to
+   Administrative Business only via its own .page-admin-business-main
+   class — administrativo-punto-de-venta.html uses the separate
+   .page-admin-pos block below and is unaffected either way. */
+body.page-administrative-business.page-admin-business-main .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-administrative-business.page-admin-business-main .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
 body.page-administrative-business .ab-cta-btn {
   display: inline-block;
   /* Site's reserved accent/action orange, per brand spec — CTAs only,
@@ -4356,6 +4438,51 @@ body.page-administrative-business .ab-features-col li i {
   color: #2a5fff;
   margin-top: 0.2rem;
   flex-shrink: 0;
+}
+
+/* "Personal Business" wants a larger "Principales Características" title
+   and list than the shared Administrative Business styling above. Scoped
+   with the extra .page-personal-business class (added to that page's
+   <body> only) so administrative-business.html, which shares
+   .page-administrative-business, is unaffected. */
+body.page-administrative-business.page-personal-business .ab-features-title {
+  font-size: 2rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-features-col li {
+  font-size: 1.15rem;
+}
+
+/* The bigger font-size above needs more room than the shared grid's
+   900px cap, or "Administración de clientes y proveedores" (and similar
+   phrases) wrap to a second line, breaking the alignment with the
+   single-line left column. */
+body.page-administrative-business.page-personal-business .ab-features-grid {
+  max-width: 1200px;
+}
+
+/* "Requisitos del Sistema" polish for this page only: a more pronounced
+   card shadow/corners, extra breathing room per requirement block, and
+   a small icon next to each requirement label. Brand blue and text are
+   untouched — the icon just reuses var(--color-brand). */
+body.page-administrative-business.page-personal-business .ab-req-card {
+  border-radius: 24px;
+  box-shadow: 0 20px 45px rgba(13, 27, 51, 0.18);
+}
+
+body.page-administrative-business.page-personal-business .ab-req-item {
+  padding: 0.75rem 1.25rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-req-item h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+body.page-administrative-business.page-personal-business .ab-req-item h4 i {
+  color: var(--color-brand);
+  font-size: 1.1rem;
 }
 
 /* --- Video --- */
@@ -4551,12 +4678,28 @@ body.page-administrative-business .ab-req-item p {
     font-size: 1.1rem;
   }
 
+  body.page-administrative-business.page-personal-business .ab-hero-content {
+    padding: 1.75rem 1.5rem;
+  }
+
+  body.page-administrative-business.page-admin-business-main .ab-hero-content {
+    padding: 1.75rem 1.5rem;
+  }
+
   body.page-administrative-business .ab-features-title {
     font-size: 1.8rem;
   }
 
   body.page-administrative-business .ab-features-col li {
     font-size: 1.35rem;
+  }
+
+  body.page-administrative-business.page-personal-business .ab-features-title {
+    font-size: 2.16rem;
+  }
+
+  body.page-administrative-business.page-personal-business .ab-features-col li {
+    font-size: 1.62rem;
   }
 
   body.page-administrative-business .ab-cta-btn {
@@ -4677,6 +4820,31 @@ body.page-admin-pos .ab-region-note i {
   margin-top: 0.2rem;
   color: var(--ab-green);
   flex-shrink: 0;
+}
+
+/* Same hero card treatment as Administrative Business / Personal
+   Business. .page-admin-pos is already exclusive to this one page (no
+   other HTML file uses it), so no extra disambiguating class is needed
+   here the way .page-personal-business / .page-admin-business-main
+   were for the two pages that share .page-administrative-business. */
+body.page-admin-pos .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+body.page-admin-pos .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-admin-pos .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-admin-pos .ab-lead {
+  margin-bottom: 1.6rem;
 }
 
 body.page-admin-pos .ab-cta-btn {
@@ -4993,6 +5161,10 @@ body.page-admin-pos .ab-req-item p {
     font-size: 1.1rem;
   }
 
+  body.page-admin-pos .ab-hero-content {
+    padding: 1.75rem 1.5rem;
+  }
+
   body.page-admin-pos .ab-cta-btn {
     font-size: 1.2rem;
     padding: 15px 32px;
@@ -5073,6 +5245,15 @@ body.page-admin-pos .ab-req-item p {
   color: #fff;
   text-decoration: none;
   transform: translateY(-2px);
+}
+
+/* "Ver videos" is bigger on this page only — .ab-videos-btn itself is
+   shared, unscoped, with Administrative Business and Administrativo y
+   Punto de Venta, so this override is scoped to .page-personal-business
+   to avoid resizing it on those other two pages. */
+body.page-personal-business .ab-videos-btn {
+  font-size: 1.5rem;
+  padding: 21px 28px;
 }
 
 /* ==========================================================
