@@ -4508,6 +4508,22 @@ body.page-administrative-business.page-personal-business .ab-req-item h4 i {
   font-size: 1.1rem;
 }
 
+/* "Principales Características" on Centro de Impresión Fiscal: a
+   lighter, more formal treatment (no forced uppercase, medium weight,
+   no divider lines, more breathing room between items). Scoped to
+   .page-centro-impresion-fiscal so the other solutions pages keep the
+   bold/uppercase/divided list. Checkmark color/shape (.ab-features-col
+   li i) is untouched. */
+body.page-administrative-business.page-centro-impresion-fiscal .ab-features-title {
+  font-weight: 500;
+  text-transform: none;
+}
+
+body.page-administrative-business.page-centro-impresion-fiscal .ab-features-col li {
+  padding: 1.6rem 0;
+  border-bottom: none;
+}
+
 /* --- Video --- */
 
 body.page-administrative-business .ab-video {
