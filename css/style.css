@@ -4409,6 +4409,35 @@ body.page-administrative-business .ab-hero-mockup img {
   border-radius: 16px;
 }
 
+/* Centro de Impresión Fiscal's mockup runs ~18% larger than the shared
+   Administrative Business / Personal Business sizing above, at every
+   breakpoint. Scoped to .page-centro-impresion-fiscal so those other
+   pages keep their original mockup size. At ≥992px the actual rendered
+   size is capped by .ab-hero-media's own flex-basis (the flex item),
+   not by .ab-hero-mockup's max-width alone — both need raising, or the
+   mockup's max-width override has no visible effect. */
+body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-media {
+  flex-basis: 745px;
+}
+
+body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-mockup {
+  max-width: 745px;
+}
+
+/* Raising .ab-hero-media's basis alone still gets squeezed by flex-
+   shrink, because the shared 1170px Bootstrap .container (1140px
+   content width) was already tight even at the original 655px basis —
+   both columns were shrinking below their nominal size before this
+   change. Widening just this page's hero .container gives the larger
+   mockup room without shrinking .ab-hero-content. min() keeps it from
+   ever exceeding the viewport (falls back toward the normal 1170px
+   Bootstrap width on narrower "desktop" windows). */
+@media (min-width: 1200px) {
+  body.page-administrative-business.page-centro-impresion-fiscal .ab-hero .container {
+    width: min(1300px, calc(100vw - 30px));
+  }
+}
+
 /* --- Features --- */
 
 body.page-administrative-business .ab-features {
@@ -4702,6 +4731,10 @@ body.page-administrative-business .ab-req-item p {
   body.page-administrative-business .ab-hero-mockup {
     max-width: 499px;
   }
+
+  body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-mockup {
+    max-width: 590px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -4752,6 +4785,10 @@ body.page-administrative-business .ab-req-item p {
 
   body.page-administrative-business .ab-hero-mockup {
     max-width: 406px;
+  }
+
+  body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-mockup {
+    max-width: 480px;
   }
 
   body.page-administrative-business .ab-video-card {
