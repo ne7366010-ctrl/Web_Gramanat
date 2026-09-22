@@ -4299,6 +4299,29 @@ body.page-administrative-business.page-admin-business-main .ab-lead {
   margin-bottom: 1.6rem;
 }
 
+/* Same hero card treatment as Personal Business / Administrative
+   Business above, applied to Centro de Impresión Fiscal only via its
+   own .page-centro-impresion-fiscal class. */
+body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-content {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 51, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(13, 27, 51, 0.06);
+  padding: 2.75rem 3rem;
+}
+
+body.page-administrative-business.page-centro-impresion-fiscal .ab-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+body.page-administrative-business.page-centro-impresion-fiscal .ab-title {
+  margin-bottom: 1.5rem;
+}
+
+body.page-administrative-business.page-centro-impresion-fiscal .ab-lead {
+  margin-bottom: 1.6rem;
+}
+
 body.page-administrative-business .ab-cta-btn {
   display: inline-block;
   /* Site's reserved accent/action orange, per brand spec — CTAs only,
@@ -4683,6 +4706,10 @@ body.page-administrative-business .ab-req-item p {
   }
 
   body.page-administrative-business.page-admin-business-main .ab-hero-content {
+    padding: 1.75rem 1.5rem;
+  }
+
+  body.page-administrative-business.page-centro-impresion-fiscal .ab-hero-content {
     padding: 1.75rem 1.5rem;
   }
 
