@@ -941,6 +941,14 @@ nav ul li a.cta-demo-header:hover {
    over the laptop background photo. Breaks out to full viewport width
    (the 50% + 100vw + translateX(-50%) trick) since .hero-content itself
    is inset by the slide's centered container padding. */
+/* The actual hero background photo lives here (as a real CSS
+   background), not on the <img> inside #ensign-nivoslider — Nivo Slider
+   forces that <img> to height:100% of an auto-height parent, which
+   resolves to "auto" per spec, so it can never truly behave like
+   background-size:cover. This pseudo-element already reliably spans
+   the full slide edge-to-edge (the gradient overlay proved that), so
+   the photo is added as a second, lower background layer underneath
+   the same gradient. */
 .hero-content::before {
   content: "";
   position: absolute;
@@ -949,7 +957,10 @@ nav ul li a.cta-demo-header:hover {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%);
+  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%), url("../img/hero-pos.jpg?v=1");
+  background-position: center, center right;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
   z-index: -1;
   pointer-events: none;
 }
@@ -1060,6 +1071,10 @@ nav ul li a.cta-demo-header:hover {
   .slider-area,
   .nivoSlider {
     min-height: 400px !important;
+  }
+
+  .hero-content::before {
+    background-position: center, 70% center;
   }
 
   .hero-eyebrow {
