@@ -282,7 +282,7 @@
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-      if (scrollTop > 200) {
+      if (scrollTop > 600) {
         backToTopBtn.classList.add('show');
 
         if (scrollTimeout) clearTimeout(scrollTimeout);

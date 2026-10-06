@@ -210,13 +210,19 @@ a:hover {
 
 #backToTopBtn {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-brand);
+  bottom: 110px;
+  right: 32px;
+  left: auto;
+  transform: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0a0f1e;
   color: #fff;
-  padding: 14px;
-  font-size: 25px;
+  font-size: 18px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -240,17 +246,27 @@ a:hover {
 
 @keyframes popUp {
   0% {
-    transform: translateX(-50%) scale(0.8) translateY(10px);
+    transform: scale(0.8) translateY(10px);
     opacity: 0;
   }
   100% {
-    transform: translateX(-50%) scale(1) translateY(0);
+    transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
 
 #backToTopBtn:hover {
-  background-color: var(--color-brand-light);
+  background-color: var(--color-accent);
+}
+
+@media (max-width: 767px) {
+  #backToTopBtn {
+    bottom: 90px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
 }
 
 .clear {
