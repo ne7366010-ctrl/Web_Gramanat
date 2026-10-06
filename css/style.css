@@ -965,6 +965,39 @@ nav ul li a.cta-demo-header:hover {
   pointer-events: none;
 }
 
+/* Nivo Slider's own slide image (cloned into .nivo-main-image, visible
+   underneath the layer above) was still showing through — it fills its
+   box by stretching with NO cropping, while .hero-content::before uses
+   background-size:cover + position:right, which crops/shifts the same
+   photo differently. The gradient over it is only 35% dark at its own
+   right edge, so that mismatched, uncropped copy was bleeding through
+   and reading as a second, differently-toned strip. opacity:0 (not
+   display:none) hides it without collapsing the slide's height, since
+   this element sits in normal flow and the slide's auto height is
+   derived from it.
+
+   Both rules below are scoped to body.page-home (added to index.html's
+   <body> only) rather than #home, because #home is reused as the
+   slider wrapper ID on marketing.html, casas.html and arquitectura.html
+   too — scoping to the bare ID would have broken their sliders. */
+body.page-home .nivo-main-image {
+  opacity: 0;
+}
+
+/* .container/.row carry a sitewide `overflow: hidden` (see that rule
+   further down) which, despite .hero-content::before's positioning
+   math being correct (left/width/transform resolve to the full
+   viewport), was clipping its actual paint back down to the
+   .container's own ~1170px box — the real cause of the "two different
+   tones" seam. Restoring overflow:visible just for this slide's
+   cloned .container/.row (the ones Nivo injects into .nivo-caption)
+   lets the photo paint edge-to-edge; body's own overflow-x:hidden
+   still prevents any horizontal scrollbar. */
+body.page-home .nivo-caption .container,
+body.page-home .nivo-caption .row {
+  overflow: visible;
+}
+
 .hero-text {
   flex: 1 1 480px;
 }
