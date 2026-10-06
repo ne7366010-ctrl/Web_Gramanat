@@ -949,7 +949,7 @@ nav ul li a.cta-demo-header:hover {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0) 75%);
+  background: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%);
   z-index: -1;
   pointer-events: none;
 }
@@ -974,6 +974,7 @@ nav ul li a.cta-demo-header:hover {
   font-weight: 800;
   line-height: 1.15;
   margin: 0 0 1.25rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
@@ -982,7 +983,7 @@ nav ul li a.cta-demo-header:hover {
   font-size: 2.16rem;
   line-height: 1.6;
   max-width: 46ch;
-  margin: 0 0 0.5rem;
+  margin: 0;
 }
 
 .layer-1-3 {
@@ -990,6 +991,16 @@ nav ul li a.cta-demo-header:hover {
   flex-wrap: wrap;
   gap: 15px;
   align-items: center;
+}
+
+/* Scoped to .hero-text (unique to this one slide) so slides 2/3, which
+   share the plain .layer-1-3 a.ready-btn rule, keep their own spacing. */
+.hero-text .layer-1-3 {
+  margin-top: 32px;
+}
+
+.hero-text .layer-1-3 a.ready-btn {
+  margin-top: 0;
 }
 
 .hero-trust-row {
@@ -1005,9 +1016,8 @@ nav ul li a.cta-demo-header:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
-  opacity: 0.92;
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -1072,13 +1082,27 @@ nav ul li a.cta-demo-header:hover {
     margin-top: 0;
   }
 
+  /* Buttons stacked one under the other, full-width-ish, on phones. */
+  .hero-text .layer-1-3 {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+
+  .hero-text .layer-1-3 a.ready-btn {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
   .hero-trust-row {
     gap: 0.5rem 1rem;
     margin-top: 1rem;
+    justify-content: center;
   }
 
   .hero-trust-row li {
-    font-size: 0.8rem;
+    font-size: 13px;
   }
 }
 
