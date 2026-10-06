@@ -1485,10 +1485,222 @@ body.page-home .nivo-caption .row {
 }
 
 /*--------------------------------------------------*/
+/* 2a. Sistemas Area ("Encuentra el sistema justo para tu negocio")
+/* Scoped to #sistemas so it never affects #services/#equipment, which
+/* share the same .custom-cards/.card/.icon-wrapper base. Mirrors the
+/* #services card styling (navy headline + accent-orange details).
+/*--------------------------------------------------*/
+
+#sistemas .sistemas-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+#sistemas .section-headline h2 {
+  color: #0a0f1e;
+  text-transform: none;
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+#sistemas .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+#sistemas .sistemas-subtitle {
+  color: #4b5563;
+  font-size: 17px;
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+}
+
+/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
+   display:table; }`) would otherwise occupy its own implicit grid cell. */
+#sistemas .sistemas-row::before,
+#sistemas .sistemas-row::after {
+  content: none;
+  display: none;
+}
+
+#sistemas .sistemas-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#sistemas .card {
+  background: #fff;
+  border: 1px solid #ebedf2;
+  border-top: 4px solid var(--color-accent);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
+  padding: 2rem;
+  text-align: left;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#sistemas .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.14);
+}
+
+#sistemas .icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background-color: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
+  font-size: 28px;
+  margin: 0 0 1.25rem;
+}
+
+#sistemas .card:hover .icon-wrapper {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+#sistemas h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a0f1e;
+  text-transform: none;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+#sistemas .card:hover h3 {
+  color: #0a0f1e;
+}
+
+#sistemas .card p {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+#sistemas .card:hover p {
+  color: #6b7280;
+}
+
+#sistemas .sistemas-features {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+
+#sistemas .sistemas-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0f1e;
+  margin-bottom: 6px;
+}
+
+#sistemas .sistemas-features li:last-child {
+  margin-bottom: 0;
+}
+
+#sistemas .sistemas-features li i {
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+#sistemas .sistemas-cta-btn {
+  display: block;
+  margin-top: auto;
+  padding: 10px 20px;
+  border: 2px solid var(--color-accent);
+  border-radius: 25px;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#sistemas .card:hover .sistemas-cta-btn,
+#sistemas .sistemas-cta-btn:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+#sistemas .sistemas-cta-btn .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#sistemas .card:hover .sistemas-cta-btn .arrow,
+#sistemas .sistemas-cta-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+#sistemas .sistemas-closing {
+  width: 100%;
+  max-width: 700px;
+  margin: 3rem auto 0;
+}
+
+#sistemas .sistemas-closing-text {
+  font-size: 18px;
+  color: #0a0f1e;
+  margin: 0;
+}
+
+#sistemas .sistemas-closing-accent {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+#sistemas .sistemas-cta-final {
+  display: inline-block;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 991px) {
+  #sistemas .sistemas-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  #sistemas .section-headline h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  #sistemas .sistemas-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*--------------------------------------------------*/
 /* Shared scroll-reveal fade-up animation. Applied via the .reveal-up
 /* class (with an optional --reveal-delay custom property per element)
 /* and toggled by a shared IntersectionObserver in js/main.js. Used by
-/* #problems and #services.
+/* #problems, #services and #sistemas.
 /*--------------------------------------------------*/
 
 .reveal-up {
