@@ -1485,6 +1485,35 @@ body.page-home .nivo-caption .row {
 }
 
 /*--------------------------------------------------*/
+/* Shared scroll-reveal fade-up animation. Applied via the .reveal-up
+/* class (with an optional --reveal-delay custom property per element)
+/* and toggled by a shared IntersectionObserver in js/main.js. Used by
+/* #problems and #services.
+/*--------------------------------------------------*/
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*--------------------------------------------------*/
 /* 3a. Services Area ("Nuestros servicios")
 /* Scoped to #services so it never affects #equipment, which shares the
 /* same .custom-cards/.card/.icon-wrapper base. Styled to match the rest
@@ -1510,6 +1539,30 @@ body.page-home .nivo-caption .row {
   margin: 0 auto 2.5rem;
 }
 
+#services .services-groups {
+  flex-direction: column;
+  align-items: center;
+}
+
+#services .services-group {
+  width: 100%;
+}
+
+#services .services-group + .services-group {
+  margin-top: 3rem;
+}
+
+#services .services-group-label {
+  display: block;
+  text-align: left;
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
 /* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
    display:table; }`) would otherwise occupy its own implicit grid cell. */
 #services .services-row::before,
@@ -1523,14 +1576,12 @@ body.page-home .nivo-caption .row {
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 #services .card {
   background: #fff;
   border: 1px solid #ebedf2;
-  border-top: 3px solid transparent;
+  border-top: 4px solid var(--color-accent);
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
   padding: 2rem;
@@ -1541,14 +1592,12 @@ body.page-home .nivo-caption .row {
   flex-direction: column;
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    box-shadow 0.25s ease;
 }
 
 #services .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 24px rgba(10, 15, 30, 0.1);
-  border-top-color: var(--color-accent);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.14);
 }
 
 #services .icon-wrapper {
@@ -1562,8 +1611,8 @@ body.page-home .nivo-caption .row {
 }
 
 #services .card:hover .icon-wrapper {
-  background-color: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: #fff;
 }
 
 #services h3 {
@@ -1594,6 +1643,31 @@ body.page-home .nivo-caption .row {
   color: #6b7280;
 }
 
+#services .service-benefits {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+#services .service-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0f1e;
+  margin-bottom: 6px;
+}
+
+#services .service-benefits li:last-child {
+  margin-bottom: 0;
+}
+
+#services .service-benefits li i {
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
 #services .service-info-link {
   color: var(--color-accent);
   font-size: 15px;
@@ -1612,6 +1686,46 @@ body.page-home .nivo-caption .row {
 
 #services .service-info-link:hover .arrow {
   transform: translateX(4px);
+}
+
+#services .services-closing {
+  width: 100%;
+  max-width: 700px;
+  margin: 3rem auto 0;
+}
+
+#services .services-closing-text {
+  font-size: 18px;
+  color: #0a0f1e;
+  margin: 0;
+}
+
+#services .services-closing-accent {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+#services .services-outline-btn {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 12px 28px;
+  border: 2px solid var(--color-accent);
+  border-radius: 25px;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#services .services-outline-btn:hover {
+  background-color: var(--color-accent);
+  color: #fff;
 }
 
 @media (max-width: 991px) {
@@ -1675,25 +1789,6 @@ body.page-home .nivo-caption .row {
 #problems .column {
   flex: 1 1 260px;
   max-width: 260px;
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-  transition-delay: var(--reveal-delay, 0s);
-}
-
-#problems .column.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #problems .column {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 #problems .card {

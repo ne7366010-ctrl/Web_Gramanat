@@ -307,18 +307,19 @@
   });
 
   /*---------------------
-    Problems cards reveal
+    Scroll reveal (fade-up)
+    Shared by #problems and #services cards via the .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('#problems .problems-row .column');
+    const items = document.querySelectorAll('.reveal-up');
 
-    if (!cards.length) return;
+    if (!items.length) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      cards.forEach((card) => card.classList.add('is-visible'));
+      items.forEach((item) => item.classList.add('is-visible'));
       return;
     }
 
@@ -331,7 +332,7 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
-    cards.forEach((card) => observer.observe(card));
+    items.forEach((item) => observer.observe(item));
   });
 
   /*----------------------
