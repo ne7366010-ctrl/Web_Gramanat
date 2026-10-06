@@ -1519,17 +1519,36 @@ body.page-home .nivo-caption .row {
 /* 4a. Problems Area ("¿Te suena familiar?")
 /* Scoped to #problems so it never affects #services/#equipment,
 /* which share the same .custom-cards/.card/.icon-wrapper base.
+/* Styled to match the hero (dark navy #0A0F1E + accent orange)
+/* instead of the blue theme the other .custom-cards sections use.
 /*--------------------------------------------------*/
 
 /* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
    display:table; }`) becomes a real flex/grid item once this row is
    switched to flex — a near-invisible "ghost" item that throws off how
-   many cards fit per line (visibly so once it's grid at the 600px
-   breakpoint below). Neutralizing it here is the fix. */
+   many cards fit per line. Neutralizing it here is the fix. */
 #problems .problems-row::before,
 #problems .problems-row::after {
   content: none;
   display: none;
+}
+
+#problems .section-headline h2 {
+  color: #0a0f1e;
+  text-transform: none;
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+#problems .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+#problems .problems-subtitle {
+  color: #6b7280;
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
 }
 
 #problems .column {
@@ -1538,36 +1557,89 @@ body.page-home .nivo-caption .row {
 }
 
 #problems .card {
-  min-height: 210px;
+  background: #fff;
+  border: 1px solid #ebedf2;
+  border-top: 3px solid transparent;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
   padding: 1.75rem 1.5rem;
+  text-align: center;
+  height: auto;
+  min-height: 0;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+#problems .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(10, 15, 30, 0.1);
+  border-top-color: var(--color-accent);
+}
+
+#problems .icon-wrapper {
+  background-color: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
+}
+
+#problems .card:hover .icon-wrapper {
+  background-color: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
 }
 
 #problems h3 {
-  font-size: 1.2rem;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #0a0f1e;
+  margin-bottom: 0.6rem;
+}
+
+#problems .card:hover h3 {
+  color: #0a0f1e;
+}
+
+#problems .card p {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.5;
   margin-bottom: 0;
+}
+
+#problems .card:hover p {
+  color: #6b7280;
 }
 
 #problems .problems-closing {
   width: 100%;
   margin: 2.5rem 0 0;
-  font-size: 1.35rem;
+  font-size: 22px;
   font-weight: 700;
-  color: var(--color-brand);
+  color: #0a0f1e;
 }
 
-@media (max-width: 600px) {
+#problems .problems-closing-accent {
+  color: var(--color-accent);
+}
+
+#problems .problems-cta-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  #problems .section-headline h2 {
+    font-size: 28px;
+  }
+
   #problems .column {
-    flex: 1 1 calc(50% - 1.25rem);
-    max-width: calc(50% - 1.25rem);
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
   #problems .card {
-    min-height: 0;
     padding: 1.25rem 1rem;
-  }
-
-  #problems h3 {
-    font-size: 1rem;
   }
 }
 
