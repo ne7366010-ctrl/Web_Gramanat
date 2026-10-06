@@ -1653,11 +1653,32 @@ body.page-home .nivo-caption .row {
 
 /*--------------------------------------------------*/
 /* 4c. How It Works Area ("Cómo funciona")
+/* Scoped to #how-it-works so it never affects other sections sharing
+/* .section-headline/.ready-btn. Styled to match the hero (dark navy
+/* #0A0F1E + accent orange) like #problems above.
 /*--------------------------------------------------*/
 
-.how-it-works-area {
-  background-color: #f8f9fc;
+#how-it-works.how-it-works-area {
+  background-color: #0a0f1e;
   text-align: center;
+  padding: 90px 0;
+}
+
+#how-it-works .section-headline h2 {
+  color: #fff;
+  text-transform: none;
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+#how-it-works .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+#how-it-works .how-it-works-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 17px;
+  margin: 0 auto 2.5rem;
 }
 
 /* Same Bootstrap .row clearfix ghost-item issue as #problems above —
@@ -1682,32 +1703,84 @@ body.page-home .nivo-caption .row {
 .how-step {
   flex: 1 1 220px;
   max-width: 260px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.25s ease;
+}
+
+.how-step:hover {
+  border-color: var(--color-accent);
 }
 
 .how-step-number {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3em;
-  height: 3em;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background-color: var(--color-brand);
+  background-color: var(--color-accent);
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 20px;
   font-weight: 700;
-  margin: 0 auto 1.1rem;
+  margin: 0 auto 20px;
 }
 
 .how-step h3 {
-  font-size: 1.15rem;
-  color: var(--color-text);
-  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.how-step p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
   margin: 0;
-  line-height: 1.4;
 }
 
 .how-it-works-btn {
   display: inline-block;
+  margin-top: 48px;
+}
+
+.how-it-works-note {
+  width: 100%;
+  margin: 1rem 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Dashed line connecting the 3 step circles, desktop only. Positioned
+   relative to the row: top = step card's own 32px padding + 28px circle
+   radius; left/right = half the width of one grid column (circles are
+   centered in each equal-width card, so this lines up with their
+   centers regardless of card padding). Sits behind the cards/circles
+   (z-index:-1 inside the row's own stacking context) so it only shows
+   in the gaps between them. */
+@media (min-width: 768px) {
+  .how-it-works-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .how-it-works-row::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: calc((100% - 80px) / 6);
+    right: calc((100% - 80px) / 6);
+    border-top: 2px dashed rgba(255, 122, 41, 0.4);
+    z-index: -1;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1718,6 +1791,16 @@ body.page-home .nivo-caption .row {
   .how-step {
     flex: 1 1 100%;
     max-width: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  #how-it-works.how-it-works-area {
+    padding: 60px 0;
+  }
+
+  #how-it-works .section-headline h2 {
+    font-size: 28px;
   }
 }
 
