@@ -4,12 +4,34 @@
   /*---------------------
    Preloader
   --------------------- */
-  $(window).on('load', function() {
+  // Was tied to window 'load', which waits for every resource on the
+  // page — including the external Google Fonts stylesheet and the
+  // Google Maps iframe in #contact. If either is slow or unreachable
+  // (no/weak internet when opening the file locally), 'load' never
+  // fires and the fixed, full-screen, z-index:99999 #preloader never
+  // goes away — it visually blocks the whole page, which looks exactly
+  // like "scroll doesn't work". DOMContentLoaded only waits on the HTML
+  // document itself, so the preloader now clears regardless of those
+  // external resources. A timeout is kept as a second safety net.
+  function hidePreloader() {
     var pre_loader = $('#preloader');
+    if (!pre_loader.length || pre_loader.data('hidden')) return;
+    pre_loader.data('hidden', true);
     pre_loader.fadeOut('slow', function() {
       $(this).remove();
     });
-    
+  }
+
+  $(document).on('DOMContentLoaded', hidePreloader);
+  // jQuery fires its own ready handler even if DOMContentLoaded already
+  // happened before this script ran (common with file:// + external
+  // resources), so this is the reliable primary trigger.
+  $(hidePreloader);
+  setTimeout(hidePreloader, 3000);
+
+  $(window).on('load', function() {
+    hidePreloader();
+
     // Inicializar sliders después de que la página esté cargada
     initPropertySliders();
   });
@@ -17,18 +39,20 @@
   /*---------------------
    Nivo slider
   --------------------- */
+  // The hero is a single real slide (the other two are empty
+  // placeholders) — manualAdvance stops the auto-rotate timer, and
+  // directionNav/controlNav remove the now-pointless arrows and dots.
   $('#ensign-nivoslider').nivoSlider({
     effect: 'random',
     slices: 15,
     boxCols: 12,
     boxRows: 8,
     animSpeed: 500,
-    pauseTime: 5000,
     startSlide: 0,
-    directionNav: true,
+    directionNav: false,
+    controlNav: false,
     controlNavThumbs: false,
-    pauseOnHover: true,
-    manualAdvance: false,
+    manualAdvance: true,
   });
 
   /*---------------------
@@ -235,9 +259,13 @@
   var page_scroll = $('a.page-scroll');
   page_scroll.on('click', function(event) {
     var $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: $($anchor.attr('href')).offset().top - 55
-    }, 1500, 'easeInOutExpo');
+    var href = $anchor.attr('href');
+    var $target = href && href !== '#' ? $(href) : $();
+    if ($target.length) {
+      $('html, body').stop().animate({
+        scrollTop: $target.offset().top - 55
+      }, 1500, 'easeInOutExpo');
+    }
     event.preventDefault();
   });
 
@@ -323,6 +351,7 @@
   // portfolio start
   $(window).on("load", function() {
     var $container = $('.awesome-project-content');
+    if (!$container.length) return;
     $container.isotope({
       filter: '*',
       animationOptions: {
