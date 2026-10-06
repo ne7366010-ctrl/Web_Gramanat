@@ -957,7 +957,7 @@ nav ul li a.cta-demo-header:hover {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%), url("../img/hero-pos.jpg?v=1");
+  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%), url("../img/hero-pos.jpg?v=3");
   background-position: center, center right;
   background-size: cover, cover;
   background-repeat: no-repeat, no-repeat;
@@ -1019,6 +1019,22 @@ body.page-home .nivo-caption .row {
   line-height: 1.15;
   margin: 0 0 1.25rem;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title-accent {
+  color: var(--color-accent);
+}
+
+/* Vertically center the text block within the hero on desktop — it
+   previously sat high in the block (the shared .slider-content padding
+   pushes content down by a fixed amount regardless of how tall the
+   slide actually is) rather than centered in the available height.
+   Desktop-only per request; mobile (≤991px, where .hero-content
+   already switches to a centered column) is left untouched. */
+@media (min-width: 992px) {
+  .hero-content {
+    min-height: 70vh;
+  }
 }
 
 .hero-subtitle {
