@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=23" rel="stylesheet">
+  <link href="css/style.css?v=25" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -757,21 +757,35 @@
           <p class="services-subtitle">Todo lo que tu negocio necesita para vender, facturar y crecer, en un solo lugar.</p>
         </div>
       </div>
-      <div class="row services-groups">
-        <div class="services-group">
-          <p class="services-group-label">Para tu negocio día a día</p>
-          <div class="services-row">
-            <div class="card reveal-up" style="--reveal-delay: 0s">
-              <div class="icon-wrapper"><i class="fa fa-file-text"></i></div>
-              <h3>Facturación electrónica</h3>
-              <p>Emite facturas válidas ante Hacienda en segundos, sin errores y sin miedo a multas. Te lo dejamos listo y funcionando.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>Validada ante Hacienda</li>
-                <li><i class="fa-solid fa-check"></i>Capacitación incluida</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
+      <div class="row">
+        <div class="services-switch" role="tablist" aria-label="Categoría de servicios">
+          <span class="services-switch-thumb" aria-hidden="true"></span>
+          <button type="button" class="services-switch-option is-active" role="tab" id="services-switch-dia" aria-selected="true" tabindex="0" aria-controls="services-group-dia" data-target="services-group-dia">
+            <i class="fa-solid fa-store"></i>Para tu negocio día a día
+          </button>
+          <button type="button" class="services-switch-option" role="tab" id="services-switch-online" aria-selected="false" tabindex="-1" aria-controls="services-group-online" data-target="services-group-online">
+            <i class="fa-solid fa-globe"></i>Para crecer en línea
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="services-bento">
+          <div class="services-group is-active" id="services-group-dia" role="tabpanel" aria-labelledby="services-switch-dia">
+            <div class="services-card services-card-big">
+              <div class="services-card-content">
+                <span class="services-card-label">Servicio principal</span>
+                <div class="services-card-icon"><i class="fa fa-file-text"></i></div>
+                <h3>Facturación electrónica</h3>
+                <p>Emite facturas válidas ante Hacienda en segundos, sin errores y sin miedo a multas. Te lo dejamos listo y funcionando.</p>
+                <ul class="service-benefits">
+                  <li><i class="fa-solid fa-check"></i>Validada ante Hacienda</li>
+                  <li><i class="fa-solid fa-check"></i>Capacitación incluida</li>
+                </ul>
+                <a class="services-card-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
+              </div>
+              <div class="services-card-mockup" aria-hidden="true"><i class="fa-solid fa-file-invoice-dollar"></i></div>
             </div>
-            <div class="card reveal-up" style="--reveal-delay: 0.1s">
+            <div class="services-card services-card-small">
               <div class="icon-wrapper"><i class="fa fa-laptop"></i></div>
               <h3>Equipo de punto de venta</h3>
               <p>Pantalla táctil, impresora de tickets, cajón de dinero y lector. Todo instalado y conectado a tu sistema.</p>
@@ -781,7 +795,7 @@
               </ul>
               <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Equipo%20de%20punto%20de%20venta." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
-            <div class="card reveal-up" style="--reveal-delay: 0.2s">
+            <div class="services-card services-card-small">
               <div class="icon-wrapper"><i class="fas fa-wrench"></i></div>
               <h3>Soporte y mantenimiento</h3>
               <p>Remoto y presencial: limpieza, antivirus, reparación y recuperación de datos.</p>
@@ -792,21 +806,22 @@
               <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Soporte%20y%20mantenimiento." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
           </div>
-        </div>
-        <div class="services-group">
-          <p class="services-group-label">Para crecer en línea</p>
-          <div class="services-row">
-            <div class="card reveal-up" style="--reveal-delay: 0s">
-              <div class="icon-wrapper"><i class="fa-solid fa-globe"></i></div>
-              <h3>Página web</h3>
-              <p>Una web profesional que muestra tu negocio y te trae clientes directo a tu WhatsApp.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>Se adapta al celular</li>
-                <li><i class="fa-solid fa-check"></i>Botón directo a WhatsApp</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20P%C3%A1gina%20web." target="_blank">Quiero información <span class="arrow">→</span></a>
+          <div class="services-group" id="services-group-online" role="tabpanel" aria-labelledby="services-switch-online" hidden>
+            <div class="services-card services-card-big">
+              <div class="services-card-content">
+                <span class="services-card-label">Servicio principal</span>
+                <div class="services-card-icon"><i class="fa-solid fa-globe"></i></div>
+                <h3>Página web</h3>
+                <p>Una web profesional que muestra tu negocio y te trae clientes directo a tu WhatsApp.</p>
+                <ul class="service-benefits">
+                  <li><i class="fa-solid fa-check"></i>Se adapta al celular</li>
+                  <li><i class="fa-solid fa-check"></i>Botón directo a WhatsApp</li>
+                </ul>
+                <a class="services-card-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20P%C3%A1gina%20web." target="_blank">Quiero información <span class="arrow">→</span></a>
+              </div>
+              <div class="services-card-mockup" aria-hidden="true"><i class="fa-solid fa-display"></i></div>
             </div>
-            <div class="card reveal-up" style="--reveal-delay: 0.1s">
+            <div class="services-card services-card-small">
               <div class="icon-wrapper"><i class="fa-solid fa-store"></i></div>
               <h3>Tienda en línea</h3>
               <p>Vende las 24 horas con catálogo, carrito de compras y pagos en línea.</p>
@@ -816,7 +831,7 @@
               </ul>
               <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Tienda%20en%20l%C3%ADnea." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
-            <div class="card reveal-up" style="--reveal-delay: 0.2s">
+            <div class="services-card services-card-small">
               <div class="icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
               <h3>Aplicaciones móviles</h3>
               <p>Apps para iOS y Android hechas a la medida de tu negocio.</p>
@@ -1421,7 +1436,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 
 </html>

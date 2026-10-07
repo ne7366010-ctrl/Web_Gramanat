@@ -1922,9 +1922,9 @@ body.page-home .nivo-caption .row {
 /*--------------------------------------------------*/
 /* 3a. Services Area ("Nuestros servicios")
 /* Scoped to #services so it never affects #equipment, which shares the
-/* same .custom-cards/.card/.icon-wrapper base. Styled to match the rest
-/* of the page (navy headline + accent-orange details) instead of the
-/* blue diagonal-sweep cards #equipment still uses.
+/* same .custom-cards/.icon-wrapper base. A segmented pill switch (two
+/* groups) above a "bento" grid: one big feature tile + two small
+/* tiles, swapped with a staggered fade+rise via js/main.js.
 /*--------------------------------------------------*/
 
 #services .section-headline h2 {
@@ -1945,22 +1945,172 @@ body.page-home .nivo-caption .row {
   margin: 0 auto 2.5rem;
 }
 
-#services .services-groups {
-  flex-direction: column;
+/* --- Segmented switch --- */
+
+#services .services-switch {
+  position: relative;
+  display: inline-flex;
+  gap: 4px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
+  margin: 0 auto 3rem;
+}
+
+#services .services-switch-thumb {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 0;
+  height: calc(100% - 12px);
+  background: #0a0f1e;
+  border-radius: 999px;
+  transition:
+    left 0.3s ease,
+    width 0.3s ease;
+  z-index: 0;
+}
+
+#services .services-switch-option {
+  position: relative;
+  z-index: 1;
+  display: flex;
   align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0f1e;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#services .services-switch-option.is-active {
+  color: #fff;
+}
+
+/* --- Bento grid --- */
+
+#services .services-bento {
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 #services .services-group {
-  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 28px;
 }
 
-#services .services-group + .services-group {
-  margin-top: 3rem;
+/* The `display: grid` above would otherwise outrank the UA stylesheet's
+   `[hidden] { display: none }` and render both groups stacked at once. */
+#services .services-group[hidden] {
+  display: none;
 }
 
-#services .services-group-label {
+#services .services-group.is-leaving {
+  animation: servicesGroupLeave 0.2s ease both;
+}
+
+#services .services-group.is-entering .services-card {
+  animation: servicesCardEnter 0.35s ease both;
+}
+
+#services .services-group.is-entering .services-card:nth-child(1) {
+  animation-delay: 0s;
+}
+
+#services .services-group.is-entering .services-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+#services .services-group.is-entering .services-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+@keyframes servicesGroupLeave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes servicesCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #services .services-group.is-leaving,
+  #services .services-group.is-entering .services-card {
+    animation: none;
+  }
+}
+
+#services .services-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#services .services-card:hover {
+  transform: translateY(-6px);
+}
+
+/* --- Big card --- */
+
+#services .services-card-big {
+  grid-row: span 2;
+  position: relative;
+  background: #0a0f1e;
+  border-radius: 20px;
+  padding: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.18);
+}
+
+#services .services-card-big:hover {
+  box-shadow: 0 24px 48px rgba(10, 15, 30, 0.28);
+}
+
+#services .services-card-big::before {
+  content: "";
+  position: absolute;
+  top: -110px;
+  right: -110px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.15) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+#services .services-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+#services .services-card-label {
   display: block;
-  text-align: left;
   color: var(--color-accent);
   font-size: 13px;
   font-weight: 700;
@@ -1969,44 +2119,109 @@ body.page-home .nivo-caption .row {
   margin: 0 0 1rem;
 }
 
-/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
-   display:table; }`) would otherwise occupy its own implicit grid cell. */
-#services .services-row::before,
-#services .services-row::after {
-  content: none;
-  display: none;
+#services .services-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background-color: rgba(255, 122, 41, 0.15);
+  color: var(--color-accent);
+  font-size: 26px;
+  margin-bottom: 1.5rem;
 }
 
-#services .services-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  width: 100%;
+#services .services-card-big h3 {
+  color: #fff;
+  font-size: 30px;
+  margin-bottom: 0.75rem;
 }
 
-#services .card {
+#services .services-card-big p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+#services .services-card-big .service-benefits li {
+  color: #fff;
+}
+
+#services .services-card-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: background-color 0.25s ease;
+}
+
+#services .services-card-btn:hover {
+  background: #e0691f;
+  color: #fff;
+}
+
+#services .services-card-btn .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#services .services-card-big:hover .services-card-btn .arrow,
+#services .services-card-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+#services .services-card-mockup {
+  position: relative;
+  z-index: 1;
+  align-self: flex-end;
+  margin-top: 1.5rem;
+  margin-right: -16px;
+  margin-bottom: -16px;
+  width: 140px;
+  height: 140px;
+  border-radius: 24px;
+  background: rgba(255, 122, 41, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  font-size: 56px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Small cards --- */
+
+#services .services-card-small {
   background: #fff;
   border: 1px solid #ebedf2;
   border-top: 4px solid var(--color-accent);
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
-  padding: 2rem;
+  padding: 28px;
   text-align: left;
-  height: 100%;
-  min-height: 0;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
 }
 
-#services .card:hover {
-  transform: translateY(-8px);
+#services .services-card-small:hover {
   box-shadow: 0 16px 32px rgba(10, 15, 30, 0.14);
 }
 
-#services .icon-wrapper {
+#services .services-card-small .icon-wrapper {
   width: 56px;
   height: 56px;
   border-radius: 14px;
@@ -2016,12 +2231,12 @@ body.page-home .nivo-caption .row {
   margin: 0 0 1.25rem;
 }
 
-#services .card:hover .icon-wrapper {
+#services .services-card-small:hover .icon-wrapper {
   background-color: var(--color-accent);
   color: #fff;
 }
 
-#services h3 {
+#services .services-card-small h3 {
   font-size: 20px;
   font-weight: 700;
   color: #0a0f1e;
@@ -2030,23 +2245,11 @@ body.page-home .nivo-caption .row {
   margin-bottom: 0.6rem;
 }
 
-#services .card:hover h3 {
-  color: #0a0f1e;
-}
-
-#services .card p {
+#services .services-card-small p {
   font-size: 15px;
   color: #6b7280;
   line-height: 1.5;
   margin: 0 0 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-#services .card:hover p {
-  color: #6b7280;
 }
 
 #services .service-benefits {
@@ -2081,16 +2284,12 @@ body.page-home .nivo-caption .row {
   padding-top: 0.5rem;
 }
 
-#services .card:hover .service-info-link {
-  color: var(--color-accent);
-}
-
 #services .service-info-link .arrow {
   display: inline-block;
   transition: transform 0.25s ease;
 }
 
-#services .service-info-link:hover .arrow {
+#services .services-card-small:hover .service-info-link .arrow {
   transform: translateX(4px);
 }
 
@@ -2134,21 +2333,50 @@ body.page-home .nivo-caption .row {
   color: #fff;
 }
 
-@media (max-width: 991px) {
-  #services .services-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 767px) {
   #services .section-headline h2 {
     font-size: 28px;
   }
-}
 
-@media (max-width: 600px) {
-  #services .services-row {
+  #services .services-switch {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  #services .services-switch-option {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  #services .services-group {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 20px;
+  }
+
+  #services .services-card-big {
+    grid-row: auto;
+    padding: 28px;
+  }
+
+  #services .services-card-big h3 {
+    font-size: 24px;
+  }
+
+  #services .services-card-mockup {
+    width: 96px;
+    height: 96px;
+    font-size: 38px;
+  }
+
+  #services .services-card-small {
+    padding: 24px;
   }
 }
 

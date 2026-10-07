@@ -363,8 +363,90 @@
   });
 
   /*---------------------
+    Services switch (segmented pill + bento group swap)
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const switchButtons = Array.from(document.querySelectorAll('#services .services-switch-option'));
+    const thumb = document.querySelector('#services .services-switch-thumb');
+    const groups = Array.from(document.querySelectorAll('#services .services-group'));
+
+    if (!switchButtons.length || !groups.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function moveThumb(activeBtn) {
+      if (!thumb) return;
+      thumb.style.left = activeBtn.offsetLeft + 'px';
+      thumb.style.width = activeBtn.offsetWidth + 'px';
+    }
+
+    function switchGroup(targetId, activeBtn) {
+      const current = groups.find((g) => !g.hidden);
+      const next = document.getElementById(targetId);
+
+      if (!next || current === next) return;
+
+      switchButtons.forEach((btn) => {
+        const match = btn === activeBtn;
+        btn.classList.toggle('is-active', match);
+        btn.setAttribute('aria-selected', match ? 'true' : 'false');
+        btn.tabIndex = match ? 0 : -1;
+      });
+      moveThumb(activeBtn);
+
+      if (prefersReducedMotion) {
+        if (current) current.hidden = true;
+        next.hidden = false;
+        return;
+      }
+
+      if (current) {
+        current.classList.add('is-leaving');
+        setTimeout(() => {
+          current.hidden = true;
+          current.classList.remove('is-leaving');
+        }, 200);
+      }
+
+      next.hidden = false;
+      next.classList.add('is-entering');
+      setTimeout(() => {
+        next.classList.remove('is-entering');
+      }, 600);
+    }
+
+    switchButtons.forEach((btn) => {
+      btn.addEventListener('click', () => switchGroup(btn.getAttribute('data-target'), btn));
+
+      btn.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+
+        e.preventDefault();
+        const index = switchButtons.indexOf(btn);
+        const nextIndex = e.key === 'ArrowRight'
+          ? (index + 1) % switchButtons.length
+          : (index - 1 + switchButtons.length) % switchButtons.length;
+        const nextBtn = switchButtons[nextIndex];
+
+        switchGroup(nextBtn.getAttribute('data-target'), nextBtn);
+        nextBtn.focus();
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const active = switchButtons.find((btn) => btn.classList.contains('is-active'));
+      if (active) moveThumb(active);
+    });
+
+    const initialActive = switchButtons.find((btn) => btn.classList.contains('is-active')) || switchButtons[0];
+    moveThumb(initialActive);
+  });
+
+  /*---------------------
     Scroll reveal (fade-up)
-    Shared by #problems and #services cards via the .reveal-up class.
+    Shared by #problems, #equipment and #results via the .reveal-up
+    class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
