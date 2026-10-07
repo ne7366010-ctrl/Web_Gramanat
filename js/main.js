@@ -307,9 +307,64 @@
   });
 
   /*---------------------
+    Sistemas selector (tabs + mobile chips)
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggers = Array.from(document.querySelectorAll('#sistemas .sistemas-tab, #sistemas .sistemas-chip'));
+    const panels = Array.from(document.querySelectorAll('#sistemas .sistemas-panel'));
+
+    if (!triggers.length || !panels.length) return;
+
+    function activate(targetId, focusTrigger) {
+      triggers.forEach((trigger) => {
+        const isMatch = trigger.getAttribute('data-target') === targetId;
+        trigger.classList.toggle('is-active', isMatch);
+        trigger.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        trigger.tabIndex = isMatch ? 0 : -1;
+
+        if (isMatch && focusTrigger) {
+          trigger.focus();
+        }
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle('is-active', panel.id === targetId);
+        panel.hidden = panel.id !== targetId;
+      });
+    }
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        activate(trigger.getAttribute('data-target'), false);
+      });
+
+      trigger.addEventListener('keydown', (e) => {
+        const group = Array.from(trigger.parentElement.children).filter((el) => el.classList.contains('sistemas-tab') || el.classList.contains('sistemas-chip'));
+        const index = group.indexOf(trigger);
+        let nextIndex = null;
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          nextIndex = (index + 1) % group.length;
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          nextIndex = (index - 1 + group.length) % group.length;
+        } else if (e.key === 'Home') {
+          nextIndex = 0;
+        } else if (e.key === 'End') {
+          nextIndex = group.length - 1;
+        }
+
+        if (nextIndex !== null) {
+          e.preventDefault();
+          activate(group[nextIndex].getAttribute('data-target'), true);
+        }
+      });
+    });
+  });
+
+  /*---------------------
     Scroll reveal (fade-up)
-    Shared by #sistemas, #problems and #services cards via the
-    .reveal-up class.
+    Shared by #problems and #services cards via the .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
