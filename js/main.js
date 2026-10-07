@@ -308,7 +308,8 @@
 
   /*---------------------
     Scroll reveal (fade-up)
-    Shared by #problems and #services cards via the .reveal-up class.
+    Shared by #sistemas, #problems and #services cards via the
+    .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -333,6 +334,58 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
     items.forEach((item) => observer.observe(item));
+  });
+
+  /*---------------------
+    Results strip counters
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('#results .result-number-value');
+
+    if (!counters.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DURATION = 1500;
+
+    const setFinal = (el) => {
+      el.textContent = el.getAttribute('data-count-to');
+    };
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      counters.forEach(setFinal);
+      return;
+    }
+
+    const animateCount = (el) => {
+      const target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / DURATION, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target;
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    counters.forEach((counter) => observer.observe(counter));
   });
 
   /*----------------------
