@@ -2703,17 +2703,6 @@ body.page-home .nivo-caption .row {
   margin: 0 0 0.75rem;
 }
 
-#faq .section-headline h2 {
-  color: #0a0f1e;
-  text-transform: none;
-  font-size: 40px;
-  margin-bottom: 12px;
-}
-
-#faq .section-headline h2:after {
-  background: var(--color-accent);
-}
-
 /* Shared base rule other sections without an ID-scoped override still
    fall back to. */
 .section-headline h2 {
@@ -2734,30 +2723,100 @@ body.page-home .nivo-caption .row {
   margin: 15px auto 0;
 }
 
-.faq-details-col {
-  float: none;
-  max-width: 860px;
-  margin: 0 auto;
+/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
+   display:table; }`) would otherwise occupy its own implicit grid cell. */
+#faq .faq-layout::before,
+#faq .faq-layout::after {
+  content: none;
+  display: none;
 }
 
-#faq .faq-accordion {
+#faq .faq-layout {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  gap: 64px;
+}
+
+/* --- Left column (intro + contact card) ---
+   Sticks via a scroll-driven transform in js/main.js instead of
+   `position: sticky`: this Chrome build reproducibly fails to engage
+   native sticky for a flex/grid item whose sibling is also a
+   flex/grid item (confirmed by bisecting — plain block stacking and a
+   lone floated sibling both stick fine; flex, grid, both-floated and
+   BFC-cleared siblings all reproduce the bug), so a JS fallback is the
+   only reliable way to get the "sticky aside" the design calls for. */
+#faq .faq-aside {
+  flex: 0 0 40%;
+  align-self: start;
+}
+
+#faq .faq-main {
+  flex: 1 1 60%;
+  min-width: 0;
+}
+
+#faq .faq-title {
+  color: #0a0f1e;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  position: relative;
+}
+
+#faq .faq-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: 15px 0 0;
+}
+
+#faq .faq-intro {
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+#faq .faq-contact-card {
+  background: #0a0f1e;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+#faq .faq-contact-card i {
+  color: var(--color-accent);
+  font-size: 26px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+#faq .faq-contact-card h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+#faq .faq-contact-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+}
+
+#faq .faq-contact-btn {
+  display: inline-block;
+}
+
+/* --- Right column (accordion) --- */
+
+#faq .faq-accordion {
+  border-top: 1px solid #e5e7eb;
 }
 
 #faq .faq-item {
-  background: #fff;
-  border: 1px solid #ebedf2;
-  border-left: 4px solid transparent;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
-  overflow: hidden;
-  transition: border-color 0.25s ease;
-}
-
-#faq .faq-item.is-open {
-  border-left-color: var(--color-accent);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 #faq .faq-question {
@@ -2768,9 +2827,8 @@ body.page-home .nivo-caption .row {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  padding: 20px 24px;
+  padding: 26px 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -2778,22 +2836,31 @@ body.page-home .nivo-caption .row {
   font-family: inherit;
 }
 
-#faq .faq-trigger span:first-child {
-  font-size: 18px;
+#faq .faq-number {
+  flex: 0 0 32px;
+  font-size: 15px;
   font-weight: 700;
+  color: var(--color-accent);
+}
+
+#faq .faq-question-text {
+  flex: 1 1 auto;
+  font-size: 19px;
+  font-weight: 600;
   color: #0a0f1e;
+  transition: color 0.25s ease;
+}
+
+#faq .faq-item.is-open .faq-question-text {
+  color: var(--color-accent);
 }
 
 #faq .faq-toggle-icon {
   position: relative;
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 122, 41, 0.12);
-  transition:
-    background-color 0.25s ease,
-    transform 0.3s ease;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
 }
 
 #faq .faq-toggle-icon::before,
@@ -2802,36 +2869,29 @@ body.page-home .nivo-caption .row {
   position: absolute;
   top: 50%;
   left: 50%;
-  background: var(--color-accent);
-  transition:
-    background-color 0.25s ease,
-    transform 0.3s ease;
+  background: #0a0f1e;
+  transition: background-color 0.25s ease;
 }
 
 #faq .faq-toggle-icon::before {
-  width: 14px;
-  height: 2px;
+  width: 16px;
+  height: 1.5px;
   transform: translate(-50%, -50%);
 }
 
 #faq .faq-toggle-icon::after {
-  width: 2px;
-  height: 14px;
+  width: 1.5px;
+  height: 16px;
   transform: translate(-50%, -50%);
 }
 
 #faq .faq-item.is-open .faq-toggle-icon {
-  background: var(--color-accent);
-  transform: rotate(180deg);
+  transform: rotate(45deg);
 }
 
 #faq .faq-item.is-open .faq-toggle-icon::before,
 #faq .faq-item.is-open .faq-toggle-icon::after {
-  background: #fff;
-}
-
-#faq .faq-item.is-open .faq-toggle-icon::after {
-  transform: translate(-50%, -50%) scaleY(0);
+  background: var(--color-accent);
 }
 
 #faq .faq-answer {
@@ -2850,36 +2910,23 @@ body.page-home .nivo-caption .row {
 
 #faq .faq-answer-inner p {
   margin: 0;
-  padding: 0 24px 20px;
+  padding: 0 0 26px 48px;
   font-size: 16px;
   color: #6b7280;
-  line-height: 1.7;
-}
-
-#faq .faq-closing {
-  width: 100%;
-  max-width: 700px;
-  margin: 3rem auto 0;
-}
-
-#faq .faq-closing-text {
-  font-size: 18px;
-  color: #0a0f1e;
-  margin: 0;
-}
-
-#faq .faq-closing-accent {
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-#faq .faq-cta-btn {
-  display: inline-block;
-  margin-top: 1.25rem;
+  line-height: 1.75;
 }
 
 @media (max-width: 767px) {
-  #faq .section-headline h2 {
+  #faq .faq-layout {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  #faq .faq-aside {
+    flex-basis: auto;
+  }
+
+  #faq .faq-title {
     font-size: 28px;
   }
 }

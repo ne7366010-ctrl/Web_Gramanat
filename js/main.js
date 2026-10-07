@@ -416,6 +416,59 @@
     });
   });
 
+  /*---------------------
+    Faq sticky aside (position:sticky workaround)
+    This Chrome build reproducibly fails to engage native
+    `position: sticky` for a flex item whose sibling is also a flex
+    item (confirmed by testing: plain block-stacked content and a
+    lone floated sibling both stick fine; flex, grid, both-floated and
+    BFC-cleared siblings all reproduce the bug) — so the "sticky"
+    left column is recreated here with a scroll-driven transform.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const layout = document.querySelector('#faq .faq-layout');
+    const aside = document.querySelector('#faq .faq-aside');
+
+    if (!layout || !aside) return;
+
+    const TOP_OFFSET = 120;
+    let ticking = false;
+
+    function updateStickyAside() {
+      ticking = false;
+
+      if (window.innerWidth < 768) {
+        aside.style.transform = '';
+        return;
+      }
+
+      const containerRect = layout.getBoundingClientRect();
+      const maxTranslate = layout.offsetHeight - aside.offsetHeight;
+
+      if (maxTranslate <= 0) {
+        aside.style.transform = '';
+        return;
+      }
+
+      let translateY = TOP_OFFSET - containerRect.top;
+      translateY = Math.max(0, Math.min(translateY, maxTranslate));
+
+      aside.style.transform = translateY > 0 ? `translateY(${translateY}px)` : '';
+    }
+
+    function onScrollOrResize() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateStickyAside);
+      }
+    }
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+    updateStickyAside();
+  });
+
   /*----------------------
    Parallax
   -----------------------*/
