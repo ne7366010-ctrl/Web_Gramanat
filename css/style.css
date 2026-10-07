@@ -3136,6 +3136,176 @@ body.page-home .nivo-caption .row {
 }
 
 /*--------------------------------------*/
+/* 7a. Final CTA Area ("¿Listo para facturar sin preocupaciones?")
+/* Scoped to #final-cta; replaces the old "Bienvenidos a Gramanat"
+/* wellcome-area block (still shared/used as-is on other pages) as the
+/* page's closing call-to-action.
+/*--------------------------------------*/
+
+#final-cta {
+  position: relative;
+  background: #0a0f1e;
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+#final-cta::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.15) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+#final-cta .final-cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+#final-cta .final-cta-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+#final-cta .final-cta-title {
+  color: #fff;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+}
+
+#final-cta .final-cta-accent {
+  color: var(--color-accent);
+}
+
+#final-cta .final-cta-subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 2.5rem;
+}
+
+#final-cta .final-cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+#final-cta .final-cta-btn-solid,
+#final-cta .final-cta-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#final-cta .final-cta-btn-solid {
+  background: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  color: #fff;
+}
+
+#final-cta .final-cta-btn-solid:hover {
+  background: #e0691f;
+  border-color: #e0691f;
+  color: #fff;
+}
+
+#final-cta .final-cta-btn-outline {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+#final-cta .final-cta-btn-outline:hover {
+  background: #fff;
+  color: #0a0f1e;
+}
+
+#final-cta .final-cta-trust-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#final-cta .final-cta-trust-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+#final-cta .final-cta-trust-list li i {
+  color: var(--color-accent);
+}
+
+#final-cta .final-cta-trust-list li + li::before {
+  content: "·";
+  margin: 0 10px 0 4px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 767px) {
+  #final-cta {
+    padding: 70px 0;
+  }
+
+  #final-cta .final-cta-title {
+    font-size: 30px;
+  }
+
+  #final-cta .final-cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #final-cta .final-cta-btn-solid,
+  #final-cta .final-cta-btn-outline {
+    width: 100%;
+  }
+
+  #final-cta .final-cta-trust-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #final-cta .final-cta-trust-list li + li::before {
+    content: none;
+    margin: 0;
+  }
+}
+
+/*--------------------------------------*/
 /*8.Team Area Css
 /*--------------------------------------*/
 
@@ -3602,12 +3772,6 @@ body.page-home .nivo-caption .row {
   color: #fff;
 }
 
-/* Bigger final CTA button ("Quiero mi demo gratis"), per request — same
-   orange as the other demo CTAs, just larger. */
-.final-cta-btn {
-  padding: 16px 42px;
-  font-size: 17px;
-}
 
 /*--------------------------------------*/
 /*10.Portafolio Area Css
