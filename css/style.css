@@ -2686,7 +2686,7 @@ body.page-home .nivo-caption .row {
 }
 
 /*--------------------------------------*/
-/*6.Faq Area
+/*6.Faq Area ("Preguntas frecuentes")
 /*--------------------------------------*/
 
 .faq-area {
@@ -2694,6 +2694,28 @@ body.page-home .nivo-caption .row {
   padding: 60px 0;
 }
 
+#faq .faq-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+#faq .section-headline h2 {
+  color: #0a0f1e;
+  text-transform: none;
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+#faq .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+/* Shared base rule other sections without an ID-scoped override still
+   fall back to. */
 .section-headline h2 {
   font-size: 28px;
   font-weight: 700;
@@ -2712,96 +2734,154 @@ body.page-home .nivo-caption .row {
   margin: 15px auto 0;
 }
 
-/* The accordion used to share this row with a duplicate services tab
-   widget (removed); now that it's the row's only column, cap its width
-   so panel text doesn't stretch edge-to-edge across the full container. */
 .faq-details-col {
   float: none;
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
-.faq-details .panel-group {
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-  border-radius: 6px;
-  overflow: hidden;
-  will-change: transform;
+#faq .faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.panel-default {
-  border: none;
-  border-radius: 0;
-  margin-bottom: 0;
+#faq .faq-item {
   background: #fff;
-  position: relative;
+  border: 1px solid #ebedf2;
+  border-left: 4px solid transparent;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
+  overflow: hidden;
+  transition: border-color 0.25s ease;
 }
 
-.panel-heading {
-  padding: 0;
-  border-bottom: 1px solid #f1f1f1;
-  position: relative;
+#faq .faq-item.is-open {
+  border-left-color: var(--color-accent);
 }
 
-.faq-details h4.check-title a {
-  color: #444;
-  display: block;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  padding: 12px 20px 12px 50px;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  font-size: 15px;
+#faq .faq-question {
+  margin: 0;
 }
 
-.faq-details h4.check-title a:hover {
-  color: var(--color-brand);
+#faq .faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
 }
 
-.panel-body {
-  padding: 15px 20px 15px 50px;
-  color: #666;
-  line-height: 1.6;
-  font-size: 14px;
-  border-left: 2px solid var(--color-brand);
-  position: relative;
-}
-
-.faq-details a span.acc-icons::before {
-  color: var(--color-brand);
-  content: "+";
-  font-family: "Poppins", sans-serif;
+#faq .faq-trigger span:first-child {
   font-size: 18px;
-  height: 30px;
-  left: 15px;
-  line-height: 30px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  color: #0a0f1e;
 }
 
-.faq-details h4.check-title a.active {
-  color: var(--color-brand);
-  background-color: rgba(42, 95, 255, 0.05);
-}
-
-.faq-details a.active span.acc-icons::before {
-  content: "-";
-  color: var(--color-brand);
-}
-
-.panel-collapse {
+#faq .faq-toggle-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 122, 41, 0.12);
   transition:
-    height 0.3s ease-out,
-    visibility 0.3s ease;
+    background-color 0.25s ease,
+    transform 0.3s ease;
+}
+
+#faq .faq-toggle-icon::before,
+#faq .faq-toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--color-accent);
+  transition:
+    background-color 0.25s ease,
+    transform 0.3s ease;
+}
+
+#faq .faq-toggle-icon::before {
+  width: 14px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+#faq .faq-toggle-icon::after {
+  width: 2px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+
+#faq .faq-item.is-open .faq-toggle-icon {
+  background: var(--color-accent);
+  transform: rotate(180deg);
+}
+
+#faq .faq-item.is-open .faq-toggle-icon::before,
+#faq .faq-item.is-open .faq-toggle-icon::after {
+  background: #fff;
+}
+
+#faq .faq-item.is-open .faq-toggle-icon::after {
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
+#faq .faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+#faq .faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+#faq .faq-answer-inner {
   overflow: hidden;
 }
 
-.panel-collapse.collapse:not(.in) {
-  display: none;
+#faq .faq-answer-inner p {
+  margin: 0;
+  padding: 0 24px 20px;
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+#faq .faq-closing {
+  width: 100%;
+  max-width: 700px;
+  margin: 3rem auto 0;
+}
+
+#faq .faq-closing-text {
+  font-size: 18px;
+  color: #0a0f1e;
+  margin: 0;
+}
+
+#faq .faq-closing-accent {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+#faq .faq-cta-btn {
+  display: inline-block;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  #faq .section-headline h2 {
+    font-size: 28px;
+  }
 }
 
 .tab-menu {

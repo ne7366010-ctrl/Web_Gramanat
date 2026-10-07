@@ -32,10 +32,68 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=16" rel="stylesheet">
+  <link href="css/style.css?v=17" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
+
+  <!-- FAQPage structured data (matches the #faq "Preguntas frecuentes" section) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Cuánto cuesta el sistema?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depende de tu tipo de negocio y del equipo que necesites. Después de la demo gratuita te damos una cotización clara y sin compromiso."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuánto tarda la instalación?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Normalmente entre 24 y 48 horas después de confirmar. Dejamos todo funcionando y listo para vender."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Mis facturas son válidas ante Hacienda?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Emites facturas electrónicas válidas y mantenemos tu sistema actualizado cuando cambia la normativa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Me enseñan a usar el sistema?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. La capacitación para ti y tu personal está incluida, para que lo uses desde el primer día."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué pasa si tengo un problema?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nos escribes por WhatsApp y te ayudamos de forma remota en minutos. Si hace falta, vamos a tu negocio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo usar la computadora que ya tengo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "En muchos casos sí. Durante la demo revisamos tu equipo y te decimos si necesitas algo adicional."
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- =======================================================
     Theme Name: eBusiness
@@ -142,6 +200,9 @@
         </li>
         <li>
           <a href="#equipment"><i class="fa-solid fa-users"></i>Equipo</a>
+        </li>
+        <li>
+          <a href="#faq"><i class="fa-solid fa-circle-question"></i>Preguntas</a>
         </li>
         <li>
           <a href="#contact" class="cta-demo-header">Solicita tu demo</a>
@@ -855,114 +916,106 @@
   <!-- End Results Strip -->
 
   <!-- Faq area start -->
-<div class="faq-area area-padding">
+<div id="faq" class="faq-area area-padding">
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="section-headline text-center">
-          <h2><span class="gradient-text">COMPETENCIA</span></h2>
+          <p class="faq-eyebrow">Resolvemos tus dudas</p>
+          <h2>Preguntas frecuentes</h2>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12 faq-details-col">
-        <div class="faq-details">
-          <div class="panel-group" id="accordion">
-            <!-- Panel Default -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="check-title">
-                  <a data-toggle="collapse" class="active" data-parent="#accordion" href="#check1">
-                    <span class="acc-icons"></span>Experiencia Integral.
-                  </a>
-                </h4>
-              </div>
-              <div id="check1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <p>
-                    Con años de experiencia en el sector, somos expertos en una variedad de servicios que abarcan desde la implementación de facturación electrónica hasta el diseño de páginas web, e-commerce y desarrollo de software personalizado.
-                  </p>
-                </div>
+        <div class="faq-accordion">
+          <div class="faq-item is-open">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-answer-1" id="faq-trigger-1">
+                <span>¿Cuánto cuesta el sistema?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-trigger-1">
+              <div class="faq-answer-inner">
+                <p>Depende de tu tipo de negocio y del equipo que necesites. Después de la demo gratuita te damos una cotización clara y sin compromiso.</p>
               </div>
             </div>
-            <!-- End Panel Default -->
-            <!-- Panel Default -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="check-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#check2">
-                    <span class="acc-icons"></span> Soluciones a Medida.
-                  </a>
-                </h4>
-              </div>
-              <div id="check2" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>
-                    Entendemos que cada negocio es único. Por eso, ofrecemos soluciones personalizadas que se adaptan a las necesidades específicas de tu empresa, ya sea en el ámbito de bienes raíces, gestión de documentos, comercialización o arquitectura.
-                  </p>
-                </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-2" id="faq-trigger-2">
+                <span>¿Cuánto tarda la instalación?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-trigger-2">
+              <div class="faq-answer-inner">
+                <p>Normalmente entre 24 y 48 horas después de confirmar. Dejamos todo funcionando y listo para vender.</p>
               </div>
             </div>
-            <!-- End Panel Default -->
-            <!-- Panel Default -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="check-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#check3">
-                    <span class="acc-icons"></span>Profesionalismo y Calidad.
-                  </a>
-                </h4>
-              </div>
-              <div id="check3" class="panel-collapse collapse ">
-                <div class="panel-body">
-                  <p>
-                    En Gramanat, nos comprometemos a ofrecer servicios de la más alta calidad. Nuestro equipo de profesionales altamente calificados y experimentados se dedica a brindar resultados excepcionales en cada proyecto que emprendemos.
-                  </p>
-                </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-3" id="faq-trigger-3">
+                <span>¿Mis facturas son válidas ante Hacienda?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-trigger-3">
+              <div class="faq-answer-inner">
+                <p>Sí. Emites facturas electrónicas válidas y mantenemos tu sistema actualizado cuando cambia la normativa.</p>
               </div>
             </div>
-            <!-- End Panel Default -->
-            <!-- Panel Default -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="check-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#check4">
-                    <span class="acc-icons"></span>Amplio Espectro de Servicios
-                  </a>
-                </h4>
-              </div>
-              <div id="check4" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>
-                    Desde la fase inicial de planificación y diseño hasta la ejecución y entrega final, ofrecemos una amplia gama de servicios que cubren todas las etapas del proceso. Ya sea que necesites servicios de remodelación, levantamientos topográficos o permisos de construcción, estamos aquí para ayudarte.
-                  </p>
-                </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-4" id="faq-trigger-4">
+                <span>¿Me enseñan a usar el sistema?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-trigger-4">
+              <div class="faq-answer-inner">
+                <p>Sí. La capacitación para ti y tu personal está incluida, para que lo uses desde el primer día.</p>
               </div>
             </div>
-            <!-- End Panel Default -->
-            <!-- Panel Default -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="check-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#check5">
-                    <span class="acc-icons"></span>Enfoque en la excelencia
-                  </a>
-                </h4>
-              </div>
-              <div id="check5" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <p>
-                    En Gramanat, nos esforzamos por superar las expectativas de nuestros clientes en cada proyecto que emprendemos. Nuestro enfoque en la excelencia y la atención al detalle nos ha ganado la confianza y lealtad de clientes satisfechos en todo el sector.
-                  </p>
-                </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-5" id="faq-trigger-5">
+                <span>¿Qué pasa si tengo un problema?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-trigger-5">
+              <div class="faq-answer-inner">
+                <p>Nos escribes por WhatsApp y te ayudamos de forma remota en minutos. Si hace falta, vamos a tu negocio.</p>
               </div>
             </div>
-            <!-- End Panel Default -->
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-6" id="faq-trigger-6">
+                <span>¿Puedo usar la computadora que ya tengo?</span>
+                <span class="faq-toggle-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-trigger-6">
+              <div class="faq-answer-inner">
+                <p>En muchos casos sí. Durante la demo revisamos tu equipo y te decimos si necesitas algo adicional.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end Row -->
+    <div class="row">
+      <div class="faq-closing text-center">
+        <p class="faq-closing-text">¿Tienes otra pregunta? <span class="faq-closing-accent">Escríbenos, te respondemos en minutos.</span></p>
+        <a class="ready-btn cta-demo faq-cta-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." target="_blank">Preguntar por WhatsApp</a>
+      </div>
+    </div>
   </div>
 </div>
   <!-- End Faq Area -->
@@ -1354,7 +1407,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 
 </html>
