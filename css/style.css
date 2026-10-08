@@ -4965,6 +4965,15 @@ body.page-home .nivo-caption .row {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
+}
+
+/* Scoped to avatars that actually have a photo loaded (currently just
+   María L.'s) so the fallback-initials circles (Carlos M., Andrea H.)
+   stay unchanged until they have photos too. */
+#testimonios .testimonio-avatar-has-photo {
+  border: 3px solid var(--color-accent);
+  box-shadow: 0 4px 12px rgba(10, 15, 30, 0.15);
 }
 
 #testimonios .testimonio-avatar-fallback {
