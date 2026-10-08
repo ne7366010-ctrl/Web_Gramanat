@@ -6879,8 +6879,8 @@ body.page-home .nivo-caption .row {
 #clientes.clients-premium .clients-marquee-row {
   overflow: hidden;
   padding: 6px 0;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
 }
 
 #clientes.clients-premium .clients-marquee-track {
@@ -6956,6 +6956,7 @@ body.page-home .nivo-caption .row {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -6976,6 +6977,13 @@ body.page-home .nivo-caption .row {
   object-fit: contain;
   border-radius: 0;
   transition: none;
+}
+
+/* The source asset for Ferretería Los Amigos has a lot of built-in
+   whitespace, so it renders much smaller than the other logos at the
+   same max-width/max-height — scaled up to match their visual size. */
+#clientes.clients-premium .client-logo-item img.logo-scale-ferreteria {
+  transform: scale(1.8);
 }
 
 #clientes.clients-premium .client-logo-item:hover img {
