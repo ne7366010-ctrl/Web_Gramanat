@@ -3208,30 +3208,38 @@ body.page-home .nivo-caption .row {
   display: none;
 }
 
+/* .container/.row carry a sitewide `overflow: hidden` (section 8
+   above). `position: sticky` on .faq-aside below does not engage if
+   any ancestor between it and its containing block clips overflow, so
+   both have to stay visible for the sticky column to work — not just
+   .faq-layout itself but its .container parent too. */
+#faq > .container,
 #faq .faq-layout {
-  display: flex;
-  gap: 64px;
-  /* .container/.row carry a sitewide `overflow: hidden` (section 8
-     above). Combined with the scroll-driven `transform` main.js applies
-     to .faq-aside every frame (the "sticky" hack above), that clipped
-     ancestor caused the aside to repaint as a smeared/doubled ghost
-     during scroll in some browsers — restoring overflow:visible here
-     removes the clip, same fix as the testimonios cards and the hero
-     slider's .nivo-caption override elsewhere in this file. */
   overflow: visible;
 }
 
-/* --- Left column (intro + contact card) ---
-   Sticks via a scroll-driven transform in js/main.js instead of
-   `position: sticky`: this Chrome build reproducibly fails to engage
-   native sticky for a flex/grid item whose sibling is also a
-   flex/grid item (confirmed by bisecting — plain block stacking and a
-   lone floated sibling both stick fine; flex, grid, both-floated and
-   BFC-cleared siblings all reproduce the bug), so a JS fallback is the
-   only reliable way to get the "sticky aside" the design calls for. */
+#faq .faq-layout {
+  display: flex;
+  gap: 64px;
+}
+
+/* --- Left column (intro + contact card) --- */
 #faq .faq-aside {
   flex: 0 0 40%;
-  align-self: start;
+}
+
+@media (min-width: 992px) {
+  #faq .faq-aside {
+    position: sticky;
+    top: 120px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 991px) {
+  #faq .faq-aside {
+    position: static;
+  }
 }
 
 #faq .faq-main {
