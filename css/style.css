@@ -3287,11 +3287,6 @@ body.page-home .nivo-caption .row {
   display: none;
 }
 
-/* .container/.row carry a sitewide `overflow: hidden` (section 8
-   above). `position: sticky` on .faq-aside below does not engage if
-   any ancestor between it and its containing block clips overflow, so
-   both have to stay visible for the sticky column to work — not just
-   .faq-layout itself but its .container parent too. */
 #faq > .container,
 #faq .faq-layout {
   overflow: visible;
@@ -3302,23 +3297,13 @@ body.page-home .nivo-caption .row {
   gap: 64px;
 }
 
-/* --- Left column (intro + contact card) --- */
+/* --- Left column (intro + contact card) ---
+   Static in normal flow at every breakpoint — no position:sticky, no
+   scroll-driven JS or transform. Just aligned to the top of the row. */
 #faq .faq-aside {
   flex: 0 0 40%;
-}
-
-@media (min-width: 992px) {
-  #faq .faq-aside {
-    position: sticky;
-    top: 120px;
-    align-self: flex-start;
-  }
-}
-
-@media (max-width: 991px) {
-  #faq .faq-aside {
-    position: static;
-  }
+  position: static;
+  align-self: flex-start;
 }
 
 #faq .faq-main {
