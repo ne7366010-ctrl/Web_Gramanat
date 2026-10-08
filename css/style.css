@@ -6825,6 +6825,267 @@ body.page-home .nivo-caption .row {
   }
 }
 
+/* ==========================================================================
+   16b. Clients premium redesign ("Negocios salvadoreños que ya trabajan
+   con Gramanat"). Scoped to #clientes.clients-premium — the old #clients
+   id and .clients-area/.client-logo-item classes were only ever used on
+   this page, but the new id keeps this isolated the same way the other
+   redesigned sections are.
+   ========================================================================== */
+
+#clientes.clients-premium {
+  background: #fff;
+  padding: 90px 0 70px;
+  overflow: hidden;
+}
+
+#clientes.clients-premium .clients-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+#clientes.clients-premium .section-headline h2 {
+  color: #0a0f1e;
+  text-transform: none;
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+#clientes.clients-premium .section-headline h2:after {
+  display: none;
+}
+
+#clientes.clients-premium .clients-subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* --- Marquee --- */
+
+#clientes.clients-premium .clients-marquee-wrap {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#clientes.clients-premium .clients-marquee-row {
+  overflow: hidden;
+  padding: 6px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+#clientes.clients-premium .clients-marquee-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+}
+
+#clientes.clients-premium .clients-marquee-dup {
+  display: contents;
+}
+
+#clientes.clients-premium .clients-marquee-row-1 .clients-marquee-track {
+  animation: clients-marquee 40s linear infinite;
+}
+
+#clientes.clients-premium .clients-marquee-row-2 .clients-marquee-track {
+  animation: clients-marquee 40s linear infinite reverse;
+}
+
+#clientes.clients-premium .clients-marquee-row:hover .clients-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes clients-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Logo cards (overrides the legacy .client-logo-item/.logo-container/
+   .company-name rules from section 12 above — those stay as-is since
+   nothing else references them once this section no longer uses the
+   Bootstrap grid markup) --- */
+
+#clientes.clients-premium .client-logo-item {
+  /* !important beats the legacy .client-logo-item rules' own !important
+     flex/max-width/margin at <=576px (section 12 above) which would
+     otherwise force these into huge percentage-based flex-basis cards
+     inside this flex track. */
+  flex: 0 0 auto !important;
+  width: auto;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#clientes.clients-premium .client-logo-item:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+#clientes.clients-premium .logo-container {
+  width: 200px;
+  height: 110px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+#clientes.clients-premium .client-logo-item:hover .logo-container {
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 24px rgba(10, 15, 30, 0.12);
+  transform: translateY(-4px);
+}
+
+#clientes.clients-premium .client-logo-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+  transition: none;
+}
+
+#clientes.clients-premium .client-logo-item:hover img {
+  transform: none;
+}
+
+#clientes.clients-premium .company-name {
+  position: static;
+  transform: none;
+  background: #f1f5f9;
+  color: #0a0f1e;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 767px) {
+  #clientes.clients-premium .logo-container {
+    width: 160px;
+    height: 90px;
+  }
+
+  #clientes.clients-premium .company-name {
+    max-width: 160px;
+  }
+}
+
+/* --- Stats + CTA --- */
+
+#clientes.clients-premium .clients-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 56px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+#clientes.clients-premium .clients-stat-dot {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: inline-block;
+}
+
+#clientes.clients-premium .clients-cta-row {
+  margin-top: 24px;
+}
+
+#clientes.clients-premium .clients-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #0a0f1e;
+  color: #0a0f1e;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#clientes.clients-premium .clients-cta-btn:hover {
+  background: #0a0f1e;
+  color: #fff;
+}
+
+#clientes.clients-premium .clients-cta-btn .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#clientes.clients-premium .clients-cta-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #clientes.clients-premium .clients-marquee-dup {
+    display: none !important;
+  }
+
+  #clientes.clients-premium .clients-marquee-track {
+    animation: none !important;
+    transform: none !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+  }
+
+  #clientes.clients-premium .clients-marquee-row {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
 /*----------------------------------------
  .End CSS
 ----------------------------------------*/
