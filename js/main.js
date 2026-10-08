@@ -270,6 +270,18 @@
   });
 
   /*---------------------
+    Footer year
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const footerYear = document.getElementById('footerYear');
+
+    if (!footerYear) return;
+
+    footerYear.textContent = new Date().getFullYear();
+  });
+
+  /*---------------------
     Back to top button
   --------------------- */
 

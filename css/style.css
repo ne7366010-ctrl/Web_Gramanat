@@ -6570,6 +6570,261 @@ body.page-home .nivo-caption .row {
   }
 }
 
+/* ==========================================================================
+   16a. Footer premium redesign (index.html only)
+   Scoped to #footer.footer-premium so the other pages that share the same
+   .footer-area / .footer-icons / .footer-logo classes (marketing.html,
+   casas.html, arquitectura.html, etc.) keep their original light footer.
+   ========================================================================== */
+
+#footer.footer-premium .footer-area {
+  background: #0a0f1e;
+  padding: 80px 0 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+#footer.footer-premium .footer-area::before {
+  display: none;
+}
+
+#footer.footer-premium .footer-area::after {
+  content: "";
+  position: absolute;
+  top: -140px;
+  right: -140px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.18) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
+   display:table; }`) becomes a real grid item once this row is switched
+   to grid — a near-invisible "ghost" item that shifts the 4 real columns
+   out of place. Neutralizing it here is the fix (see #problems above). */
+#footer.footer-premium .footer-area .row::before,
+#footer.footer-premium .footer-area .row::after {
+  content: none;
+  display: none;
+}
+
+#footer.footer-premium .footer-area .row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px 24px;
+}
+
+#footer.footer-premium .footer-col {
+  width: 100%;
+  float: none;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#footer.footer-premium .footer-logo h2 {
+  color: #fff;
+}
+
+#footer.footer-premium .footer-logo h2 span {
+  color: var(--color-accent);
+}
+
+#footer.footer-premium .footer-logo h2 span::after {
+  background-color: var(--color-accent);
+}
+
+#footer.footer-premium .footer-head p {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#footer.footer-premium .footer-icons ul li a {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  background-color: transparent;
+}
+
+#footer.footer-premium .footer-icons ul li a:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+#footer.footer-premium .footer-head h4 {
+  color: #fff;
+  text-align: left;
+  font-size: 16px;
+}
+
+#footer.footer-premium .footer-head h4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+#footer.footer-premium .footer-links,
+#footer.footer-premium .footer-contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#footer.footer-premium .footer-links li {
+  margin-bottom: 12px;
+}
+
+#footer.footer-premium .footer-links a {
+  display: inline-block;
+  color: #94a3b8;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+#footer.footer-premium .footer-links a:hover {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+#footer.footer-premium .footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#footer.footer-premium .footer-contact-list i {
+  flex-shrink: 0;
+  width: 16px;
+  margin-top: 3px;
+  color: var(--color-accent);
+  font-size: 15px;
+  text-align: center;
+}
+
+#footer.footer-premium .footer-contact-list a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+#footer.footer-premium .footer-contact-list a:hover {
+  color: var(--color-accent);
+}
+
+#footer.footer-premium .footer-area-bottom {
+  background: #0a0f1e;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 24px 0;
+}
+
+#footer.footer-premium .footer-area-bottom:hover {
+  box-shadow: none;
+}
+
+#footer.footer-premium .footer-area-bottom::before {
+  display: none;
+}
+
+#footer.footer-premium .footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#footer.footer-premium .footer-copyright {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+  text-shadow: none;
+}
+
+#footer.footer-premium .footer-availability {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+#footer.footer-premium .footer-pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+#footer.footer-premium .footer-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: footerPulse 2s ease-out infinite;
+}
+
+@keyframes footerPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #footer.footer-premium .footer-pulse-dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  #footer.footer-premium .footer-area .row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  #footer.footer-premium .footer-area .row {
+    grid-template-columns: 1fr;
+  }
+
+  #footer.footer-premium .footer-bottom-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  /* Clears the fixed WhatsApp (bottom:40px/55px) and back-to-top
+     (bottom:90px/40px) buttons so they don't sit over the copyright/
+     availability row when the page is scrolled all the way down. */
+  #footer.footer-premium .footer-area-bottom {
+    padding-bottom: 150px;
+  }
+}
+
 /*----------------------------------------
  .End CSS
 ----------------------------------------*/
