@@ -2184,23 +2184,235 @@ body.page-home .nivo-caption .row {
   transform: translateX(4px);
 }
 
-#services .services-card-mockup {
-  position: relative;
+/* --- Big card decorative illustration (HTML/CSS only, no images) ---
+   Three nested layers so each transform animates/sets independently
+   without one overwriting another: the outer layer positions it in
+   the card's bottom-right corner (and rescales it on mobile), the
+   middle layer runs the floating animation, and the innermost layer
+   holds the static rotation. */
+
+#services .services-card-illustration {
+  position: absolute;
   z-index: 1;
-  align-self: flex-end;
-  margin-top: 1.5rem;
-  margin-right: -16px;
-  margin-bottom: -16px;
-  width: 140px;
-  height: 140px;
-  border-radius: 24px;
-  background: rgba(255, 122, 41, 0.12);
+  bottom: 16px;
+  right: 16px;
+  pointer-events: none;
+}
+
+#services .services-illustration-float {
+  animation: servicesIllustrationFloat 4s ease-in-out infinite;
+}
+
+@keyframes servicesIllustrationFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #services .services-illustration-float {
+    animation: none;
+  }
+}
+
+/* Mini invoice (Facturación electrónica) */
+
+#services .mini-invoice {
+  width: 260px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  padding: 18px;
+  transform: rotate(-4deg);
+}
+
+#services .mini-invoice-header {
+  margin-bottom: 12px;
+}
+
+#services .mini-invoice-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 2px;
+}
+
+#services .mini-invoice-number {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a0f1e;
+}
+
+#services .mini-invoice-line {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--color-accent);
-  font-size: 56px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+#services .mini-invoice-bar {
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
+}
+
+#services .mini-invoice-line:nth-child(2) .mini-invoice-bar {
+  max-width: 75%;
+}
+
+#services .mini-invoice-line:nth-child(3) .mini-invoice-bar {
+  max-width: 55%;
+}
+
+#services .mini-invoice-line:nth-child(4) .mini-invoice-bar {
+  max-width: 65%;
+}
+
+#services .mini-invoice-price {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+#services .mini-invoice-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 10px 0;
+}
+
+#services .mini-invoice-total {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a0f1e;
+  margin-bottom: 14px;
+}
+
+#services .mini-invoice-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* Mini browser window (Página web) */
+
+#services .mini-browser-wrap {
+  position: relative;
+  transform: rotate(-3deg);
+}
+
+#services .mini-browser {
+  width: 280px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+#services .mini-browser-bar {
+  display: flex;
+  gap: 5px;
+  padding: 10px 12px;
+  background: #f3f4f6;
+}
+
+#services .mini-browser-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+#services .mini-browser-dot-red {
+  background: #ef4444;
+}
+
+#services .mini-browser-dot-yellow {
+  background: #f59e0b;
+}
+
+#services .mini-browser-dot-green {
+  background: #22c55e;
+}
+
+#services .mini-browser-body {
+  padding: 14px;
+}
+
+#services .mini-browser-hero {
+  height: 36px;
+  border-radius: 6px;
+  background: #0a0f1e;
+  margin-bottom: 10px;
+}
+
+#services .mini-browser-line {
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
+  margin-bottom: 8px;
+}
+
+#services .mini-browser-line-full {
+  width: 100%;
+}
+
+#services .mini-browser-line-short {
+  width: 65%;
+  margin-bottom: 12px;
+}
+
+#services .mini-browser-btn {
+  width: 70px;
+  height: 18px;
+  border-radius: 20px;
+  background: var(--color-accent);
+}
+
+#services .mini-browser-chat {
+  position: absolute;
+  bottom: -14px;
+  right: -14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #25d366;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+#services .mini-browser-chat i {
+  font-size: 13px;
+}
+
+@media (max-width: 767px) {
+  #services .services-card-illustration {
+    position: static;
+    align-self: center;
+    margin-top: 24px;
+    transform: scale(0.85);
+  }
 }
 
 /* --- Small cards --- */
@@ -2367,12 +2579,6 @@ body.page-home .nivo-caption .row {
 
   #services .services-card-big h3 {
     font-size: 24px;
-  }
-
-  #services .services-card-mockup {
-    width: 96px;
-    height: 96px;
-    font-size: 38px;
   }
 
   #services .services-card-small {
