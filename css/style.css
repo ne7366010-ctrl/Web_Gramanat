@@ -4830,13 +4830,51 @@ body.page-home .nivo-caption .row {
 
 /*--------------------------------------*/
 /*13. Testimonios Area ("Negocios que ya facturan sin preocupaciones")
-/* Scoped to #testimonios. Styled to match the rest of the page (navy
-/* headline + accent-orange details), like #problems/#services.
+/* Scoped to #testimonios. "Review card" style: giant decorative
+/* orange wordmark behind the cards, white cards with a thick navy
+/* border like a phone screen.
 /*--------------------------------------*/
 
 #testimonios {
-  background: #f8f9fc;
+  position: relative;
+  background: #fff;
   padding: 90px 0;
+  overflow: hidden;
+}
+
+/* Decorative only (aria-hidden) — the giant "Nuestros" / "Clientes"
+   wordmark sitting behind the cards. */
+#testimonios .testimonios-giant-text {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#testimonios .testimonios-giant-word {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: clamp(80px, 14vw, 200px);
+  line-height: 1;
+  color: rgba(255, 122, 41, 0.1);
+  white-space: nowrap;
+}
+
+#testimonios .testimonios-giant-top {
+  top: -10px;
+}
+
+#testimonios .testimonios-giant-bottom {
+  bottom: -10px;
+}
+
+#testimonios .container {
+  position: relative;
+  z-index: 1;
 }
 
 #testimonios .testimonios-eyebrow {
@@ -4852,18 +4890,11 @@ body.page-home .nivo-caption .row {
   color: #0a0f1e;
   text-transform: none;
   font-size: 40px;
-  margin-bottom: 12px;
+  margin-bottom: 2.5rem;
 }
 
 #testimonios .section-headline h2:after {
   background: var(--color-accent);
-}
-
-#testimonios .testimonios-subtitle {
-  color: #4b5563;
-  font-size: 17px;
-  max-width: 620px;
-  margin: 0 auto 2.5rem;
 }
 
 #testimonios .testimonios-track {
@@ -4878,10 +4909,10 @@ body.page-home .nivo-caption .row {
 #testimonios .testimonio-card {
   position: relative;
   background: #fff;
-  border: 1px solid #ebedf2;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
-  padding: 32px;
+  border: 6px solid #0a0f1e;
+  border-radius: 32px;
+  box-shadow: 0 24px 48px rgba(10, 15, 30, 0.18);
+  padding: 28px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -4891,80 +4922,39 @@ body.page-home .nivo-caption .row {
 }
 
 #testimonios .testimonio-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.14);
-}
-
-#testimonios .testimonio-card-featured {
-  background: #0a0f1e;
-  border-color: #0a0f1e;
-  overflow: hidden;
-}
-
-#testimonios .testimonio-card-featured::before {
-  content: "";
-  position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.15) 0%, rgba(255, 122, 41, 0) 70%);
-  pointer-events: none;
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 32px 64px rgba(10, 15, 30, 0.24);
 }
 
 @media (min-width: 768px) {
   #testimonios .testimonio-card-featured {
-    transform: translateY(-12px);
+    transform: translateY(40px);
   }
 
   #testimonios .testimonio-card-featured:hover {
-    transform: translateY(-18px);
+    transform: translateY(32px) rotate(-1deg);
   }
 }
 
-#testimonios .testimonio-quote {
-  position: relative;
-  z-index: 1;
-  color: var(--color-accent);
-  font-size: 36px;
-  margin-bottom: 1rem;
+@media (prefers-reduced-motion: reduce) {
+  #testimonios .testimonio-card,
+  #testimonios .testimonio-card-featured:hover {
+    transition: none;
+  }
 }
 
-#testimonios .testimonio-text {
-  position: relative;
-  z-index: 1;
-  font-size: 17px;
-  font-style: italic;
-  line-height: 1.7;
-  color: #374151;
-  margin: 0 0 1.5rem;
-  flex-grow: 1;
-}
-
-#testimonios .testimonio-card-featured .testimonio-text {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-#testimonios .testimonio-footer {
-  position: relative;
-  z-index: 1;
+#testimonios .testimonio-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 1.25rem;
-  margin-bottom: 1.25rem;
-  border-top: 1px solid #ebedf2;
-}
-
-#testimonios .testimonio-card-featured .testimonio-footer {
-  border-top-color: rgba(255, 255, 255, 0.15);
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 1.1rem;
 }
 
 #testimonios .testimonio-avatar {
   position: relative;
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--color-accent);
   overflow: hidden;
@@ -4984,37 +4974,60 @@ body.page-home .nivo-caption .row {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 
 #testimonios .testimonio-person {
   display: flex;
   flex-direction: column;
+  padding-top: 2px;
 }
 
 #testimonios .testimonio-name {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
-  color: #0a0f1e;
-}
-
-#testimonios .testimonio-card-featured .testimonio-name {
-  color: #fff;
+  color: var(--color-accent);
 }
 
 #testimonios .testimonio-meta {
   font-size: 13px;
   color: #6b7280;
+  margin-top: 2px;
 }
 
-#testimonios .testimonio-card-featured .testimonio-meta {
-  color: rgba(255, 255, 255, 0.6);
+#testimonios .testimonio-stars {
+  color: var(--color-accent);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+#testimonios .testimonio-stars i {
+  margin-right: 2px;
+}
+
+#testimonios .testimonio-positives {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #0a0f1e;
+  margin: 0 0 1rem;
+}
+
+#testimonios .testimonio-positives strong {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+#testimonios .testimonio-text {
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.6;
+  color: #0a0f1e;
+  margin: 0 0 1.5rem;
+  flex-grow: 1;
 }
 
 #testimonios .testimonio-pill {
-  position: relative;
-  z-index: 1;
   display: inline-block;
   width: fit-content;
   background: rgba(255, 122, 41, 0.12);
@@ -5023,32 +5036,7 @@ body.page-home .nivo-caption .row {
   font-weight: 700;
   padding: 6px 14px;
   border-radius: 999px;
-}
-
-#testimonios .testimonio-card-featured .testimonio-pill {
-  background: rgba(255, 122, 41, 0.18);
-}
-
-#testimonios .testimonios-dots {
-  display: none;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 1.5rem;
-}
-
-#testimonios .testimonios-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e5e7eb;
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-#testimonios .testimonios-dot.is-active {
-  background: var(--color-accent);
-  transform: scale(1.25);
+  margin-top: auto;
 }
 
 @media (max-width: 767px) {
@@ -5061,24 +5049,8 @@ body.page-home .nivo-caption .row {
   }
 
   #testimonios .testimonios-track {
-    display: flex;
-    grid-template-columns: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 16px;
-    padding: 4px 32px 4px 4px;
-    margin: 0 -4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  #testimonios .testimonios-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  #testimonios .testimonio-card {
-    flex: 0 0 85%;
-    scroll-snap-align: center;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   #testimonios .testimonio-card-featured {
@@ -5086,11 +5058,7 @@ body.page-home .nivo-caption .row {
   }
 
   #testimonios .testimonio-card-featured:hover {
-    transform: translateY(-6px);
-  }
-
-  #testimonios .testimonios-dots {
-    display: flex;
+    transform: translateY(-8px) rotate(-1deg);
   }
 }
 

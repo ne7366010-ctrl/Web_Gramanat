@@ -444,32 +444,6 @@
   });
 
   /*---------------------
-    Testimonios carousel dots (mobile)
-    Tracks which card is centered in the horizontally-scrolling
-    #testimonios-track and highlights the matching dot. Harmless on
-    desktop, where the track doesn't scroll and the dots stay hidden.
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const track = document.querySelector('#testimonios .testimonios-track');
-    const cards = Array.from(document.querySelectorAll('#testimonios .testimonio-card'));
-    const dots = Array.from(document.querySelectorAll('#testimonios .testimonios-dot'));
-
-    if (!track || !cards.length || !dots.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const index = cards.indexOf(entry.target);
-        if (index === -1) return;
-        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
-      });
-    }, { root: track, threshold: 0.6 });
-
-    cards.forEach((card) => observer.observe(card));
-  });
-
-  /*---------------------
     Scroll reveal (fade-up)
     Shared by #problems, #equipment, #results and #testimonios via the
     .reveal-up class.
