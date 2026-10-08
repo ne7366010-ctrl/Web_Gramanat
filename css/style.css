@@ -3171,6 +3171,15 @@ body.page-home .nivo-caption .row {
   padding: 60px 0;
 }
 
+/* #faq.faq-premium below overrides/extends this base block for the
+   interactive filter + card redesign. Scoped to #faq.faq-premium so it
+   can never leak anywhere else. */
+#faq.faq-premium {
+  background-color: #f8fafc;
+  background-image: radial-gradient(rgba(10, 15, 30, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 #faq .faq-eyebrow {
   color: var(--color-accent);
   font-size: 13px;
@@ -3271,10 +3280,75 @@ body.page-home .nivo-caption .row {
   margin: 0 0 2rem;
 }
 
-#faq .faq-contact-card {
+#faq.faq-premium .faq-contact-card {
+  position: relative;
+  overflow: hidden;
   background: #0a0f1e;
   border-radius: 16px;
   padding: 32px;
+}
+
+/* Subtle orange radial glow in the top-right corner, clipped by the
+   card's own overflow:hidden. Painted first (::before is the card's
+   first child), so it sits behind all the static in-flow content below
+   with no z-index needed. */
+#faq.faq-premium .faq-contact-card::before {
+  content: "";
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.28) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+#faq.faq-premium .faq-online-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #86efac;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+#faq.faq-premium .faq-online-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+#faq.faq-premium .faq-online-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: faq-online-pulse 2s ease-out infinite;
+}
+
+@keyframes faq-online-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #faq.faq-premium .faq-online-dot::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 #faq .faq-contact-card i {
@@ -3298,30 +3372,143 @@ body.page-home .nivo-caption .row {
   margin: 0 0 1.5rem;
 }
 
+#faq.faq-premium .faq-quick-questions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 1.5rem;
+}
+
+#faq.faq-premium .faq-quick-btn {
+  display: inline-block;
+  max-width: 100%;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+#faq.faq-premium .faq-quick-btn:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 #faq .faq-contact-btn {
   display: inline-block;
+  text-transform: none;
 }
 
 /* --- Right column (accordion) --- */
 
-#faq .faq-accordion {
-  border-top: 1px solid #e5e7eb;
+#faq.faq-premium .faq-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
 }
 
-#faq .faq-item {
-  border-bottom: 1px solid #e5e7eb;
+#faq.faq-premium .faq-filter-pill {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+#faq.faq-premium .faq-filter-pill:hover {
+  border-color: var(--color-accent);
+  color: #0a0f1e;
+}
+
+#faq.faq-premium .faq-filter-pill.is-active {
+  background: #0a0f1e;
+  border-color: #0a0f1e;
+  color: #fff;
+}
+
+#faq.faq-premium .faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#faq.faq-premium .faq-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+#faq.faq-premium .faq-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+#faq.faq-premium .faq-item.is-open::after {
+  transform: scaleY(1);
+}
+
+#faq.faq-premium .faq-item:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+#faq.faq-premium .faq-item.is-open {
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.08);
+}
+
+/* Fade-out used while a filter is hiding non-matching cards (see
+   js/main.js) — `.faq-item[hidden]` is removed once the fade finishes. */
+#faq.faq-premium .faq-item.is-filtered-out {
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+}
+
+#faq.faq-premium .faq-item[hidden] {
+  display: none;
 }
 
 #faq .faq-question {
   margin: 0;
 }
 
-#faq .faq-trigger {
+#faq.faq-premium .faq-trigger {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 26px 0;
+  gap: 18px;
+  padding: 22px 24px;
   background: none;
   border: none;
   cursor: pointer;
@@ -3329,11 +3516,32 @@ body.page-home .nivo-caption .row {
   font-family: inherit;
 }
 
-#faq .faq-number {
+#faq.faq-premium .faq-trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  border-radius: 14px;
+}
+
+#faq.faq-premium .faq-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 32px;
-  font-size: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--color-accent);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#faq.faq-premium .faq-item.is-open .faq-number {
+  background: var(--color-accent);
+  color: #fff;
 }
 
 #faq .faq-question-text {
@@ -3348,12 +3556,16 @@ body.page-home .nivo-caption .row {
   color: var(--color-accent);
 }
 
-#faq .faq-toggle-icon {
+#faq.faq-premium .faq-toggle-icon {
   position: relative;
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  transition: transform 0.3s ease;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  transition:
+    background-color 0.25s ease,
+    transform 0.3s ease;
 }
 
 #faq .faq-toggle-icon::before,
@@ -3382,9 +3594,13 @@ body.page-home .nivo-caption .row {
   transform: rotate(45deg);
 }
 
-#faq .faq-item.is-open .faq-toggle-icon::before,
-#faq .faq-item.is-open .faq-toggle-icon::after {
+#faq.faq-premium .faq-item.is-open .faq-toggle-icon {
   background: var(--color-accent);
+}
+
+#faq.faq-premium .faq-item.is-open .faq-toggle-icon::before,
+#faq.faq-premium .faq-item.is-open .faq-toggle-icon::after {
+  background: #fff;
 }
 
 #faq .faq-answer {
@@ -3401,12 +3617,47 @@ body.page-home .nivo-caption .row {
   overflow: hidden;
 }
 
-#faq .faq-answer-inner p {
-  margin: 0;
-  padding: 0 0 26px 48px;
+/* Only horizontal padding on the item itself — vertical padding here
+   would stay as an unavoidable minimum height even while the parent
+   grid row is collapsed to 0fr (padding is part of this element's own
+   box, unlike its children's content, which `overflow: hidden` can
+   clip away entirely). The old design kept all vertical spacing on the
+   <p> for the same reason; the trailing margin below does the same job
+   for the space after the WhatsApp link. */
+#faq.faq-premium .faq-answer-inner {
+  padding: 0 24px 0 74px;
+}
+
+#faq.faq-premium .faq-answer-inner p {
+  margin: 0 0 12px;
+  padding: 0;
   font-size: 16px;
   color: #6b7280;
   line-height: 1.75;
+}
+
+#faq.faq-premium .faq-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#faq.faq-premium .faq-whatsapp-link:hover {
+  text-decoration: underline;
+}
+
+#faq.faq-premium .faq-whatsapp-link .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#faq.faq-premium .faq-whatsapp-link:hover .arrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 767px) {
@@ -3419,8 +3670,37 @@ body.page-home .nivo-caption .row {
     flex-basis: auto;
   }
 
+  #faq.faq-premium .faq-aside {
+    order: 2;
+  }
+
+  #faq.faq-premium .faq-main {
+    order: 1;
+  }
+
   #faq .faq-title {
     font-size: 28px;
+  }
+
+  #faq.faq-premium .faq-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #faq.faq-premium .faq-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  #faq.faq-premium .faq-answer-inner {
+    padding: 0 20px;
+  }
+
+  #faq.faq-premium .faq-trigger {
+    padding: 20px;
+    gap: 14px;
   }
 }
 

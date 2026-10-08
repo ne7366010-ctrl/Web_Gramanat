@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=45" rel="stylesheet">
+  <link href="css/style.css?v=47" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1169,7 +1169,7 @@
   </section>
 
   <!-- Faq area start -->
-<div id="faq" class="faq-area area-padding">
+<div id="faq" class="faq-area area-padding faq-premium">
   <div class="container">
     <div class="row faq-layout">
       <div class="faq-aside">
@@ -1177,15 +1177,31 @@
         <h2 class="faq-title">Preguntas frecuentes</h2>
         <p class="faq-intro">Reunimos las consultas más comunes de nuestros clientes. Si no encuentras tu respuesta, nuestro equipo te atiende personalmente.</p>
         <div class="faq-contact-card">
+          <div class="faq-online-indicator">
+            <span class="faq-online-dot" aria-hidden="true"></span>
+            Asesores en línea
+          </div>
           <i class="fa-solid fa-headset"></i>
           <h3>¿Necesitas asesoría personalizada?</h3>
           <p>Te respondemos en minutos por WhatsApp, sin compromiso.</p>
+          <div class="faq-quick-questions">
+            <a class="faq-quick-btn" href="https://wa.me/50370043346" data-wa-message="¿Cuánto cuesta para mi negocio?" target="_blank">¿Cuánto cuesta para mi negocio?</a>
+            <a class="faq-quick-btn" href="https://wa.me/50370043346" data-wa-message="Quiero una demo gratis" target="_blank">Quiero una demo gratis</a>
+            <a class="faq-quick-btn" href="https://wa.me/50370043346" data-wa-message="Necesito soporte técnico" target="_blank">Necesito soporte técnico</a>
+          </div>
           <a class="ready-btn cta-demo faq-contact-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." target="_blank">Hablar con un asesor</a>
         </div>
       </div>
       <div class="faq-main">
+        <div class="faq-filters">
+          <button type="button" class="faq-filter-pill is-active" data-filter="todas" aria-pressed="true">Todas</button>
+          <button type="button" class="faq-filter-pill" data-filter="precios" aria-pressed="false">Precios</button>
+          <button type="button" class="faq-filter-pill" data-filter="instalacion" aria-pressed="false">Instalación</button>
+          <button type="button" class="faq-filter-pill" data-filter="hacienda" aria-pressed="false">Hacienda</button>
+          <button type="button" class="faq-filter-pill" data-filter="soporte" aria-pressed="false">Soporte</button>
+        </div>
         <div class="faq-accordion">
-          <div class="faq-item is-open">
+          <div class="faq-item is-open reveal-up" data-category="precios" style="--reveal-delay: 0s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-answer-1" id="faq-trigger-1">
                 <span class="faq-number">01</span>
@@ -1196,10 +1212,11 @@
             <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-trigger-1">
               <div class="faq-answer-inner">
                 <p>Depende de tu tipo de negocio y del equipo que necesites. Después de la demo gratuita te damos una cotización clara y sin compromiso.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
-          <div class="faq-item">
+          <div class="faq-item reveal-up" data-category="instalacion" style="--reveal-delay: 0.05s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-2" id="faq-trigger-2">
                 <span class="faq-number">02</span>
@@ -1210,10 +1227,11 @@
             <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-trigger-2">
               <div class="faq-answer-inner">
                 <p>Normalmente entre 24 y 48 horas después de confirmar. Dejamos todo funcionando y listo para vender.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
-          <div class="faq-item">
+          <div class="faq-item reveal-up" data-category="hacienda" style="--reveal-delay: 0.1s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-3" id="faq-trigger-3">
                 <span class="faq-number">03</span>
@@ -1224,10 +1242,11 @@
             <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-trigger-3">
               <div class="faq-answer-inner">
                 <p>Sí. Emites facturas electrónicas válidas y mantenemos tu sistema actualizado cuando cambia la normativa.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
-          <div class="faq-item">
+          <div class="faq-item reveal-up" data-category="soporte" style="--reveal-delay: 0.15s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-4" id="faq-trigger-4">
                 <span class="faq-number">04</span>
@@ -1238,10 +1257,11 @@
             <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-trigger-4">
               <div class="faq-answer-inner">
                 <p>Sí. La capacitación para ti y tu personal está incluida, para que lo uses desde el primer día.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
-          <div class="faq-item">
+          <div class="faq-item reveal-up" data-category="soporte" style="--reveal-delay: 0.2s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-5" id="faq-trigger-5">
                 <span class="faq-number">05</span>
@@ -1252,10 +1272,11 @@
             <div class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-trigger-5">
               <div class="faq-answer-inner">
                 <p>Nos escribes por WhatsApp y te ayudamos de forma remota en minutos. Si hace falta, vamos a tu negocio.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
-          <div class="faq-item">
+          <div class="faq-item reveal-up" data-category="instalacion" style="--reveal-delay: 0.25s">
             <h3 class="faq-question">
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-6" id="faq-trigger-6">
                 <span class="faq-number">06</span>
@@ -1266,6 +1287,7 @@
             <div class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-trigger-6">
               <div class="faq-answer-inner">
                 <p>En muchos casos sí. Durante la demo revisamos tu equipo y te decimos si necesitas algo adicional.</p>
+                <a class="faq-whatsapp-link" href="https://wa.me/50370043346" target="_blank">¿Te quedó alguna duda? Pregúntanos por WhatsApp <span class="arrow">→</span></a>
               </div>
             </div>
           </div>
@@ -1526,7 +1548,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=11"></script>
 </body>
 
 </html>

@@ -565,6 +565,68 @@
     });
   });
 
+  /*---------------------
+    Faq category filters
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const pills = document.querySelectorAll('#faq .faq-filter-pill');
+    const items = document.querySelectorAll('#faq .faq-item');
+
+    if (!pills.length || !items.length) return;
+
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const filter = pill.dataset.filter;
+
+        pills.forEach((p) => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-pressed', 'false');
+        });
+        pill.classList.add('is-active');
+        pill.setAttribute('aria-pressed', 'true');
+
+        items.forEach((item) => {
+          const matches = filter === 'todas' || item.dataset.category === filter;
+
+          if (matches) {
+            item.hidden = false;
+            requestAnimationFrame(() => item.classList.remove('is-filtered-out'));
+          } else {
+            item.classList.add('is-filtered-out');
+            window.setTimeout(() => {
+              if (item.classList.contains('is-filtered-out')) item.hidden = true;
+            }, 250);
+          }
+        });
+      });
+    });
+  });
+
+  /*---------------------
+    Faq WhatsApp links (per-question "any doubts?" link + the aside's
+    quick-question pills) — built here so the message text stays out of
+    the HTML and is always encoded correctly.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const WHATSAPP_NUMBER = '50370043346';
+
+    document.querySelectorAll('#faq .faq-whatsapp-link').forEach((link) => {
+      const question = link.closest('.faq-item')?.querySelector('.faq-question-text')?.textContent.trim();
+
+      if (!question) return;
+
+      const message = `Hola Gramanat, tengo una duda: ${question}`;
+      link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    });
+
+    document.querySelectorAll('#faq .faq-quick-btn[data-wa-message]').forEach((btn) => {
+      const message = btn.dataset.waMessage;
+      btn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    });
+  });
+
   /*----------------------
    Parallax
   -----------------------*/
