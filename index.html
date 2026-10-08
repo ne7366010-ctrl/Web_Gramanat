@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=26" rel="stylesheet">
+  <link href="css/style.css?v=27" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1068,6 +1068,73 @@
   </div>
   <!-- End Results Strip -->
 
+  <!-- PARA ACTIVAR: reemplaza todos los textos entre corchetes con testimonios REALES y quita el atributo hidden -->
+  <section id="testimonios" class="testimonios-area" hidden>
+    <div class="container">
+      <div class="row">
+        <div class="section-headline text-center">
+          <p class="testimonios-eyebrow">Lo que dicen nuestros clientes</p>
+          <h2>Negocios que ya facturan sin preocupaciones</h2>
+          <p class="testimonios-subtitle">La confianza de nuestros clientes es nuestra mejor carta de presentación.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="testimonios-track">
+          <article class="testimonio-card reveal-up" style="--reveal-delay: 0s">
+            <i class="fa-solid fa-quote-left testimonio-quote"></i>
+            <p class="testimonio-text">[TESTIMONIO REAL DEL CLIENTE 1]</p>
+            <div class="testimonio-footer">
+              <div class="testimonio-avatar">
+                <img src="img/testimonios/cliente-1.jpg" alt="[NOMBRE DEL CLIENTE 1]" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="testimonio-avatar-fallback">C1</span>
+              </div>
+              <div class="testimonio-person">
+                <span class="testimonio-name">[NOMBRE DEL CLIENTE 1]</span>
+                <span class="testimonio-meta">[TIPO DE NEGOCIO] · [CIUDAD]</span>
+              </div>
+            </div>
+            <span class="testimonio-pill">[SERVICIO QUE USA]</span>
+          </article>
+          <article class="testimonio-card testimonio-card-featured reveal-up" style="--reveal-delay: 0.1s">
+            <i class="fa-solid fa-quote-left testimonio-quote"></i>
+            <p class="testimonio-text">[TESTIMONIO REAL DEL CLIENTE 2]</p>
+            <div class="testimonio-footer">
+              <div class="testimonio-avatar">
+                <img src="img/testimonios/cliente-2.jpg" alt="[NOMBRE DEL CLIENTE 2]" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="testimonio-avatar-fallback">C2</span>
+              </div>
+              <div class="testimonio-person">
+                <span class="testimonio-name">[NOMBRE DEL CLIENTE 2]</span>
+                <span class="testimonio-meta">[TIPO DE NEGOCIO] · [CIUDAD]</span>
+              </div>
+            </div>
+            <span class="testimonio-pill">[SERVICIO QUE USA]</span>
+          </article>
+          <article class="testimonio-card reveal-up" style="--reveal-delay: 0.2s">
+            <i class="fa-solid fa-quote-left testimonio-quote"></i>
+            <p class="testimonio-text">[TESTIMONIO REAL DEL CLIENTE 3]</p>
+            <div class="testimonio-footer">
+              <div class="testimonio-avatar">
+                <img src="img/testimonios/cliente-3.jpg" alt="[NOMBRE DEL CLIENTE 3]" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="testimonio-avatar-fallback">C3</span>
+              </div>
+              <div class="testimonio-person">
+                <span class="testimonio-name">[NOMBRE DEL CLIENTE 3]</span>
+                <span class="testimonio-meta">[TIPO DE NEGOCIO] · [CIUDAD]</span>
+              </div>
+            </div>
+            <span class="testimonio-pill">[SERVICIO QUE USA]</span>
+          </article>
+        </div>
+        <div class="testimonios-dots" aria-hidden="true">
+          <span class="testimonios-dot is-active"></span>
+          <span class="testimonios-dot"></span>
+          <span class="testimonios-dot"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Faq area start -->
 <div id="faq" class="faq-area area-padding">
   <div class="container">
@@ -1198,79 +1265,6 @@
     </div>
   </div>
   <!-- End Final CTA Area -->
-
-  <!-- Testimonials section hidden (commented out). Remove this wrapper
-       comment (and the closing comment marker below) to re-enable it.
-       The inner "Start/End Testimonials" markers were removed so they
-       wouldn't prematurely close this outer comment.
-  <div class="testimonials-area">
-    <div class="testi-inner area-padding">
-      <div class="testi-overly"></div>
-      <div class="container ">
-        <h2><span class="gradient-text" >TESTIMONIOS</span></h2>
-        <div class="decorative-line"></div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            [ Start testimonials Start ]
-            <div class="testimonial-content text-center">
-              <a class="quate" href="#"><i class="fa-solid fa-user"></i></a>
-              [ start testimonial carousel ]
-              <div class="testimonial-carousel">
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      "La experiencia con Gramanat ha sido excepcional. Su equipo nos ayudó con el diseño de nuestra nueva oficina y obtuvimos sin contratiempos los permisos de construcción. ¡Altamente recomendados para proyectos arquitectónicos y gestión de documentos!"
-                    </p>
-                    <h6>Javier R.</h6>
-                  </div>
-                </div>
-                [ End single item ]
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      "Estoy muy satisfecho con los servicios de Gramanat. Me ayudaron a encontrar la propiedad perfecta para mi familia, y gestionaron todos los trámites de compra de manera eficiente. ¡Gracias por hacer que el proceso fuera tan fácil!"
-                    </p>
-                    <h6>María G.</h6>
-                  </div>
-                </div>
-                [ End single item ]
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      "Gramanat no solo diseñó nuestra página web, sino que también nos proporcionó un software personalizado para gestionar nuestras ventas y facturación electrónica. Su profesionalismo y atención al detalle son impresionantes."
-                    </p>
-                    <h6>Pedro M.</h6>
-                  </div>
-                </div>
-                [ End single item ]
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      "El equipo de Gramanat nos brindó un excelente soporte técnico cuando tuvimos problemas con nuestras computadoras en la oficina. Rápidos, eficientes y muy amables. ¡Los recomendaría sin dudarlo!"
-                    </p>
-                    <h6>Ana S.</h6>
-                  </div>
-                </div>
-                [ End single item ]
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      "“¡Gramanat hizo realidad nuestra idea de una aplicación móvil, para nuestro negocio! Su equipo de desarrollo fue creativo, receptivo y entregó un producto final de alta calidad. Definitivamente los volveremos a contratar para futuros proyectos."
-                    </p>
-                    <h6>Luis F.</h6>
-                  </div>
-                </div>
-                [ End single item ]
-              </div>
-            </div>
-            [ End testimonials end ]
-          </div>
-          [ End Right Feature ]
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
 
   <!-- Start contact Area -->
   <div id="contact" class="contact-area">
@@ -1485,7 +1479,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=7"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 
 </html>
