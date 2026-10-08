@@ -3211,6 +3211,14 @@ body.page-home .nivo-caption .row {
 #faq .faq-layout {
   display: flex;
   gap: 64px;
+  /* .container/.row carry a sitewide `overflow: hidden` (section 8
+     above). Combined with the scroll-driven `transform` main.js applies
+     to .faq-aside every frame (the "sticky" hack above), that clipped
+     ancestor caused the aside to repaint as a smeared/doubled ghost
+     during scroll in some browsers — restoring overflow:visible here
+     removes the clip, same fix as the testimonios cards and the hero
+     slider's .nivo-caption override elsewhere in this file. */
+  overflow: visible;
 }
 
 /* --- Left column (intro + contact card) ---
@@ -4897,6 +4905,17 @@ body.page-home .nivo-caption .row {
   background: var(--color-accent);
 }
 
+/* .container/.row carry a sitewide `overflow: hidden` (see that rule in
+   section 8 above) which clips .testimonio-card-featured's
+   translateY(40px) shift — its bottom 40px (including the pill tag)
+   was getting cut off by its own .row ancestor. Same fix as the hero
+   slider's .nivo-caption override further up: restore overflow:visible
+   for this section's rows/container. */
+#testimonios .container,
+#testimonios .row {
+  overflow: visible;
+}
+
 #testimonios .testimonios-track {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -4904,6 +4923,7 @@ body.page-home .nivo-caption .row {
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;
+  padding-bottom: 60px;
 }
 
 #testimonios .testimonio-card {
