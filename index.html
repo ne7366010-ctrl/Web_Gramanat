@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=30" rel="stylesheet">
+  <link href="css/style.css?v=32" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1321,37 +1321,55 @@
       </div>
       <div class="row contact-bottom-row">
         <!-- Start Google Map -->
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <!-- Start Map -->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.8918174701603!2d-89.22866672500584!3d13.724998986664005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6331e4b4ad75e3%3A0x2f97ff2ed9078b0d!2sGramanat%20El%20Salvador!5e0!3m2!1ses-419!2ssv!4v1708583563547!5m2!1ses-419!2ssv" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
-          <!-- End Map -->
+        <div class="col-md-6 col-sm-6 col-xs-12 contact-map-col">
+          <div class="contact-map-card">
+            <div class="contact-map-header">
+              <p class="contact-map-eyebrow">Visítanos</p>
+              <h3 class="contact-map-title">Nuestra oficina</h3>
+              <p class="contact-map-text">Calle Motocross, Res. Montemira, San Salvador</p>
+              <a class="contact-map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=13.724998986664005,-89.22866672500584" target="_blank">Cómo llegar <span class="arrow">→</span></a>
+            </div>
+            <!-- Start Map -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.8918174701603!2d-89.22866672500584!3d13.724998986664005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6331e4b4ad75e3%3A0x2f97ff2ed9078b0d!2sGramanat%20El%20Salvador!5e0!3m2!1ses-419!2ssv!4v1708583563547!5m2!1ses-419!2ssv" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <!-- End Map -->
+          </div>
         </div>
         <!-- End Google Map -->
 
         <!-- Start  contact -->
-        <div class="col-md-6 col-sm-6 col-xs-12" id="contact-form">
+        <div class="col-md-6 col-sm-6 col-xs-12 contact-form-col" id="contact-form">
           <div class="form contact-form">
+            <div class="contact-form-header">
+              <p class="contact-form-eyebrow">Escríbenos</p>
+              <h3 class="contact-form-title">Envíanos un mensaje</h3>
+              <p class="contact-form-text">Cuéntanos qué tipo de negocio tienes y te recomendamos la solución ideal.</p>
+            </div>
             <div id="sendmessage">¡Su mensaje ha sido enviado! Gracias.</div>
             <div id="errormessage"></div>
             <form action="send.php" method="post" role="form" class="contactForm">
               <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4" data-msg="Por favor, ingrese al menos 4 caracteres." />
+                <label for="name" class="contact-label">Nombre</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Tu nombre completo" data-rule="minlen:4" data-msg="Por favor, ingrese al menos 4 caracteres." />
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Correo" data-rule="email" data-msg="Por favor, introduzca una dirección de correo electrónico válida." />
+                <label for="email" class="contact-label">Correo</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="tucorreo@ejemplo.com" data-rule="email" data-msg="Por favor, introduzca una dirección de correo electrónico válida." />
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" data-rule="minlen:4" data-msg="Por favor, ingrese al menos 8 caracteres para el asunto." />
+                <label for="subject" class="contact-label">Asunto</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Ej. Quiero facturación electrónica" data-rule="minlen:4" data-msg="Por favor, ingrese al menos 8 caracteres para el asunto." />
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="1" data-rule="required" data-msg="Por favor escribe algo para nosotros." placeholder="Mensaje"></textarea>
+                <label for="message" class="contact-label">Mensaje</label>
+                <textarea class="form-control" name="message" id="message" rows="1" data-rule="required" data-msg="Por favor escribe algo para nosotros." placeholder="Cuéntanos sobre tu negocio…"></textarea>
                 <div class="validation"></div>
               </div>
-              <div class="text-center"><button type="submit">Enviar mensaje</button></div>
+              <div class="text-center"><button type="submit">Enviar mensaje <span class="arrow">→</span></button></div>
             </form>
+            <p class="contact-form-note"><i class="fa-brands fa-whatsapp"></i>¿Prefieres algo más rápido? Escríbenos por <a href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." target="_blank">WhatsApp</a></p>
           </div>
         </div>
         <!-- End Left contact -->

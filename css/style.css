@@ -5980,51 +5980,215 @@ body.page-home .nivo-caption .row {
 /* --- Map + form --- */
 
 #contact.contact-premium .contact-bottom-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: stretch;
+  gap: 24px;
   max-width: 1140px;
   margin: 0 auto;
 }
 
-#contact.contact-premium .contact-bottom-row iframe {
-  display: block;
+#contact.contact-premium .contact-map-col,
+#contact.contact-premium .contact-form-col {
+  /* Bootstrap's `.col-md-6 { width: 50% }` (from its own responsive
+     grid, meant for float layout) still applies here and resolves
+     against the grid TRACK (50% of 558px = 279px) instead of filling
+     it, and left auto-placement ended up swapping the two columns —
+     both overridden explicitly rather than relying on grid defaults. */
+  display: flex;
   width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
+  float: none;
 }
 
-#contact.contact-premium .contact-form {
+#contact.contact-premium .contact-map-col {
+  grid-column: 1;
+}
+
+#contact.contact-premium .contact-form-col {
+  grid-column: 2;
+}
+
+#contact.contact-premium .contact-map-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
-  padding: 32px;
+  overflow: hidden;
+}
+
+#contact.contact-premium .contact-map-header {
+  padding: 24px;
+}
+
+#contact.contact-premium .contact-map-eyebrow,
+#contact.contact-premium .contact-form-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+#contact.contact-premium .contact-map-title,
+#contact.contact-premium .contact-form-title {
+  color: #0a0f1e;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+#contact.contact-premium .contact-map-text,
+#contact.contact-premium .contact-form-text {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+#contact.contact-premium .contact-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 2px solid #0a0f1e;
+  color: #0a0f1e;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#contact.contact-premium .contact-map-btn:hover {
+  background: #0a0f1e;
+  color: #fff;
+}
+
+#contact.contact-premium .contact-map-btn .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#contact.contact-premium .contact-map-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+#contact.contact-premium .contact-map-card iframe {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 240px;
+}
+
+#contact.contact-premium .contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
+  padding: 40px;
+}
+
+#contact.contact-premium .contact-form-header {
+  margin-bottom: 1.5rem;
+}
+
+#contact.contact-premium .form-group {
+  margin-bottom: 18px;
+}
+
+#contact.contact-premium .contact-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0f1e;
+  margin-bottom: 6px;
 }
 
 #contact.contact-premium .form-control {
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  transition: border-color 0.25s ease;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #0a0f1e;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#contact.contact-premium textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
 }
 
 #contact.contact-premium .form-control:focus {
   border-color: var(--color-accent);
+  background: #fff;
+  /* A sitewide `input[type="text"], ... { box-shadow: none !important; }`
+     reset (line ~294) would otherwise always win over this, regardless
+     of selector specificity — !important is the only way to restore
+     the focus ring here. */
+  box-shadow: 0 0 0 4px rgba(255, 122, 41, 0.15) !important;
   outline: none;
-  box-shadow: none;
 }
 
 #contact.contact-premium .contactForm button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   background: var(--color-accent);
   border: none;
   color: #fff;
-  border-radius: 30px;
-  padding: 14px 36px;
+  border-radius: 12px;
+  padding: 16px 36px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: background-color 0.25s ease;
+  text-transform: none;
+  letter-spacing: normal;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 #contact.contact-premium .contactForm button[type="submit"]:hover {
   background: #e0691f;
   color: #fff;
+  transform: translateY(-2px);
+}
+
+#contact.contact-premium .contact-form-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  margin: 1.25rem 0 0;
+}
+
+#contact.contact-premium .contact-form-note i {
+  color: #25d366;
+  font-size: 15px;
+}
+
+#contact.contact-premium .contact-form-note a {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#contact.contact-premium .contact-form-note a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 991px) {
@@ -6051,6 +6215,29 @@ body.page-home .nivo-caption .row {
     align-items: flex-start;
     text-align: left;
     padding: 28px;
+  }
+
+  #contact.contact-premium .contact-bottom-row {
+    grid-template-columns: 1fr;
+  }
+
+  #contact.contact-premium .contact-form-col {
+    grid-column: 1;
+    order: 1;
+  }
+
+  #contact.contact-premium .contact-map-col {
+    grid-column: 1;
+    order: 2;
+  }
+
+  #contact.contact-premium .contact-map-card iframe {
+    flex: none;
+    height: 300px;
+  }
+
+  #contact.contact-premium .contact-form {
+    padding: 24px;
   }
 
   #contact.contact-premium .contact-banner-btn {
