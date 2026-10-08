@@ -74,8 +74,8 @@ body {
   position: fixed;
   width: 55px;
   height: 55px;
-  bottom: 40px;
-  right: 40px;
+  bottom: 24px;
+  right: 24px;
   background-color: #25d366;
   color: #fff !important;
   border-radius: 50%;
@@ -7006,15 +7006,30 @@ body.page-home .nivo-caption .row {
 #footer.footer-premium .footer-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+/* The source file (nav wordmark, dark green on transparent) reads as a
+   faint dark-gray smudge at small sizes against the dark footer, even
+   with the whitening filter below — its anti-aliased edges blend into
+   the navy background. An orange badge behind it guarantees contrast
+   regardless of how the filter renders. */
+#footer.footer-premium .footer-logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-accent);
 }
 
 #footer.footer-premium .footer-logo-mark {
   display: block;
-  height: 40px;
+  height: 34px;
   width: auto;
-  /* Source file is the dark green nav wordmark on a transparent
-     background — this turns it solid white for the dark footer. */
+  max-width: 70%;
   filter: brightness(0) invert(1);
 }
 
