@@ -1141,19 +1141,28 @@ body.page-home .nivo-caption .row {
   flex: 1 1 480px;
 }
 
-.hero-eyebrow {
+/* p.hero-eyebrow (not just .hero-eyebrow): nivo-slider.css's own
+   `.nivo-caption p { margin: 0; }` has equal-or-higher specificity and
+   loads before style.css, so a bare class selector here loses the
+   margin-bottom entirely — matching its specificity with the extra
+   type selector is what makes this win (style.css loads later). */
+p.hero-eyebrow {
   color: var(--color-accent);
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 1;
-  margin: 0 0 0.75rem;
+  /* Root font-size is 10px here (Bootstrap sets html{font-size:10px}),
+     so 1.55rem = 15.5px: the previous 0.75rem (7.5px) plus 8px. */
+  margin: 0 0 1.55rem;
 }
 
+/* +15% over the previous 3rem base, desktop/tablet only — the
+   max-width:767px override below (still 1.6rem) keeps mobile as-is. */
 .hero-title {
   color: #fff;
-  font-size: 3rem;
+  font-size: 3.45rem;
   font-weight: 800;
   line-height: 1.15;
   margin: 0 0 1.25rem;
@@ -1181,7 +1190,7 @@ body.page-home .nivo-caption .row {
   opacity: 0.9;
   font-size: 2.16rem;
   line-height: 1.6;
-  max-width: 46ch;
+  max-width: 560px;
   margin: 0;
 }
 
