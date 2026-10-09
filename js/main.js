@@ -319,11 +319,11 @@
   });
 
   /*---------------------
-    Sistemas selector (tabs + mobile chips)
+    Sistemas selector (horizontal pills)
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
-    const triggers = Array.from(document.querySelectorAll('#sistemas .sistemas-tab, #sistemas .sistemas-chip'));
+    const triggers = Array.from(document.querySelectorAll('#sistemas .sistemas-pill'));
     const panels = Array.from(document.querySelectorAll('#sistemas .sistemas-panel'));
 
     if (!triggers.length || !panels.length) return;
@@ -352,7 +352,7 @@
       });
 
       trigger.addEventListener('keydown', (e) => {
-        const group = Array.from(trigger.parentElement.children).filter((el) => el.classList.contains('sistemas-tab') || el.classList.contains('sistemas-chip'));
+        const group = Array.from(trigger.parentElement.children).filter((el) => el.classList.contains('sistemas-pill'));
         const index = group.indexOf(trigger);
         let nextIndex = null;
 

@@ -1678,10 +1678,10 @@ p.hero-subtitle {
 /*--------------------------------------------------*/
 /* 2a. Sistemas Area ("Encuentra el sistema justo para tu negocio")
 /* Scoped to #sistemas so it never affects #services/#equipment, which
-/* share the same .custom-cards/.card/.icon-wrapper base. An
-/* interactive tab selector: a vertical tablist on desktop (horizontal
-/* scrollable chips on mobile) driving a single dark navy detail panel,
-/* toggled by js/main.js.
+/* share the same .custom-cards/.card/.icon-wrapper base. A single
+/* horizontal pill selector (centered on desktop, scroll-snap on
+/* mobile) driving a full-width dark navy detail panel with a 50/50
+/* info/visual split, toggled by js/main.js.
 /*--------------------------------------------------*/
 
 #sistemas .sistemas-eyebrow {
@@ -1697,6 +1697,7 @@ p.hero-subtitle {
   color: #0a0f1e;
   text-transform: none;
   font-size: 40px;
+  letter-spacing: -0.01em;
   margin-bottom: 12px;
 }
 
@@ -1711,118 +1712,75 @@ p.hero-subtitle {
   margin: 0 auto 2.5rem;
 }
 
-/* --- Selector: 34% tablist / 66% panel --- */
+/* --- Pill selector: one horizontal row, centered on desktop --- */
 
-#sistemas .sistemas-selector {
+#sistemas .sistemas-pills {
   display: flex;
-  align-items: stretch;
-  gap: 28px;
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-#sistemas .sistemas-tablist {
-  flex: 0 0 34%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#sistemas .sistemas-tab {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  max-height: 64px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-left: 4px solid transparent;
-  border-radius: 14px;
-  padding: 10px 16px;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-#sistemas .sistemas-tab:hover {
-  border-color: rgba(255, 122, 41, 0.4);
-}
-
-#sistemas .sistemas-tab-icon {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background-color: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
-  font-size: 18px;
+  gap: 12px;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto 40px;
 }
 
-#sistemas .sistemas-tab-name {
-  flex: 1 1 auto;
-  font-size: 16px;
+#sistemas .sistemas-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 15px;
   font-weight: 600;
   color: #0a0f1e;
-  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
-#sistemas .sistemas-tab-arrow {
-  flex-shrink: 0;
+#sistemas .sistemas-pill i {
   color: var(--color-accent);
-  font-weight: 700;
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  font-size: 15px;
+  transition: color 0.25s ease;
 }
 
-#sistemas .sistemas-tab.is-active {
-  border-left-color: var(--color-accent);
-  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.08);
+#sistemas .sistemas-pill:hover {
+  border-color: var(--color-accent);
 }
 
-#sistemas .sistemas-tab.is-active .sistemas-tab-name {
+#sistemas .sistemas-pill.is-active {
+  background: #0a0f1e;
+  border-color: #0a0f1e;
+  color: #fff;
+}
+
+#sistemas .sistemas-pill.is-active i {
   color: var(--color-accent);
 }
 
-#sistemas .sistemas-tab.is-active .sistemas-tab-arrow {
-  opacity: 1;
-}
-
-/* --- Mobile chip row (hidden on desktop) --- */
-
-#sistemas .sistemas-chips {
-  display: none;
-}
-
-/* --- Panel --- */
+/* --- Panel: full width, 50/50 info/visual grid --- */
 
 #sistemas .sistemas-panels {
-  flex: 1 1 66%;
-  min-width: 0;
-  display: flex;
+  width: 100%;
 }
 
 #sistemas .sistemas-panel {
   position: relative;
-  flex: 1 1 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
   background: #0a0f1e;
-  border-radius: 20px;
+  border-radius: 28px;
   padding: 48px;
   overflow: hidden;
   box-shadow: 0 24px 48px rgba(10, 15, 30, 0.25);
-  animation: sistemasPanelFade 0.3s ease;
+  animation: sistemasPanelFade 0.2s ease;
 }
 
-/* The `display: flex` above would otherwise outrank the UA stylesheet's
+/* The grid below would otherwise outrank the UA stylesheet's
    `[hidden] { display: none }` and make every panel render at once. */
 #sistemas .sistemas-panel[hidden] {
   display: none;
@@ -1831,9 +1789,11 @@ p.hero-subtitle {
 @keyframes sistemasPanelFade {
   from {
     opacity: 0;
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -1848,24 +1808,16 @@ p.hero-subtitle {
   pointer-events: none;
 }
 
-#sistemas .sistemas-panel-icon {
+#sistemas .sistemas-panel-grid {
   position: relative;
   z-index: 1;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
   align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
-  background-color: rgba(255, 122, 41, 0.15);
-  color: var(--color-accent);
-  font-size: 30px;
-  margin-bottom: 1.5rem;
 }
 
 #sistemas .sistemas-panel-label {
-  position: relative;
-  z-index: 1;
   color: var(--color-accent);
   font-size: 13px;
   font-weight: 700;
@@ -1875,8 +1827,6 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-title {
-  position: relative;
-  z-index: 1;
   color: #fff;
   font-size: 32px;
   font-weight: 800;
@@ -1885,8 +1835,6 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-tagline {
-  position: relative;
-  z-index: 1;
   color: rgba(255, 255, 255, 0.75);
   font-size: 18px;
   line-height: 1.5;
@@ -1894,13 +1842,11 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-features {
-  position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem 1.5rem;
   list-style: none;
-  margin: 0 0 2.5rem;
+  margin: 0 0 2rem;
   padding: 0;
 }
 
@@ -1925,28 +1871,70 @@ p.hero-subtitle {
   font-size: 13px;
 }
 
-#sistemas .sistemas-panel-btn {
-  position: relative;
-  z-index: 1;
+#sistemas .sistemas-panel-ideal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 2rem;
+}
+
+#sistemas .sistemas-panel-ideal-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+#sistemas .sistemas-panel-chip {
   display: inline-flex;
   align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#sistemas .sistemas-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#sistemas .sistemas-panel-btn,
+#sistemas .sistemas-panel-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
+  height: 52px;
+  padding: 0 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: normal;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#sistemas .sistemas-panel-btn {
   background: var(--color-accent);
   color: #fff;
   border: none;
-  border-radius: 30px;
-  padding: 18px 36px;
-  font-weight: 700;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: background-color 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 #sistemas .sistemas-panel-btn:hover {
   background: #e0691f;
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
 }
 
 #sistemas .sistemas-panel-btn .arrow {
@@ -1956,6 +1944,169 @@ p.hero-subtitle {
 
 #sistemas .sistemas-panel-btn:hover .arrow {
   transform: translateX(4px);
+}
+
+#sistemas .sistemas-panel-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+#sistemas .sistemas-panel-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* --- Visual: 4:3 photo slot with CSS mockup fallback --- */
+
+#sistemas .sistemas-panel-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#sistemas .sistemas-panel-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#sistemas .sistemas-mockup {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+#sistemas .sistemas-mockup-frame {
+  width: 100%;
+  max-width: 400px;
+  background: #11182b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  animation: sistemasMockupFloat 4s ease-in-out infinite;
+}
+
+@keyframes sistemasMockupFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-mockup-frame {
+    animation: none;
+  }
+}
+
+#sistemas .sistemas-mockup-base {
+  width: 110px;
+  height: 10px;
+  margin: 10px auto 0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 8px 8px;
+}
+
+#sistemas .sistemas-mockup-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#sistemas .sistemas-mockup-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+#sistemas .sistemas-mockup-business {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#sistemas .sistemas-mockup-body {
+  display: flex;
+  gap: 12px;
+}
+
+#sistemas .sistemas-mockup-products {
+  flex: 1 1 55%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#sistemas .sistemas-mockup-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+#sistemas .sistemas-mockup-ticket {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#sistemas .sistemas-mockup-ticket-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 11px;
+}
+
+#sistemas .sistemas-mockup-ticket-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#sistemas .sistemas-mockup-ticket-btn {
+  display: block;
+  margin-top: auto;
+  background: var(--color-accent);
+  border-radius: 8px;
+  padding: 8px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
 }
 
 #sistemas .sistemas-closing {
@@ -1978,19 +2129,17 @@ p.hero-subtitle {
 #sistemas .sistemas-cta-final {
   display: inline-block;
   margin-top: 1.25rem;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 @media (max-width: 991px) {
-  #sistemas .sistemas-selector {
-    gap: 20px;
-  }
-
-  #sistemas .sistemas-tab-name {
-    font-size: 15px;
-  }
-
   #sistemas .sistemas-panel {
     padding: 36px;
+  }
+
+  #sistemas .sistemas-panel-grid {
+    gap: 32px;
   }
 
   #sistemas .sistemas-panel-title {
@@ -2003,68 +2152,40 @@ p.hero-subtitle {
     font-size: 28px;
   }
 
-  #sistemas .sistemas-selector {
-    flex-direction: column;
-  }
-
-  /* The vertical tablist is desktop-only; mobile gets the horizontal
-     scrollable chip row instead. */
-  #sistemas .sistemas-tablist {
-    display: none;
-  }
-
-  #sistemas .sistemas-chips {
-    display: flex;
-    gap: 10px;
+  /* Horizontal scroll-snap row, no visible scrollbar. */
+  #sistemas .sistemas-pills {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     overflow-x: auto;
-    padding-bottom: 6px;
-    margin-bottom: 20px;
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    padding-bottom: 6px;
+    margin-bottom: 28px;
   }
 
-  #sistemas .sistemas-chips::-webkit-scrollbar {
+  #sistemas .sistemas-pills::-webkit-scrollbar {
     display: none;
   }
 
-  #sistemas .sistemas-chip {
+  #sistemas .sistemas-pill {
     flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    scroll-snap-align: start;
     white-space: nowrap;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 10px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #0a0f1e;
-    cursor: pointer;
-    font-family: inherit;
-    transition:
-      background-color 0.25s ease,
-      color 0.25s ease,
-      border-color 0.25s ease;
-  }
-
-  #sistemas .sistemas-chip i {
-    color: var(--color-accent);
-    transition: color 0.25s ease;
-  }
-
-  #sistemas .sistemas-chip.is-active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: #fff;
-  }
-
-  #sistemas .sistemas-chip.is-active i {
-    color: #fff;
   }
 
   #sistemas .sistemas-panel {
-    padding: 28px;
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  #sistemas .sistemas-panel-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  #sistemas .sistemas-panel-visual {
+    order: -1;
   }
 
   #sistemas .sistemas-panel-title {
@@ -2075,9 +2196,27 @@ p.hero-subtitle {
     grid-template-columns: 1fr;
   }
 
-  #sistemas .sistemas-panel-btn {
+  #sistemas .sistemas-panel-actions {
+    flex-direction: column;
+  }
+
+  #sistemas .sistemas-panel-btn,
+  #sistemas .sistemas-panel-btn-secondary {
     width: 100%;
-    justify-content: center;
+  }
+
+  /* Side-by-side products/ticket get too cramped at phone widths (ticket
+     text wraps badly); stack them instead. */
+  #sistemas .sistemas-mockup-body {
+    flex-direction: column;
+  }
+
+  #sistemas .sistemas-mockup-products {
+    flex: 0 0 auto;
+  }
+
+  #sistemas .sistemas-mockup-ticket {
+    flex: 0 0 auto;
   }
 }
 

@@ -14,5 +14,19 @@ video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, s
 
 ---------------------------------------------------------------------------
 
+img/media/sistema-restaurante.jpg · #sistemas (panel "Restaurantes y cafeterías") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en un restaurante o cafetería. Si falta, se muestra un mockup CSS en su lugar.
+
+img/media/sistema-tienda.jpg · #sistemas (panel "Tiendas y minisúper") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una tienda o minisúper. Si falta, se muestra un mockup CSS en su lugar.
+
+img/media/sistema-farmacia.jpg · #sistemas (panel "Farmacias") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una farmacia. Si falta, se muestra un mockup CSS en su lugar.
+
+img/media/sistema-ferreteria.jpg · #sistemas (panel "Ferreterías y distribuidoras") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una ferretería. Si falta, se muestra un mockup CSS en su lugar.
+
+img/media/sistema-boutique.jpg · #sistemas (panel "Boutiques y ropa") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una boutique. Si falta, se muestra un mockup CSS en su lugar.
+
+img/media/sistema-servicios.jpg · #sistemas (panel "Servicios y oficinas") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una oficina o negocio de servicios. Si falta, se muestra un mockup CSS en su lugar.
+
+---------------------------------------------------------------------------
+
 (En las partes 2 y 3 de la reorganización se agregarán más entradas a
 esta lista.)

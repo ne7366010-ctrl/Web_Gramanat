@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=67" rel="stylesheet">
+  <link href="css/style.css?v=68" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -596,127 +596,352 @@
       </div>
     </div>
     <div class="row">
-      <div class="sistemas-selector">
-        <div class="sistemas-tablist" role="tablist" aria-label="Tipos de negocio">
-          <button type="button" class="sistemas-tab is-active" role="tab" id="sistemas-tab-restaurantes" aria-selected="true" aria-controls="sistemas-panel-restaurantes" data-target="sistemas-panel-restaurantes">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-utensils"></i></span>
-            <span class="sistemas-tab-name">Restaurantes y cafeterías</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sistemas-tab" role="tab" id="sistemas-tab-tiendas" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-tiendas" data-target="sistemas-panel-tiendas">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-store"></i></span>
-            <span class="sistemas-tab-name">Tiendas y minisúper</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sistemas-tab" role="tab" id="sistemas-tab-farmacias" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-farmacias" data-target="sistemas-panel-farmacias">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-pills"></i></span>
-            <span class="sistemas-tab-name">Farmacias</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sistemas-tab" role="tab" id="sistemas-tab-ferreterias" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-ferreterias" data-target="sistemas-panel-ferreterias">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
-            <span class="sistemas-tab-name">Ferreterías y distribuidoras</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sistemas-tab" role="tab" id="sistemas-tab-boutiques" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-boutiques" data-target="sistemas-panel-boutiques">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-shirt"></i></span>
-            <span class="sistemas-tab-name">Boutiques y ropa</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
-          <button type="button" class="sistemas-tab" role="tab" id="sistemas-tab-servicios" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-servicios" data-target="sistemas-panel-servicios">
-            <span class="sistemas-tab-icon"><i class="fa-solid fa-briefcase"></i></span>
-            <span class="sistemas-tab-name">Servicios y oficinas</span>
-            <span class="sistemas-tab-arrow" aria-hidden="true">→</span>
-          </button>
+      <div class="sistemas-pills" role="tablist" aria-label="Tipos de negocio">
+        <button type="button" class="sistemas-pill is-active" role="tab" id="sistemas-pill-restaurantes" aria-selected="true" tabindex="0" aria-controls="sistemas-panel-restaurantes" data-target="sistemas-panel-restaurantes">
+          <i class="fa-solid fa-utensils"></i>Restaurantes
+        </button>
+        <button type="button" class="sistemas-pill" role="tab" id="sistemas-pill-tiendas" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-tiendas" data-target="sistemas-panel-tiendas">
+          <i class="fa-solid fa-store"></i>Tiendas
+        </button>
+        <button type="button" class="sistemas-pill" role="tab" id="sistemas-pill-farmacias" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-farmacias" data-target="sistemas-panel-farmacias">
+          <i class="fa-solid fa-pills"></i>Farmacias
+        </button>
+        <button type="button" class="sistemas-pill" role="tab" id="sistemas-pill-ferreterias" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-ferreterias" data-target="sistemas-panel-ferreterias">
+          <i class="fa-solid fa-screwdriver-wrench"></i>Ferreterías
+        </button>
+        <button type="button" class="sistemas-pill" role="tab" id="sistemas-pill-boutiques" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-boutiques" data-target="sistemas-panel-boutiques">
+          <i class="fa-solid fa-shirt"></i>Boutiques
+        </button>
+        <button type="button" class="sistemas-pill" role="tab" id="sistemas-pill-servicios" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-servicios" data-target="sistemas-panel-servicios">
+          <i class="fa-solid fa-briefcase"></i>Servicios
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="sistemas-panels">
+        <div class="sistemas-panel is-active" id="sistemas-panel-restaurantes" role="tabpanel" aria-labelledby="sistemas-pill-restaurantes" tabindex="0">
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Restaurantes y cafeterías</h3>
+              <p class="sistemas-panel-tagline">Toma pedidos rápido y controla tu cocina.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Comandas desde celular</li>
+                <li><i class="fa-solid fa-check"></i>Mesas y cuentas divididas</li>
+                <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Cafeterías</span>
+                <span class="sistemas-panel-chip">Pupuserías</span>
+                <span class="sistemas-panel-chip">Food trucks</span>
+                <span class="sistemas-panel-chip">Comedores</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20un%20restaurante%20o%20cafeter%C3%ADa%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-restaurante.jpg" alt="Sistema de punto de venta funcionando en un restaurante" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Café Aroma</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">☕</span>
+                      <span class="sistemas-mockup-product">🍔</span>
+                      <span class="sistemas-mockup-product">🥤</span>
+                      <span class="sistemas-mockup-product">☕</span>
+                      <span class="sistemas-mockup-product">🍔</span>
+                      <span class="sistemas-mockup-product">🥤</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Café americano</span><span>$1.50</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Sándwich</span><span>$3.25</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Jugo natural</span><span>$2.00</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$6.75</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="sistemas-chips" role="tablist" aria-label="Tipos de negocio">
-          <button type="button" class="sistemas-chip is-active" role="tab" aria-selected="true" tabindex="0" aria-controls="sistemas-panel-restaurantes" data-target="sistemas-panel-restaurantes"><i class="fa-solid fa-utensils"></i>Restaurantes</button>
-          <button type="button" class="sistemas-chip" role="tab" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-tiendas" data-target="sistemas-panel-tiendas"><i class="fa-solid fa-store"></i>Tiendas</button>
-          <button type="button" class="sistemas-chip" role="tab" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-farmacias" data-target="sistemas-panel-farmacias"><i class="fa-solid fa-pills"></i>Farmacias</button>
-          <button type="button" class="sistemas-chip" role="tab" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-ferreterias" data-target="sistemas-panel-ferreterias"><i class="fa-solid fa-screwdriver-wrench"></i>Ferreterías</button>
-          <button type="button" class="sistemas-chip" role="tab" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-boutiques" data-target="sistemas-panel-boutiques"><i class="fa-solid fa-shirt"></i>Boutiques</button>
-          <button type="button" class="sistemas-chip" role="tab" aria-selected="false" tabindex="-1" aria-controls="sistemas-panel-servicios" data-target="sistemas-panel-servicios"><i class="fa-solid fa-briefcase"></i>Servicios</button>
+        <div class="sistemas-panel" id="sistemas-panel-tiendas" role="tabpanel" aria-labelledby="sistemas-pill-tiendas" tabindex="0" hidden>
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Tiendas y minisúper</h3>
+              <p class="sistemas-panel-tagline">Cobra en segundos y nunca te quedes sin producto.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Lector de código de barras</li>
+                <li><i class="fa-solid fa-check"></i>Control de inventario</li>
+                <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Minisúper</span>
+                <span class="sistemas-panel-chip">Abarroterías</span>
+                <span class="sistemas-panel-chip">Tiendas de conveniencia</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20tienda%20o%20minis%C3%BAper%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-tienda.jpg" alt="Sistema de punto de venta funcionando en una tienda" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Minisúper El Ahorro</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">🥛</span>
+                      <span class="sistemas-mockup-product">🍞</span>
+                      <span class="sistemas-mockup-product">🧃</span>
+                      <span class="sistemas-mockup-product">🥛</span>
+                      <span class="sistemas-mockup-product">🍞</span>
+                      <span class="sistemas-mockup-product">🧃</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Leche</span><span>$1.20</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Arroz 1lb</span><span>$0.85</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Jabón</span><span>$1.10</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$3.15</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="sistemas-panels">
-          <div class="sistemas-panel is-active" id="sistemas-panel-restaurantes" role="tabpanel" aria-labelledby="sistemas-tab-restaurantes" tabindex="0">
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-utensils"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Restaurantes y cafeterías</h3>
-            <p class="sistemas-panel-tagline">Toma pedidos rápido y controla tu cocina.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Comandas desde celular</li>
-              <li><i class="fa-solid fa-check"></i>Mesas y cuentas divididas</li>
-              <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20un%20restaurante%20o%20cafeter%C3%ADa%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+        <div class="sistemas-panel" id="sistemas-panel-farmacias" role="tabpanel" aria-labelledby="sistemas-pill-farmacias" tabindex="0" hidden>
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Farmacias</h3>
+              <p class="sistemas-panel-tagline">Controla lotes, vencimientos y ventas.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Alertas de vencimiento</li>
+                <li><i class="fa-solid fa-check"></i>Inventario por lote</li>
+                <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Farmacias</span>
+                <span class="sistemas-panel-chip">Droguerías</span>
+                <span class="sistemas-panel-chip">Clínicas</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20farmacia%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-farmacia.jpg" alt="Sistema de punto de venta funcionando en una farmacia" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Farmacia San Rafael</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">💊</span>
+                      <span class="sistemas-mockup-product">🧴</span>
+                      <span class="sistemas-mockup-product">🩹</span>
+                      <span class="sistemas-mockup-product">💊</span>
+                      <span class="sistemas-mockup-product">🧴</span>
+                      <span class="sistemas-mockup-product">🩹</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Acetaminofén</span><span>$2.50</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Crema corporal</span><span>$4.75</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Curitas</span><span>$1.25</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$8.50</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
           </div>
-          <div class="sistemas-panel" id="sistemas-panel-tiendas" role="tabpanel" aria-labelledby="sistemas-tab-tiendas" tabindex="0" hidden>
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-store"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Tiendas y minisúper</h3>
-            <p class="sistemas-panel-tagline">Cobra en segundos y nunca te quedes sin producto.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Lector de código de barras</li>
-              <li><i class="fa-solid fa-check"></i>Control de inventario</li>
-              <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20tienda%20o%20minis%C3%BAper%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+        </div>
+        <div class="sistemas-panel" id="sistemas-panel-ferreterias" role="tabpanel" aria-labelledby="sistemas-pill-ferreterias" tabindex="0" hidden>
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Ferreterías y distribuidoras</h3>
+              <p class="sistemas-panel-tagline">Miles de productos organizados y bajo control.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Carga masiva desde Excel</li>
+                <li><i class="fa-solid fa-check"></i>Compras a proveedores</li>
+                <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Ferreterías</span>
+                <span class="sistemas-panel-chip">Distribuidoras</span>
+                <span class="sistemas-panel-chip">Materiales</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20ferreter%C3%ADa%20o%20distribuidora%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-ferreteria.jpg" alt="Sistema de punto de venta funcionando en una ferretería" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Ferretería El Tornillo</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">🔨</span>
+                      <span class="sistemas-mockup-product">🔩</span>
+                      <span class="sistemas-mockup-product">🪛</span>
+                      <span class="sistemas-mockup-product">🔨</span>
+                      <span class="sistemas-mockup-product">🔩</span>
+                      <span class="sistemas-mockup-product">🪛</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Martillo</span><span>$8.00</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Tornillos x50</span><span>$3.50</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Destornillador</span><span>$5.25</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$16.75</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
           </div>
-          <div class="sistemas-panel" id="sistemas-panel-farmacias" role="tabpanel" aria-labelledby="sistemas-tab-farmacias" tabindex="0" hidden>
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-pills"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Farmacias</h3>
-            <p class="sistemas-panel-tagline">Controla lotes, vencimientos y ventas.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Alertas de vencimiento</li>
-              <li><i class="fa-solid fa-check"></i>Inventario por lote</li>
-              <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20farmacia%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+        </div>
+        <div class="sistemas-panel" id="sistemas-panel-boutiques" role="tabpanel" aria-labelledby="sistemas-pill-boutiques" tabindex="0" hidden>
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Boutiques y ropa</h3>
+              <p class="sistemas-panel-tagline">Vende por talla y color sin perder el control.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Tallas y colores</li>
+                <li><i class="fa-solid fa-check"></i>Inventario por sucursal</li>
+                <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Ropa</span>
+                <span class="sistemas-panel-chip">Calzado</span>
+                <span class="sistemas-panel-chip">Accesorios</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20boutique%20o%20tienda%20de%20ropa%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-boutique.jpg" alt="Sistema de punto de venta funcionando en una boutique" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Boutique Luna</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">👕</span>
+                      <span class="sistemas-mockup-product">👗</span>
+                      <span class="sistemas-mockup-product">👟</span>
+                      <span class="sistemas-mockup-product">👕</span>
+                      <span class="sistemas-mockup-product">👗</span>
+                      <span class="sistemas-mockup-product">👟</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Blusa</span><span>$12.00</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Zapatos</span><span>$18.50</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Cinturón</span><span>$7.00</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$37.50</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
           </div>
-          <div class="sistemas-panel" id="sistemas-panel-ferreterias" role="tabpanel" aria-labelledby="sistemas-tab-ferreterias" tabindex="0" hidden>
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Ferreterías y distribuidoras</h3>
-            <p class="sistemas-panel-tagline">Miles de productos organizados y bajo control.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Carga masiva desde Excel</li>
-              <li><i class="fa-solid fa-check"></i>Compras a proveedores</li>
-              <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20ferreter%C3%ADa%20o%20distribuidora%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
-          </div>
-          <div class="sistemas-panel" id="sistemas-panel-boutiques" role="tabpanel" aria-labelledby="sistemas-tab-boutiques" tabindex="0" hidden>
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-shirt"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Boutiques y ropa</h3>
-            <p class="sistemas-panel-tagline">Vende por talla y color sin perder el control.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Tallas y colores</li>
-              <li><i class="fa-solid fa-check"></i>Inventario por sucursal</li>
-              <li><i class="fa-solid fa-check"></i>Facturación electrónica</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20una%20boutique%20o%20tienda%20de%20ropa%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
-          </div>
-          <div class="sistemas-panel" id="sistemas-panel-servicios" role="tabpanel" aria-labelledby="sistemas-tab-servicios" tabindex="0" hidden>
-            <div class="sistemas-panel-icon"><i class="fa-solid fa-briefcase"></i></div>
-            <p class="sistemas-panel-label">Sistema recomendado para</p>
-            <h3 class="sistemas-panel-title">Servicios y oficinas</h3>
-            <p class="sistemas-panel-tagline">Factura tus servicios de forma fácil y legal.</p>
-            <ul class="sistemas-panel-features">
-              <li><i class="fa-solid fa-check"></i>Facturación desde la web</li>
-              <li><i class="fa-solid fa-check"></i>Clientes y cobros</li>
-              <li><i class="fa-solid fa-check"></i>Reportes de ventas</li>
-              <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
-            </ul>
-            <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20un%20negocio%20de%20servicios%20u%20oficina%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+        </div>
+        <div class="sistemas-panel" id="sistemas-panel-servicios" role="tabpanel" aria-labelledby="sistemas-pill-servicios" tabindex="0" hidden>
+          <div class="sistemas-panel-grid">
+            <div class="sistemas-panel-info">
+              <p class="sistemas-panel-label">Sistema recomendado para</p>
+              <h3 class="sistemas-panel-title">Servicios y oficinas</h3>
+              <p class="sistemas-panel-tagline">Factura tus servicios de forma fácil y legal.</p>
+              <ul class="sistemas-panel-features">
+                <li><i class="fa-solid fa-check"></i>Facturación desde la web</li>
+                <li><i class="fa-solid fa-check"></i>Clientes y cobros</li>
+                <li><i class="fa-solid fa-check"></i>Reportes de ventas</li>
+                <li><i class="fa-solid fa-check"></i>Soporte y capacitación incluidos</li>
+              </ul>
+              <div class="sistemas-panel-ideal">
+                <span class="sistemas-panel-ideal-label">Ideal para:</span>
+                <span class="sistemas-panel-chip">Oficinas</span>
+                <span class="sistemas-panel-chip">Consultorios</span>
+                <span class="sistemas-panel-chip">Profesionales</span>
+              </div>
+              <div class="sistemas-panel-actions">
+                <a class="sistemas-panel-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Tengo%20un%20negocio%20de%20servicios%20u%20oficina%20y%20quiero%20conocer%20el%20sistema%20ideal%20para%20m%C3%AD." target="_blank">Quiero este sistema <span class="arrow">→</span></a>
+                <a class="sistemas-panel-btn-secondary" href="#contact">Ver demo</a>
+              </div>
+            </div>
+            <div class="sistemas-panel-visual">
+              <img src="img/media/sistema-servicios.jpg" alt="Sistema de punto de venta funcionando en un negocio de servicios" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="sistemas-mockup" aria-hidden="true">
+                <div class="sistemas-mockup-frame">
+                  <div class="sistemas-mockup-topbar">
+                    <span class="sistemas-mockup-dot"></span>
+                    <span class="sistemas-mockup-business">Consultores ABC</span>
+                  </div>
+                  <div class="sistemas-mockup-body">
+                    <div class="sistemas-mockup-products">
+                      <span class="sistemas-mockup-product">📄</span>
+                      <span class="sistemas-mockup-product">🗂️</span>
+                      <span class="sistemas-mockup-product">💼</span>
+                      <span class="sistemas-mockup-product">📄</span>
+                      <span class="sistemas-mockup-product">🗂️</span>
+                      <span class="sistemas-mockup-product">💼</span>
+                    </div>
+                    <div class="sistemas-mockup-ticket">
+                      <div class="sistemas-mockup-ticket-line"><span>Consulta</span><span>$25.00</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Asesoría</span><span>$40.00</span></div>
+                      <div class="sistemas-mockup-ticket-line"><span>Trámite</span><span>$15.00</span></div>
+                      <div class="sistemas-mockup-ticket-total"><span>Total</span><span>$80.00</span></div>
+                      <span class="sistemas-mockup-ticket-btn">Facturar</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sistemas-mockup-base"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1649,7 +1874,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=14"></script>
+  <script src="js/main.js?v=15"></script>
 </body>
 
 </html>
