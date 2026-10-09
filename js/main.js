@@ -876,4 +876,67 @@
     });
   });
 
+  /*---------------------
+    Contact WhatsApp strip: phone mockup chat sequence.
+    Plays once, starting when the mockup scrolls into view. Respects
+    prefers-reduced-motion (everything shown immediately, no timers).
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const phone = document.getElementById('contactPhone');
+
+    if (!phone) return;
+
+    const client = phone.querySelector('.contact-phone-bubble-client');
+    const typing = phone.querySelector('.contact-phone-bubble-typing');
+    const gramanat = phone.querySelector('.contact-phone-bubble-gramanat');
+    const quickReplies = phone.querySelector('.contact-phone-quick-replies');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      [client, typing, gramanat, quickReplies].forEach((el) => {
+        if (el) el.classList.add('is-visible');
+      });
+      if (typing) typing.classList.remove('is-visible');
+      return;
+    }
+
+    const playSequence = () => {
+      const timers = [
+        [500, () => client && client.classList.add('is-visible')],
+        [1500, () => typing && typing.classList.add('is-visible')],
+        [3000, () => {
+          if (typing) typing.classList.remove('is-visible');
+          if (gramanat) gramanat.classList.add('is-visible');
+        }],
+        [4000, () => quickReplies && quickReplies.classList.add('is-visible')],
+      ];
+
+      timers.forEach(([delay, run]) => window.setTimeout(run, delay));
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          playSequence();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(phone);
+  });
+
+  /*---------------------
+    Contact WhatsApp strip: quick-reply links (same encodeURIComponent
+    pattern used for the #faq WhatsApp links above).
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#contact .contact-phone-quick-btn[data-wa-message]').forEach((btn) => {
+      const message = btn.dataset.waMessage;
+      btn.href = `https://wa.me/50370043346?text=${encodeURIComponent(message)}`;
+    });
+  });
+
 })(jQuery);
