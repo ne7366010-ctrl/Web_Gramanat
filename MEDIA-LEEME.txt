@@ -1,0 +1,18 @@
+ARCHIVOS DE MEDIA PENDIENTES — GRAMANAT
+=========================================
+
+Este archivo lista los videos e imágenes que el sitio espera encontrar en
+las carpetas img/media/ y video/. Coloca cada archivo con el nombre y en
+la ruta indicados; el sitio ya está preparado para usarlos.
+
+Formato de cada entrada:
+  ruta · Sección · Dimensiones · Formato/especificaciones · Qué debe mostrar
+
+---------------------------------------------------------------------------
+
+video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, sin audio · Tomas de un negocio usando el punto de venta / imprimiendo factura.
+
+---------------------------------------------------------------------------
+
+(En las partes 2 y 3 de la reorganización se agregarán más entradas a
+esta lista.)

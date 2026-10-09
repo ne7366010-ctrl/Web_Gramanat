@@ -1023,18 +1023,14 @@ nav ul li a.cta-demo-header:hover {
   margin: 0 auto;
 }
 
-/* Dark-to-transparent gradient behind the hero text, so it reads clearly
-   over the laptop background photo. Breaks out to full viewport width
-   (the 50% + 100vw + translateX(-50%) trick) since .hero-content itself
-   is inset by the slide's centered container padding. */
-/* The actual hero background photo lives here (as a real CSS
-   background), not on the <img> inside #ensign-nivoslider — Nivo Slider
-   forces that <img> to height:100% of an auto-height parent, which
-   resolves to "auto" per spec, so it can never truly behave like
-   background-size:cover. This pseudo-element already reliably spans
-   the full slide edge-to-edge (the gradient overlay proved that), so
-   the photo is added as a second, lower background layer underneath
-   the same gradient. */
+/* Background photo (the no-JS / no-video / video-failed fallback —
+   always present regardless of .hero-bg-video's state). Breaks out to
+   full viewport width (the 50% + 100vw + translateX(-50%) trick) since
+   .hero-content itself is inset by the slide's centered container
+   padding. Not the <img> inside #ensign-nivoslider — Nivo Slider forces
+   that <img> to height:100% of an auto-height parent, which resolves to
+   "auto" per spec, so it can never truly behave like
+   background-size:cover. */
 .hero-content::before {
   content: "";
   position: absolute;
@@ -1043,11 +1039,34 @@ nav ul li a.cta-demo-header:hover {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%), url("../img/hero-pos.jpg?v=3");
-  background-position: center, center right;
-  background-size: cover, cover;
-  background-repeat: no-repeat, no-repeat;
-  z-index: -1;
+  background-image: url("../img/hero-pos.jpg?v=3");
+  background-position: center right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Optional background video, same full-bleed box as the photo above,
+   one layer up (z-index -1): see .hero-bg-video rules below. */
+
+/* Dark-to-transparent gradient on top of the photo/video, so the hero
+   text reads clearly. Moved from ::before (which must stay photo-only
+   now that the video sits between it and this gradient) to ::after,
+   with an explicit z-index — ::after normally paints after all real
+   children (including .hero-text), which would put it over the text;
+   the explicit z-index here plus .hero-text's own (below) makes the
+   actual paint order unambiguous: photo, video, gradient, text. */
+.hero-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%);
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -1084,17 +1103,51 @@ body.page-home .nivo-caption .row {
   overflow: visible;
 }
 
+/* .hero-bg-video is a real element (not a pseudo), so by default it
+   would paint above ::before but it still needs an explicit z-index to
+   stay unambiguously under ::after's gradient and .hero-text. Only
+   gets a playable src via main.js, on desktop + no prefers-reduced-
+   motion — see the hero video init there. With no src it still shows
+   its own poster (the same photo as ::before), so this layer is inert
+   and harmless everywhere else. */
+.hero-bg-video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .hero-bg-video {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-video {
+    display: none;
+  }
+}
+
 .hero-text {
+  position: relative;
+  z-index: 1;
   flex: 1 1 480px;
 }
 
 .hero-eyebrow {
-  color: #fff;
+  color: var(--color-accent);
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.85;
+  opacity: 1;
   margin: 0 0 0.75rem;
 }
 
@@ -1209,7 +1262,7 @@ body.page-home .nivo-caption .row {
   }
 
   .hero-content::before {
-    background-position: center, 70% center;
+    background-position: 70% center;
   }
 
   .hero-eyebrow {

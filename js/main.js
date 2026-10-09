@@ -939,4 +939,35 @@
     });
   });
 
+  /*---------------------
+    Hero background video
+    No src is set in the HTML — only assigned here, and only on desktop
+    (>=768px) with prefers-reduced-motion not set, so the file is never
+    requested on mobile or with reduced motion. If it's missing or fails
+    to load, the video is hidden, revealing .hero-content::before's
+    existing photo background underneath.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('.hero-bg-video');
+
+    if (!video) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isMobile) return;
+
+    const src = video.dataset.src;
+
+    if (!src) return;
+
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+    });
+
+    video.src = src;
+    video.load();
+  });
+
 })(jQuery);
