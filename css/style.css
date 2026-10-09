@@ -980,8 +980,29 @@ nav ul li a.cta-demo-header:hover {
 /* .layer-1-3 a.ready-btn (nivo-slider-theme.css) carries an extra type
    selector, which outranks the plain .ready-btn.cta-demo rule above and
    would otherwise force the hero's CTA back to a white border / blue
-   hover. These re-assert the same orange treatment at matching-or-higher
-   specificity so the hero button behaves like the other demo CTAs. */
+   hover, plus .ready-btn's own sitewide uppercase/letter-spacing. These
+   re-assert the same specificity so the hero buttons get their own
+   look: no forced caps, equal 52px height, fully-rounded corners. */
+.layer-1-3 a.ready-btn.cta-demo,
+.layer-1-3 a.ready-btn.hero-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
 .layer-1-3 a.ready-btn.cta-demo {
   background: var(--color-accent);
   border: 1px solid var(--color-accent);
@@ -992,6 +1013,8 @@ nav ul li a.cta-demo-header:hover {
   background: #e0691f;
   border: 1px solid #e0691f;
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
 }
 
 /* "Ver servicios" is the secondary hero CTA — an outlined/ghost button
@@ -1005,9 +1028,9 @@ nav ul li a.cta-demo-header:hover {
 }
 
 .layer-1-3 a.ready-btn.hero-secondary-btn:hover {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid #fff;
-  color: var(--color-brand);
+  color: #fff;
 }
 
 /* Hero (slide 1): left-aligned text using the full slide width now that
@@ -1017,7 +1040,11 @@ nav ul li a.cta-demo-header:hover {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* flex-start, not center: .hero-text now has its own max-width (see
+     below), so it no longer fills .hero-content via flex-grow alone —
+     center would float the whole text block away from the true left
+     edge instead of keeping it flush with it. */
+  justify-content: flex-start;
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
@@ -1065,7 +1092,7 @@ nav ul li a.cta-demo-header:hover {
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.75) 45%, rgba(10, 15, 30, 0.35) 100%);
+  background-image: linear-gradient(90deg, rgba(10, 15, 30, 0.92) 0%, rgba(10, 15, 30, 0.55) 50%, rgba(10, 15, 30, 0) 100%);
   z-index: 0;
   pointer-events: none;
 }
@@ -1139,13 +1166,17 @@ body.page-home .nivo-caption .row {
   position: relative;
   z-index: 1;
   flex: 1 1 480px;
+  max-width: 640px;
 }
 
 /* p.hero-eyebrow (not just .hero-eyebrow): nivo-slider.css's own
-   `.nivo-caption p { margin: 0; }` has equal-or-higher specificity and
-   loads before style.css, so a bare class selector here loses the
-   margin-bottom entirely — matching its specificity with the extra
-   type selector is what makes this win (style.css loads later). */
+   `.nivo-caption p { padding: 5px; margin: 0; }` has equal-or-higher
+   specificity and loads before style.css, so a bare class selector
+   here loses both the margin-bottom AND gets a stray 5px padding
+   (including padding-left, which knocked it out of alignment with the
+   title/buttons/trust-row below, none of which are <p> tags) —
+   matching its specificity with the extra type selector, and
+   explicitly zeroing padding, is what fixes both. */
 p.hero-eyebrow {
   color: var(--color-accent);
   font-size: 1.3rem;
@@ -1153,9 +1184,9 @@ p.hero-eyebrow {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 1;
-  /* Root font-size is 10px here (Bootstrap sets html{font-size:10px}),
-     so 1.55rem = 15.5px: the previous 0.75rem (7.5px) plus 8px. */
-  margin: 0 0 1.55rem;
+  padding: 0;
+  /* Root font-size is 10px here (Bootstrap sets html{font-size:10px}). */
+  margin: 0 0 1.6rem;
 }
 
 /* +15% over the previous 3rem base, desktop/tablet only — the
@@ -1164,14 +1195,22 @@ p.hero-eyebrow {
   color: #fff;
   font-size: 3.45rem;
   font-weight: 800;
-  line-height: 1.15;
-  margin: 0 0 1.25rem;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title-accent {
   color: var(--color-accent);
 }
+
+/* No base rule here on purpose: a <br> only forces its line break with
+   its default rendering — giving it an explicit `display` (even
+   `inline`) suppresses that special behavior entirely. It's left alone
+   on desktop/tablet (so the "Factura sin miedo a multas. / Vende sin
+   parar." break just works) and only gets `display: none` on mobile
+   (<768px) below. */
 
 /* Vertically center the text block within the hero on desktop — it
    previously sat high in the block (the shared .slider-content padding
@@ -1185,26 +1224,35 @@ p.hero-eyebrow {
   }
 }
 
-.hero-subtitle {
-  color: #fff;
-  opacity: 0.9;
-  font-size: 2.16rem;
+/* p.hero-subtitle, same reasoning as p.hero-eyebrow above: beats
+   .nivo-caption p's padding/margin at equal specificity via load
+   order, instead of losing to it outright (plain .hero-subtitle alone
+   is lower specificity than `.nivo-caption p`). */
+p.hero-subtitle {
+  color: rgba(255, 255, 255, 0.82);
+  /* 2rem = 20px at this page's 10px root font-size. */
+  font-size: 2rem;
   line-height: 1.6;
   max-width: 560px;
-  margin: 0;
+  padding: 0;
+  margin: 0 0 3.6rem;
+  text-wrap: pretty;
 }
 
 .layer-1-3 {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 14px;
   align-items: center;
 }
 
 /* Scoped to .hero-text (unique to this one slide) so slides 2/3, which
-   share the plain .layer-1-3 a.ready-btn rule, keep their own spacing. */
+   share the plain .layer-1-3 a.ready-btn rule, keep their own spacing.
+   margin-top:0 here (was 32px) because the vertical rhythm is now
+   carried entirely by each preceding element's own margin-bottom. */
 .hero-text .layer-1-3 {
-  margin-top: 32px;
+  margin-top: 0;
+  margin-bottom: 2.4rem;
 }
 
 .hero-text .layer-1-3 a.ready-btn {
@@ -1214,8 +1262,8 @@ p.hero-eyebrow {
 .hero-trust-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem 1.75rem;
-  margin: 1.75rem 0 0;
+  gap: 0.6rem 2rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -1224,8 +1272,8 @@ p.hero-eyebrow {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -1235,43 +1283,46 @@ p.hero-eyebrow {
   flex-shrink: 0;
 }
 
+/* Tablet: narrower, but stays left-aligned like desktop (point 1 — one
+   consistent left edge at every size) instead of centering. */
 @media (max-width: 991px) {
   .hero-content {
     flex-direction: column;
-    text-align: center;
   }
 
   .hero-text {
     flex: 1 1 auto;
-  }
-
-  .layer-1-3 {
-    justify-content: center;
-  }
-
-  .hero-trust-row {
-    justify-content: center;
-  }
-
-  .hero-subtitle {
-    max-width: none;
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
 /* Nivo Slider's caption box is clipped to the slide's own height (which
    auto-computes from the background image and is very short on narrow
    viewports) — without a forced min-height here, everything past the
-   title gets silently cut off by that ancestor's overflow:hidden. */
+   title gets silently cut off by that ancestor's overflow:hidden. Was
+   400px; the new vertical rhythm (16/20/36/24px gaps + the bigger
+   subtitle) needs ~570px to fit eyebrow through trust row without the
+   secondary button/trust row spilling past the photo+gradient
+   background onto whatever's underneath. */
 @media (max-width: 767px) {
   .slider-area,
   .nivoSlider {
-    min-height: 400px !important;
+    min-height: 600px !important;
   }
 
   .hero-content::before {
     background-position: 70% center;
+  }
+
+  /* Left-aligned with 20px of breathing room from the viewport edge,
+     same principle as desktop/tablet just narrower — no more centered
+     text on phones. */
+  .hero-text {
+    max-width: none;
+    padding: 0 20px;
+  }
+
+  .hero-title-break {
+    display: none;
   }
 
   .hero-eyebrow {
@@ -1284,6 +1335,7 @@ p.hero-eyebrow {
 
   .hero-subtitle {
     font-size: 0.95rem;
+    max-width: none;
   }
 
   .layer-1-3 {
@@ -1294,7 +1346,7 @@ p.hero-eyebrow {
     margin-top: 0;
   }
 
-  /* Buttons stacked one under the other, full-width-ish, on phones. */
+  /* Buttons stacked one under the other, full width, on phones. */
   .hero-text .layer-1-3 {
     flex-direction: column;
     align-items: stretch;
@@ -1303,14 +1355,11 @@ p.hero-eyebrow {
 
   .hero-text .layer-1-3 a.ready-btn {
     width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
   }
 
   .hero-trust-row {
     gap: 0.5rem 1rem;
     margin-top: 1rem;
-    justify-content: center;
   }
 
   .hero-trust-row li {
