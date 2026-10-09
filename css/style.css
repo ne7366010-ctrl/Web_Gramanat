@@ -6160,19 +6160,40 @@ body.page-home .nivo-caption .row {
 
 /* --- Cards --- */
 
-#contact.contact-premium .contact-cards {
+#contact.contact-premium .contact-cards.contact-bento {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
   width: 100%;
   max-width: 1140px;
   margin: 0 auto 2.5rem;
 }
 
+#contact.contact-premium .contact-card-whatsapp {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+#contact.contact-premium .contact-card-email {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#contact.contact-premium .contact-card-location {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+#contact.contact-premium .contact-card-schedule {
+  grid-column: 2 / 4;
+  grid-row: 2;
+}
+
 #contact.contact-premium .contact-card {
   background: #fff;
   border: 1px solid #ebedf2;
-  border-radius: 20px;
+  border-radius: 24px;
   box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
   padding: 32px 28px;
   text-align: left;
@@ -6233,52 +6254,296 @@ body.page-home .nivo-caption .row {
   color: var(--color-accent);
 }
 
-#contact.contact-premium .contact-card-link-secondary {
-  font-size: 14px;
-  font-weight: 400;
-  color: #6b7280;
+#contact.contact-premium .contact-card a:focus-visible,
+#contact.contact-premium .contact-card button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-#contact.contact-premium .contact-card-status {
+/* --- WhatsApp card (featured) --- */
+
+#contact.contact-premium .contact-card-whatsapp {
+  position: relative;
+  overflow: hidden;
+  background: #0a0f1e;
+  padding: 36px;
+}
+
+#contact.contact-premium .contact-card-whatsapp::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.22) 0%, rgba(37, 211, 102, 0) 70%);
+  pointer-events: none;
+}
+
+#contact.contact-premium .contact-card-whatsapp-deco {
+  position: absolute;
+  bottom: -28px;
+  right: -16px;
+  font-size: 180px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+#contact.contact-premium .contact-card-whatsapp-status-group {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.25rem;
+}
+
+#contact.contact-premium .contact-live-status {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 0;
+  color: #e2e8f0;
   font-size: 14px;
   font-weight: 600;
-  color: #0a0f1e;
-  margin: 0.5rem 0 0;
 }
 
-#contact.contact-premium .contact-status-dot {
+#contact.contact-premium .contact-live-dot {
+  position: relative;
   flex-shrink: 0;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #16a34a;
-}
-
-#contact.contact-premium .contact-card-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  white-space: nowrap;
-  margin-top: auto;
-  padding: 10px 18px;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: none;
-  letter-spacing: 0.5px;
-  border-radius: 20px;
-  text-decoration: none;
+  background: #6b7280;
   transition: background-color 0.25s ease;
 }
 
-#contact.contact-premium .contact-card-btn:hover {
-  background: #e0691f;
+#contact.contact-premium .contact-live-status.is-open .contact-live-dot {
+  background: #25d366;
+}
+
+#contact.contact-premium .contact-live-status.is-open .contact-live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  animation: contact-live-pulse 2s ease-out infinite;
+}
+
+@keyframes contact-live-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #contact.contact-premium .contact-live-status.is-open .contact-live-dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+#contact.contact-premium .contact-live-note {
+  margin: 0.4rem 0 0;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#contact.contact-premium .contact-card-whatsapp h3.contact-card-whatsapp-title {
+  position: relative;
+  z-index: 1;
   color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+#contact.contact-premium .contact-card-whatsapp-number {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+#contact.contact-premium .contact-card-whatsapp-number:hover {
+  color: #25d366;
+}
+
+#contact.contact-premium .contact-card-whatsapp-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+#contact.contact-premium .contact-whatsapp-btn-primary,
+#contact.contact-premium .contact-whatsapp-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+#contact.contact-premium .contact-whatsapp-btn-primary {
+  border: none;
+  background: #25d366;
+  color: #fff;
+}
+
+#contact.contact-premium .contact-whatsapp-btn-primary:hover {
+  background: #1ebe5b;
+  transform: translateY(-2px);
+}
+
+#contact.contact-premium .contact-whatsapp-btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  padding: 12px 20px;
+}
+
+#contact.contact-premium .contact-whatsapp-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Correo card --- */
+
+#contact.contact-premium .contact-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 0.75rem;
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  color: #0a0f1e;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#contact.contact-premium .contact-copy-btn:hover {
+  border-color: var(--color-accent);
+}
+
+#contact.contact-premium .contact-copy-btn.is-copied {
+  background: rgba(37, 211, 102, 0.12);
+  border-color: #25d366;
+  color: #16a34a;
+}
+
+/* --- Ubicación card --- */
+
+#contact.contact-premium .contact-location-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+#contact.contact-premium .contact-location-btn {
+  flex: 1 1 0;
+  text-align: center;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #0a0f1e;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+#contact.contact-premium .contact-location-btn:hover {
+  border-color: var(--color-accent);
+  background: rgba(255, 122, 41, 0.08);
+  color: var(--color-accent);
+}
+
+/* --- Horario card --- */
+
+#contact.contact-premium .contact-schedule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#contact.contact-premium .contact-schedule-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #4b5563;
+  transition: background-color 0.25s ease;
+}
+
+#contact.contact-premium .contact-schedule-day {
+  flex: 0 0 150px;
+  font-weight: 600;
+  color: #0a0f1e;
+}
+
+#contact.contact-premium .contact-schedule-sep {
+  color: #cbd5e1;
+}
+
+#contact.contact-premium .contact-schedule-today-badge {
+  margin-left: auto;
+  padding: 2px 10px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+
+#contact.contact-premium .contact-schedule-list li.is-today {
+  background: rgba(255, 122, 41, 0.08);
+}
+
+#contact.contact-premium .contact-schedule-list li.is-today .contact-schedule-day,
+#contact.contact-premium .contact-schedule-list li.is-today .contact-schedule-time {
+  font-weight: 700;
+  color: #0a0f1e;
 }
 
 /* --- Banner --- */
@@ -6562,8 +6827,29 @@ body.page-home .nivo-caption .row {
 }
 
 @media (max-width: 991px) {
-  #contact.contact-premium .contact-cards {
+  #contact.contact-premium .contact-cards.contact-bento {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  #contact.contact-premium .contact-card-whatsapp {
+    grid-column: 1 / 3;
+    grid-row: auto;
+  }
+
+  #contact.contact-premium .contact-card-email {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  #contact.contact-premium .contact-card-location {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  #contact.contact-premium .contact-card-schedule {
+    grid-column: 1 / 3;
+    grid-row: auto;
   }
 }
 
@@ -6576,8 +6862,20 @@ body.page-home .nivo-caption .row {
     font-size: 28px;
   }
 
-  #contact.contact-premium .contact-cards {
+  #contact.contact-premium .contact-cards.contact-bento {
     grid-template-columns: 1fr;
+  }
+
+  #contact.contact-premium .contact-card-whatsapp,
+  #contact.contact-premium .contact-card-email,
+  #contact.contact-premium .contact-card-location,
+  #contact.contact-premium .contact-card-schedule {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  #contact.contact-premium .contact-schedule-day {
+    flex: 0 0 110px;
   }
 
   #contact.contact-premium .contact-banner {

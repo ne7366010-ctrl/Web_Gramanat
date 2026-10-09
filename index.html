@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=51" rel="stylesheet">
+  <link href="css/style.css?v=53" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1333,31 +1333,71 @@
         </div>
       </div>
       <div class="row">
-        <div class="contact-cards">
-          <div class="contact-card reveal-up" style="--reveal-delay: 0s">
-            <div class="contact-card-icon"><i class="fa-brands fa-whatsapp"></i></div>
-            <h3>WhatsApp / Teléfono</h3>
-            <a class="contact-card-link" href="tel:+50370043346">+503 7004 3346</a>
-            <a class="contact-card-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." target="_blank">Escribir por WhatsApp</a>
-          </div>
-          <div class="contact-card reveal-up" style="--reveal-delay: 0.1s">
+        <div class="contact-cards contact-bento">
+          <article class="contact-card contact-card-whatsapp reveal-up" style="--reveal-delay: 0s">
+            <i class="fa-brands fa-whatsapp contact-card-whatsapp-deco" aria-hidden="true"></i>
+            <div class="contact-card-whatsapp-status-group">
+              <p class="contact-live-status" aria-live="polite">
+                <span class="contact-live-dot" aria-hidden="true"></span>
+                <span class="contact-live-text">Consultando horario…</span>
+              </p>
+              <p class="contact-live-note" hidden></p>
+            </div>
+            <h3 class="contact-card-whatsapp-title">Escríbenos por WhatsApp</h3>
+            <a class="contact-card-whatsapp-number" href="tel:+50370043346">+503 7004 3346</a>
+            <div class="contact-card-whatsapp-actions">
+              <a class="contact-whatsapp-btn-primary" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." target="_blank" aria-label="Iniciar conversación por WhatsApp">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                Iniciar conversación
+              </a>
+              <a class="contact-whatsapp-btn-secondary" href="tel:+50370043346" aria-label="Llamar ahora al +503 7004 3346">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                Llamar ahora
+              </a>
+            </div>
+          </article>
+          <article class="contact-card contact-card-email reveal-up" style="--reveal-delay: 0.1s">
             <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
             <h3>Correo</h3>
             <a class="contact-card-link" href="mailto:igramanat@gmail.com">igramanat@gmail.com</a>
-            <a class="contact-card-link contact-card-link-secondary" href="https://www.gramanat.com" target="_blank">www.gramanat.com</a>
-          </div>
-          <div class="contact-card reveal-up" style="--reveal-delay: 0.2s">
+            <button type="button" class="contact-copy-btn" data-copy="igramanat@gmail.com" aria-label="Copiar correo igramanat@gmail.com">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+              <span class="contact-copy-btn-text">Copiar</span>
+            </button>
+          </article>
+          <article class="contact-card contact-card-location reveal-up" style="--reveal-delay: 0.2s">
             <div class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></div>
             <h3>Ubicación</h3>
             <p class="contact-card-text">Calle Motocross, Res. Montemira, San Salvador</p>
-            <a class="contact-card-link" href="https://www.google.com/maps/search/?api=1&amp;query=13.724998986664005,-89.22866672500584" target="_blank">Ver en el mapa →</a>
-          </div>
-          <div class="contact-card reveal-up" style="--reveal-delay: 0.3s">
+            <div class="contact-location-actions">
+              <a class="contact-location-btn" href="https://www.google.com/maps/search/?api=1&amp;query=13.724998986664005,-89.22866672500584" target="_blank" aria-label="Abrir la ubicación en Google Maps">Google Maps</a>
+              <a class="contact-location-btn" href="https://waze.com/ul?q=Calle%20Motocross%20Residencial%20Montemira%20San%20Salvador" target="_blank" aria-label="Abrir la ubicación en Waze">Waze</a>
+            </div>
+          </article>
+          <article class="contact-card contact-card-schedule reveal-up" style="--reveal-delay: 0.3s">
             <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
-            <h3>Horario</h3>
-            <p class="contact-card-text">Lunes a viernes: 8:00 a.m. – 5:00 p.m.<br>Sábado: 8:00 a.m. – 12:00 m.d.</p>
-            <p class="contact-card-status"><span class="contact-status-dot"></span>Atención personalizada</p>
-          </div>
+            <h3>Horario de atención</h3>
+            <ul class="contact-schedule-list">
+              <li data-schedule-day="weekday">
+                <span class="contact-schedule-day">Lunes a viernes</span>
+                <span class="contact-schedule-sep">·</span>
+                <span class="contact-schedule-time">8:00 a.m. – 5:00 p.m.</span>
+                <span class="contact-schedule-today-badge" hidden>Hoy</span>
+              </li>
+              <li data-schedule-day="saturday">
+                <span class="contact-schedule-day">Sábado</span>
+                <span class="contact-schedule-sep">·</span>
+                <span class="contact-schedule-time">8:00 a.m. – 12:00 m.d.</span>
+                <span class="contact-schedule-today-badge" hidden>Hoy</span>
+              </li>
+              <li data-schedule-day="sunday">
+                <span class="contact-schedule-day">Domingo</span>
+                <span class="contact-schedule-sep">·</span>
+                <span class="contact-schedule-time">Cerrado</span>
+                <span class="contact-schedule-today-badge" hidden>Hoy</span>
+              </li>
+            </ul>
+          </article>
         </div>
       </div>
       <div class="row contact-bottom-row">
@@ -1550,7 +1590,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=12"></script>
 </body>
 
 </html>

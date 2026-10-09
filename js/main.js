@@ -784,4 +784,96 @@
     });
   }
 
+  /*---------------------
+    Contact cards: live WhatsApp open/closed status (computed in
+    America/El_Salvador regardless of the visitor's own timezone) and
+    the schedule card's "today" highlight.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const liveStatus = document.querySelector('#contact .contact-live-status');
+    const liveText = document.querySelector('#contact .contact-live-text');
+    const liveNote = document.querySelector('#contact .contact-live-note');
+    const scheduleItems = document.querySelectorAll('#contact .contact-schedule-list li');
+
+    if (!liveStatus && !scheduleItems.length) return;
+
+    const svNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/El_Salvador' }));
+    const day = svNow.getDay();
+    const hour = svNow.getHours();
+    const minutes = hour * 60 + svNow.getMinutes();
+
+    const isWeekday = day >= 1 && day <= 5;
+    const isSaturday = day === 6;
+    const isOpen = (isWeekday && minutes >= 480 && minutes < 1020) ||
+      (isSaturday && minutes >= 480 && minutes < 720);
+
+    if (liveStatus && liveText) {
+      liveStatus.classList.toggle('is-open', isOpen);
+
+      if (isOpen) {
+        const closeTime = isSaturday ? '12:00 m.d.' : '5:00 p.m.';
+        liveText.textContent = `Abiertos ahora · cerramos a las ${closeTime}`;
+        if (liveNote) liveNote.hidden = true;
+      } else {
+        let when = 'mañana';
+        if ((isWeekday || isSaturday) && hour < 8) {
+          when = 'hoy';
+        } else if (isSaturday) {
+          when = 'el lunes';
+        }
+
+        liveText.textContent = `Cerrado ahora · abrimos ${when} a las 8:00 a.m.`;
+        if (liveNote) {
+          liveNote.hidden = false;
+          liveNote.textContent = 'Déjanos tu mensaje y te respondemos al abrir';
+        }
+      }
+    }
+
+    if (scheduleItems.length) {
+      const todayKey = isWeekday ? 'weekday' : isSaturday ? 'saturday' : 'sunday';
+
+      scheduleItems.forEach((li) => {
+        const isToday = li.dataset.scheduleDay === todayKey;
+        li.classList.toggle('is-today', isToday);
+        const badge = li.querySelector('.contact-schedule-today-badge');
+        if (badge) badge.hidden = !isToday;
+      });
+    }
+  });
+
+  /*---------------------
+    Contact cards: copy email to clipboard
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.querySelector('#contact .contact-copy-btn');
+
+    if (!copyBtn) return;
+
+    const label = copyBtn.querySelector('.contact-copy-btn-text');
+    const defaultText = label ? label.textContent : '';
+
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.dataset.copy;
+
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch (err) {
+        return;
+      }
+
+      if (!label) return;
+
+      copyBtn.classList.add('is-copied');
+      label.textContent = '¡Copiado! ✓';
+
+      window.setTimeout(() => {
+        copyBtn.classList.remove('is-copied');
+        label.textContent = defaultText;
+      }, 2000);
+    });
+  });
+
 })(jQuery);
