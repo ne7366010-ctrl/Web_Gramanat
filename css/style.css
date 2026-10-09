@@ -982,15 +982,25 @@ nav ul li a.cta-demo-header:hover {
    would otherwise force the hero's CTA back to a white border / blue
    hover, plus .ready-btn's own sitewide uppercase/letter-spacing. These
    re-assert the same specificity so the hero buttons get their own
-   look: no forced caps, equal 52px height, fully-rounded corners. */
+   look: no forced caps, equal 52px height, fully-rounded corners.
+
+   display is !important because .layer-1-3 is also matched by
+   nivo-slider.css's ".nivo-caption a { display: inline !important; }".
+   Without !important here, that rule wins (higher priority tier) and,
+   since .layer-1-3 is a flex container, the browser blockifies the
+   button's "inline" down to "block" — killing the flex box that
+   vertically centers the label and leaving it pinned to the top. */
 .layer-1-3 a.ready-btn.cta-demo,
 .layer-1-3 a.ready-btn.hero-secondary-btn {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   gap: 8px;
   height: 52px;
   padding: 0 28px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1;
   border-radius: 999px;
   font-weight: 700;
   text-transform: none;
