@@ -6302,13 +6302,14 @@ body.page-home .nivo-caption .row {
 
 #contact.contact-premium .contact-whatsapp-btn-primary {
   border: none;
-  background: var(--color-accent);
+  background: #25d366;
   color: #fff;
 }
 
 #contact.contact-premium .contact-whatsapp-btn-primary:hover {
-  background: #e0691f;
+  background: #1ebe5a;
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
 }
 
 #contact.contact-premium .contact-whatsapp-btn-secondary {
