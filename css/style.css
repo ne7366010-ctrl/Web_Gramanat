@@ -6460,10 +6460,14 @@ body.page-home .nivo-caption .row {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
+  background: #fff;
+  padding: 4px;
+}
+
+#contact.contact-premium .contact-phone-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 #contact.contact-premium .contact-phone-header-info {
