@@ -1740,7 +1740,8 @@ p.hero-subtitle {
   transition:
     background-color 0.25s ease,
     border-color 0.25s ease,
-    color 0.25s ease;
+    color 0.25s ease,
+    transform 0.12s ease;
 }
 
 #sistemas .sistemas-pill i {
@@ -1749,8 +1750,14 @@ p.hero-subtitle {
   transition: color 0.25s ease;
 }
 
-#sistemas .sistemas-pill:hover {
-  border-color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  #sistemas .sistemas-pill:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+#sistemas .sistemas-pill:active {
+  transform: scale(0.96);
 }
 
 #sistemas .sistemas-pill.is-active {
@@ -1777,7 +1784,6 @@ p.hero-subtitle {
   padding: 48px;
   overflow: hidden;
   box-shadow: 0 24px 48px rgba(10, 15, 30, 0.25);
-  animation: sistemasPanelFade 0.2s ease;
 }
 
 /* The POS scene's tilted hardware, floating notifications and printed
@@ -1801,14 +1807,66 @@ p.hero-subtitle {
   display: none;
 }
 
-@keyframes sistemasPanelFade {
+/* Pill switch crossfade: the outgoing panel fades out in place while the
+   incoming one fades/slides in, its info column and visual staggered
+   slightly so the switch reads as "content changing", not a hard cut.
+   Mirrors the #services switchGroup leave/enter pattern (js/main.js). */
+#sistemas .sistemas-panel.is-leaving {
+  animation: sistemasPanelLeave 0.18s ease both;
+}
+
+#sistemas .sistemas-panel.is-entering .sistemas-panel-label,
+#sistemas .sistemas-panel.is-entering .sistemas-panel-title,
+#sistemas .sistemas-panel.is-entering .sistemas-panel-tagline {
+  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+#sistemas .sistemas-panel.is-entering .sistemas-panel-features,
+#sistemas .sistemas-panel.is-entering .sistemas-panel-ideal {
+  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: 0.06s;
+}
+
+#sistemas .sistemas-panel.is-entering .sistemas-panel-actions {
+  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: 0.12s;
+}
+
+#sistemas .sistemas-panel.is-entering .sistemas-panel-visual {
+  animation: sistemasPanelEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: 0.04s;
+}
+
+@keyframes sistemasPanelLeave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sistemasPanelEnter {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-panel.is-leaving,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-label,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-title,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-tagline,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-features,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-ideal,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-actions,
+  #sistemas .sistemas-panel.is-entering .sistemas-panel-visual {
+    animation: none;
   }
 }
 
@@ -1945,20 +2003,26 @@ p.hero-subtitle {
     box-shadow 0.25s ease;
 }
 
-#sistemas .sistemas-panel-btn:hover {
-  background: #e0691f;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
+@media (hover: hover) and (pointer: fine) {
+  #sistemas .sistemas-panel-btn:hover {
+    background: #e0691f;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
+  }
+
+  #sistemas .sistemas-panel-btn:hover .arrow {
+    transform: translateX(4px);
+  }
+}
+
+#sistemas .sistemas-panel-btn:active {
+  transform: scale(0.97);
 }
 
 #sistemas .sistemas-panel-btn .arrow {
   display: inline-block;
   transition: transform 0.25s ease;
-}
-
-#sistemas .sistemas-panel-btn:hover .arrow {
-  transform: translateX(4px);
 }
 
 #sistemas .sistemas-panel-btn-secondary {
@@ -1967,13 +2031,20 @@ p.hero-subtitle {
   border: 1px solid rgba(255, 255, 255, 0.4);
   transition:
     background-color 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    transform 0.15s ease;
 }
 
-#sistemas .sistemas-panel-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #fff;
-  color: #fff;
+@media (hover: hover) and (pointer: fine) {
+  #sistemas .sistemas-panel-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    color: #fff;
+  }
+}
+
+#sistemas .sistemas-panel-btn-secondary:active {
+  transform: scale(0.97);
 }
 
 /* --- Visual: 4:3 photo slot, falling back to an interactive CSS/JS
@@ -2017,6 +2088,27 @@ p.hero-subtitle {
   width: 100%;
   max-width: 440px;
   padding: 30px 20px 6px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Revealed once by the IntersectionObserver in js/main.js (same one
+   that staggers the notifications in) the first time the scene scrolls
+   into view — a one-time "system wakes up" moment, not a repeat. */
+#sistemas .pos-stage.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .pos-stage {
+    opacity: 1;
+    transform: scale(1);
+    transition: none;
+  }
 }
 
 /* --- Hardware group: tablet + printer + card terminal + table glow.
@@ -2184,8 +2276,10 @@ p.hero-subtitle {
     border-color 0.15s ease;
 }
 
-#sistemas .pos-product:hover {
-  border-color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  #sistemas .pos-product:hover {
+    border-color: var(--color-accent);
+  }
 }
 
 #sistemas .pos-product:active {
@@ -2219,9 +2313,9 @@ p.hero-subtitle {
   0% {
     transform: scale(1);
   }
-  40% {
-    transform: scale(1.12);
-    box-shadow: 0 4px 10px rgba(255, 122, 41, 0.35);
+  45% {
+    transform: scale(1.07);
+    box-shadow: 0 3px 8px rgba(255, 122, 41, 0.3);
   }
   100% {
     transform: scale(1);
@@ -2229,7 +2323,7 @@ p.hero-subtitle {
 }
 
 #sistemas .pos-product.is-pulsing {
-  animation: posProductPulse 0.35s ease;
+  animation: posProductPulse 0.18s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2253,14 +2347,55 @@ p.hero-subtitle {
   display: flex;
   justify-content: space-between;
   gap: 4px;
+  padding: 1px 2px;
+  border-radius: 3px;
   font-size: 7.5px;
   color: #374151;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-#sistemas .pos-ticket-line span:first-child {
+/* A line newly appended to the ticket (new product added) fades/slides
+   in from its freshly-inserted state instead of just appearing. */
+@starting-style {
+  #sistemas .pos-ticket-line {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+#sistemas .pos-ticket-line-label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* A line whose qty/price changed (product clicked again) gets a brief
+   highlight instead of silently updating its text. */
+#sistemas .pos-ticket-line.is-updated {
+  animation: posTicketLineFlash 0.5s ease;
+}
+
+@keyframes posTicketLineFlash {
+  0% {
+    background-color: rgba(255, 122, 41, 0.16);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .pos-ticket-line {
+    transition: none;
+  }
+
+  #sistemas .pos-ticket-line.is-updated {
+    animation: none;
+  }
 }
 
 #sistemas .pos-ticket-totals {
@@ -2285,6 +2420,25 @@ p.hero-subtitle {
   color: #0a0f1e;
 }
 
+#sistemas .pos-total.is-updated {
+  animation: posTotalFlash 0.45s ease;
+}
+
+@keyframes posTotalFlash {
+  0% {
+    color: var(--color-accent);
+  }
+  100% {
+    color: #0a0f1e;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .pos-total.is-updated {
+    animation: none;
+  }
+}
+
 #sistemas .pos-invoice-btn {
   position: relative;
   margin-top: 8px;
@@ -2297,6 +2451,11 @@ p.hero-subtitle {
   font-size: 9px;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+#sistemas .pos-invoice-btn:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 #sistemas .pos-invoice-btn:disabled {
@@ -2381,52 +2540,41 @@ p.hero-subtitle {
   border-radius: 2px;
 }
 
+/* The receipt is already position:absolute (out of document flow), so
+   there's no layout reason to animate its height — a max-height collapse
+   also made the exit (4s auto-retract) snap back instantly, since nothing
+   transitioned the non-.is-printed state. transform/opacity read as the
+   same "paper sliding out from the slot" but retarget smoothly in both
+   directions from one transition, so the retract mirrors the print. */
 #sistemas .pos-printer-receipt {
   position: absolute;
   top: 7px;
   left: 50%;
   z-index: 2;
   width: 58px;
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 5px;
+  padding: 6px 5px;
   background: #fff;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
   color: #111827;
   opacity: 0;
-  transform: translateX(-50%);
+  transform: translate(-50%, -18px) scaleY(0.92);
+  transform-origin: top center;
+  pointer-events: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 #sistemas .pos-printer-receipt.is-printed {
-  animation: posReceiptSlide 0.5s ease forwards;
-}
-
-@keyframes posReceiptSlide {
-  from {
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    opacity: 0;
-  }
-  to {
-    /* Generous enough for a full 6-line order plus head/total/QR/thanks
-       at this font scale (measured ~310px for 3 lines; this covers up
-       to 6 without clipping). */
-    max-height: 460px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    opacity: 1;
-  }
+  opacity: 1;
+  transform: translate(-50%, 0) scaleY(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-printer-receipt.is-printed {
-    animation: none;
-    max-height: 460px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    opacity: 1;
+  #sistemas .pos-printer-receipt {
+    transform: translate(-50%, 0) scaleY(1);
+    transition: opacity 0.25s ease;
   }
 }
 
@@ -2600,8 +2748,8 @@ p.hero-subtitle {
 
 #sistemas .pos-notification.is-visible {
   animation:
-    posNotifIn 0.5s ease forwards,
-    posNotifFloat 3s ease-in-out 0.5s infinite;
+    posNotifIn 0.45s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+    posNotifFloat 3s ease-in-out 0.45s infinite;
 }
 
 @keyframes posNotifPulse {

@@ -328,6 +328,11 @@
 
     if (!triggers.length || !panels.length) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let activePanel = panels.find((panel) => panel.classList.contains('is-active')) || panels[0];
+    let leaveTimer = null;
+    let enterTimer = null;
+
     function activate(targetId, focusTrigger) {
       triggers.forEach((trigger) => {
         const isMatch = trigger.getAttribute('data-target') === targetId;
@@ -340,10 +345,51 @@
         }
       });
 
+      const next = panels.find((panel) => panel.id === targetId);
+      if (!next || next === activePanel) return;
+
+      const outgoing = activePanel;
+      activePanel = next;
+
+      if (leaveTimer) clearTimeout(leaveTimer);
+      if (enterTimer) clearTimeout(enterTimer);
+
+      // A panel interrupted mid-transition by a fast second click is
+      // neither the new outgoing nor the new target — snap it away
+      // instantly instead of leaving it half-visible.
       panels.forEach((panel) => {
-        panel.classList.toggle('is-active', panel.id === targetId);
-        panel.hidden = panel.id !== targetId;
+        if (panel === outgoing || panel === next) return;
+        panel.classList.remove('is-leaving', 'is-entering', 'is-active');
+        panel.hidden = true;
       });
+
+      if (prefersReducedMotion) {
+        if (outgoing) {
+          outgoing.classList.remove('is-active', 'is-leaving', 'is-entering');
+          outgoing.hidden = true;
+        }
+        next.classList.remove('is-leaving', 'is-entering');
+        next.classList.add('is-active');
+        next.hidden = false;
+        return;
+      }
+
+      if (outgoing) {
+        outgoing.classList.remove('is-active', 'is-entering');
+        outgoing.classList.add('is-leaving');
+        leaveTimer = setTimeout(() => {
+          outgoing.hidden = true;
+          outgoing.classList.remove('is-leaving');
+        }, 180);
+      }
+
+      next.classList.remove('is-leaving');
+      next.classList.add('is-active');
+      next.hidden = false;
+      next.classList.add('is-entering');
+      enterTimer = setTimeout(() => {
+        next.classList.remove('is-entering');
+      }, 500);
     }
 
     triggers.forEach((trigger) => {
@@ -622,21 +668,75 @@
       const saleAmountEl = scene.querySelector('.pos-notification-amount');
 
       function renderTicket() {
-        linesEl.innerHTML = order
-          .map((line) => {
-            const p = productById(line.id);
-            return '<div class="pos-ticket-line"><span>' + line.qty + '× ' + escapeHtml(p.name) + '</span><span>' + money(p.price * line.qty) + '</span></div>';
-          })
-          .join('');
+        // Diffed against existing nodes (by product id) instead of a full
+        // innerHTML rebuild, so a newly-added line can play an entrance
+        // (@starting-style in CSS) and a changed quantity can flash,
+        // rather than every line silently teleporting into existence.
+        const seenIds = new Set();
+
+        order.forEach((line) => {
+          const p = productById(line.id);
+          const label = line.qty + '× ' + p.name;
+          const priceText = money(p.price * line.qty);
+
+          seenIds.add(line.id);
+
+          let el = linesEl.querySelector('.pos-ticket-line[data-id="' + line.id + '"]');
+
+          if (el) {
+            const labelEl = el.querySelector('.pos-ticket-line-label');
+            const priceEl = el.querySelector('.pos-ticket-line-price');
+            const changed = labelEl.textContent !== label || priceEl.textContent !== priceText;
+
+            labelEl.textContent = label;
+            priceEl.textContent = priceText;
+
+            if (changed && !prefersReduced) {
+              el.classList.remove('is-updated');
+              void el.offsetWidth;
+              el.classList.add('is-updated');
+            }
+          } else {
+            el = document.createElement('div');
+            el.className = 'pos-ticket-line';
+            el.setAttribute('data-id', line.id);
+
+            const labelEl = document.createElement('span');
+            labelEl.className = 'pos-ticket-line-label';
+            labelEl.textContent = label;
+
+            const priceEl = document.createElement('span');
+            priceEl.className = 'pos-ticket-line-price';
+            priceEl.textContent = priceText;
+
+            el.appendChild(labelEl);
+            el.appendChild(priceEl);
+            linesEl.appendChild(el);
+          }
+        });
+
+        Array.from(linesEl.children).forEach((el) => {
+          if (!seenIds.has(el.getAttribute('data-id'))) el.remove();
+        });
 
         const subtotal = order.reduce((sum, line) => sum + productById(line.id).price * line.qty, 0);
         const iva = subtotal * 0.13;
         const total = subtotal + iva;
+        const totalText = money(total);
 
         subtotalEl.textContent = money(subtotal);
         ivaEl.textContent = money(iva);
-        totalEl.textContent = money(total);
-        if (saleAmountEl) saleAmountEl.textContent = money(total);
+
+        if (totalEl.textContent !== totalText) {
+          totalEl.textContent = totalText;
+          if (!prefersReduced) {
+            totalEl.classList.remove('is-updated');
+            void totalEl.offsetWidth;
+            totalEl.classList.add('is-updated');
+          }
+        }
+
+        if (saleAmountEl) saleAmountEl.textContent = totalText;
       }
 
       renderTicket();
@@ -727,14 +827,16 @@
       });
 
       const notifications = [invoiceNotif, saleNotif].filter(Boolean);
+      const stage = scene.querySelector('.pos-stage');
 
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
+                if (stage) stage.classList.add('is-visible');
                 notifications.forEach((el, i) => {
-                  setTimeout(() => el.classList.add('is-visible'), prefersReduced ? 0 : i * 300);
+                  setTimeout(() => el.classList.add('is-visible'), prefersReduced ? 0 : 200 + i * 300);
                 });
                 observer.disconnect();
               }
@@ -744,6 +846,7 @@
         );
         observer.observe(scene);
       } else {
+        if (stage) stage.classList.add('is-visible');
         notifications.forEach((el) => el.classList.add('is-visible'));
       }
     }
