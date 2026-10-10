@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=72" rel="stylesheet">
+  <link href="css/style.css?v=73" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -170,6 +170,9 @@
         <li>
           <a href="#sistemas"><i class="fa-solid fa-display"></i>Sistemas</a>
         </li>
+        <li>
+          <a href="#verificador"><i class="fa-solid fa-clipboard-check"></i>Verificador</a>
+        </li>
         <li class="has-submenu soluciones-submenu">
           <a href="#" class="submenu-toggle"><i class="fa-solid fa-wrench"></i>Soluciones <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
@@ -268,6 +271,9 @@
         </li>
         <li>
           <a href="#sistemas">Sistemas</a>
+        </li>
+        <li>
+          <a href="#verificador">Verificador</a>
         </li>
         <li class="mobile-submenu soluciones-submenu">
           <a href="#" class="submenu-toggle mobile-submenu-toggle">Soluciones <i class="fas fa-chevron-down"></i></a>
@@ -1167,6 +1173,96 @@
   </div>
   <!-- End Problems area -->
 
+  <!-- Start Verificador area ("¿Tu negocio ya está listo para facturar electrónico?") -->
+  <div id="verificador" class="custom-cards">
+    <div class="row">
+      <div class="section-headline text-center">
+        <p class="verificador-eyebrow">Facturación electrónica 2026</p>
+        <h2>¿Tu negocio ya está listo para facturar electrónico?</h2>
+        <p class="verificador-subtitle">Responde 3 preguntas y descubre en 30 segundos qué necesitas para cumplir con Hacienda.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="verificador-card">
+        <div class="verificador-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" aria-label="Progreso del verificador">
+          <span class="verificador-progress-bar" style="width: 33.33%"></span>
+        </div>
+        <p class="verificador-step-label">Paso 1 de 3</p>
+
+        <div class="verificador-stage" aria-live="polite">
+          <div class="verificador-step is-active" data-step="1">
+            <h3 class="verificador-question">¿Ya te notificó Hacienda tu fecha para facturar electrónico?</h3>
+            <div class="verificador-options">
+              <button type="button" class="verificador-option" data-question="1" data-value="notificado">
+                <span class="verificador-option-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">Sí, ya me notificaron</span>
+              </button>
+              <button type="button" class="verificador-option" data-question="1" data-value="todavia_no">
+                <span class="verificador-option-icon"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">Todavía no</span>
+              </button>
+              <button type="button" class="verificador-option" data-question="1" data-value="no_se">
+                <span class="verificador-option-icon"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">No sé cómo revisarlo</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="verificador-step" data-step="2" hidden>
+            <h3 class="verificador-question">¿Cómo facturas hoy?</h3>
+            <div class="verificador-options">
+              <button type="button" class="verificador-option" data-question="2" data-value="papel">
+                <span class="verificador-option-icon"><i class="fa-solid fa-receipt" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">Facturas en papel / talonario</span>
+              </button>
+              <button type="button" class="verificador-option" data-question="2" data-value="sistema">
+                <span class="verificador-option-icon"><i class="fa-solid fa-display" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">Ya tengo un sistema electrónico</span>
+              </button>
+              <button type="button" class="verificador-option" data-question="2" data-value="no_emite">
+                <span class="verificador-option-icon"><i class="fa-solid fa-ban" aria-hidden="true"></i></span>
+                <span class="verificador-option-text">No emito facturas</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="verificador-step" data-step="3" hidden>
+            <h3 class="verificador-question">¿Qué tipo de negocio tienes?</h3>
+            <div class="verificador-chips">
+              <button type="button" class="verificador-chip" data-question="3" data-value="Restaurante"><i class="fa-solid fa-utensils" aria-hidden="true"></i>Restaurante</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Tienda"><i class="fa-solid fa-store" aria-hidden="true"></i>Tienda</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Farmacia"><i class="fa-solid fa-pills" aria-hidden="true"></i>Farmacia</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Ferretería"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Ferretería</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Boutique"><i class="fa-solid fa-shirt" aria-hidden="true"></i>Boutique</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Servicios"><i class="fa-solid fa-briefcase" aria-hidden="true"></i>Servicios</button>
+              <button type="button" class="verificador-chip" data-question="3" data-value="Otro"><i class="fa-solid fa-ellipsis" aria-hidden="true"></i>Otro</button>
+            </div>
+          </div>
+
+          <div class="verificador-result" data-step="result" hidden>
+            <div class="verificador-result-icon"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></div>
+            <h3 class="verificador-result-title"></h3>
+            <p class="verificador-result-text"></p>
+            <a class="verificador-result-link" href="https://factura.gob.sv" target="_blank" rel="noopener noreferrer" hidden>Abrir factura.gob.sv <span aria-hidden="true">↗</span></a>
+            <a class="verificador-whatsapp-btn" href="https://wa.me/50370043346" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>Recibir mi diagnóstico gratis
+            </a>
+            <button type="button" class="verificador-restart">Volver a empezar</button>
+          </div>
+        </div>
+
+        <p class="verificador-disclaimer">Información orientativa. Confirma siempre tu fecha oficial en factura.gob.sv.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="verificador-urgency">
+        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+        <span>DTE 2.0: todos los sistemas deben actualizarse antes del 1 de diciembre de 2026. <strong class="verificador-countdown">Faltan <span class="verificador-countdown-days">—</span> días</strong></span>
+      </div>
+    </div>
+  </div>
+  <!-- End Verificador area -->
+
   <!-- Start Service area -->
 
   <div id="services" class="custom-cards">
@@ -2027,7 +2123,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=18"></script>
+  <script src="js/main.js?v=19"></script>
 </body>
 
 </html>

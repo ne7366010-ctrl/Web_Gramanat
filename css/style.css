@@ -3424,6 +3424,465 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------------------*/
+/* Verificador Area ("¿Tu negocio ya está listo para facturar
+/* electrónico?") — a 3-question wizard (card-style options, then
+/* chips) ending in one of three result messages, plus a live
+/* countdown to the DTE 2.0 deadline. Scoped to #verificador, JS in
+/* js/main.js. Dark section (breaks the run of light #sistemas/
+/* #problems/#services) so it reads as a distinct, focused tool.
+/*--------------------------------------------------*/
+
+#verificador {
+  position: relative;
+  background: #0a0f1e;
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+#verificador::before {
+  content: "";
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  width: 640px;
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(255, 122, 41, 0.18) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+#verificador .row {
+  position: relative;
+  z-index: 1;
+}
+
+#verificador .verificador-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+#verificador .section-headline h2 {
+  color: #fff;
+  text-transform: none;
+  font-size: 36px;
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+
+#verificador .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+#verificador .verificador-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 17px;
+  max-width: 560px;
+  margin: 0 auto 3rem;
+}
+
+/* --- Card --- */
+
+#verificador .verificador-card {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.35);
+}
+
+#verificador .verificador-progress {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+#verificador .verificador-progress-bar {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #verificador .verificador-progress-bar {
+    transition: none;
+  }
+}
+
+#verificador .verificador-step-label {
+  margin: 0 0 24px;
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --- Stage: holds exactly one of step1/step2/step3/result at a time,
+   swapped with a horizontal slide by js/main.js (direction carried in
+   --slide-dir, consumed by the keyframes below). --- */
+
+#verificador .verificador-stage {
+  position: relative;
+}
+
+#verificador .verificador-question {
+  margin: 0 0 24px;
+  color: #0a0f1e;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+@keyframes verificadorLeave {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--slide-dir, 1) * -24px));
+  }
+}
+
+@keyframes verificadorEnter {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--slide-dir, 1) * 24px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#verificador .verificador-step.is-leaving,
+#verificador .verificador-result.is-leaving {
+  animation: verificadorLeave 0.25s ease both;
+}
+
+#verificador .verificador-step.is-entering,
+#verificador .verificador-result.is-entering {
+  animation: verificadorEnter 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #verificador .verificador-step.is-leaving,
+  #verificador .verificador-result.is-leaving,
+  #verificador .verificador-step.is-entering,
+  #verificador .verificador-result.is-entering {
+    animation: none;
+  }
+}
+
+/* --- Options: big tappable rows (icon + text) --- */
+
+#verificador .verificador-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#verificador .verificador-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.12s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #verificador .verificador-option:hover {
+    border-color: var(--color-accent);
+    background: rgba(255, 122, 41, 0.04);
+  }
+}
+
+#verificador .verificador-option:active {
+  transform: scale(0.99);
+}
+
+#verificador .verificador-option-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
+  font-size: 18px;
+}
+
+#verificador .verificador-option-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0a0f1e;
+}
+
+/* --- Chips (question 3: business type) --- */
+
+#verificador .verificador-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#verificador .verificador-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0f1e;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.12s ease;
+}
+
+#verificador .verificador-chip i {
+  color: var(--color-accent);
+  font-size: 14px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #verificador .verificador-chip:hover {
+    border-color: var(--color-accent);
+    background: rgba(255, 122, 41, 0.04);
+  }
+}
+
+#verificador .verificador-chip:active {
+  transform: scale(0.97);
+}
+
+/* Brief confirmation on the option/chip that was just picked — visible
+   for the ~250-320ms the slide-out takes before the next question
+   replaces it. */
+#verificador .verificador-option.is-selected,
+#verificador .verificador-chip.is-selected {
+  border-color: var(--color-accent);
+  background: rgba(255, 122, 41, 0.08);
+}
+
+/* --- Focus visible (keyboard navigation) --- */
+
+#verificador .verificador-option:focus-visible,
+#verificador .verificador-chip:focus-visible,
+#verificador .verificador-whatsapp-btn:focus-visible,
+#verificador .verificador-result-link:focus-visible,
+#verificador .verificador-restart:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --- Result --- */
+
+#verificador .verificador-result {
+  text-align: center;
+}
+
+#verificador .verificador-result-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
+  font-size: 28px;
+}
+
+#verificador .verificador-result-title {
+  margin: 0 0 10px;
+  color: #0a0f1e;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+#verificador .verificador-result-text {
+  margin: 0 auto 16px;
+  max-width: 440px;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+#verificador .verificador-result-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#verificador .verificador-result-link:hover {
+  text-decoration: underline;
+}
+
+#verificador .verificador-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 56px;
+  background: #25d366;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.12s ease;
+}
+
+#verificador .verificador-whatsapp-btn i {
+  font-size: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #verificador .verificador-whatsapp-btn:hover {
+    background: #1fb855;
+    color: #fff;
+  }
+}
+
+#verificador .verificador-whatsapp-btn:active {
+  transform: scale(0.98);
+}
+
+#verificador .verificador-restart {
+  display: inline-block;
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#verificador .verificador-restart:hover {
+  color: #0a0f1e;
+}
+
+#verificador .verificador-disclaimer {
+  margin: 28px 0 0;
+  color: #9ca3af;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* --- Urgency banner --- */
+
+#verificador .verificador-urgency {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 640px;
+  margin: 24px auto 0;
+  padding: 18px 24px;
+  background: rgba(255, 122, 41, 0.08);
+  border: 1px solid rgba(255, 122, 41, 0.35);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#verificador .verificador-urgency i {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-size: 20px;
+}
+
+#verificador .verificador-countdown {
+  color: #fff;
+}
+
+#verificador .verificador-countdown-days {
+  color: var(--color-accent);
+}
+
+@media (max-width: 767px) {
+  #verificador {
+    padding: 64px 0;
+  }
+
+  #verificador .section-headline h2 {
+    font-size: 26px;
+  }
+
+  #verificador .verificador-card {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  #verificador .verificador-question {
+    font-size: 19px;
+  }
+
+  #verificador .verificador-option {
+    padding: 14px 16px;
+  }
+
+  #verificador .verificador-chips {
+    flex-direction: column;
+  }
+
+  #verificador .verificador-chip {
+    width: 100%;
+  }
+
+  #verificador .verificador-urgency {
+    flex-direction: column;
+    text-align: center;
+    padding: 18px;
+  }
+}
+
+/*--------------------------------------------------*/
 /* 3a. Services Area ("Nuestros servicios")
 /* Scoped to #services so it never affects #equipment, which shares the
 /* same .custom-cards/.icon-wrapper base. A segmented pill switch (two

@@ -982,6 +982,196 @@
   });
 
   /*---------------------
+    Verificador (3-question DTE readiness wizard + live countdown)
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('verificador');
+
+    if (!root) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const stage = root.querySelector('.verificador-stage');
+    const panels = {
+      1: root.querySelector('.verificador-step[data-step="1"]'),
+      2: root.querySelector('.verificador-step[data-step="2"]'),
+      3: root.querySelector('.verificador-step[data-step="3"]'),
+      result: root.querySelector('.verificador-result'),
+    };
+    const progressBar = root.querySelector('.verificador-progress-bar');
+    const progressTrack = root.querySelector('.verificador-progress');
+    const stepLabel = root.querySelector('.verificador-step-label');
+    const resultIcon = root.querySelector('.verificador-result-icon i');
+    const resultTitle = root.querySelector('.verificador-result-title');
+    const resultText = root.querySelector('.verificador-result-text');
+    const resultLink = root.querySelector('.verificador-result-link');
+    const whatsappBtn = root.querySelector('.verificador-whatsapp-btn');
+    const restartBtn = root.querySelector('.verificador-restart');
+
+    if (!stage || !panels[1] || !panels[2] || !panels[3] || !panels.result) return;
+
+    const OPTION_LABELS = {
+      1: {
+        notificado: 'Sí, ya me notificaron',
+        todavia_no: 'Todavía no',
+        no_se: 'No sé cómo revisarlo',
+      },
+      2: {
+        papel: 'Facturas en papel / talonario',
+        sistema: 'Ya tengo un sistema electrónico',
+        no_emite: 'No emito facturas',
+      },
+    };
+
+    const answers = { 1: null, 2: null, 3: null };
+    let current = panels[1];
+
+    function updateProgress(stepNum) {
+      const pct = (Math.min(stepNum, 3) / 3) * 100;
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.min(stepNum, 3)));
+      if (stepLabel) stepLabel.textContent = stepNum <= 3 ? 'Paso ' + stepNum + ' de 3' : 'Resultado';
+    }
+
+    function showPanel(next, direction) {
+      if (!next || next === current) return;
+
+      const outgoing = current;
+      current = next;
+
+      if (prefersReducedMotion) {
+        outgoing.hidden = true;
+        outgoing.classList.remove('is-active');
+        next.hidden = false;
+        next.classList.add('is-active');
+        return;
+      }
+
+      stage.style.setProperty('--slide-dir', direction === 'back' ? '-1' : '1');
+
+      outgoing.classList.remove('is-active', 'is-entering');
+      outgoing.classList.add('is-leaving');
+      setTimeout(() => {
+        outgoing.hidden = true;
+        outgoing.classList.remove('is-leaving');
+      }, 250);
+
+      next.classList.remove('is-leaving');
+      next.hidden = false;
+      next.classList.add('is-active', 'is-entering');
+      setTimeout(() => {
+        next.classList.remove('is-entering');
+      }, 320);
+    }
+
+    function clearSelection(container) {
+      if (!container) return;
+      container.querySelectorAll('.is-selected').forEach((el) => el.classList.remove('is-selected'));
+    }
+
+    function showResult() {
+      const r1 = answers[1];
+      const r2 = answers[2];
+      const r3 = answers[3];
+
+      let title;
+      let text;
+      let showLink = false;
+      let icon = 'fa-solid fa-sparkles';
+
+      if (r2 === 'sistema') {
+        title = 'Revisa que tu sistema esté listo para DTE 2.0';
+        text = 'Todos los sistemas deben actualizarse al nuevo estándar antes del 1 de diciembre de 2026. Te revisamos tu sistema actual gratis.';
+        icon = 'fa-solid fa-arrows-rotate';
+      } else if (r1 === 'notificado' && (r2 === 'papel' || r2 === 'no_emite')) {
+        title = 'Necesitas empezar pronto';
+        text = 'La instalación, pruebas y capacitación pueden tomar algunas semanas. Te ayudamos a dejar todo listo a tiempo.';
+        icon = 'fa-solid fa-triangle-exclamation';
+      } else {
+        title = 'Revisa tu fecha en 1 minuto';
+        text = 'Entra a factura.gob.sv, escribe tu NIT y elige "Conozca fecha para ser emisor". Si quieres, lo revisamos contigo.';
+        icon = 'fa-solid fa-magnifying-glass';
+        showLink = true;
+      }
+
+      if (resultIcon) resultIcon.className = icon;
+      if (resultTitle) resultTitle.textContent = title;
+      if (resultText) resultText.textContent = text;
+      if (resultLink) resultLink.hidden = !showLink;
+
+      if (whatsappBtn) {
+        const label1 = OPTION_LABELS[1][r1] || r1 || '—';
+        const label2 = OPTION_LABELS[2][r2] || r2 || '—';
+        const label3 = r3 || '—';
+        const message =
+          'Hola Gramanat 👋 hice el verificador: Hacienda: ' +
+          label1 +
+          ' · Facturo: ' +
+          label2 +
+          ' · Negocio: ' +
+          label3 +
+          '. Quiero mi diagnóstico gratis.';
+        whatsappBtn.href = 'https://wa.me/50370043346?text=' + encodeURIComponent(message);
+      }
+
+      updateProgress(4);
+      showPanel(panels.result, 'forward');
+    }
+
+    root.querySelectorAll('.verificador-option, .verificador-chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-question');
+        const value = btn.getAttribute('data-value');
+
+        answers[q] = value;
+        clearSelection(btn.closest('.verificador-options, .verificador-chips'));
+        btn.classList.add('is-selected');
+
+        if (q === '1') {
+          updateProgress(2);
+          showPanel(panels[2], 'forward');
+        } else if (q === '2') {
+          updateProgress(3);
+          showPanel(panels[3], 'forward');
+        } else if (q === '3') {
+          showResult();
+        }
+      });
+    });
+
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => {
+        answers[1] = null;
+        answers[2] = null;
+        answers[3] = null;
+        root.querySelectorAll('.verificador-option.is-selected, .verificador-chip.is-selected').forEach((el) => {
+          el.classList.remove('is-selected');
+        });
+        updateProgress(1);
+        showPanel(panels[1], 'back');
+      });
+    }
+
+    // Live countdown to the DTE 2.0 deadline (2026-12-01, El Salvador is
+    // UTC-6 year-round, no DST). Recomputed hourly in case the page is
+    // left open; a daily figure doesn't need finer-grained ticking.
+    const countdownDaysEl = root.querySelector('.verificador-countdown-days');
+
+    function updateCountdown() {
+      if (!countdownDaysEl) return;
+      const deadline = new Date('2026-12-01T00:00:00-06:00');
+      const now = new Date();
+      const diffMs = deadline.getTime() - now.getTime();
+      const days = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+      countdownDaysEl.textContent = String(days);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 60);
+  });
+
+  /*---------------------
     Services switch (segmented pill + bento group swap)
   --------------------- */
 
