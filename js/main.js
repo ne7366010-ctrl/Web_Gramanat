@@ -375,6 +375,383 @@
   });
 
   /*---------------------
+    Sistemas POS scene (interactive mock point-of-sale per business,
+    shown when img/media/sistema-[negocio].jpg is missing)
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const scenes = Array.from(document.querySelectorAll('#sistemas .sistemas-pos-scene'));
+
+    if (!scenes.length) return;
+
+    const POS_DATA = {
+      restaurantes: {
+        name: 'Café Aroma',
+        categories: ['Bebidas', 'Comidas', 'Postres'],
+        products: [
+          { id: 'cafe', emoji: '☕', name: 'Café americano', price: 1.50 },
+          { id: 'croissant', emoji: '🥐', name: 'Croissant', price: 1.75 },
+          { id: 'sandwich', emoji: '🥪', name: 'Sándwich', price: 3.25 },
+          { id: 'jugo', emoji: '🥤', name: 'Jugo natural', price: 2.00 },
+          { id: 'pastel', emoji: '🍰', name: 'Pastel', price: 2.50 },
+          { id: 'pupusa', emoji: '🌮', name: 'Pupusa revuelta', price: 0.75 },
+        ],
+        initialOrder: ['cafe', 'croissant', 'sandwich'],
+      },
+      tiendas: {
+        name: 'Minisúper La Esquina',
+        categories: ['Lácteos', 'Abarrotes', 'Limpieza'],
+        products: [
+          { id: 'leche', emoji: '🥛', name: 'Leche', price: 1.10 },
+          { id: 'pan', emoji: '🍞', name: 'Pan de caja', price: 2.25 },
+          { id: 'huevos', emoji: '🥚', name: 'Huevos 12u', price: 2.80 },
+          { id: 'jugo', emoji: '🧃', name: 'Jugo', price: 0.85 },
+          { id: 'arroz', emoji: '🍚', name: 'Arroz 1lb', price: 0.65 },
+          { id: 'jabon', emoji: '🧼', name: 'Jabón', price: 0.95 },
+        ],
+        initialOrder: ['leche', 'pan', 'huevos'],
+      },
+      farmacias: {
+        name: 'Farmacia Salud',
+        categories: ['Medicamentos', 'Cuidado', 'Higiene'],
+        products: [
+          { id: 'acetaminofen', emoji: '💊', name: 'Acetaminofén', price: 1.50 },
+          { id: 'alcohol', emoji: '🧴', name: 'Alcohol gel', price: 2.25 },
+          { id: 'curitas', emoji: '🩹', name: 'Curitas', price: 1.20 },
+          { id: 'termometro', emoji: '🌡️', name: 'Termómetro', price: 6.50 },
+          { id: 'mascarillas', emoji: '😷', name: 'Mascarillas', price: 3.00 },
+          { id: 'vitaminac', emoji: '🧪', name: 'Vitamina C', price: 4.75 },
+        ],
+        initialOrder: ['acetaminofen', 'alcohol', 'curitas'],
+      },
+      ferreterias: {
+        name: 'Ferretería El Tornillo',
+        categories: ['Herramientas', 'Materiales', 'Pintura'],
+        products: [
+          { id: 'martillo', emoji: '🔨', name: 'Martillo', price: 8.50 },
+          { id: 'tornillos', emoji: '🔩', name: 'Tornillos 100u', price: 3.25 },
+          { id: 'desarmador', emoji: '🪛', name: 'Desarmador', price: 4.00 },
+          { id: 'cubeta', emoji: '🪣', name: 'Cubeta', price: 2.75 },
+          { id: 'brocha', emoji: '🖌️', name: 'Brocha', price: 1.90 },
+          { id: 'cinta', emoji: '📏', name: 'Cinta métrica', price: 5.25 },
+        ],
+        initialOrder: ['martillo', 'tornillos', 'desarmador'],
+      },
+      boutiques: {
+        name: 'Boutique Bella',
+        categories: ['Ropa', 'Calzado', 'Accesorios'],
+        products: [
+          { id: 'camiseta', emoji: '👕', name: 'Camiseta', price: 12.00 },
+          { id: 'vestido', emoji: '👗', name: 'Vestido', price: 28.00 },
+          { id: 'jeans', emoji: '👖', name: 'Jeans', price: 24.00 },
+          { id: 'tenis', emoji: '👟', name: 'Tenis', price: 35.00 },
+          { id: 'bolso', emoji: '👜', name: 'Bolso', price: 22.00 },
+          { id: 'gorra', emoji: '🧢', name: 'Gorra', price: 9.50 },
+        ],
+        initialOrder: ['camiseta', 'vestido', 'jeans'],
+      },
+      servicios: {
+        name: 'Consultorio Integral',
+        categories: ['Consultas', 'Trámites', 'Asesorías'],
+        products: [
+          { id: 'consulta', emoji: '🩺', name: 'Consulta', price: 25.00 },
+          { id: 'certificado', emoji: '📄', name: 'Certificado', price: 10.00 },
+          { id: 'asesoria', emoji: '💼', name: 'Asesoría', price: 40.00 },
+          { id: 'tramite', emoji: '🗂️', name: 'Trámite', price: 15.00 },
+          { id: 'declaracion', emoji: '🧾', name: 'Declaración', price: 30.00 },
+          { id: 'seguimiento', emoji: '📞', name: 'Seguimiento', price: 8.00 },
+        ],
+        initialOrder: ['consulta', 'certificado', 'asesoria'],
+      },
+    };
+
+    function escapeHtml(str) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return String(str).replace(/[&<>"']/g, (ch) => map[ch]);
+    }
+
+    function money(n) {
+      return '$' + n.toFixed(2);
+    }
+
+    function qrCellsHTML() {
+      const n = 7;
+      let html = '';
+      for (let r = 0; r < n; r++) {
+        for (let c = 0; c < n; c++) {
+          const inFinder = (r < 3 && c < 3) || (r < 3 && c >= n - 3) || (r >= n - 3 && c < 3);
+          const isRing = inFinder && (r === 1 || c === 1 || r === n - 2 || c === n - 2);
+          const on = inFinder ? !isRing : Math.random() < 0.45;
+          html += '<span class="pos-qr-cell' + (on ? ' is-on' : '') + '"></span>';
+        }
+      }
+      return html;
+    }
+
+    function buildSceneHTML(data) {
+      const categoriesHTML = data.categories
+        .map((cat, i) => '<button type="button" class="pos-category' + (i === 0 ? ' is-active' : '') + '">' + escapeHtml(cat) + '</button>')
+        .join('');
+
+      const productsHTML = data.products
+        .map(
+          (p) =>
+            '<button type="button" class="pos-product" data-id="' +
+            p.id +
+            '" aria-label="Agregar ' +
+            escapeHtml(p.name) +
+            ', ' +
+            money(p.price) +
+            '">' +
+            '<span class="pos-product-emoji" aria-hidden="true">' +
+            p.emoji +
+            '</span>' +
+            '<span class="pos-product-name">' +
+            escapeHtml(p.name) +
+            '</span>' +
+            '<span class="pos-product-price">' +
+            money(p.price) +
+            '</span>' +
+            '</button>'
+        )
+        .join('');
+
+      return (
+        '<div class="pos-stage">' +
+        '<div class="pos-hardware">' +
+        '<div class="pos-terminal" aria-hidden="true">' +
+        '<div class="pos-terminal-screen">$0.00</div>' +
+        '<div class="pos-terminal-pad"><span></span><span></span><span></span><span></span><span></span><span></span></div>' +
+        '</div>' +
+        '<div class="pos-tablet">' +
+        '<div class="pos-tablet-frame">' +
+        '<div class="pos-screen">' +
+        '<div class="pos-screen-topbar">' +
+        '<span class="pos-business-name">' +
+        escapeHtml(data.name) +
+        '</span>' +
+        '<span class="pos-clock"></span>' +
+        '<span class="pos-user"><i class="fa-solid fa-user" aria-hidden="true"></i>Caja 1</span>' +
+        '</div>' +
+        '<div class="pos-screen-body">' +
+        '<div class="pos-screen-left">' +
+        '<div class="pos-categories">' +
+        categoriesHTML +
+        '</div>' +
+        '<div class="pos-products">' +
+        productsHTML +
+        '</div>' +
+        '</div>' +
+        '<div class="pos-screen-right">' +
+        '<div class="pos-ticket-lines"></div>' +
+        '<div class="pos-ticket-totals">' +
+        '<div class="pos-ticket-row"><span>Subtotal</span><span class="pos-subtotal">$0.00</span></div>' +
+        '<div class="pos-ticket-row"><span>IVA 13%</span><span class="pos-iva">$0.00</span></div>' +
+        '<div class="pos-ticket-row pos-ticket-total"><span>Total</span><span class="pos-total">$0.00</span></div>' +
+        '</div>' +
+        '<button type="button" class="pos-invoice-btn" aria-label="Facturar la orden actual">' +
+        '<span class="pos-invoice-btn-label">Facturar</span>' +
+        '<span class="pos-invoice-btn-spinner" aria-hidden="true"></span>' +
+        '</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="pos-tablet-neck"></div>' +
+        '<div class="pos-tablet-foot"></div>' +
+        '</div>' +
+        '<div class="pos-printer">' +
+        '<div class="pos-printer-receipt" aria-hidden="true">' +
+        '<div class="pos-receipt-head">FACTURA ELECTRÓNICA · DTE</div>' +
+        '<div class="pos-receipt-business">' +
+        escapeHtml(data.name) +
+        '</div>' +
+        '<div class="pos-receipt-lines"></div>' +
+        '<div class="pos-receipt-total"></div>' +
+        '<div class="pos-receipt-qr"></div>' +
+        '<div class="pos-receipt-thanks">¡Gracias por su compra!</div>' +
+        '</div>' +
+        '<div class="pos-printer-body"><div class="pos-printer-slot"></div></div>' +
+        '</div>' +
+        '<div class="pos-glow" aria-hidden="true"></div>' +
+        '</div>' +
+        '<div class="pos-notifications" aria-hidden="true">' +
+        '<div class="pos-notification pos-notification-invoice"><i class="fa-solid fa-circle-check"></i><span>Factura enviada a Hacienda</span></div>' +
+        '<div class="pos-notification pos-notification-sale"><i class="fa-solid fa-bag-shopping"></i><span>Venta registrada · <span class="pos-notification-amount">$0.00</span></span></div>' +
+        '</div>' +
+        '</div>'
+      );
+    }
+
+    function initScene(scene) {
+      const business = scene.getAttribute('data-business');
+      const data = POS_DATA[business];
+
+      if (!data) return;
+
+      scene.innerHTML = buildSceneHTML(data);
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const clockEl = scene.querySelector('.pos-clock');
+
+      function updateClock() {
+        const now = new Date();
+        clockEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+      }
+
+      updateClock();
+      setInterval(updateClock, 15000);
+
+      function productById(id) {
+        return data.products.find((p) => p.id === id);
+      }
+
+      let order = [];
+
+      function resetOrder() {
+        order = data.initialOrder.map((id) => ({ id, qty: 1 }));
+      }
+
+      resetOrder();
+
+      const linesEl = scene.querySelector('.pos-ticket-lines');
+      const subtotalEl = scene.querySelector('.pos-subtotal');
+      const ivaEl = scene.querySelector('.pos-iva');
+      const totalEl = scene.querySelector('.pos-total');
+      const saleAmountEl = scene.querySelector('.pos-notification-amount');
+
+      function renderTicket() {
+        linesEl.innerHTML = order
+          .map((line) => {
+            const p = productById(line.id);
+            return '<div class="pos-ticket-line"><span>' + line.qty + '× ' + escapeHtml(p.name) + '</span><span>' + money(p.price * line.qty) + '</span></div>';
+          })
+          .join('');
+
+        const subtotal = order.reduce((sum, line) => sum + productById(line.id).price * line.qty, 0);
+        const iva = subtotal * 0.13;
+        const total = subtotal + iva;
+
+        subtotalEl.textContent = money(subtotal);
+        ivaEl.textContent = money(iva);
+        totalEl.textContent = money(total);
+        if (saleAmountEl) saleAmountEl.textContent = money(total);
+      }
+
+      renderTicket();
+
+      scene.querySelectorAll('.pos-product').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const existing = order.find((l) => l.id === id);
+
+          if (existing) {
+            existing.qty += 1;
+          } else {
+            order.push({ id, qty: 1 });
+          }
+
+          renderTicket();
+
+          if (!prefersReduced) {
+            btn.classList.remove('is-pulsing');
+            void btn.offsetWidth;
+            btn.classList.add('is-pulsing');
+          }
+        });
+      });
+
+      scene.querySelectorAll('.pos-category').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          scene.querySelectorAll('.pos-category').forEach((t) => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+        });
+      });
+
+      const invoiceBtn = scene.querySelector('.pos-invoice-btn');
+      const receipt = scene.querySelector('.pos-printer-receipt');
+      const receiptLines = scene.querySelector('.pos-receipt-lines');
+      const receiptTotal = scene.querySelector('.pos-receipt-total');
+      const receiptQr = scene.querySelector('.pos-receipt-qr');
+      const invoiceNotif = scene.querySelector('.pos-notification-invoice');
+      const saleNotif = scene.querySelector('.pos-notification-sale');
+
+      let printing = false;
+      let resetTimer = null;
+
+      function pulseNotification(el) {
+        if (!el || prefersReduced) return;
+        el.classList.remove('is-pulsing');
+        void el.offsetWidth;
+        el.classList.add('is-pulsing');
+      }
+
+      invoiceBtn.addEventListener('click', () => {
+        if (printing || !order.length) return;
+
+        printing = true;
+        invoiceBtn.classList.add('is-loading');
+        invoiceBtn.disabled = true;
+
+        const doPrint = () => {
+          receiptLines.innerHTML = order
+            .map((line) => {
+              const p = productById(line.id);
+              return '<div class="pos-receipt-line"><span>' + line.qty + '× ' + escapeHtml(p.name) + '</span><span>' + money(p.price * line.qty) + '</span></div>';
+            })
+            .join('');
+          receiptTotal.textContent = 'Total ' + totalEl.textContent;
+          receiptQr.innerHTML = qrCellsHTML();
+
+          invoiceBtn.classList.remove('is-loading');
+          invoiceBtn.disabled = false;
+
+          receipt.classList.add('is-printed');
+          pulseNotification(invoiceNotif);
+
+          if (resetTimer) clearTimeout(resetTimer);
+          resetTimer = setTimeout(() => {
+            receipt.classList.remove('is-printed');
+            resetOrder();
+            renderTicket();
+            printing = false;
+          }, 4000);
+        };
+
+        if (prefersReduced) {
+          doPrint();
+        } else {
+          setTimeout(doPrint, 800);
+        }
+      });
+
+      const notifications = [invoiceNotif, saleNotif].filter(Boolean);
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                notifications.forEach((el, i) => {
+                  setTimeout(() => el.classList.add('is-visible'), prefersReduced ? 0 : i * 300);
+                });
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        observer.observe(scene);
+      } else {
+        notifications.forEach((el) => el.classList.add('is-visible'));
+      }
+    }
+
+    scenes.forEach(initScene);
+  });
+
+  /*---------------------
     Services switch (segmented pill + bento group swap)
   --------------------- */
 
