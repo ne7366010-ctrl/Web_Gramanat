@@ -1782,22 +1782,18 @@ p.hero-subtitle {
   background: #0a0f1e;
   border-radius: 28px;
   padding: 48px;
-  overflow: hidden;
+  /* The floating cards (and, as a fallback, the POS scene's tilted
+     hardware/notifications) are meant to spill past their own box —
+     let them, instead of being clipped by the panel's corner radius.
+     The glow (::before) still fades to transparent well before the
+     edge, so it reads fine unclipped too. */
+  overflow: visible;
   box-shadow: 0 24px 48px rgba(10, 15, 30, 0.25);
 }
 
-/* The POS scene's tilted hardware, floating notifications and printed
-   receipt are meant to spill slightly past their own box — let them,
-   instead of being clipped by the panel's corner-radius overflow. The
-   glow (::before) still fades to transparent well before the edge, so
-   it reads fine unclipped too. */
-#sistemas .sistemas-panel:has(.sistemas-panel-visual.has-scene) {
-  overflow: visible;
-}
-
 /* The sitewide `.row { overflow: hidden; }` (template clearfix) would
-   otherwise clip the same spilling scene content one level up. */
-#sistemas .row:has(.sistemas-panel-visual.has-scene) {
+   otherwise clip the same spilling content one level up. */
+#sistemas .row {
   overflow: visible;
 }
 
@@ -2047,30 +2043,365 @@ p.hero-subtitle {
   transform: scale(0.97);
 }
 
-/* --- Visual: 4:3 photo slot, falling back to an interactive CSS/JS
-   POS scene (built by js/main.js) when img/media/sistema-[negocio].jpg
-   is missing. The img's onerror adds .has-scene to the parent so the
-   fixed 4:3 photo crop gives way to the scene's own natural size. --- */
+/* --- Visual: a real photo (img/media/sistema-[negocio].jpg) with
+   floating UI cards on top — falling back to the interactive CSS/JS POS
+   scene (built by js/main.js) only when the photo is missing. The img's
+   onerror (sistemasHandleImgError, defined in <head>) hides the photo
+   frame and cards and reveals the scene instead. --- */
 
 #sistemas .sistemas-panel-visual {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
 }
 
-#sistemas .sistemas-panel-visual img {
+#sistemas .sistemas-visual-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 0.2s ease-out;
+}
+
+#sistemas .sistemas-visual-photo-frame img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-#sistemas .sistemas-panel-visual.has-scene {
-  aspect-ratio: auto;
-  min-height: 380px;
-  overflow: visible;
+#sistemas .sistemas-visual-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 15, 30, 0.6) 0%, rgba(10, 15, 30, 0.15) 38%, transparent 62%);
+  pointer-events: none;
+}
+
+/* --- Floating glass cards over the photo --- */
+
+#sistemas .sistemas-visual-cards {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.2s ease-out;
+}
+
+#sistemas .sistemas-visual-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 40px rgba(10, 15, 30, 0.28),
+    0 6px 14px rgba(10, 15, 30, 0.16);
+  padding: 16px 18px;
+  color: #0a0f1e;
+  font-size: 13px;
+  opacity: 0;
+}
+
+@keyframes sistemasCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sistemasCardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+#sistemas .sistemas-visual-card.is-visible {
+  animation:
+    sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both,
+    sistemasCardFloat 4s ease-in-out calc(var(--card-delay, 0s) + 0.5s) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-visual-card.is-visible {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Ticket: bottom-left, deliberately breaking out past the photo's
+   bottom edge — the classic "receipt overlapping the image" treatment. */
+#sistemas .sistemas-visual-card-ticket {
+  left: 24px;
+  right: 24px;
+  bottom: -32px;
+}
+
+#sistemas .sistemas-ticket-business {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#sistemas .sistemas-ticket-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+#sistemas .sistemas-ticket-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #374151;
+}
+
+#sistemas .sistemas-ticket-row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+  border-top: 1px dashed #d1d5db;
+}
+
+#sistemas .sistemas-ticket-row.sistemas-ticket-total {
+  margin-top: 2px;
+  padding-top: 4px;
+  border-top: none;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0a0f1e;
+}
+
+#sistemas .sistemas-ticket-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px 16px;
+  background: var(--color-accent);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    background-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #sistemas .sistemas-ticket-btn:hover {
+    background: #e0691f;
+  }
+}
+
+#sistemas .sistemas-ticket-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+#sistemas .sistemas-ticket-btn-spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+}
+
+#sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-label {
+  display: none;
+}
+
+#sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-spinner {
+  display: block;
+  animation: posSpin 0.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-spinner {
+    animation: none;
+  }
+}
+
+/* DTE: top-right, breaking out past the photo's top edge. */
+#sistemas .sistemas-visual-card-dte {
+  top: -24px;
+  right: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 230px;
+}
+
+#sistemas .sistemas-dte-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  font-size: 14px;
+}
+
+#sistemas .sistemas-dte-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+#sistemas .sistemas-dte-subtitle {
+  margin: 2px 0 6px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+#sistemas .sistemas-dte-control {
+  margin: 0 0 2px;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  color: #6b7280;
+  word-break: break-all;
+}
+
+#sistemas .sistemas-dte-time {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+@keyframes sistemasDtePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+#sistemas .sistemas-visual-card-dte.is-pulsing {
+  animation: sistemasDtePulse 0.8s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-visual-card-dte.is-pulsing {
+    animation: none;
+  }
+}
+
+/* Ventas de hoy: middle-right, fully within the photo (no overflow). */
+#sistemas .sistemas-visual-card-sales {
+  top: 44%;
+  right: 24px;
+  max-width: 170px;
+}
+
+#sistemas .sistemas-sales-label {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+#sistemas .sistemas-sales-amount {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+#sistemas .sistemas-sales-delta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+#sistemas .sistemas-sales-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+}
+
+#sistemas .sistemas-sales-chart span {
+  flex: 1 1 auto;
+  height: var(--bar-h, 50%);
+  background: var(--color-accent);
+  border-radius: 2px 2px 0 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#sistemas .sistemas-visual-card-sales.is-visible .sistemas-sales-chart span {
+  transform: scaleY(1);
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(1) {
+  transition-delay: 0s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(2) {
+  transition-delay: 0.04s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(3) {
+  transition-delay: 0.08s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(4) {
+  transition-delay: 0.12s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(5) {
+  transition-delay: 0.16s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(6) {
+  transition-delay: 0.2s;
+}
+
+#sistemas .sistemas-sales-chart span:nth-child(7) {
+  transition-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sistemas .sistemas-sales-chart span {
+    transition: none;
+  }
+}
+
+#sistemas .sistemas-visual-note {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  text-align: right;
 }
 
 #sistemas .sistemas-pos-scene {
@@ -2875,9 +3206,9 @@ p.hero-subtitle {
     width: 100%;
   }
 
-  /* Compact POS scene: no perspective tilt, card terminal hidden, the
-     tablet/printer shrink to fit a phone-width panel. */
-  #sistemas .sistemas-panel-visual.has-scene {
+  /* Compact POS scene fallback: no perspective tilt, card terminal
+     hidden, the tablet/printer shrink to fit a phone-width panel. */
+  #sistemas .sistemas-pos-scene {
     min-height: 300px;
   }
 
@@ -2913,6 +3244,109 @@ p.hero-subtitle {
 
   #sistemas .pos-notification-sale {
     right: 0;
+  }
+
+  /* Photo switches to a shorter 4:3 crop, the "Ventas de hoy" card is
+     dropped, and ticket + DTE both get explicit (smaller) sizing for
+     every sub-element — not just a blanket font-size on the card,
+     which doesn't win against each piece's own more-specific desktop
+     rule. A ~342px-wide photo at 4:3 is only ~256px tall, so without
+     this the ticket card's natural desktop height (~230px) swallows
+     almost the whole photo and collides with the DTE card up top;
+     measured empirically to keep both comfortably clear of each other. */
+  #sistemas .sistemas-visual-photo-frame {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+  }
+
+  #sistemas .sistemas-visual-card {
+    padding: 10px 12px;
+  }
+
+  #sistemas .sistemas-visual-card-ticket {
+    left: 12px;
+    right: 12px;
+    bottom: -14px;
+  }
+
+  #sistemas .sistemas-ticket-business {
+    margin-bottom: 3px;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-ticket-lines {
+    gap: 1px;
+    margin-bottom: 3px;
+  }
+
+  #sistemas .sistemas-ticket-line {
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+
+  #sistemas .sistemas-ticket-row {
+    padding-top: 2px;
+    font-size: 9.5px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-ticket-row.sistemas-ticket-total {
+    margin-top: 1px;
+    padding-top: 2px;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-ticket-btn {
+    margin-top: 5px;
+    padding: 6px 14px;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-ticket-btn-spinner {
+    width: 12px;
+    height: 12px;
+  }
+
+  #sistemas .sistemas-visual-card-dte {
+    top: -10px;
+    right: 12px;
+    gap: 8px;
+    max-width: 155px;
+  }
+
+  #sistemas .sistemas-dte-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  #sistemas .sistemas-dte-title {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-dte-subtitle {
+    margin: 1px 0 3px;
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  #sistemas .sistemas-dte-control {
+    margin-bottom: 1px;
+    font-size: 7.5px;
+    line-height: 1.3;
+  }
+
+  #sistemas .sistemas-dte-time {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  #sistemas .sistemas-visual-card-sales {
+    display: none;
   }
 }
 

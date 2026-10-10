@@ -855,6 +855,133 @@
   });
 
   /*---------------------
+    Sistemas visual cards (ticket/DTE/sales floating over the photo):
+    staggered scroll-reveal, the "Facturar" demo on the ticket card,
+    and a desktop-only mouse parallax between the photo and the cards.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const visuals = Array.from(document.querySelectorAll('#sistemas .sistemas-panel-visual'));
+
+    if (!visuals.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    visuals.forEach((visual) => {
+      const cards = Array.from(visual.querySelectorAll('.sistemas-visual-card'));
+      const ticketBtn = visual.querySelector('.sistemas-ticket-btn');
+      const dteCard = visual.querySelector('.sistemas-visual-card-dte');
+      const dteTimeEl = visual.querySelector('.sistemas-dte-time');
+
+      function updateDteTime() {
+        if (!dteTimeEl) return;
+        const now = new Date();
+        dteTimeEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+      }
+
+      updateDteTime();
+      setInterval(updateDteTime, 15000);
+
+      // Scroll-reveal: all three cards fade/float in together the first
+      // time the panel's visual scrolls into view (stagger timing lives
+      // in CSS via each card's --card-delay custom property).
+      if (cards.length) {
+        const reveal = () => cards.forEach((card) => card.classList.add('is-visible'));
+
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+          reveal();
+        } else {
+          const revealObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  reveal();
+                  revealObserver.disconnect();
+                }
+              });
+            },
+            { threshold: 0.3 }
+          );
+          revealObserver.observe(visual);
+        }
+      }
+
+      // "Facturar" on the ticket card: 0.8s spinner, then the DTE card
+      // (already on screen) pulses to confirm — same demo pattern as
+      // the POS-scene fallback's own Facturar button.
+      if (ticketBtn) {
+        let busy = false;
+
+        ticketBtn.addEventListener('click', () => {
+          if (busy) return;
+
+          busy = true;
+          ticketBtn.classList.add('is-loading');
+          ticketBtn.disabled = true;
+
+          const finish = () => {
+            ticketBtn.classList.remove('is-loading');
+            ticketBtn.disabled = false;
+            updateDteTime();
+
+            if (dteCard && !prefersReducedMotion) {
+              dteCard.classList.remove('is-pulsing');
+              void dteCard.offsetWidth;
+              dteCard.classList.add('is-pulsing');
+            }
+
+            busy = false;
+          };
+
+          if (prefersReducedMotion) {
+            finish();
+          } else {
+            setTimeout(finish, 800);
+          }
+        });
+      }
+
+      // Desktop-only parallax: the photo drifts up to ~4px, the card
+      // layer up to ~10px (cards read as "closer" than the photo).
+      // Smoothed by the CSS transition already on both elements rather
+      // than tracking the cursor 1:1.
+      if (!canHover || prefersReducedMotion) return;
+
+      const photoFrame = visual.querySelector('.sistemas-visual-photo-frame');
+      const cardsLayer = visual.querySelector('.sistemas-visual-cards');
+
+      if (!photoFrame || !cardsLayer) return;
+
+      let rafId = null;
+      let lastEvent = null;
+
+      function applyParallax() {
+        rafId = null;
+        if (!lastEvent) return;
+
+        const rect = visual.getBoundingClientRect();
+        const px = (lastEvent.clientX - rect.left) / rect.width - 0.5;
+        const py = (lastEvent.clientY - rect.top) / rect.height - 0.5;
+
+        photoFrame.style.transform = 'translate(' + (px * 8).toFixed(1) + 'px, ' + (py * 8).toFixed(1) + 'px)';
+        cardsLayer.style.transform = 'translate(' + (px * 20).toFixed(1) + 'px, ' + (py * 20).toFixed(1) + 'px)';
+      }
+
+      visual.addEventListener('mousemove', (e) => {
+        lastEvent = e;
+        if (rafId === null) rafId = requestAnimationFrame(applyParallax);
+      });
+
+      visual.addEventListener('mouseleave', () => {
+        lastEvent = null;
+        photoFrame.style.transform = '';
+        cardsLayer.style.transform = '';
+      });
+    });
+  });
+
+  /*---------------------
     Services switch (segmented pill + bento group swap)
   --------------------- */
 

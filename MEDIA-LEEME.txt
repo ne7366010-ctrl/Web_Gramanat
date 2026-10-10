@@ -14,17 +14,17 @@ video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, s
 
 ---------------------------------------------------------------------------
 
-img/media/sistema-restaurante.jpg · #sistemas (panel "Restaurantes y cafeterías") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en un restaurante o cafetería. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-restaurante.jpg · #sistemas (panel "Restaurantes y cafeterías") · 1200x1500 (4:5, escritorio) o 1600x1200 (4:3, se recorta igual en celular) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en un restaurante o cafetería (pantalla/tablet visible, ojalá con alguien usándola). Se le aplica un degradado oscuro abajo y tarjetas flotantes (ticket, DTE, ventas) encima, así que deja espacio despejado en la mitad/parte inferior de la foto para que el texto de las tarjetas no quede sobre un área muy ocupada. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
-img/media/sistema-tienda.jpg · #sistemas (panel "Tiendas y minisúper") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una tienda o minisúper. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-tienda.jpg · #sistemas (panel "Tiendas y minisúper") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una tienda o minisúper. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
-img/media/sistema-farmacia.jpg · #sistemas (panel "Farmacias") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una farmacia. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-farmacia.jpg · #sistemas (panel "Farmacias") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una farmacia. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
-img/media/sistema-ferreteria.jpg · #sistemas (panel "Ferreterías y distribuidoras") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una ferretería. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-ferreteria.jpg · #sistemas (panel "Ferreterías y distribuidoras") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una ferretería. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
-img/media/sistema-boutique.jpg · #sistemas (panel "Boutiques y ropa") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una boutique. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-boutique.jpg · #sistemas (panel "Boutiques y ropa") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una boutique. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
-img/media/sistema-servicios.jpg · #sistemas (panel "Servicios y oficinas") · 1200x900 · JPG/WebP · Foto o captura del sistema funcionando en una oficina o negocio de servicios. Si falta, se muestra un mockup CSS en su lugar.
+img/media/sistema-servicios.jpg · #sistemas (panel "Servicios y oficinas") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una oficina o negocio de servicios. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
 
 ---------------------------------------------------------------------------
 
