@@ -1964,13 +1964,13 @@ p.hero-subtitle {
   display: grid;
   grid-template-columns: 45fr 55fr;
   gap: 48px;
-  align-items: stretch;
+  align-items: center;
 }
 
-/* The grid is stretch by default now (so the photo column fills the
-   full row height) — the info column opts back out of that and centers
-   itself instead, with no top padding/margin of its own, so it never
-   reads as pinned to the top next to the taller photo. */
+/* Explicit (the grid's own align-items:center already does this), and
+   no top padding/margin of its own — so the info column sits centered
+   against the photo column (capped by the frame's own max-height), not
+   pinned to the top. */
 #sistemas .sistemas-panel-info {
   align-self: center;
   margin-top: 0;
@@ -2150,7 +2150,8 @@ p.hero-subtitle {
 #sistemas .sistemas-visual-photo-frame {
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3.5;
+  max-height: 520px;
   border-radius: 20px;
   overflow: hidden;
   background: var(--color-panel);
