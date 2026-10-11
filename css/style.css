@@ -1907,34 +1907,17 @@ p.hero-subtitle {
   display: none;
 }
 
-/* Pill switch crossfade: the outgoing panel fades out in place while the
-   incoming one fades/slides in, its info column and visual staggered
-   slightly so the switch reads as "content changing", not a hard cut.
-   Mirrors the #services switchGroup leave/enter pattern (js/main.js). */
+/* Pill switch crossfade: the outgoing panel fades out in place, the
+   incoming one fades/lifts in as a single block — a plain, unified
+   350ms transition on the panel itself rather than staggered per
+   element. Mirrors the #services switchGroup leave/enter pattern
+   (js/main.js), whose 180ms/500ms timers already fit these durations. */
 #sistemas .sistemas-panel.is-leaving {
   animation: sistemasPanelLeave 0.18s ease both;
 }
 
-#sistemas .sistemas-panel.is-entering .sistemas-panel-label,
-#sistemas .sistemas-panel.is-entering .sistemas-panel-title,
-#sistemas .sistemas-panel.is-entering .sistemas-panel-tagline {
+#sistemas .sistemas-panel.is-entering {
   animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-#sistemas .sistemas-panel.is-entering .sistemas-panel-features,
-#sistemas .sistemas-panel.is-entering .sistemas-panel-ideal {
-  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
-  animation-delay: 0.06s;
-}
-
-#sistemas .sistemas-panel.is-entering .sistemas-panel-actions {
-  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
-  animation-delay: 0.12s;
-}
-
-#sistemas .sistemas-panel.is-entering .sistemas-panel-visual {
-  animation: sistemasPanelEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
-  animation-delay: 0.04s;
 }
 
 @keyframes sistemasPanelLeave {
@@ -1949,7 +1932,7 @@ p.hero-subtitle {
 @keyframes sistemasPanelEnter {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -1959,13 +1942,7 @@ p.hero-subtitle {
 
 @media (prefers-reduced-motion: reduce) {
   #sistemas .sistemas-panel.is-leaving,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-label,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-title,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-tagline,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-features,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-ideal,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-actions,
-  #sistemas .sistemas-panel.is-entering .sistemas-panel-visual {
+  #sistemas .sistemas-panel.is-entering {
     animation: none;
   }
 }
@@ -2026,8 +2003,8 @@ p.hero-subtitle {
 
 #sistemas .sistemas-panel-features {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 14px;
   list-style: none;
   margin: 0 0 2rem;
   padding: 0;
@@ -2076,7 +2053,7 @@ p.hero-subtitle {
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   color: var(--color-navy);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -2239,13 +2216,28 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-visual-card.is-visible {
+  animation: sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both;
+}
+
+/* The only 2 floating cards left (ticket + DTE) get their own gentle,
+   continuous up/down drift once they've landed — a flat 6s loop each,
+   the DTE card starting 1.5s later so the two never bob in sync. */
+#sistemas .sistemas-visual-card-ticket.is-visible {
   animation:
     sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both,
-    sistemasCardFloat 4s ease-in-out calc(var(--card-delay, 0s) + 0.5s) infinite;
+    sistemasCardFloat 6s ease-in-out 0s infinite;
+}
+
+#sistemas .sistemas-visual-card-dte.is-visible {
+  animation:
+    sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both,
+    sistemasCardFloat 6s ease-in-out 1.5s infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-visual-card.is-visible {
+  #sistemas .sistemas-visual-card.is-visible,
+  #sistemas .sistemas-visual-card-ticket.is-visible,
+  #sistemas .sistemas-visual-card-dte.is-visible {
     animation: none;
     opacity: 1;
   }
@@ -3462,7 +3454,7 @@ p.hero-subtitle {
   }
 
   #sistemas .sistemas-visual-card-dte {
-    top: -10px;
+    top: 12px;
     right: 12px;
     gap: 8px;
     max-width: 155px;
