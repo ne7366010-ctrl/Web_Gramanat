@@ -35,7 +35,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=84" rel="stylesheet">
+  <link href="css/style.css?v=87" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1274,147 +1274,177 @@
 
   <!-- Start Service area -->
 
-  <div id="services" class="custom-cards">
+  <div id="services" class="services-bento-area custom-cards">
       <div class="row">
-        <div class="section-headline text-center">
-          <p class="services-eyebrow">Qué hacemos</p>
-          <h2>Nuestros servicios</h2>
-          <p class="services-subtitle">Todo lo que tu negocio necesita para vender, facturar y crecer, en un solo lugar.</p>
+        <div class="services-bento-header">
+          <div class="services-bento-header-left">
+            <p class="services-eyebrow">Qué hacemos</p>
+            <h2>Todo lo que tu negocio necesita, instalado y funcionando</h2>
+            <p class="services-subtitle">Somos distribuidores autorizados: te entregamos el sistema listo, capacitamos a tu equipo y te damos soporte local.</p>
+          </div>
+          <div class="services-bento-header-right">
+            <a class="services-advisor-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20hablar%20con%20un%20asesor." target="_blank">Habla con un asesor <span class="arrow">→</span></a>
+          </div>
         </div>
       </div>
+
       <div class="row">
-        <div class="services-switch" role="tablist" aria-label="Categoría de servicios">
-          <span class="services-switch-thumb" aria-hidden="true"></span>
-          <button type="button" class="services-switch-option is-active" role="tab" id="services-switch-dia" aria-selected="true" tabindex="0" aria-controls="services-group-dia" data-target="services-group-dia">
-            <i class="fa-solid fa-store"></i>Para tu negocio día a día
-          </button>
-          <button type="button" class="services-switch-option" role="tab" id="services-switch-online" aria-selected="false" tabindex="-1" aria-controls="services-group-online" data-target="services-group-online">
-            <i class="fa-solid fa-globe"></i>Para crecer en línea
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="services-bento">
-          <div class="services-group is-active" id="services-group-dia" role="tabpanel" aria-labelledby="services-switch-dia">
-            <div class="services-card services-card-big">
-              <div class="services-card-content">
-                <span class="services-card-label">Servicio principal</span>
-                <div class="services-card-icon"><i class="fa fa-file-text"></i></div>
-                <h3>Facturación electrónica</h3>
-                <p>Emite facturas válidas ante Hacienda en segundos, sin errores y sin miedo a multas. Te lo dejamos listo y funcionando.</p>
-                <ul class="service-benefits">
-                  <li><i class="fa-solid fa-check"></i>Validada ante Hacienda</li>
-                  <li><i class="fa-solid fa-check"></i>Capacitación incluida</li>
-                </ul>
-                <a class="services-card-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
-              </div>
-              <div class="services-card-illustration services-illustration-invoice" aria-hidden="true">
-                <div class="services-illustration-float">
-                  <div class="mini-invoice">
-                    <div class="mini-invoice-header">
-                      <span class="mini-invoice-label">Factura electrónica</span>
-                      <span class="mini-invoice-number">N.º 0001-00125</span>
-                    </div>
-                    <div class="mini-invoice-line">
-                      <span class="mini-invoice-bar"></span>
-                      <span class="mini-invoice-price">$12.00</span>
-                    </div>
-                    <div class="mini-invoice-line">
-                      <span class="mini-invoice-bar"></span>
-                      <span class="mini-invoice-price">$18.00</span>
-                    </div>
-                    <div class="mini-invoice-line">
-                      <span class="mini-invoice-bar"></span>
-                      <span class="mini-invoice-price">$15.00</span>
-                    </div>
-                    <div class="mini-invoice-divider"></div>
-                    <div class="mini-invoice-total">Total <span>$45.00</span></div>
-                    <div class="mini-invoice-badge"><i class="fa-solid fa-check"></i>Validada por Hacienda</div>
-                  </div>
+        <div class="services-bento-grid">
+
+          <!-- 1. Facturación electrónica (big, navy) -->
+          <article class="svc-card svc-card-invoice reveal-up" style="--reveal-delay: 0s">
+            <div class="svc-card-top">
+              <span class="svc-card-kicker">Servicio principal</span>
+              <h3>Facturación electrónica</h3>
+              <p>Emite DTE válidos ante Hacienda en segundos, listos para vender sin miedo a multas.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
+            </div>
+            <div class="svc-mini svc-mini-dte" aria-hidden="true">
+              <div class="svc-dte-doc">
+                <div class="svc-dte-head">
+                  <span class="svc-dte-title">Factura electrónica</span>
+                  <span class="svc-dte-number">DTE-01-M001P001-…0045</span>
                 </div>
+                <div class="svc-dte-line" style="--svc-i: 0">
+                  <span class="svc-dte-bar"></span>
+                  <span class="svc-dte-price">$12.00</span>
+                </div>
+                <div class="svc-dte-line" style="--svc-i: 1">
+                  <span class="svc-dte-bar"></span>
+                  <span class="svc-dte-price">$18.00</span>
+                </div>
+                <div class="svc-dte-line" style="--svc-i: 2">
+                  <span class="svc-dte-bar"></span>
+                  <span class="svc-dte-price">$15.00</span>
+                </div>
+                <div class="svc-dte-divider" style="--svc-i: 3"></div>
+                <div class="svc-dte-total" style="--svc-i: 3">Total <span>$45.00</span></div>
+                <div class="svc-dte-stamp"><i class="fa-solid fa-check" aria-hidden="true"></i> Validado por Hacienda</div>
               </div>
             </div>
-            <div class="services-card services-card-small">
-              <div class="icon-wrapper"><i class="fa fa-laptop"></i></div>
+          </article>
+
+          <!-- 2. Equipo de punto de venta -->
+          <article class="svc-card svc-card-pos reveal-up" style="--reveal-delay: 0.05s">
+            <div class="svc-card-top">
               <h3>Equipo de punto de venta</h3>
-              <p>Pantalla táctil, impresora de tickets, cajón de dinero y lector. Todo instalado y conectado a tu sistema.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>Instalación incluida</li>
-                <li><i class="fa-solid fa-check"></i>Soporte técnico incluido</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Equipo%20de%20punto%20de%20venta." target="_blank">Quiero información <span class="arrow">→</span></a>
+              <p>Pantalla, impresora y lector, instalados y conectados a tu sistema.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20equipo%20de%20punto%20de%20venta." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
-            <div class="services-card services-card-small">
-              <div class="icon-wrapper"><i class="fas fa-wrench"></i></div>
-              <h3>Soporte y mantenimiento</h3>
-              <p>Remoto y presencial: limpieza, antivirus, reparación y recuperación de datos.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>Atención remota inmediata</li>
-                <li><i class="fa-solid fa-check"></i>Visitas a tu negocio</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Soporte%20y%20mantenimiento." target="_blank">Quiero información <span class="arrow">→</span></a>
-            </div>
-          </div>
-          <div class="services-group" id="services-group-online" role="tabpanel" aria-labelledby="services-switch-online" hidden>
-            <div class="services-card services-card-big">
-              <div class="services-card-content">
-                <span class="services-card-label">Servicio principal</span>
-                <div class="services-card-icon"><i class="fa-solid fa-globe"></i></div>
-                <h3>Página web</h3>
-                <p>Una web profesional que muestra tu negocio y te trae clientes directo a tu WhatsApp.</p>
-                <ul class="service-benefits">
-                  <li><i class="fa-solid fa-check"></i>Se adapta al celular</li>
-                  <li><i class="fa-solid fa-check"></i>Botón directo a WhatsApp</li>
-                </ul>
-                <a class="services-card-btn" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20P%C3%A1gina%20web." target="_blank">Quiero información <span class="arrow">→</span></a>
+            <div class="svc-mini svc-mini-printer" aria-hidden="true">
+              <div class="svc-printer-slot">
+                <div class="svc-printer-ticket">
+                  <span></span><span></span><span></span><span></span>
+                </div>
               </div>
-              <div class="services-card-illustration services-illustration-browser" aria-hidden="true">
-                <div class="services-illustration-float">
-                  <div class="mini-browser-wrap">
-                    <div class="mini-browser">
-                      <div class="mini-browser-bar">
-                        <span class="mini-browser-dot mini-browser-dot-red"></span>
-                        <span class="mini-browser-dot mini-browser-dot-yellow"></span>
-                        <span class="mini-browser-dot mini-browser-dot-green"></span>
-                      </div>
-                      <div class="mini-browser-body">
-                        <div class="mini-browser-hero"></div>
-                        <div class="mini-browser-line mini-browser-line-full"></div>
-                        <div class="mini-browser-line mini-browser-line-short"></div>
-                        <div class="mini-browser-btn"></div>
-                      </div>
-                    </div>
-                    <div class="mini-browser-chat">
-                      <i class="fa-brands fa-whatsapp"></i>
-                      <span>Hola, quiero cotizar 👋</span>
-                    </div>
+              <div class="svc-printer-body"></div>
+            </div>
+          </article>
+
+          <!-- 3. Soporte y mantenimiento -->
+          <article class="svc-card svc-card-support reveal-up" style="--reveal-delay: 0.1s">
+            <div class="svc-card-top">
+              <h3>Soporte y mantenimiento</h3>
+              <p>Remoto y presencial, para que tu negocio no se detenga.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20soporte%20y%20mantenimiento." target="_blank">Quiero información <span class="arrow">→</span></a>
+            </div>
+            <div class="svc-mini svc-mini-chat" aria-hidden="true">
+              <div class="svc-chat-bubble svc-chat-bubble-client" style="--svc-i: 0">Se trabó la impresora 😅</div>
+              <div class="svc-chat-bubble svc-chat-bubble-us" style="--svc-i: 1">Ya lo resolvemos, conectándonos <i class="fa-solid fa-check" aria-hidden="true"></i></div>
+              <div class="svc-chat-typing" style="--svc-i: 2"><span></span><span></span><span></span></div>
+            </div>
+          </article>
+
+          <!-- 4. Páginas web y tiendas en línea (wide) -->
+          <article class="svc-card svc-card-web reveal-up" style="--reveal-delay: 0.15s">
+            <div class="svc-card-top">
+              <h3>Páginas web y tiendas en línea</h3>
+              <p>Una web o tienda que vende por ti, las 24 horas.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20p%C3%A1ginas%20web%20y%20tiendas%20en%20l%C3%ADnea." target="_blank">Quiero información <span class="arrow">→</span></a>
+            </div>
+            <div class="svc-mini svc-mini-browser" aria-hidden="true">
+              <div class="svc-browser-bar">
+                <span class="svc-browser-dot svc-browser-dot-red"></span>
+                <span class="svc-browser-dot svc-browser-dot-yellow"></span>
+                <span class="svc-browser-dot svc-browser-dot-green"></span>
+                <span class="svc-browser-url">tunegocio.com</span>
+              </div>
+              <div class="svc-browser-body">
+                <div class="svc-shop-track">
+                  <div class="svc-shop-product">
+                    <span class="svc-shop-thumb">🧴</span>
+                    <span class="svc-shop-name">Producto 1</span>
+                    <span class="svc-shop-buy">Comprar</span>
+                  </div>
+                  <div class="svc-shop-product">
+                    <span class="svc-shop-thumb">👟</span>
+                    <span class="svc-shop-name">Producto 2</span>
+                    <span class="svc-shop-buy">Comprar</span>
+                  </div>
+                  <div class="svc-shop-product">
+                    <span class="svc-shop-thumb">🎒</span>
+                    <span class="svc-shop-name">Producto 3</span>
+                    <span class="svc-shop-buy">Comprar</span>
+                  </div>
+                  <div class="svc-shop-product" aria-hidden="true">
+                    <span class="svc-shop-thumb">🧴</span>
+                    <span class="svc-shop-name">Producto 1</span>
+                    <span class="svc-shop-buy">Comprar</span>
+                  </div>
+                  <div class="svc-shop-product" aria-hidden="true">
+                    <span class="svc-shop-thumb">👟</span>
+                    <span class="svc-shop-name">Producto 2</span>
+                    <span class="svc-shop-buy">Comprar</span>
+                  </div>
+                  <div class="svc-shop-product" aria-hidden="true">
+                    <span class="svc-shop-thumb">🎒</span>
+                    <span class="svc-shop-name">Producto 3</span>
+                    <span class="svc-shop-buy">Comprar</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="services-card services-card-small">
-              <div class="icon-wrapper"><i class="fa-solid fa-store"></i></div>
-              <h3>Tienda en línea</h3>
-              <p>Vende las 24 horas con catálogo, carrito de compras y pagos en línea.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>Pagos en línea</li>
-                <li><i class="fa-solid fa-check"></i>Administra tus productos fácil</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Tienda%20en%20l%C3%ADnea." target="_blank">Quiero información <span class="arrow">→</span></a>
+          </article>
+
+          <!-- 5. Apps a la medida -->
+          <article class="svc-card svc-card-apps reveal-up" style="--reveal-delay: 0.2s">
+            <div class="svc-card-top">
+              <h3>Apps a la medida</h3>
+              <p>Aplicaciones para iOS y Android hechas para tu negocio.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20apps%20a%20la%20medida." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
-            <div class="services-card services-card-small">
-              <div class="icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
-              <h3>Aplicaciones móviles</h3>
-              <p>Apps para iOS y Android hechas a la medida de tu negocio.</p>
-              <ul class="service-benefits">
-                <li><i class="fa-solid fa-check"></i>iOS y Android</li>
-                <li><i class="fa-solid fa-check"></i>Diseño a tu medida</li>
-              </ul>
-              <a class="service-info-link" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20informaci%C3%B3n%20sobre%20Aplicaciones%20m%C3%B3viles." target="_blank">Quiero información <span class="arrow">→</span></a>
+            <div class="svc-mini svc-mini-phone" aria-hidden="true">
+              <div class="svc-phone">
+                <div class="svc-phone-notch"></div>
+                <div class="svc-phone-notif">
+                  <span class="svc-phone-notif-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></span>
+                  <span class="svc-phone-notif-text">Nuevo pedido #128</span>
+                </div>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <!-- 6. Capacitación incluida -->
+          <article class="svc-card svc-card-training reveal-up" style="--reveal-delay: 0.25s">
+            <div class="svc-card-top">
+              <h3>Capacitación incluida</h3>
+              <p>Tu equipo aprende a usar el sistema desde el primer día.</p>
+              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20capacitaci%C3%B3n%20incluida." target="_blank">Quiero información <span class="arrow">→</span></a>
+            </div>
+            <div class="svc-mini svc-mini-training" aria-hidden="true">
+              <p class="svc-training-label">Tu equipo listo</p>
+              <div class="svc-training-bar"><span class="svc-training-fill"></span></div>
+              <ul class="svc-training-checks">
+                <li style="--svc-i: 0"><i class="fa-solid fa-check" aria-hidden="true"></i> Facturar</li>
+                <li style="--svc-i: 1"><i class="fa-solid fa-check" aria-hidden="true"></i> Cobrar</li>
+                <li style="--svc-i: 2"><i class="fa-solid fa-check" aria-hidden="true"></i> Cerrar caja</li>
+              </ul>
+            </div>
+          </article>
+
         </div>
       </div>
+
       <div class="row">
         <div class="services-closing text-center">
           <p class="services-closing-text">¿No sabes cuál necesitas? <span class="services-closing-accent">Te asesoramos gratis.</span></p>
@@ -1422,7 +1452,6 @@
         </div>
       </div>
   </div>
-  
 
   <!-- End Service area -->
 
@@ -2207,7 +2236,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=21"></script>
+  <script src="js/main.js?v=22"></script>
 </body>
 
 </html>
