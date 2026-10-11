@@ -5472,8 +5472,8 @@ p.hero-subtitle {
 }
 
 #results .result-item {
-  flex: 1 1 25%;
-  max-width: 25%;
+  flex: 1 1 33.333%;
+  max-width: 33.333%;
   text-align: center;
   padding: 0 1.5rem;
 }
@@ -5517,17 +5517,15 @@ p.hero-subtitle {
   }
 
   #results .result-item {
-    flex: 1 1 50%;
-    max-width: 50%;
-    padding: 0 1rem;
-  }
-
-  #results .result-item + .result-item {
-    border-left: none;
+    padding: 0 0.5rem;
   }
 
   #results .result-number {
-    font-size: 38px;
+    font-size: 26px;
+  }
+
+  #results .result-item p {
+    font-size: 13px;
   }
 }
 

@@ -1314,7 +1314,7 @@
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
-    const counters = document.querySelectorAll('#results .result-number-value');
+    const counters = document.querySelectorAll('#results .result-number-value[data-count-to]');
 
     if (!counters.length) return;
 
