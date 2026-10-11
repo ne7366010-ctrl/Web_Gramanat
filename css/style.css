@@ -1882,7 +1882,8 @@ p.hero-subtitle {
 #sistemas .sistemas-panel {
   position: relative;
   width: 100%;
-  background: var(--color-navy);
+  background: var(--color-paper);
+  border: 1px solid var(--color-border);
   border-radius: 28px;
   padding: 48px;
   /* The floating cards (and, as a fallback, the POS scene's tilted
@@ -1891,7 +1892,7 @@ p.hero-subtitle {
      The glow (::before) still fades to transparent well before the
      edge, so it reads fine unclipped too. */
   overflow: visible;
-  box-shadow: 0 24px 48px rgba(10, 15, 30, 0.25);
+  box-shadow: var(--shadow-md);
 }
 
 /* The sitewide `.row { overflow: hidden; }` (template clearfix) would
@@ -1984,14 +1985,15 @@ p.hero-subtitle {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 45fr 55fr;
   gap: 48px;
-  align-items: center;
+  align-items: stretch;
 }
 
-/* Explicit (the grid's own align-items:center already does this), and
-   no top padding/margin of its own — so the info column sits centered
-   against the now much-taller 4:5 photo column, not pinned to the top. */
+/* The grid is stretch by default now (so the photo column fills the
+   full row height) — the info column opts back out of that and centers
+   itself instead, with no top padding/margin of its own, so it never
+   reads as pinned to the top next to the taller photo. */
 #sistemas .sistemas-panel-info {
   align-self: center;
   margin-top: 0;
@@ -2008,7 +2010,7 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-title {
-  color: #fff;
+  color: var(--color-navy);
   font-size: 32px;
   font-weight: 800;
   line-height: 1.25;
@@ -2016,7 +2018,7 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-tagline {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-graphite);
   font-size: 18px;
   line-height: 1.5;
   margin: 0 0 2rem;
@@ -2035,7 +2037,7 @@ p.hero-subtitle {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: var(--color-navy);
   font-size: 16px;
 }
 
@@ -2061,7 +2063,7 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-panel-ideal-label {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-muted);
   font-size: 14px;
   font-weight: 600;
   margin-right: 2px;
@@ -2070,10 +2072,10 @@ p.hero-subtitle {
 #sistemas .sistemas-panel-chip {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-panel);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-navy);
   font-size: 13px;
   font-weight: 500;
 }
@@ -2135,18 +2137,19 @@ p.hero-subtitle {
 
 #sistemas .sistemas-panel-btn-secondary {
   background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--color-navy);
+  border: 2px solid var(--color-navy);
   transition:
     background-color 0.25s ease,
     border-color 0.25s ease,
+    color 0.25s ease,
     transform 0.15s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   #sistemas .sistemas-panel-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
+    background: var(--color-navy);
+    border-color: var(--color-navy);
     color: #fff;
   }
 }
@@ -2170,10 +2173,10 @@ p.hero-subtitle {
 #sistemas .sistemas-visual-photo-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  border-radius: 24px;
+  height: 100%;
+  border-radius: 20px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-panel);
   transition: transform 0.2s ease-out;
 }
 
@@ -2437,6 +2440,7 @@ p.hero-subtitle {
    kept off the right side so it never sits over the customer/cashier's
    face, which this photo's subject occupies. */
 #sistemas .sistemas-visual-card-sales {
+  display: none;
   top: 45%;
   left: -24px;
   width: 200px;
@@ -2525,7 +2529,7 @@ p.hero-subtitle {
 
 #sistemas .sistemas-visual-note {
   margin: 16px 0 0;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-subtle);
   font-size: 12px;
   text-align: right;
 }
