@@ -1062,12 +1062,33 @@ nav ul li a.cta-demo-header:hover {
 /* Shared "Solicita tu demo gratis" CTA modifier for the body buttons that
    reuse .ready-btn/.sus-btn — orange is reserved for this action only, so
    this is scoped to not affect the other .ready-btn/.sus-btn instances
-   elsewhere on the page (e.g. the slider's "Ver servicios" buttons). */
+   elsewhere on the page (e.g. the slider's "Ver servicios" buttons).
+   Also carries the full unified primary-button shape (the hero's own
+   instances get it again below via .layer-1-3, needed there only for
+   the nivo-slider !important workaround — same values either way). */
 .ready-btn.cta-demo,
 .sus-btn.cta-demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
   background: var(--color-accent);
-  border-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
   color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ready-btn.cta-demo:hover,
@@ -1075,6 +1096,8 @@ nav ul li a.cta-demo-header:hover {
   background: #e0691f;
   border-color: #e0691f;
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 /* .layer-1-3 a.ready-btn (nivo-slider-theme.css) carries an extra type
@@ -1102,15 +1125,16 @@ nav ul li a.cta-demo-header:hover {
   padding-bottom: 0;
   line-height: 1;
   border-radius: var(--radius-pill);
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   text-transform: none;
   letter-spacing: normal;
   transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .layer-1-3 a.ready-btn.cta-demo {
@@ -1123,23 +1147,24 @@ nav ul li a.cta-demo-header:hover {
   background: #e0691f;
   border: 1px solid #e0691f;
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 /* "Ver servicios" is the secondary hero CTA — an outlined/ghost button
    (transparent, border only) so it reads as secondary next to the
    solid orange primary CTA, instead of the filled-blue default every
-   other .ready-btn gets. */
+   other .ready-btn gets. Hero is a dark background, so it uses the
+   dark-context secondary treatment (white border/text, not navy). */
 .layer-1-3 a.ready-btn.hero-secondary-btn {
   background: transparent;
-  border: 1px solid #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   color: #fff;
 }
 
 .layer-1-3 a.ready-btn.hero-secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
   color: #fff;
 }
 
@@ -1523,8 +1548,12 @@ p.hero-subtitle {
 }
 
 /* Left-aligned (not centered like most other sections), per request. */
+/* padding-left matches .about-content's col-md-6 gutter (15px) so the
+   title block's left edge lines up exactly with the photo's left edge
+   below it, instead of sitting flush with the container. */
 #about .section-headline {
   text-align: left;
+  padding-left: 15px;
 }
 
 #about .section-headline h2 {
@@ -1639,7 +1668,6 @@ p.hero-subtitle {
 }
 
 #about .about-cta-btn {
-  display: inline-block;
   margin-top: 8px;
 }
 
@@ -2056,34 +2084,36 @@ p.hero-subtitle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   height: 52px;
-  padding: 0 32px;
+  padding: 0 28px;
   border-radius: var(--radius-pill);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   text-transform: none;
   letter-spacing: normal;
   text-decoration: none;
   white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #sistemas .sistemas-panel-btn {
   background: var(--color-accent);
   color: #fff;
   border: none;
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   #sistemas .sistemas-panel-btn:hover {
     background: #e0691f;
     color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(255, 122, 41, 0.35);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
   }
 
   #sistemas .sistemas-panel-btn:hover .arrow {
@@ -2103,19 +2133,12 @@ p.hero-subtitle {
 #sistemas .sistemas-panel-btn-secondary {
   background: transparent;
   color: var(--color-navy);
-  border: 2px solid var(--color-navy);
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.15s ease;
+  border: 1.5px solid var(--color-navy);
 }
 
 @media (hover: hover) and (pointer: fine) {
   #sistemas .sistemas-panel-btn-secondary:hover {
-    background: var(--color-navy);
-    border-color: var(--color-navy);
-    color: #fff;
+    background: var(--color-panel);
   }
 }
 
@@ -3239,10 +3262,7 @@ p.hero-subtitle {
 }
 
 #sistemas .sistemas-cta-final {
-  display: inline-block;
   margin-top: 1.25rem;
-  text-transform: none;
-  letter-spacing: normal;
 }
 
 /* Between ~992px and ~1299px, the two-column grid is still active but
@@ -3838,14 +3858,14 @@ p.hero-subtitle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  height: 56px;
+  height: 52px;
   background: #25d366;
   border-radius: var(--radius-pill);
   color: #fff;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
   transition:
     background-color 0.2s ease,
@@ -3964,6 +3984,15 @@ p.hero-subtitle {
 /* groups) above a "bento" grid: one big feature tile + two small
 /* tiles, swapped with a staggered fade+rise via js/main.js.
 /*--------------------------------------------------*/
+
+#services .services-eyebrow {
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
 
 #services .section-headline h2 {
   margin-bottom: 0;
@@ -4186,24 +4215,31 @@ p.hero-subtitle {
   z-index: 1;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-top: 1.5rem;
+  height: 52px;
   background: var(--color-accent);
   color: #fff;
   border: none;
-  border-radius: 30px;
-  padding: 16px 32px;
-  font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  border-radius: var(--radius-pill);
+  padding: 0 28px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: normal;
   text-decoration: none;
-  transition: background-color 0.25s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #services .services-card-btn:hover {
   background: #e0691f;
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 #services .services-card-btn .arrow {
@@ -4555,26 +4591,28 @@ p.hero-subtitle {
 }
 
 #services .services-outline-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 1.25rem;
-  padding: 12px 28px;
-  border: 2px solid var(--color-accent);
-  border-radius: 25px;
+  height: 52px;
+  padding: 0 28px;
+  border: 1.5px solid var(--color-navy);
+  border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--color-accent);
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--color-navy);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: normal;
   text-decoration: none;
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 #services .services-outline-btn:hover {
-  background-color: var(--color-accent);
-  color: #fff;
+  background-color: var(--color-panel);
 }
 
 @media (max-width: 767px) {
@@ -4774,7 +4812,6 @@ p.hero-subtitle {
 }
 
 #problems .problems-cta-btn {
-  display: inline-block;
   flex-shrink: 0;
 }
 
@@ -4957,17 +4994,19 @@ p.hero-subtitle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   width: 100%;
   height: 52px;
-  border-radius: 999px;
-  font-weight: 700;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
   font-size: 16px;
   text-decoration: none;
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
-    transform 0.12s ease,
-    color 0.2s ease;
+    transform 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #planes .planes-btn:active {
@@ -4976,20 +5015,19 @@ p.hero-subtitle {
 
 #planes .planes-btn-outline {
   background: transparent;
-  border: 2px solid #0a0f1e;
-  color: #0a0f1e;
+  border: 1.5px solid var(--color-navy);
+  color: var(--color-navy);
 }
 
 @media (hover: hover) and (pointer: fine) {
   #planes .planes-btn-outline:hover {
-    background: #0a0f1e;
-    color: #fff;
+    background: var(--color-panel);
   }
 }
 
 #planes .planes-btn-solid {
   background: var(--color-accent);
-  border: 2px solid var(--color-accent);
+  border: 1.5px solid var(--color-accent);
   color: #fff;
 }
 
@@ -4998,6 +5036,8 @@ p.hero-subtitle {
     background: #e0691f;
     border-color: #e0691f;
     color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
   }
 }
 
@@ -5189,7 +5229,6 @@ p.hero-subtitle {
 }
 
 .how-it-works-btn {
-  display: inline-block;
   margin-top: 48px;
 }
 
@@ -5696,11 +5735,6 @@ p.hero-subtitle {
 #faq.faq-premium .faq-quick-btn:hover {
   background: var(--color-accent);
   border-color: var(--color-accent);
-}
-
-#faq .faq-contact-btn {
-  display: inline-block;
-  text-transform: none;
 }
 
 /* --- Right column (accordion) --- */
@@ -6279,22 +6313,26 @@ p.hero-subtitle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 16px 32px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: normal;
   text-decoration: none;
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #final-cta .final-cta-btn-solid {
   background: var(--color-accent);
-  border: 2px solid var(--color-accent);
+  border: 1px solid var(--color-accent);
   color: #fff;
 }
 
@@ -6302,17 +6340,18 @@ p.hero-subtitle {
   background: #e0691f;
   border-color: #e0691f;
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 #final-cta .final-cta-btn-outline {
   background: transparent;
-  border: 2px solid #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   color: #fff;
 }
 
 #final-cta .final-cta-btn-outline:hover {
-  background: #fff;
-  color: #0a0f1e;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 #final-cta .final-cta-trust-list {
@@ -8534,16 +8573,18 @@ p.hero-subtitle {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 24px;
-  border-radius: 14px;
-  font-size: 15px;
-  font-weight: 700;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  font-size: 16px;
+  font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
   transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #contact.contact-premium .contact-whatsapp-btn-primary {
@@ -8559,14 +8600,13 @@ p.hero-subtitle {
 }
 
 #contact.contact-premium .contact-whatsapp-btn-secondary {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   background: transparent;
   color: #fff;
 }
 
 #contact.contact-premium .contact-whatsapp-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 #contact.contact-premium .contact-whatsapp-strip a:focus-visible {
@@ -10286,22 +10326,21 @@ p.hero-subtitle {
 #clientes.clients-premium .clients-cta-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  border: 2px solid var(--color-navy);
+  height: 52px;
+  border: 1.5px solid var(--color-navy);
   color: var(--color-navy);
-  padding: 12px 28px;
+  padding: 0 28px;
   border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 16px;
   text-decoration: none;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+  transition: background-color 0.2s ease;
 }
 
 #clientes.clients-premium .clients-cta-btn:hover {
-  background: var(--color-navy);
-  color: #fff;
+  background: var(--color-panel);
 }
 
 #clientes.clients-premium .clients-cta-btn .arrow {
