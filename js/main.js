@@ -1253,9 +1253,36 @@
   });
 
   /*---------------------
+    Planes price blocks — reads each card's data-precio/data-periodo
+    and fills in "Cotización gratis" (no price set yet) or
+    "Desde $X/periodo" (once a real price is added to the markup).
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('#planes .planes-card');
+
+    cards.forEach((card) => {
+      const precio = (card.getAttribute('data-precio') || '').trim();
+      const periodo = card.getAttribute('data-periodo') || '/mes';
+      const mainEl = card.querySelector('.planes-price-main');
+      const subEl = card.querySelector('.planes-price-sub');
+
+      if (!mainEl) return;
+
+      if (precio) {
+        mainEl.textContent = 'Desde $' + precio + periodo;
+        if (subEl) subEl.textContent = '';
+      } else {
+        mainEl.textContent = 'Cotización gratis';
+        if (subEl) subEl.textContent = 'Precio según tu tipo de negocio';
+      }
+    });
+  });
+
+  /*---------------------
     Scroll reveal (fade-up)
-    Shared by #problems, #equipment, #results and #testimonios via the
-    .reveal-up class.
+    Shared by #problems, #equipment, #results, #testimonios and
+    #planes via the .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {

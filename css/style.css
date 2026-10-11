@@ -4749,6 +4749,312 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------------------*/
+/* Planes Area ("Elige cómo empezar") — 3 pricing/package cards, the
+/* middle one visually featured (dark, scaled up, floating badge). The
+/* price block per card is filled by js/main.js from each card's
+/* data-precio/data-periodo attributes. Scoped to #planes. White
+/* section background, breaking back to light after the dark
+/* #verificador right above it.
+/*--------------------------------------------------*/
+
+#planes {
+  background: #fff;
+  padding: 100px 0;
+}
+
+#planes .planes-eyebrow {
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+#planes .section-headline h2 {
+  color: #0a0f1e;
+  text-transform: none;
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+#planes .section-headline h2:after {
+  background: var(--color-accent);
+}
+
+#planes .planes-subtitle {
+  color: #4b5563;
+  font-size: 17px;
+  max-width: 580px;
+  /* Extra clearance below so the featured card's floating "Recomendado"
+     badge (top: -16px, ~32px tall) never collides with this text. */
+  margin: 0 auto 3.5rem;
+}
+
+#planes .row {
+  overflow: visible;
+}
+
+#planes .planes-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 320px;
+  max-width: 380px;
+  height: auto;
+  padding: 36px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
+  text-align: left;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #planes .planes-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(10, 15, 30, 0.12);
+  }
+
+  #planes .planes-card-featured:hover {
+    transform: scale(1.04) translateY(-4px);
+  }
+}
+
+#planes .planes-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: rgba(255, 122, 41, 0.12);
+  color: var(--color-accent);
+  font-size: 24px;
+}
+
+#planes .planes-card-title {
+  margin: 0 0 8px;
+  color: #0a0f1e;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+#planes .planes-card-desc {
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+#planes .planes-price {
+  margin: 0 0 24px;
+  padding: 16px 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+#planes .planes-price-main {
+  margin: 0;
+  color: #0a0f1e;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+#planes .planes-price-sub {
+  margin: 4px 0 0;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+#planes .planes-features {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+#planes .planes-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+#planes .planes-features li i {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--color-accent);
+  font-size: 13px;
+}
+
+#planes .planes-note {
+  margin: -16px 0 20px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+#planes .planes-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.12s ease,
+    color 0.2s ease;
+}
+
+#planes .planes-btn:active {
+  transform: scale(0.97);
+}
+
+#planes .planes-btn-outline {
+  background: transparent;
+  border: 2px solid #0a0f1e;
+  color: #0a0f1e;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #planes .planes-btn-outline:hover {
+    background: #0a0f1e;
+    color: #fff;
+  }
+}
+
+#planes .planes-btn-solid {
+  background: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #planes .planes-btn-solid:hover {
+    background: #e0691f;
+    border-color: #e0691f;
+    color: #fff;
+  }
+}
+
+/* --- Featured card ("Combo completo") --- */
+
+#planes .planes-card-featured {
+  background: #0a0f1e;
+  border: 2px solid var(--color-accent);
+}
+
+@media (min-width: 992px) {
+  #planes .planes-card-featured {
+    transform: scale(1.04);
+  }
+}
+
+#planes .planes-card-featured .planes-card-title,
+#planes .planes-card-featured .planes-price-main {
+  color: #fff;
+}
+
+#planes .planes-card-featured .planes-card-desc {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#planes .planes-card-featured .planes-price {
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+#planes .planes-card-featured .planes-price-sub {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#planes .planes-card-featured .planes-features li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+#planes .planes-card-featured .planes-icon {
+  background: rgba(255, 122, 41, 0.2);
+}
+
+#planes .planes-badge {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  background: var(--color-accent);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(255, 122, 41, 0.35);
+}
+
+/* --- Trust line below the cards --- */
+
+#planes .planes-trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 32px;
+  width: 100%;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#planes .planes-trust li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#planes .planes-trust li i {
+  color: var(--color-accent);
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  #planes {
+    padding: 64px 0;
+  }
+
+  #planes .section-headline h2 {
+    font-size: 28px;
+  }
+
+  #planes .planes-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 28px;
+  }
+
+  #planes .planes-trust {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/*--------------------------------------------------*/
 /* 4c. How It Works Area ("Cómo funciona")
 /* Scoped to #how-it-works so it never affects other sections sharing
 /* .section-headline/.ready-btn. Styled to match the hero (dark navy
