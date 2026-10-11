@@ -486,9 +486,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--color-bg);
+  /* Was var(--color-bg) — the page's blue-tinted off-white. The header
+     is persistent chrome visible on every scroll position, so it reads
+     cleaner on the true white Paper surface instead of carrying that
+     tint everywhere. */
+  background: var(--color-paper);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   z-index: 99999;
   position: fixed;
   width: 100%;
@@ -510,7 +514,7 @@ nav.scroll-down {
 nav.scroll-up {
   transform: translateY(0);
   transition: transform 0.6s ease-in-out;
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 nav.hidden {
@@ -519,8 +523,8 @@ nav.hidden {
 
 nav.scrolled {
   height: 60px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background: rgba(245, 247, 252, 0.95);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 nav ul li a,
@@ -564,7 +568,7 @@ nav ul li a {
   font-size: 15px;
   font-weight: 500;
   padding: 10px 15px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -573,6 +577,9 @@ nav ul li a {
   overflow: hidden;
 }
 
+/* Was a blue gradient (var(--color-brand)) — orange is the site's one
+   real accent, so the hover indicator uses it instead, flat (no
+   gradient) per the "disciplined accent" pass. */
 nav ul li a::before {
   content: "";
   position: absolute;
@@ -580,7 +587,7 @@ nav ul li a::before {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--color-brand-light) 0%, var(--color-brand) 100%);
+  background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
@@ -592,7 +599,7 @@ nav ul li a:hover::before {
 }
 
 nav ul li a:hover {
-  color: var(--color-brand);
+  color: var(--color-accent);
   background-color: rgba(144, 164, 174, 0.1);
   transform: translateY(-2px);
 }
@@ -606,11 +613,11 @@ nav ul li .submenu {
   position: absolute;
   top: 100%;
   left: 0;
-  background: var(--color-bg);
+  background: var(--color-paper);
   backdrop-filter: blur(15px);
   padding: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
   min-width: 200px;
   opacity: 0;
   transform: translateY(10px);
@@ -637,12 +644,12 @@ nav ul li .submenu li a {
 }
 
 nav ul li .submenu li a:hover {
-  color: var(--color-brand);
+  color: var(--color-accent);
 }
 
 nav ul li .submenu li a::before {
   height: 2px;
-  background: linear-gradient(90deg, var(--color-brand-light) 0%, var(--color-brand) 100%);
+  background: var(--color-accent);
 }
 
 nav ul li .submenu-active {
@@ -659,14 +666,14 @@ nav ul li .submenu-active {
    below add a genuine hover-to-open behavior for desktop, scoped only to
    .soluciones-submenu so "Servicios" is completely unaffected. */
 .soluciones-submenu .submenu {
-  background-color: #ffffff;
+  background-color: var(--color-paper);
   /* The base `nav ul li .submenu` rule applies backdrop-filter: blur(15px)
      — with an opaque background painted on top that shouldn't normally
      show through, but backdrop-filter is a known source of translucency
      artifacts in some rendering paths even then. Neutralized here so the
      panel is unconditionally solid, not just "opaque in theory". */
   backdrop-filter: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   z-index: 999;
   /* opacity is fixed at 1 permanently — see the media query below for why
      it is never toggled — and the base rule's `transition: all 0.4s` is
@@ -683,7 +690,7 @@ nav ul li .submenu-active {
 }
 
 .soluciones-submenu .submenu li {
-  border-bottom: 1px solid #eef0f4;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .soluciones-submenu .submenu li:last-child {
@@ -701,7 +708,10 @@ nav ul li .submenu-active {
 
 .soluciones-submenu .submenu li a i.fa-chevron-right {
   font-size: 0.75em;
-  color: var(--color-brand);
+  /* Was var(--color-brand) (blue) — this chevron repeats on every row,
+     so it stays a neutral chrome gray rather than competing with the
+     one real accent (orange is reserved for hover/active states). */
+  color: var(--color-subtle);
   flex-shrink: 0;
 }
 
@@ -757,10 +767,10 @@ nav ul li .submenu-active {
      mouse can fall through. */
   left: calc(100% - 2px);
   min-width: 240px;
-  background-color: #ffffff;
-  border-radius: 8px;
+  background-color: var(--color-paper);
+  border-radius: var(--radius-sm);
   padding: 10px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   z-index: 1000;
   /* Same fix as the main panel: no opacity in the transition, so it can
      never be caught mid-fade looking translucent. */
@@ -813,7 +823,7 @@ nav ul li .submenu-active {
   cursor: pointer;
   background: rgba(237, 239, 244, 0.98);
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: all 0.3s ease;
   margin-left: auto;
 }
@@ -860,11 +870,11 @@ nav ul li .submenu-active {
   width: 305px;
   height: 100vh;
   padding: 80px 0;
-  background: var(--color-bg);
+  background: var(--color-paper);
   backdrop-filter: blur(15px);
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 100;
-  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   border-right: 1px solid rgba(255, 255, 255, 0.8);
 }
 
@@ -901,20 +911,16 @@ nav ul li .submenu-active {
   left: 25px;
   width: calc(100% - 50px);
   height: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(102, 144, 255, 0.5) 0%,
-    rgba(42, 95, 255, 0.5) 100%
-  );
+  background: var(--color-border);
 }
 
 .menubar ul li a:hover {
   background-color: rgba(176, 190, 197, 0.2);
-  color: var(--color-brand);
+  color: var(--color-accent);
 }
 
 .menubar ul li a:hover::after {
-  background: linear-gradient(90deg, var(--color-brand-light) 0%, var(--color-brand) 100%);
+  background: var(--color-accent);
 }
 
 .menubar ul li .submenu {
@@ -949,12 +955,12 @@ nav ul li .submenu-active {
 }
 
 .menubar .soluciones-submenu .submenu {
-  background-color: #ffffff;
+  background-color: var(--color-paper);
   /* Same fix as the desktop version: neutralize the inherited
      backdrop-filter blur and force full opacity so this panel is never
      see-through, regardless of what's behind it. */
   backdrop-filter: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   z-index: 999;
   /* The base .menubar ul li .submenu rule transitions opacity 0.4s
      alongside max-height — same root cause as desktop: opacity fading
@@ -969,7 +975,7 @@ nav ul li .submenu-active {
 }
 
 .menubar .soluciones-submenu .submenu li {
-  border-bottom: 1px solid #eef0f4;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .menubar .soluciones-submenu .submenu li:last-child {
@@ -986,7 +992,10 @@ nav ul li .submenu-active {
 
 .menubar .soluciones-submenu .submenu li a i.fa-chevron-right {
   font-size: 0.75em;
-  color: var(--color-brand);
+  /* Was var(--color-brand) (blue) — this chevron repeats on every row,
+     so it stays a neutral chrome gray rather than competing with the
+     one real accent (orange is reserved for hover/active states). */
+  color: var(--color-subtle);
   flex-shrink: 0;
 }
 
@@ -997,7 +1006,7 @@ nav ul li a.cta-demo-header,
 .menubar ul li a.cta-demo-header {
   background: var(--color-accent);
   color: #fff;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
 }
 
 nav ul li a.cta-demo-header {
@@ -1070,7 +1079,7 @@ nav ul li a.cta-demo-header:hover {
   padding-top: 0;
   padding-bottom: 0;
   line-height: 1;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-weight: 700;
   text-transform: none;
   letter-spacing: normal;
@@ -1357,7 +1366,10 @@ p.hero-subtitle {
 }
 
 .hero-trust-row i {
-  color: var(--color-accent);
+  /* Was var(--color-accent) — these 3 check icons repeat in a row, so
+     orange here was decorative overuse rather than a real accent; stays
+     neutral/light against the dark hero background instead. */
+  color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
   flex-shrink: 0;
 }
@@ -10146,7 +10158,7 @@ p.hero-subtitle {
 }
 
 #clientes.clients-premium .section-headline h2 {
-  color: #0a0f1e;
+  color: var(--color-navy);
   text-transform: none;
   font-size: 36px;
   margin-bottom: 12px;
@@ -10157,7 +10169,7 @@ p.hero-subtitle {
 }
 
 #clientes.clients-premium .clients-subtitle {
-  color: #6b7280;
+  color: var(--color-muted);
   font-size: 16px;
   line-height: 1.6;
   max-width: 640px;
@@ -10248,8 +10260,8 @@ p.hero-subtitle {
   height: 110px;
   padding: 16px;
   background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10262,7 +10274,7 @@ p.hero-subtitle {
 
 #clientes.clients-premium .client-logo-item:hover .logo-container {
   border-color: var(--color-accent);
-  box-shadow: 0 10px 24px rgba(10, 15, 30, 0.12);
+  box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
 
@@ -10291,11 +10303,11 @@ p.hero-subtitle {
   position: static;
   transform: none;
   background: #f1f5f9;
-  color: #0a0f1e;
+  color: var(--color-navy);
   font-size: 12px;
   font-weight: 600;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
@@ -10322,7 +10334,7 @@ p.hero-subtitle {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 56px;
-  color: #4b5563;
+  color: var(--color-graphite);
   font-size: 14px;
   font-weight: 600;
   text-align: center;
@@ -10333,7 +10345,10 @@ p.hero-subtitle {
   height: 5px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--color-accent);
+  /* Was var(--color-accent) — this dot repeats 2-3x as a plain
+     separator between stats, so it stays neutral rather than
+     diluting orange into decoration. */
+  background: var(--color-subtle);
   display: inline-block;
 }
 
@@ -10345,10 +10360,10 @@ p.hero-subtitle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 2px solid #0a0f1e;
-  color: #0a0f1e;
+  border: 2px solid var(--color-navy);
+  color: var(--color-navy);
   padding: 12px 28px;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
@@ -10358,7 +10373,7 @@ p.hero-subtitle {
 }
 
 #clientes.clients-premium .clients-cta-btn:hover {
-  background: #0a0f1e;
+  background: var(--color-navy);
   color: #fff;
 }
 
