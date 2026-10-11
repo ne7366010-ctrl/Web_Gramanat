@@ -1010,7 +1010,8 @@ nav ul li a.cta-demo-header,
 }
 
 nav ul li a.cta-demo-header {
-  padding: 10px 20px;
+  padding: 10px 22px;
+  white-space: nowrap;
 }
 
 nav ul li a.cta-demo-header::before {
@@ -1021,6 +1022,27 @@ nav ul li a.cta-demo-header:hover {
   background: #e0691f;
   color: #fff;
   transform: translateY(-2px);
+}
+
+/* The "Solicita tu demo" pill is wide enough as nowrap text that, between
+   the mobile breakpoint (790px, where the hamburger takes over) and
+   ~1365px, the full link row + pill no longer fits the available width.
+   Tightened here only in that band — large desktop (>1365px) keeps the
+   original sizes untouched, and mobile is a separate .menubar layout
+   this rule never reaches. */
+@media (min-width: 791px) and (max-width: 1365px) {
+  nav ul li {
+    margin-left: 0.6rem;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+
+  nav ul li a.cta-demo-header {
+    padding: 10px 18px;
+  }
 }
 
 .menubar ul li a.cta-demo-header {
