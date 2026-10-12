@@ -1281,6 +1281,63 @@
   });
 
   /*---------------------
+    #services bento: invoice card total count-up. Mirrors the results-
+    strip counter above (same IntersectionObserver + reduced-motion
+    guard), but formats a 2-decimal dollar amount instead of a plain
+    integer. The 1100ms start delay matches the CSS stagger the rest of
+    the mini-invoice uses (--svc-i:6 on .svc-dte-total), so the number
+    starts counting right as that row fades in.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.querySelector('.svc-dte-total-amount[data-count-to]');
+
+    if (!el) return;
+
+    const target = parseFloat(el.getAttribute('data-count-to')) || 0;
+    const format = (value) => '$' + value.toFixed(2);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const START_DELAY = 1100;
+    const DURATION = 700;
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      el.textContent = format(target);
+      return;
+    }
+
+    const animateCount = () => {
+      setTimeout(() => {
+        const start = performance.now();
+
+        const step = (now) => {
+          const progress = Math.min((now - start) / DURATION, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = format(eased * target);
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = format(target);
+          }
+        };
+
+        requestAnimationFrame(step);
+      }, START_DELAY);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(el);
+  });
+
+  /*---------------------
     Faq accordion
   --------------------- */
 

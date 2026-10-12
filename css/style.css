@@ -4249,7 +4249,11 @@ p.hero-subtitle {
   background: #fff;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  /* Drop shadow for depth + a soft brand-orange glow halo around it. */
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 122, 41, 0.08),
+    0 0 36px rgba(255, 122, 41, 0.2);
 }
 
 #services .svc-dte-head {
@@ -4275,19 +4279,19 @@ p.hero-subtitle {
 
 #services .svc-dte-line {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   opacity: 0;
   transform: translateX(-8px);
 }
 
-#services .svc-dte-bar {
+#services .svc-dte-item {
   flex: 1 1 auto;
-  height: 7px;
-  border-radius: 3.5px;
-  background: var(--color-border);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-graphite);
 }
 
 #services .svc-dte-price {
@@ -4300,51 +4304,154 @@ p.hero-subtitle {
 #services .svc-dte-divider {
   height: 1px;
   background: var(--color-border);
-  margin: 12px 0;
+  margin: 10px 0;
+  opacity: 0;
+}
+
+#services .svc-dte-subrow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 6px;
   opacity: 0;
 }
 
 #services .svc-dte-total {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
-  font-weight: 800;
+  align-items: baseline;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--color-navy);
-  margin-bottom: 16px;
+  margin: 10px 0 14px;
   opacity: 0;
 }
 
-#services .svc-dte-stamp {
-  display: inline-flex;
+#services .svc-dte-total-amount {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+#services .svc-dte-footer {
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
+  padding: 12px 0;
+  margin-bottom: 14px;
+  border-top: 1px dashed var(--color-border);
+  opacity: 0;
+}
+
+#services .svc-dte-qr {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: var(--color-navy);
+}
+
+#services .svc-dte-code {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+#services .svc-dte-code-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+}
+
+#services .svc-dte-code-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-graphite);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+
+#services .svc-dte-stamp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
   background: rgba(22, 163, 74, 0.12);
   color: #16a34a;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 8px;
+  white-space: nowrap;
   opacity: 0;
   transform: translateY(-14px) scale(0.85);
 }
 
-/* Lines/divider/total appear one by one, then the stamp drops in with a
-   small bounce (cubic-bezier overshoot) — all a one-time play once the
-   card scrolls into view, no loop. */
+#services .svc-dte-stamp-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#services .svc-dte-check {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+#services .svc-dte-check path {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+}
+
+#services .svc-dte-stamp-time {
+  flex-shrink: 0;
+  color: #4a9b6e;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+/* Lines → divider → subtotal/IVA → total → QR/code footer, each a step
+   later (150ms apart, via --svc-i), then the check draws and the stamp
+   drops in with a small bounce — one play, once the card scrolls into
+   view, no loop. The JS count-up on the total (main.js) fires on the
+   same 1100ms beat as its --svc-i:6 fade so the number and the row
+   appear together. */
 .svc-card.is-visible .svc-dte-line {
   animation: svcLineIn 0.4s ease forwards;
   animation-delay: calc(var(--svc-i) * 150ms + 200ms);
 }
 
 .svc-card.is-visible .svc-dte-divider,
-.svc-card.is-visible .svc-dte-total {
+.svc-card.is-visible .svc-dte-subrow,
+.svc-card.is-visible .svc-dte-total,
+.svc-card.is-visible .svc-dte-footer {
   animation: svcFadeIn 0.3s ease forwards;
   animation-delay: calc(var(--svc-i) * 150ms + 200ms);
 }
 
+.svc-card.is-visible .svc-dte-check path {
+  animation: svcCheckDraw 0.4s ease forwards;
+  animation-delay: 1500ms;
+}
+
 .svc-card.is-visible .svc-dte-stamp {
-  animation: svcStampDrop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  animation-delay: 950ms;
+  animation: svcStampDrop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 1450ms;
+}
+
+@keyframes svcCheckDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes svcLineIn {
@@ -4835,7 +4942,9 @@ p.hero-subtitle {
 @media (prefers-reduced-motion: reduce) {
   #services .svc-dte-line,
   #services .svc-dte-divider,
+  #services .svc-dte-subrow,
   #services .svc-dte-total,
+  #services .svc-dte-footer,
   #services .svc-dte-stamp,
   #services .svc-chat-bubble,
   #services .svc-phone-notif,
@@ -4843,6 +4952,11 @@ p.hero-subtitle {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  #services .svc-dte-check path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
   }
 
   #services .svc-training-fill {
