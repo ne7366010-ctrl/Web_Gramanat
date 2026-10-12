@@ -4790,8 +4790,11 @@ p.hero-subtitle {
   padding: 4px 10px;
 }
 
-#services .svc-app-tagline {
-  margin: 10px 0 0;
+/* Extra-specific selector: the generic "#services .svc-card-top p"
+   rule (font-size 14px, margin 0 0 12px) otherwise wins this fight on
+   specificity and silently ate the top margin here. */
+#services .svc-card-top .svc-app-tagline {
+  margin: 12px 0 0;
   font-size: 12px;
   color: var(--color-muted);
 }
@@ -4801,9 +4804,10 @@ p.hero-subtitle {
   display: flex;
   justify-content: center;
   padding-top: 8px;
-  /* Lets the phone render larger than the card's remaining height and
-     get cropped by .svc-card's overflow:hidden at the bottom edge. */
-  margin: 0 -32px -32px;
+  /* Top margin keeps the "Nuevo pedido" notif clear of the tagline text
+     above; left/right/bottom stay negative so the phone still bleeds past
+     the card edge and gets cropped by .svc-card's overflow:hidden. */
+  margin: 30px -32px -32px;
   min-height: 170px;
 }
 
@@ -4814,7 +4818,7 @@ p.hero-subtitle {
   width: 240px;
   height: 240px;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.22) 0%, rgba(255, 122, 41, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.34) 0%, rgba(255, 122, 41, 0) 70%);
   pointer-events: none;
 }
 
@@ -4883,24 +4887,25 @@ p.hero-subtitle {
 #services .svc-phone-app-name {
   font-size: 9px;
   font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
   color: var(--color-navy);
 }
 
 #services .svc-phone-order {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
+  flex-direction: column;
+  gap: 2px;
   background: var(--color-panel);
   border-radius: 8px;
   padding: 6px 8px;
 }
 
-#services .svc-phone-order-info {
+#services .svc-phone-order-top {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
 }
 
 #services .svc-phone-order-id {
@@ -4954,13 +4959,13 @@ p.hero-subtitle {
 }
 
 #services .svc-phone-notif-1 {
-  top: 8px;
-  left: 4px;
+  top: -26px;
+  left: 0px;
 }
 
 #services .svc-phone-notif-2 {
   top: 120px;
-  right: 4px;
+  right: 10px;
 }
 
 #services .svc-phone-notif-icon {
@@ -5395,7 +5400,7 @@ p.hero-subtitle {
   }
 
   #services .svc-mini-phone {
-    margin: 0 -24px -24px;
+    margin: 32px -24px -24px;
     min-height: 150px;
   }
 
