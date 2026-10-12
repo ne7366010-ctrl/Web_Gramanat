@@ -4768,41 +4768,180 @@ p.hero-subtitle {
   }
 }
 
-/* --- Card 5: Apps a la medida (phone + notification) --- */
+/* --- Card 5: Apps a la medida (a real-looking app screen on a tilted
+   phone, deliberately bleeding past the card's own bottom edge — the
+   card's base overflow:hidden crops it there instead of leaving dead
+   space under a small centered phone like before). --- */
+
+#services .svc-app-tags {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+#services .svc-app-tags li {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-navy);
+  background: var(--color-panel);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+}
+
+#services .svc-app-tagline {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--color-muted);
+}
 
 #services .svc-mini-phone {
+  position: relative;
   display: flex;
   justify-content: center;
-  padding-top: 28px;
+  padding-top: 8px;
+  /* Lets the phone render larger than the card's remaining height and
+     get cropped by .svc-card's overflow:hidden at the bottom edge. */
+  margin: 0 -32px -32px;
+  min-height: 170px;
+}
+
+#services .svc-phone-glow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 240px;
+  height: 240px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 122, 41, 0.22) 0%, rgba(255, 122, 41, 0) 70%);
+  pointer-events: none;
+}
+
+#services .svc-phone-stage {
+  position: relative;
+  z-index: 1;
 }
 
 #services .svc-phone {
   position: relative;
-  width: 84px;
-  height: 140px;
+  width: 132px;
+  height: 236px;
   background: linear-gradient(155deg, #1d2230, #0a0f1e);
-  border-radius: 18px;
+  border-radius: 22px;
   border: 3px solid #0a0f1e;
-  box-shadow: 0 10px 24px rgba(10, 15, 30, 0.15);
+  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.22);
+  overflow: hidden;
+  transform: rotate(-6deg);
 }
 
 #services .svc-phone-notch {
   position: absolute;
-  top: 8px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 28px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  width: 32px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  z-index: 1;
+}
+
+#services .svc-phone-screen {
+  position: absolute;
+  inset: 8px;
+  top: 22px;
+  border-radius: 16px;
+  background: #fff;
+  padding: 10px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+#services .svc-phone-app-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1px;
+}
+
+#services .svc-phone-app-logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: var(--color-navy);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+#services .svc-phone-app-name {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+#services .svc-phone-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  background: var(--color-panel);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+#services .svc-phone-order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+#services .svc-phone-order-id {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+#services .svc-phone-order-detail {
+  font-size: 7px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#services .svc-phone-order-price {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+#services .svc-phone-confirm {
+  margin-top: 2px;
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 7px 0;
+  cursor: default;
 }
 
 #services .svc-phone-notif {
   position: absolute;
-  left: 50%;
-  top: 26px;
-  width: 150px;
-  transform: translate(-50%, -14px);
+  z-index: 2;
+  width: 134px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(10, 15, 30, 0.18);
@@ -4811,6 +4950,17 @@ p.hero-subtitle {
   align-items: center;
   gap: 8px;
   opacity: 0;
+  transform: translateY(14px) scale(0.92);
+}
+
+#services .svc-phone-notif-1 {
+  top: 8px;
+  left: 4px;
+}
+
+#services .svc-phone-notif-2 {
+  top: 120px;
+  right: 4px;
 }
 
 #services .svc-phone-notif-icon {
@@ -4824,6 +4974,11 @@ p.hero-subtitle {
   color: var(--color-accent);
   font-size: 11px;
   flex-shrink: 0;
+}
+
+#services .svc-phone-notif-icon-ok {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
 }
 
 #services .svc-phone-notif-copy {
@@ -4846,26 +5001,40 @@ p.hero-subtitle {
   color: var(--color-muted);
 }
 
-.svc-card.is-visible .svc-phone-notif {
-  animation: svcNotifLoop 5s ease-in-out infinite;
-  animation-delay: 400ms;
+/* Phone: a very subtle continuous float once visible, keeping its -6deg
+   tilt throughout (both keyframe stops restate it, so there's no jump
+   when the loop starts). Notifications: a one-time staggered pop with
+   a small bounce — same curve as the invoice stamp's drop-in. */
+.svc-card.is-visible .svc-phone {
+  animation: svcPhoneFloat 4s ease-in-out infinite;
 }
 
-@keyframes svcNotifLoop {
+.svc-card.is-visible .svc-phone-notif {
+  animation: svcNotifPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.svc-card.is-visible .svc-phone-notif-1 {
+  animation-delay: 350ms;
+}
+
+.svc-card.is-visible .svc-phone-notif-2 {
+  animation-delay: 650ms;
+}
+
+@keyframes svcPhoneFloat {
   0%,
-  8% {
-    opacity: 0;
-    transform: translate(-50%, -14px);
-  }
-  20%,
-  70% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  85%,
   100% {
-    opacity: 0;
-    transform: translate(-50%, -14px);
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(-3px);
+  }
+}
+
+@keyframes svcNotifPop {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -5123,6 +5292,11 @@ p.hero-subtitle {
   #services .svc-chat-typing {
     display: none !important;
   }
+
+  #services .svc-phone {
+    animation: none !important;
+    transform: rotate(-6deg) !important;
+  }
 }
 
 /* --- Closing row (unchanged from before) --- */
@@ -5220,13 +5394,22 @@ p.hero-subtitle {
     padding: 16px;
   }
 
+  #services .svc-mini-phone {
+    margin: 0 -24px -24px;
+    min-height: 150px;
+  }
+
   #services .svc-phone {
-    width: 76px;
-    height: 128px;
+    width: 118px;
+    height: 212px;
   }
 
   #services .svc-phone-notif {
-    width: 130px;
+    width: 148px;
+  }
+
+  #services .svc-phone-notif-2 {
+    top: 108px;
   }
 
   /* Training card: text above the route, route goes vertical (a
