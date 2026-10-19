@@ -35,7 +35,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css?v=87" rel="stylesheet">
+  <link href="css/style.css?v=97" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -1297,7 +1297,7 @@
               <span class="svc-card-kicker">Servicio principal</span>
               <h3>Facturación electrónica</h3>
               <p>Emite DTE válidos ante Hacienda en segundos, listos para vender sin miedo a multas.</p>
-              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
+              <a class="svc-card-link svc-card-link-solid" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20facturaci%C3%B3n%20electr%C3%B3nica." target="_blank">Quiero información <span class="arrow">→</span></a>
             </div>
             <div class="svc-mini svc-mini-dte" aria-hidden="true">
               <div class="svc-dte-doc">
@@ -1306,20 +1306,66 @@
                   <span class="svc-dte-number">DTE-01-M001P001-…0045</span>
                 </div>
                 <div class="svc-dte-line" style="--svc-i: 0">
-                  <span class="svc-dte-bar"></span>
-                  <span class="svc-dte-price">$12.00</span>
+                  <span class="svc-dte-item">Pupusas revueltas x3</span>
+                  <span class="svc-dte-price">$3.75</span>
                 </div>
                 <div class="svc-dte-line" style="--svc-i: 1">
-                  <span class="svc-dte-bar"></span>
-                  <span class="svc-dte-price">$18.00</span>
+                  <span class="svc-dte-item">Café americano</span>
+                  <span class="svc-dte-price">$1.50</span>
                 </div>
                 <div class="svc-dte-line" style="--svc-i: 2">
-                  <span class="svc-dte-bar"></span>
-                  <span class="svc-dte-price">$15.00</span>
+                  <span class="svc-dte-item">Horchata</span>
+                  <span class="svc-dte-price">$1.25</span>
                 </div>
                 <div class="svc-dte-divider" style="--svc-i: 3"></div>
-                <div class="svc-dte-total" style="--svc-i: 3">Total <span>$45.00</span></div>
-                <div class="svc-dte-stamp"><i class="fa-solid fa-check" aria-hidden="true"></i> Validado por Hacienda</div>
+                <div class="svc-dte-subrow" style="--svc-i: 4">
+                  <span>Subtotal</span>
+                  <span>$6.50</span>
+                </div>
+                <div class="svc-dte-subrow" style="--svc-i: 5">
+                  <span>IVA 13%</span>
+                  <span>$0.85</span>
+                </div>
+                <div class="svc-dte-total" style="--svc-i: 6">
+                  <span>Total</span>
+                  <span class="svc-dte-total-amount" data-count-to="7.35">$0.00</span>
+                </div>
+                <div class="svc-dte-footer" style="--svc-i: 7">
+                  <svg class="svc-dte-qr" viewBox="0 0 21 21" aria-hidden="true">
+                    <rect x="0" y="0" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.4" />
+                    <rect x="2.3" y="2.3" width="2.4" height="2.4" fill="currentColor" />
+                    <rect x="14" y="0" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.4" />
+                    <rect x="16.3" y="2.3" width="2.4" height="2.4" fill="currentColor" />
+                    <rect x="0" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.4" />
+                    <rect x="2.3" y="16.3" width="2.4" height="2.4" fill="currentColor" />
+                    <rect x="9" y="1" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="11.5" y="3" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="9" y="5" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="1" y="9" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="4" y="11" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="9" y="9" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="11.5" y="11" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="9" y="13" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="13.5" y="9" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="17" y="11" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="13.5" y="13.5" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="17" y="16" width="1.4" height="1.4" fill="currentColor" />
+                    <rect x="9" y="17" width="1.4" height="1.4" fill="currentColor" />
+                  </svg>
+                  <span class="svc-dte-code">
+                    <span class="svc-dte-code-label">Código DTE</span>
+                    <span class="svc-dte-code-value">A1B2-C3D4-E5F6</span>
+                  </span>
+                </div>
+                <div class="svc-dte-stamp" style="--svc-i: 9">
+                  <span class="svc-dte-stamp-text">
+                    <svg class="svc-dte-check" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4.5 12.5L9.5 17.5L19.5 6.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>Validado por Hacienda</span>
+                  </span>
+                  <span class="svc-dte-stamp-time">hace 2 s</span>
+                </div>
               </div>
             </div>
           </article>
@@ -1372,33 +1418,39 @@
               <div class="svc-browser-body">
                 <div class="svc-shop-track">
                   <div class="svc-shop-product">
-                    <span class="svc-shop-thumb">🧴</span>
-                    <span class="svc-shop-name">Producto 1</span>
+                    <span class="svc-shop-thumb">🫓</span>
+                    <span class="svc-shop-name">Pupusas revueltas</span>
+                    <span class="svc-shop-price">$1.00</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                   <div class="svc-shop-product">
-                    <span class="svc-shop-thumb">👟</span>
-                    <span class="svc-shop-name">Producto 2</span>
+                    <span class="svc-shop-thumb">💊</span>
+                    <span class="svc-shop-name">Acetaminofén</span>
+                    <span class="svc-shop-price">$2.50</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                   <div class="svc-shop-product">
-                    <span class="svc-shop-thumb">🎒</span>
-                    <span class="svc-shop-name">Producto 3</span>
+                    <span class="svc-shop-thumb">🔨</span>
+                    <span class="svc-shop-name">Martillo</span>
+                    <span class="svc-shop-price">$8.50</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                   <div class="svc-shop-product" aria-hidden="true">
-                    <span class="svc-shop-thumb">🧴</span>
-                    <span class="svc-shop-name">Producto 1</span>
+                    <span class="svc-shop-thumb">🫓</span>
+                    <span class="svc-shop-name">Pupusas revueltas</span>
+                    <span class="svc-shop-price">$1.00</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                   <div class="svc-shop-product" aria-hidden="true">
-                    <span class="svc-shop-thumb">👟</span>
-                    <span class="svc-shop-name">Producto 2</span>
+                    <span class="svc-shop-thumb">💊</span>
+                    <span class="svc-shop-name">Acetaminofén</span>
+                    <span class="svc-shop-price">$2.50</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                   <div class="svc-shop-product" aria-hidden="true">
-                    <span class="svc-shop-thumb">🎒</span>
-                    <span class="svc-shop-name">Producto 3</span>
+                    <span class="svc-shop-thumb">🔨</span>
+                    <span class="svc-shop-name">Martillo</span>
+                    <span class="svc-shop-price">$8.50</span>
                     <span class="svc-shop-buy">Comprar</span>
                   </div>
                 </div>
@@ -1412,34 +1464,124 @@
               <h3>Apps a la medida</h3>
               <p>Aplicaciones para iOS y Android hechas para tu negocio.</p>
               <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20apps%20a%20la%20medida." target="_blank">Quiero información <span class="arrow">→</span></a>
+              <ul class="svc-app-tags">
+                <li>iOS</li>
+                <li>Android</li>
+              </ul>
+              <p class="svc-app-tagline">Tu marca en el celular de tus clientes</p>
             </div>
             <div class="svc-mini svc-mini-phone" aria-hidden="true">
-              <div class="svc-phone">
-                <div class="svc-phone-notch"></div>
-                <div class="svc-phone-notif">
-                  <span class="svc-phone-notif-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></span>
-                  <span class="svc-phone-notif-text">Nuevo pedido #128</span>
+              <div class="svc-phone-glow"></div>
+              <div class="svc-phone-stage">
+                <div class="svc-phone">
+                  <div class="svc-phone-notch"></div>
+                  <div class="svc-phone-screen">
+                    <div class="svc-phone-app-header">
+                      <span class="svc-phone-app-logo">GT</span>
+                      <span class="svc-phone-app-name">Gramanat POS</span>
+                    </div>
+                    <div class="svc-phone-order">
+                      <div class="svc-phone-order-top">
+                        <span class="svc-phone-order-id">Pedido #128</span>
+                        <span class="svc-phone-order-price">$18.50</span>
+                      </div>
+                      <span class="svc-phone-order-detail">2x Pupusas</span>
+                    </div>
+                    <div class="svc-phone-order">
+                      <div class="svc-phone-order-top">
+                        <span class="svc-phone-order-id">Pedido #127</span>
+                        <span class="svc-phone-order-price">$3.25</span>
+                      </div>
+                      <span class="svc-phone-order-detail">Café americano</span>
+                    </div>
+                    <button type="button" class="svc-phone-confirm" tabindex="-1">Confirmar</button>
+                  </div>
                 </div>
+              </div>
+              <div class="svc-phone-notif svc-phone-notif-1">
+                <span class="svc-phone-notif-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></span>
+                <span class="svc-phone-notif-copy">
+                  <span class="svc-phone-notif-text">Nuevo pedido #128</span>
+                  <span class="svc-phone-notif-sub">$18.50</span>
+                </span>
+              </div>
+              <div class="svc-phone-notif svc-phone-notif-2">
+                <span class="svc-phone-notif-icon svc-phone-notif-icon-ok"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                <span class="svc-phone-notif-copy">
+                  <span class="svc-phone-notif-text">Pago recibido ✓</span>
+                </span>
               </div>
             </div>
           </article>
 
           <!-- 6. Capacitación incluida -->
           <article class="svc-card svc-card-training reveal-up" style="--reveal-delay: 0.25s">
-            <div class="svc-card-top">
-              <h3>Capacitación incluida</h3>
-              <p>Tu equipo aprende a usar el sistema desde el primer día.</p>
-              <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20capacitaci%C3%B3n%20incluida." target="_blank">Quiero información <span class="arrow">→</span></a>
+            <div class="svc-training-top">
+              <div class="svc-card-top">
+                <h3>Capacitación incluida</h3>
+                <p>Tu equipo aprende a usar el sistema desde el primer día.</p>
+                <a class="svc-card-link" href="https://wa.me/50370043346?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20capacitaci%C3%B3n%20incluida." target="_blank">Quiero información <span class="arrow">→</span></a>
+              </div>
+              <div class="svc-mini svc-mini-training" aria-hidden="true">
+                <div class="svc-training-route">
+                  <div class="svc-training-track">
+                    <span class="svc-training-fill"></span>
+                  </div>
+                  <div class="svc-training-steps">
+                    <div class="svc-training-step" style="--svc-i: 0">
+                      <span class="svc-training-step-icon">
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M5 2.5h7l3 3v12h-10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                          <path d="M12 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                          <path d="M7 11h6M7 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <svg class="svc-training-step-check" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4.5 12.5L9.5 17.5L19.5 6.5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <p class="svc-training-step-day">Día 1</p>
+                      <p class="svc-training-step-title">Facturar</p>
+                      <p class="svc-training-step-text">Emite tu primer DTE</p>
+                    </div>
+                    <div class="svc-training-step" style="--svc-i: 1">
+                      <span class="svc-training-step-icon">
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <rect x="2" y="5" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+                          <circle cx="10" cy="10.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <svg class="svc-training-step-check" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4.5 12.5L9.5 17.5L19.5 6.5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <p class="svc-training-step-day">Día 2</p>
+                      <p class="svc-training-step-title">Cobrar</p>
+                      <p class="svc-training-step-text">Cobra en segundos</p>
+                    </div>
+                    <div class="svc-training-step" style="--svc-i: 2">
+                      <span class="svc-training-step-icon">
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <rect x="4" y="9" width="12" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                          <path d="M6.5 9V6.5a3.5 3.5 0 0 1 7 0V9" fill="none" stroke="currentColor" stroke-width="1.5" />
+                          <circle cx="10" cy="13" r="1.2" fill="currentColor" />
+                        </svg>
+                        <svg class="svc-training-step-check" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4.5 12.5L9.5 17.5L19.5 6.5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </span>
+                      <p class="svc-training-step-day">Día 3</p>
+                      <p class="svc-training-step-title">Cerrar caja</p>
+                      <p class="svc-training-step-text">Cierra sin errores</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="svc-mini svc-mini-training" aria-hidden="true">
-              <p class="svc-training-label">Tu equipo listo</p>
-              <div class="svc-training-bar"><span class="svc-training-fill"></span></div>
-              <ul class="svc-training-checks">
-                <li style="--svc-i: 0"><i class="fa-solid fa-check" aria-hidden="true"></i> Facturar</li>
-                <li style="--svc-i: 1"><i class="fa-solid fa-check" aria-hidden="true"></i> Cobrar</li>
-                <li style="--svc-i: 2"><i class="fa-solid fa-check" aria-hidden="true"></i> Cerrar caja</li>
-              </ul>
-            </div>
+            <ul class="svc-training-tags">
+              <li>Presencial o remota</li>
+              <li>Material en español</li>
+              <li>Soporte local</li>
+            </ul>
+            <p class="svc-training-closing">Tu equipo operando solo en <strong>3 días</strong>.</p>
           </article>
 
         </div>
@@ -2236,7 +2378,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js?v=22"></script>
+  <script src="js/main.js?v=23"></script>
 </body>
 
 </html>
