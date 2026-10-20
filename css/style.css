@@ -12704,39 +12704,47 @@ nav,
   color: #fff;
 }
 
-/* Photo layer. object-position keeps the counter and the cashier in
-   frame as the box gets wider than the photo itself. */
-.gn-hero-media,
-.gn-hero-media img {
+/* Photo column: right half of the hero, from under the fixed nav to the
+   bottom, with no overlay — the official photo keeps its natural
+   colours. The text column on the left sits on plain navy. The
+   background is the photo's own wall tone, shown only while it loads.
+   object-position keeps the entrepreneur and the tablet in frame as the
+   column gets taller than the 4:3 photo. */
+.gn-hero-media {
   position: absolute;
-  inset: 0;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  z-index: -1;
+  background: #d8d2c8;
+}
+
+.gn-hero-media picture,
+.gn-hero-media img {
+  display: block;
   width: 100%;
   height: 100%;
 }
 
-.gn-hero-media {
-  z-index: -2;
-}
-
 .gn-hero-media img {
   object-fit: cover;
-  object-position: 70% center;
+  object-position: 58% 40%;
 }
 
-/* Navy gradient between photo/video and text: solid enough behind the
-   text column for AA contrast, clear over the people on the right. */
-.gn-hero-overlay {
-  position: absolute;
+/* The optional video fills the photo column instead of the old
+   full-bleed box, and stays out of the way until main.js gives it a
+   src (otherwise its poster would paint over the sharper <img>). */
+.gn-hero-media .hero-bg-video {
   inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(7, 28, 51, 0.96) 0%,
-    rgba(7, 28, 51, 0.9) 36%,
-    rgba(7, 28, 51, 0.45) 62%,
-    rgba(7, 28, 51, 0.08) 100%
-  );
+  left: 0;
+  width: 100%;
+  transform: none;
+  z-index: 1;
+}
+
+.gn-hero-media .hero-bg-video:not([src]) {
+  display: none;
 }
 
 .gn-hero-inner {
@@ -12746,8 +12754,10 @@ nav,
   padding: 0 32px;
 }
 
+/* Ends 48px before the photo column (which starts at 54vw): from the
+   container's left edge plus its 32px padding up to that gap. */
 .gn-hero-text {
-  max-width: 620px;
+  max-width: calc(54vw - 48px - (100vw - min(100vw, 1200px)) / 2 - 32px);
 }
 
 .gn-hero-eyebrow {
@@ -12761,7 +12771,7 @@ nav,
 
 .gn-hero-title {
   margin: 0 0 22px;
-  font-size: clamp(34px, 22.4px + 2.9vw, 56px);
+  font-size: clamp(34px, 22.4px + 2.9vw, 52px);
   line-height: 1.08;
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -12923,54 +12933,67 @@ nav .hamburger:focus-visible,
   outline-offset: 3px;
 }
 
-/* Tablet: the photo has less room on the right, so the gradient
-   covers more of it. */
-@media (max-width: 991px) {
-  .gn-hero-overlay {
-    background: linear-gradient(
-      90deg,
-      rgba(7, 28, 51, 0.96) 0%,
-      rgba(7, 28, 51, 0.88) 55%,
-      rgba(7, 28, 51, 0.55) 100%
-    );
+/* Small laptops / landscape tablets: the text column is narrower, so
+   the title steps down to keep it at four or five lines. */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .gn-hero-title {
+    font-size: 42px;
+  }
+
+  /* The photo column is narrowest here (~37% of the photo's width
+     fits); centre it so her face, hands and the tablet stay in. */
+  .gn-hero-media img {
+    object-position: 50% 40%;
   }
 }
 
-/* Mobile: a 4:3 crop of the photo (img/hero/hero-gramanat-mobile.jpg,
-   both faces + the POS) sits right under the fixed nav, its top band
-   left clear; the text starts over its lower half and continues on
-   near-solid navy so long Spanish lines stay readable. Buttons go full
-   width for a large thumb target. */
-@media (max-width: 767px) {
+/* Below 992px the columns stack: the photo becomes a band right under
+   the fixed nav (3:2 crop, img/hero/hero-principal-movil-*.jpg, still
+   untinted) and the text follows on navy. */
+@media (max-width: 991px) {
   .gn-hero {
+    display: block;
     min-height: 0;
-    padding: calc(80px + 170px) 0 48px;
+    padding: 80px 0 56px;
   }
 
   .gn-hero-media {
-    top: 80px;
+    position: relative;
+    top: auto;
+    right: auto;
     bottom: auto;
-    height: auto;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    max-height: 440px;
+    z-index: auto;
   }
 
   .gn-hero-media img {
-    position: static;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  .gn-hero-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(7, 28, 51, 0.1) 80px,
-      rgba(7, 28, 51, 0.15) 170px,
-      rgba(7, 28, 51, 0.82) 250px,
-      rgba(7, 28, 51, 0.97) 360px
-    );
+    object-position: center 40%;
   }
 
   .gn-hero-inner {
-    padding: 0 20px;
+    padding-top: 40px;
+  }
+
+  .gn-hero-text {
+    max-width: 640px;
+  }
+}
+
+/* Mobile: full-width 3:2 photo band, then the text. Buttons go full
+   width for a large thumb target. */
+@media (max-width: 767px) {
+  .gn-hero {
+    padding: 80px 0 48px;
+  }
+
+  .gn-hero-media {
+    max-height: none;
+  }
+
+  .gn-hero-inner {
+    padding: 28px 20px 0;
   }
 
   .gn-hero-eyebrow {
@@ -13130,10 +13153,32 @@ button.hamburger {
 }
 
 @media screen and (max-width: 380px) {
-  /* Less photo band, so the primary CTA still lands above the fold on
-     ~360x740 phones. */
-  .gn-hero {
-    padding-top: calc(80px + 130px);
+  /* ~360px phones: a slightly shorter photo band (16:9 crop of the same
+     3:2 file, focused on her face and the tablet), tighter gaps and a
+     smaller title, so the primary CTA starts above the fold. */
+  .gn-hero-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .gn-hero-media img {
+    object-position: center 55%;
+  }
+
+  .gn-hero-inner {
+    padding-top: 22px;
+  }
+
+  .gn-hero-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .gn-hero-title {
+    font-size: 31px;
+  }
+
+  .gn-hero-subtitle {
+    font-size: 16px;
+    margin-bottom: 22px;
   }
 
   /* a.logo (not .logo) so this outranks responsive.css, loaded later. */

@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=99" rel="stylesheet" />
+    <link href="css/style.css?v=100" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -559,47 +559,58 @@
     <!-- header end -->
 
     <!-- Hero. Replaces the old Nivo slider (one real slide + two empty
-       placeholders that still downloaded ~5 MB of images). Layers, back
-       to front: photo (<picture>), optional video, navy gradient, text. -->
+       placeholders that still downloaded ~5 MB of images). Two columns
+       from 992px: text on navy (left), the official photo untinted
+       (right, .gn-hero-media). Below 992px the photo is a band on top
+       and the text follows. Master file: img/gramanat-hero-principal.jpg. -->
     <section id="home" class="gn-hero" aria-labelledby="gn-hero-title">
-      <picture class="gn-hero-media">
-        <source
-          media="(max-width: 767px)"
-          srcset="img/hero/hero-gramanat-mobile.jpg?v=2"
-        />
-        <img
-          src="img/hero/hero-gramanat-1920.jpg?v=1"
-          srcset="
-            img/hero/hero-gramanat-1280.jpg?v=1 1280w,
-            img/hero/hero-gramanat-1920.jpg?v=1 1920w
-          "
-          sizes="100vw"
-          width="1920"
-          height="1072"
-          alt=""
-          fetchpriority="high"
-          decoding="async"
-        />
-      </picture>
-      <!-- Background video (desktop + motion allowed only). No src on
-         purpose — the hero video init in main.js assigns data-src -> src
-         on viewports >=768px without prefers-reduced-motion, and hides
-         the element if the file fails, leaving the photo above.
-         video/hero-fondo.mp4 isn't uploaded yet, so the path waits in
-         data-src-pendiente (ignored by main.js — no 404 request). Once
-         the file is in video/, rename the attribute to data-src. -->
-      <video
-        class="hero-bg-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="none"
-        poster="img/hero/hero-gramanat-1920.jpg?v=1"
-        data-src-pendiente="video/hero-fondo.mp4"
-        aria-hidden="true"
-      ></video>
-      <div class="gn-hero-overlay" aria-hidden="true"></div>
+      <div class="gn-hero-media">
+        <picture>
+          <!-- 3:2 crop of the entrepreneur + tablet for the stacked layout. -->
+          <source
+            media="(max-width: 991px)"
+            srcset="
+              img/hero/hero-principal-movil-800.jpg?v=1   800w,
+              img/hero/hero-principal-movil-1200.jpg?v=1 1200w
+            "
+            sizes="100vw"
+            width="1200"
+            height="800"
+          />
+          <img
+            src="img/hero/hero-principal-1200.jpg?v=1"
+            srcset="
+              img/hero/hero-principal-1200.jpg?v=1 1200w,
+              img/hero/hero-principal-2400.jpg?v=1 2400w
+            "
+            sizes="50vw"
+            width="2400"
+            height="1792"
+            alt="Emprendedora atendiendo a un cliente con una tablet de punto de venta en su tienda"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+        <!-- Optional video (desktop + motion allowed only), same box as
+           the photo. No src on purpose — the hero video init in main.js
+           assigns data-src -> src on viewports >=768px without
+           prefers-reduced-motion, and hides the element if the file
+           fails, leaving the photo underneath.
+           video/hero-fondo.mp4 isn't uploaded yet, so the path waits in
+           data-src-pendiente (ignored by main.js — no 404 request). Once
+           the file is in video/, rename the attribute to data-src. -->
+        <video
+          class="hero-bg-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="img/hero/hero-principal-1200.jpg?v=1"
+          data-src-pendiente="video/hero-fondo.mp4"
+          aria-hidden="true"
+        ></video>
+      </div>
 
       <div class="gn-hero-inner">
         <div class="gn-hero-text">
