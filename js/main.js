@@ -431,8 +431,8 @@
       });
     });
 
-    // Hero segment links ("Profesionales independientes", etc.): open
-    // their tab here, then let the #sistemas anchor do the scrolling.
+    // Segment links ("Profesionales independientes", etc., above the
+    // pills): open their tab, then let the #sistemas-tipos anchor scroll.
     document.querySelectorAll('[data-sistemas-target]').forEach((link) => {
       link.addEventListener('click', () => {
         activate(link.getAttribute('data-sistemas-target'), false);

@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=101" rel="stylesheet" />
+    <link href="css/style.css?v=102" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -621,9 +621,9 @@
             revés.
           </h1>
           <p class="gn-hero-subtitle">
-            Primero entendemos cómo funciona tu negocio.<br />
-            Después te ayudamos a elegir la solución de facturación electrónica
-            adecuada, con cotización personalizada y soporte.
+            Primero entendemos tu negocio.<br />
+            Después te orientamos para elegir una solución adecuada, con
+            cotización personalizada y soporte.
           </p>
 
           <div class="gn-hero-actions">
@@ -645,58 +645,29 @@
               Encuentra tu solución <span aria-hidden="true">→</span>
             </a>
           </div>
-
-          <!-- Segment links: each opens its matching #sistemas tab (via
-             that section's activate() in main.js) before the anchor
-             scrolls there. "Empresas" has no tab of its own yet, so it
-             goes to the diagnóstico instead. -->
-          <div class="gn-hero-segments">
-            <p class="gn-hero-segments-label" id="gn-hero-segments-label">
-              Soluciones para
-            </p>
-            <ul aria-labelledby="gn-hero-segments-label">
-              <li>
-                <a
-                  href="#sistemas"
-                  data-sistemas-target="sistemas-panel-servicios"
-                  data-cta="hero-segmento-profesionales"
-                  >Profesionales independientes</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#sistemas"
-                  data-sistemas-target="sistemas-panel-tiendas"
-                  data-cta="hero-segmento-comercios"
-                  >Comercios y MiPyMEs</a
-                >
-              </li>
-              <li>
-                <a href="#verificador" data-cta="hero-segmento-empresas"
-                  >Empresas</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <ul class="gn-hero-trust">
-            <li>
-              <i class="fa-solid fa-circle-check" aria-hidden="true"></i
-              >Asesoría para elegir
-            </li>
-            <li>
-              <i class="fa-solid fa-circle-check" aria-hidden="true"></i
-              >Soluciones adaptadas a tu negocio
-            </li>
-            <li>
-              <i class="fa-solid fa-circle-check" aria-hidden="true"></i
-              >Soporte al cliente
-            </li>
-          </ul>
         </div>
       </div>
     </section>
     <!-- End Hero -->
+
+    <!-- Trust strip: the hero's three benefits, as a slim band right
+       under it so the hero itself stays short. -->
+    <div class="gn-trust-strip">
+      <ul class="gn-trust-list">
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i
+          ><span>Asesoría para elegir</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i
+          ><span>Soluciones adaptadas a tu negocio</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i
+          ><span>Soporte al cliente</span>
+        </li>
+      </ul>
+    </div>
 
     <!-- Start Clients area (moved here as the trust bar, right after the Hero) -->
     <div id="clientes" class="clients-premium">
@@ -1194,11 +1165,44 @@
             Te ayudamos a elegir, instalar y usar el sistema de facturación y
             punto de venta ideal según tu tipo de negocio.
           </p>
+          <!-- Segment links (moved here from the hero): each opens its
+             matching tab below via activate() in main.js, then the anchor
+             scrolls to the tabs. "Empresas" has no tab of its own yet, so
+             it goes to the diagnóstico instead. -->
+          <div class="sistemas-segments">
+            <p class="sistemas-segments-label" id="sistemas-segments-label">
+              Soluciones para
+            </p>
+            <ul aria-labelledby="sistemas-segments-label">
+              <li>
+                <a
+                  href="#sistemas-tipos"
+                  data-sistemas-target="sistemas-panel-servicios"
+                  data-cta="sistemas-segmento-profesionales"
+                  >Profesionales independientes</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#sistemas-tipos"
+                  data-sistemas-target="sistemas-panel-tiendas"
+                  data-cta="sistemas-segmento-comercios"
+                  >Comercios y MiPyMEs</a
+                >
+              </li>
+              <li>
+                <a href="#verificador" data-cta="sistemas-segmento-empresas"
+                  >Empresas</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="row">
         <div
           class="sistemas-pills"
+          id="sistemas-tipos"
           role="tablist"
           aria-label="Tipos de negocio"
         >
