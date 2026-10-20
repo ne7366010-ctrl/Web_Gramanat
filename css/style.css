@@ -12693,40 +12693,43 @@ nav,
   --gn-orange-hover: #ff8a3d;
 }
 
+/* Desktop grid, shared by the text and the photo: a content box of at
+   most 1440px with side margins of 32-80px, split 52% text / 48% photo
+   around a 40-64px gap. */
 .gn-hero {
+  --gn-pad: clamp(32px, 5vw, 80px);
+  --gn-gap: clamp(40px, 4vw, 64px);
+  --gn-content: calc(min(100vw, 1440px) - 2 * var(--gn-pad));
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: flex;
   align-items: center;
-  /* Leaves ~140px of the first screen for the trust strip and the start
-     of the next section, so the hero reads as a closed block; capped at
-     680px so tall monitors don't get a cavernous hero. */
-  min-height: clamp(520px, calc(100vh - 140px), 680px);
-  /* 80px = the fixed <nav> height; the 48px above and below the text are
-     equal so it sits centred in the visible navy area. */
-  padding: calc(80px + 48px) 0 48px;
+  /* Height comes from the content (no 100vh): 80px = the fixed <nav>,
+     then 56px of navy above and below the text block. */
+  padding: calc(80px + 56px) 0 56px;
   background: var(--gn-navy);
   color: #fff;
 }
 
-/* Photo column: right side of the hero, with no overlay — the official
-   photo keeps its natural colours. It is inset 40px from the nav and
-   from the hero's bottom edge (rounded on the text side, still bleeding
-   off the right edge), so the hero closes on a clean navy line instead
-   of the photo running into the trust strip. The background is the
-   photo's own wall tone, shown only while it loads. object-position
-   keeps the entrepreneur and the tablet in frame. */
+/* Photo column: the right 48% of the content box, with no overlay — the
+   official photo keeps its natural colours. It runs 16px above and below
+   the text block (40px from the nav and the hero's bottom edge), so the
+   text sits centred against it and the hero closes on a clean navy
+   line. Soft 18px corners and a low, diffuse shadow seat it on the navy
+   instead of looking pasted on. The background is the photo's own wall
+   tone, shown only while it loads. */
 .gn-hero-media {
   position: absolute;
   top: calc(80px + 40px);
-  right: 0;
   bottom: 40px;
-  width: 46%;
+  right: calc((100vw - min(100vw, 1440px)) / 2 + var(--gn-pad));
+  width: calc((var(--gn-content) - var(--gn-gap)) * 0.48);
   z-index: -1;
   overflow: hidden;
-  border-radius: 24px 0 0 24px;
+  border-radius: 18px;
   background: #d8d2c8;
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.55);
 }
 
 .gn-hero-media picture,
@@ -12758,15 +12761,14 @@ nav,
 
 .gn-hero-inner {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 var(--gn-pad);
 }
 
-/* Ends 48px before the photo column (which starts at 54vw): from the
-   container's left edge plus its 32px padding up to that gap. */
+/* The left 52% of the content box, up to the gap before the photo. */
 .gn-hero-text {
-  max-width: calc(54vw - 48px - (100vw - min(100vw, 1200px)) / 2 - 32px);
+  max-width: calc((var(--gn-content) - var(--gn-gap)) * 0.52);
 }
 
 .gn-hero-eyebrow {
@@ -12975,17 +12977,32 @@ nav .hamburger:focus-visible,
   outline-offset: 3px;
 }
 
+/* Desktop type and spacing: title ~8% smaller than before (48px at
+   1440px, was 52px), a little more air under it, and 16px between the
+   two equal-height buttons. Phones and tablets keep their approved
+   sizes. */
+@media (min-width: 992px) {
+  .gn-hero-title {
+    margin-bottom: 28px;
+    font-size: clamp(40px, 16px + 2.2vw, 48px);
+  }
+
+  .gn-hero-actions {
+    gap: 16px;
+  }
+}
+
 /* Small laptops / landscape tablets: the text column is narrower, so
    the title steps down to keep it at four or five lines. */
 @media (min-width: 992px) and (max-width: 1199px) {
   .gn-hero-title {
-    font-size: 42px;
+    font-size: 40px;
   }
 
-  /* The photo column is narrowest here (~37% of the photo's width
-     fits); centre it so her face, hands and the tablet stay in. */
+  /* The photo column is narrowest and tallest here (~60% of the photo's
+     width fits); this keeps her face, hands and the tablet in frame. */
   .gn-hero-media img {
-    object-position: 50% 40%;
+    object-position: 60% 40%;
   }
 }
 
@@ -13009,6 +13026,7 @@ nav .hamburger:focus-visible,
     max-height: 440px;
     z-index: auto;
     border-radius: 0;
+    box-shadow: none;
   }
 
   /* Tighter dividers so the three benefits stay on one row. */
@@ -13020,8 +13038,11 @@ nav .hamburger:focus-visible,
     object-position: center 40%;
   }
 
+  /* Back to the approved stacked layout's container (the 1440px grid
+     and its variable margins are desktop-only). */
   .gn-hero-inner {
-    padding-top: 40px;
+    max-width: 1200px;
+    padding: 40px 32px 0;
   }
 
   .gn-hero-text {
