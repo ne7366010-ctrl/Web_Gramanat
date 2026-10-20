@@ -431,8 +431,9 @@
       });
     });
 
-    // Segment links ("Profesionales independientes", etc., above the
-    // pills): open their tab, then let the #sistemas-tipos anchor scroll.
+    // #segmentos card links: open the matching business-type tab here, so
+    // it's already selected when the visitor reaches this section (the
+    // links themselves go on to the diagnóstico).
     document.querySelectorAll('[data-sistemas-target]').forEach((link) => {
       link.addEventListener('click', () => {
         activate(link.getAttribute('data-sistemas-target'), false);
@@ -1131,13 +1132,27 @@
           label2 +
           ' · Negocio: ' +
           label3 +
-          '. Quiero mi diagnóstico gratis.';
+          // Set by the #segmentos card the visitor came from, if any.
+          (root.dataset.segmento ? ' · Tipo de operación: ' + root.dataset.segmento : '') +
+          '. Quiero recibir orientación para mi negocio.';
         whatsappBtn.href = 'https://wa.me/50370043346?text=' + encodeURIComponent(message);
       }
 
       updateProgress(4);
       showPanel(panels.result, 'forward');
     }
+
+    // #segmentos links remember which card sent the visitor here
+    // (data-segmento; empty on the general CTA clears it).
+    document.querySelectorAll('a[data-segmento]').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (link.dataset.segmento) {
+          root.dataset.segmento = link.dataset.segmento;
+        } else {
+          delete root.dataset.segmento;
+        }
+      });
+    });
 
     root.querySelectorAll('.verificador-option, .verificador-chip').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -1807,7 +1822,7 @@
     // CTAs, plus the trust strip's benefits (its right column sits
     // exactly under the button on phones).
     const ctas = Array.from(document.querySelectorAll(
-      '.gn-btn, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button, .gn-trust-list li'
+      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button, .gn-trust-list li'
     )).filter((el) => el !== floatBtn && !el.closest('nav, .menubar'));
 
     const covering = new Set();

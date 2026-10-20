@@ -12682,7 +12682,7 @@ body.page-webinars .webinar-no-results {
    Sizes are in px, not rem: Bootstrap 3 sets html { font-size: 10px }. */
 .gn-hero,
 .gn-trust-strip,
-#sistemas,
+.gn-segments,
 nav,
 .menubar {
   --gn-navy: #071c33;
@@ -12907,69 +12907,282 @@ nav,
   color: var(--gn-blue-mid);
 }
 
-/* Segment links in #sistemas (moved from the hero): quiet outline
-   chips between the subtitle and the business-type pills, so they read
-   as a shortcut, not a second set of tabs. */
-#sistemas .sistemas-subtitle {
-  margin-bottom: 28px;
+/*--------------------------------*/
+/*  Sección 02: segmentos (#segmentos)
+/*--------------------------------*/
+
+/* Phones first: header, a column of compact cards (96px thumbnail left,
+   text right), full-width CTA. 768px: wider thumbnails. 992px: three
+   cards in one row, each spanning five shared sub-rows (photo, number,
+   title, text, link) via subgrid so they line up across cards. */
+.gn-segments {
+  background: #f5f7fa;
+  color: var(--gn-navy);
+  scroll-margin-top: 80px;
 }
 
-#sistemas .sistemas-segments {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px 12px;
-  margin: 0 auto 36px;
+.gn-segments-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 56px 20px 60px;
 }
 
-#sistemas .sistemas-segments-label {
-  margin: 0;
-  font-size: 14px;
-  color: var(--color-graphite);
+.gn-segments-head {
+  max-width: 760px;
+  margin: 0 auto 32px;
+  text-align: center;
 }
 
-#sistemas .sistemas-segments ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-
-#sistemas .sistemas-segments a,
-#sistemas .sistemas-segments a:visited,
-#sistemas .sistemas-segments a:focus {
+.gn-segments-eyebrow {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 0 18px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-paper);
-  font-size: 14px;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-segments-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-segments-title {
+  margin: 0 0 14px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--gn-navy);
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
+  text-wrap: balance;
+}
+
+.gn-segments-lead {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5a70;
+  text-wrap: pretty;
+}
+
+.gn-segments-cards {
+  display: grid;
+  gap: 14px;
+}
+
+.gn-seg-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #e4e9f0;
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(7, 28, 51, 0.04),
+    0 12px 28px -20px rgba(7, 28, 51, 0.22);
+}
+
+.gn-seg-card img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.gn-seg-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.gn-seg-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gn-blue-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.gn-seg-card h3 {
+  margin: 4px 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--gn-navy);
+}
+
+.gn-seg-card p {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #4b5a70;
+}
+
+.gn-seg-link,
+.gn-seg-link:visited,
+.gn-seg-link:focus {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 4px 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--gn-blue-mid);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  #sistemas .sistemas-segments a:hover {
-    border-color: var(--gn-blue-mid);
+  .gn-seg-link:hover {
     color: var(--gn-blue-mid);
+    border-bottom-color: currentColor;
   }
 }
 
-/* Clear the fixed nav when a segment link scrolls to the pills. */
-#sistemas-tipos {
-  scroll-margin-top: 100px;
+.gn-segments-foot {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  text-align: center;
+}
+
+/* Block (not inline-flex) so that, when the label wraps on phones, the
+   arrow stays glued to the last word instead of becoming its own
+   flex item at the far right. */
+.gn-segments-foot .gn-btn {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 22px;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.gn-segments-hint {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5a70;
+}
+
+@media (min-width: 768px) {
+  .gn-segments-inner {
+    padding: 72px 40px;
+  }
+
+  .gn-segments-title {
+    font-size: 34px;
+  }
+
+  .gn-seg-card {
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    padding: 16px;
+  }
+
+  .gn-seg-card img {
+    width: 220px;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  .gn-segments-foot .gn-btn {
+    width: auto;
+    padding: 16px 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .gn-segments-inner {
+    padding: 96px clamp(32px, 5vw, 80px);
+  }
+
+  .gn-segments-head {
+    margin-bottom: 56px;
+  }
+
+  .gn-segments-eyebrow {
+    font-size: 13px;
+  }
+
+  .gn-segments-title {
+    font-size: 40px;
+  }
+
+  .gn-segments-lead {
+    font-size: 18px;
+  }
+
+  .gn-segments-cards {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, auto);
+    column-gap: 28px;
+    row-gap: 0;
+  }
+
+  .gn-seg-card {
+    grid-row: span 5;
+    grid-template-columns: 1fr;
+    grid-template-rows: subgrid;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .gn-seg-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    border-radius: 0;
+  }
+
+  .gn-seg-body {
+    grid-row: span 4;
+    display: grid;
+    grid-template-rows: subgrid;
+    padding: 28px 28px 26px;
+  }
+
+  .gn-seg-card h3 {
+    align-self: start;
+    margin: 10px 0;
+    font-size: 21px;
+  }
+
+  .gn-seg-card p {
+    margin-bottom: 20px;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .gn-seg-link,
+  .gn-seg-link:visited,
+  .gn-seg-link:focus {
+    align-self: end;
+    justify-self: start;
+    font-size: 15px;
+  }
+
+  .gn-segments-foot {
+    margin-top: 52px;
+  }
 }
 
 /* style.css removes the outline from every a:focus sitewide; keyboard
    users still need to see where they are in the hero and header. */
 .gn-hero a:focus-visible,
-#sistemas .sistemas-segments a:focus-visible,
+.gn-segments a:focus-visible,
 nav a:focus-visible,
 nav .hamburger:focus-visible,
 .menubar a:focus-visible {
@@ -13114,17 +13327,11 @@ nav .hamburger:focus-visible,
     border-left: 0;
   }
 
-  /* responsive.css already adds 30px under .section-headline on
-     phones, and the pills row has its own padding. */
-  #sistemas .sistemas-segments {
-    flex-direction: column;
-    margin-bottom: 4px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gn-btn,
-  #sistemas .sistemas-segments a {
+  .gn-seg-link {
     transition: none;
   }
 

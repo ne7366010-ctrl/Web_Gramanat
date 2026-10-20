@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=106" rel="stylesheet" />
+    <link href="css/style.css?v=108" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -669,6 +669,146 @@
       </ul>
     </div>
 
+    <!-- Sección 02: segment cards. Each "Conoce tus opciones" link goes
+       to the existing diagnóstico (#verificador) and, via main.js, tags
+       the WhatsApp result message with the card's segment
+       (data-segmento) and opens the matching #sistemas tab
+       (data-sistemas-target), which the old segment chips used to do. -->
+    <section
+      id="segmentos"
+      class="gn-segments"
+      aria-labelledby="gn-segments-title"
+    >
+      <div class="gn-segments-inner">
+        <header class="gn-segments-head">
+          <p class="gn-segments-eyebrow">Soluciones según tu operación</p>
+          <h2 id="gn-segments-title" class="gn-segments-title">
+            No todos los negocios necesitan el mismo sistema.
+          </h2>
+          <p class="gn-segments-lead">
+            En Gramanat desarrollamos software propio y también ofrecemos
+            soluciones de otros proveedores. Evaluamos las necesidades de cada
+            negocio para orientarte hacia una alternativa adecuada.
+          </p>
+        </header>
+
+        <ul class="gn-segments-cards">
+          <li class="gn-seg-card">
+            <img
+              src="img/segmentos/profesionales-600.jpg?v=1"
+              srcset="
+                img/segmentos/profesionales-600.jpg?v=1   600w,
+                img/segmentos/profesionales-1200.jpg?v=1 1200w
+              "
+              sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+              width="1200"
+              height="800"
+              alt="Profesional independiente trabajando con su laptop en casa"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="gn-seg-body">
+              <span class="gn-seg-num">01</span>
+              <h3>Profesionales independientes</h3>
+              <p>
+                Si ofreces servicios, te ayudamos a identificar una solución de
+                facturación adecuada a tu actividad.
+              </p>
+              <a
+                class="gn-seg-link"
+                href="#verificador"
+                data-segmento="Profesionales independientes"
+                data-sistemas-target="sistemas-panel-servicios"
+                data-cta="segmento-profesionales"
+                >Conoce tus opciones <span aria-hidden="true">→</span></a
+              >
+            </div>
+          </li>
+          <li class="gn-seg-card">
+            <img
+              src="img/segmentos/comercios-600.jpg?v=1"
+              srcset="
+                img/segmentos/comercios-600.jpg?v=1   600w,
+                img/segmentos/comercios-1200.jpg?v=1 1200w
+              "
+              sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+              width="1200"
+              height="800"
+              alt="Comerciante atendiendo a una clienta en el mostrador con un punto de venta"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="gn-seg-body">
+              <span class="gn-seg-num">02</span>
+              <h3>Comercios y MiPyMEs</h3>
+              <p>
+                Si vendes productos o atiendes en mostrador, evaluamos cómo
+                facturas, vendes y administras tu negocio.
+              </p>
+              <a
+                class="gn-seg-link"
+                href="#verificador"
+                data-segmento="Comercios y MiPyMEs"
+                data-sistemas-target="sistemas-panel-tiendas"
+                data-cta="segmento-comercios"
+                >Conoce tus opciones <span aria-hidden="true">→</span></a
+              >
+            </div>
+          </li>
+          <li class="gn-seg-card">
+            <!-- PENDIENTE: foto provisional. Sustituir por la foto aprobada
+               de Empresas (ver MEDIA-LEEME.txt): mismos nombres
+               img/segmentos/empresas-600.jpg / -1200.jpg. -->
+            <img
+              src="img/segmentos/empresas-provisional-600.jpg?v=1"
+              srcset="
+                img/segmentos/empresas-provisional-600.jpg?v=1   600w,
+                img/segmentos/empresas-provisional-1200.jpg?v=1 1200w
+              "
+              sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+              width="1200"
+              height="800"
+              alt="Dos personas revisando un documento en una oficina"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="gn-seg-body">
+              <span class="gn-seg-num">03</span>
+              <h3>Empresas</h3>
+              <p>
+                Si tu operación requiere mayor control, revisamos tus procesos
+                para recomendarte una solución adecuada.
+              </p>
+              <a
+                class="gn-seg-link"
+                href="#verificador"
+                data-segmento="Empresas"
+                data-cta="segmento-empresas"
+                >Conoce tus opciones <span aria-hidden="true">→</span></a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <div class="gn-segments-foot">
+          <a
+            class="gn-btn gn-btn-primary"
+            href="#verificador"
+            data-segmento=""
+            data-cta="segmentos-diagnostico"
+            >Encuentra la solución adecuada para tu negocio&nbsp;<span
+              aria-hidden="true"
+              >→</span
+            ></a
+          >
+          <p class="gn-segments-hint">
+            Son 3 preguntas. Recibes una orientación inicial y puedes enviarla
+            por WhatsApp.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Start Clients area (moved here as the trust bar, right after the Hero) -->
     <div id="clientes" class="clients-premium">
       <div class="container">
@@ -1165,44 +1305,11 @@
             Te ayudamos a elegir, instalar y usar el sistema de facturación y
             punto de venta ideal según tu tipo de negocio.
           </p>
-          <!-- Segment links (moved here from the hero): each opens its
-             matching tab below via activate() in main.js, then the anchor
-             scrolls to the tabs. "Empresas" has no tab of its own yet, so
-             it goes to the diagnóstico instead. -->
-          <div class="sistemas-segments">
-            <p class="sistemas-segments-label" id="sistemas-segments-label">
-              Soluciones para
-            </p>
-            <ul aria-labelledby="sistemas-segments-label">
-              <li>
-                <a
-                  href="#sistemas-tipos"
-                  data-sistemas-target="sistemas-panel-servicios"
-                  data-cta="sistemas-segmento-profesionales"
-                  >Profesionales independientes</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#sistemas-tipos"
-                  data-sistemas-target="sistemas-panel-tiendas"
-                  data-cta="sistemas-segmento-comercios"
-                  >Comercios y MiPyMEs</a
-                >
-              </li>
-              <li>
-                <a href="#verificador" data-cta="sistemas-segmento-empresas"
-                  >Empresas</a
-                >
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="row">
         <div
           class="sistemas-pills"
-          id="sistemas-tipos"
           role="tablist"
           aria-label="Tipos de negocio"
         >
@@ -2515,8 +2622,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>Recibir
-                mi diagnóstico gratis
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>Recibe
+                orientación para tu negocio <span aria-hidden="true">→</span>
               </a>
               <button type="button" class="verificador-restart">
                 Volver a empezar
@@ -4690,6 +4797,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=1"></script>
-    <script src="js/main.js?v=26"></script>
+    <script src="js/main.js?v=27"></script>
   </body>
 </html>
