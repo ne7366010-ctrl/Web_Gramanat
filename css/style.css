@@ -12699,29 +12699,33 @@ nav,
   overflow: hidden;
   display: flex;
   align-items: center;
-  /* Fills the screen minus ~64px, so the trust strip below peeks in and
-     the CTA sits well above the fold on 1280x720 and up; capped so tall
-     monitors don't get a cavernous hero. */
-  min-height: clamp(560px, calc(100vh - 64px), 760px);
-  /* 80px = the fixed <nav> height. */
-  padding: calc(80px + 48px) 0 64px;
+  /* Leaves ~140px of the first screen for the trust strip and the start
+     of the next section, so the hero reads as a closed block; capped at
+     680px so tall monitors don't get a cavernous hero. */
+  min-height: clamp(520px, calc(100vh - 140px), 680px);
+  /* 80px = the fixed <nav> height; the 48px above and below the text are
+     equal so it sits centred in the visible navy area. */
+  padding: calc(80px + 48px) 0 48px;
   background: var(--gn-navy);
   color: #fff;
 }
 
-/* Photo column: right half of the hero, from under the fixed nav to the
-   bottom, with no overlay — the official photo keeps its natural
-   colours. The text column on the left sits on plain navy. The
-   background is the photo's own wall tone, shown only while it loads.
-   object-position keeps the entrepreneur and the tablet in frame as the
-   column gets taller than the 4:3 photo. */
+/* Photo column: right side of the hero, with no overlay — the official
+   photo keeps its natural colours. It is inset 40px from the nav and
+   from the hero's bottom edge (rounded on the text side, still bleeding
+   off the right edge), so the hero closes on a clean navy line instead
+   of the photo running into the trust strip. The background is the
+   photo's own wall tone, shown only while it loads. object-position
+   keeps the entrepreneur and the tablet in frame. */
 .gn-hero-media {
   position: absolute;
-  top: 80px;
+  top: calc(80px + 40px);
   right: 0;
-  bottom: 0;
+  bottom: 40px;
   width: 46%;
   z-index: -1;
+  overflow: hidden;
+  border-radius: 24px 0 0 24px;
   background: #d8d2c8;
 }
 
@@ -12863,8 +12867,9 @@ nav,
   transform: scale(0.98);
 }
 
-/* Trust strip: the three benefits in one slim light band right under
-   the hero (one row on desktop, three short columns on phones). */
+/* Trust strip: the three benefits in one light band right under the
+   hero (one row with thin dividers on desktop, three short columns on
+   phones), its own block between the navy hero and the white section. */
 .gn-trust-strip {
   background: #f2f6fb;
   border-bottom: 1px solid #e2e9f2;
@@ -12874,20 +12879,25 @@ nav,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px 48px;
+  gap: 12px 0;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 32px;
+  padding: 24px 32px;
 }
 
 .gn-trust-list li {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 0 40px;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.3;
   color: var(--gn-navy);
+}
+
+.gn-trust-list li + li {
+  border-left: 1px solid #d3deeb;
 }
 
 .gn-trust-list i {
@@ -12998,6 +13008,12 @@ nav .hamburger:focus-visible,
     aspect-ratio: 3 / 2;
     max-height: 440px;
     z-index: auto;
+    border-radius: 0;
+  }
+
+  /* Tighter dividers so the three benefits stay on one row. */
+  .gn-trust-list li {
+    padding: 0 24px;
   }
 
   .gn-hero-media img {
@@ -13067,9 +13083,14 @@ nav .hamburger:focus-visible,
   .gn-trust-list li {
     flex-direction: column;
     gap: 6px;
+    padding: 0;
     font-size: 13px;
     text-align: center;
     text-wrap: balance;
+  }
+
+  .gn-trust-list li + li {
+    border-left: 0;
   }
 
   /* responsive.css already adds 30px under .section-headline on
