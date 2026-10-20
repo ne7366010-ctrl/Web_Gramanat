@@ -13037,13 +13037,15 @@ nav .hamburger:focus-visible,
     margin-bottom: 18px;
   }
 
-  /* Full column width on phones; balance splits the short first
-     sentence into two even lines instead of leaving "tu negocio." alone. */
+  /* 350px = the 390px phone's column: the second sentence then breaks
+     as "…elegir una / solución adecuada, con cotización / personalizada
+     y soporte." on every phone, instead of leaving "y soporte." alone on
+     wider ones (430px). */
   .gn-hero-subtitle {
     margin-bottom: 28px;
-    max-width: none;
+    max-width: 350px;
     font-size: 17px;
-    text-wrap: balance;
+    text-wrap: pretty;
   }
 
   .gn-hero-actions {

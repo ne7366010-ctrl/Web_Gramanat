@@ -1804,8 +1804,10 @@
 
     if (!floatBtn || !('IntersectionObserver' in window)) return;
 
+    // CTAs, plus the trust strip's benefits (its right column sits
+    // exactly under the button on phones).
     const ctas = Array.from(document.querySelectorAll(
-      '.gn-btn, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button'
+      '.gn-btn, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button, .gn-trust-list li'
     )).filter((el) => el !== floatBtn && !el.closest('nav, .menubar'));
 
     const covering = new Set();
