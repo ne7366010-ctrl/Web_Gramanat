@@ -12783,12 +12783,16 @@ nav,
   color: var(--gn-sky);
 }
 
+/* Two sentences, split by a <br>: "understand first" on its own line,
+   then "choose" in three even lines. 470px is the measure where that
+   second sentence breaks cleanly at 19px (no stray "soporte." line). */
 .gn-hero-subtitle {
-  margin: 0 0 32px;
-  max-width: 54ch;
+  margin: 0 0 36px;
+  max-width: 470px;
   font-size: 19px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.86);
+  text-wrap: pretty;
 }
 
 .gn-hero-actions {
@@ -13005,9 +13009,13 @@ nav .hamburger:focus-visible,
     margin-bottom: 18px;
   }
 
+  /* Full column width on phones; balance splits the short first
+     sentence into two even lines instead of leaving "tu negocio." alone. */
   .gn-hero-subtitle {
     margin-bottom: 28px;
+    max-width: none;
     font-size: 17px;
+    text-wrap: balance;
   }
 
   .gn-hero-actions {
