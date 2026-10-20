@@ -13190,6 +13190,27 @@ button.hamburger {
   }
 }
 
+/* Phone header: same 20px side margin as the hero text (responsive.css
+   uses 5%, i.e. 18px at 360px), a 44px-tall CTA (minimum touch target)
+   and 12px between it and the 45px menu button. */
+@media screen and (max-width: 767px) {
+  /* #sticker > nav (not nav) to outrank responsive.css, loaded later. */
+  #sticker > nav {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .gn-header-cta,
+  .gn-header-cta:visited,
+  .gn-header-cta:focus {
+    min-height: 44px;
+  }
+
+  .gn-header-cta ~ .hamburger {
+    margin-left: 12px;
+  }
+}
+
 /* 768-790px: responsive.css shrinks the logo and gives it
    margin-bottom:-50px, but only takes it out of flow (position:absolute)
    below 768px — in this band it sat pushed down over the hero. Use the
@@ -13203,11 +13224,11 @@ button.hamburger {
 }
 
 @media screen and (max-width: 380px) {
-  /* ~360px phones: a slightly shorter photo band (16:9 crop of the same
-     3:2 file, focused on her face and the tablet), tighter gaps and a
+  /* ~360px phones: a shorter photo band (2:1 crop of the same 3:2 file,
+     ~180px tall, focused on her face and the tablet), tighter gaps and a
      smaller title, so the primary CTA starts above the fold. */
   .gn-hero-media {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 2 / 1;
   }
 
   .gn-hero-media img {
