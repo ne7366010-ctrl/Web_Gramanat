@@ -42,7 +42,9 @@
   // The hero is a single real slide (the other two are empty
   // placeholders) — manualAdvance stops the auto-rotate timer, and
   // directionNav/controlNav remove the now-pointless arrows and dots.
-  $('#ensign-nivoslider').nivoSlider({
+  // index.html no longer loads the plugin (its hero is a plain section
+  // now), so only run this on the pages that still include it.
+  if ($.fn.nivoSlider) $('#ensign-nivoslider').nivoSlider({
     effect: 'random',
     slices: 15,
     boxCols: 12,
@@ -97,12 +99,16 @@
         isMobileMenuOpen = !isMobileMenuOpen;
         navbar.classList.toggle("active");
         mobileNav.classList.toggle("hamburger-active");
-        
+
         if (isMobileMenuOpen) {
           nav.classList.remove('scroll-down');
           nav.classList.add('scroll-up');
         }
       }
+
+      // Screen readers: keep the hamburger <button>'s state in sync.
+      mobileNav.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
+      mobileNav.setAttribute('aria-label', isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú');
     };
 
     // Evento para el botón hamburguesa
@@ -416,6 +422,14 @@
           e.preventDefault();
           activate(group[nextIndex].getAttribute('data-target'), true);
         }
+      });
+    });
+
+    // Hero segment links ("Profesionales independientes", etc.): open
+    // their tab here, then let the #sistemas anchor do the scrolling.
+    document.querySelectorAll('[data-sistemas-target]').forEach((link) => {
+      link.addEventListener('click', () => {
+        activate(link.getAttribute('data-sistemas-target'), false);
       });
     });
   });

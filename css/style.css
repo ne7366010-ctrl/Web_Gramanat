@@ -1024,13 +1024,15 @@ nav ul li a.cta-demo-header:hover {
   transform: translateY(-2px);
 }
 
-/* The "Solicita tu demo" pill is wide enough as nowrap text that, between
+/* The header CTA pill is wide enough as nowrap text that, between
    the mobile breakpoint (790px, where the hamburger takes over) and
-   ~1365px, the full link row + pill no longer fits the available width.
-   Tightened here only in that band — large desktop (>1365px) keeps the
+   ~1599px, the full link row + pill no longer fits the available width
+   (the band grew from 1365px once the logo stopped shrinking to a
+   sliver and the CTA became "Solicita asesoría →").
+   Tightened here only in that band — large desktop (>1599px) keeps the
    original sizes untouched, and mobile is a separate .menubar layout
    this rule never reaches. */
-@media (min-width: 791px) and (max-width: 1365px) {
+@media (min-width: 791px) and (max-width: 1599px) {
   nav ul li {
     margin-left: 0.6rem;
   }
@@ -12648,5 +12650,444 @@ body.page-webinars .webinar-no-results {
 
   body.page-webinars .webinar-filters-title {
     font-size: 1.6rem;
+  }
+}
+
+/*--------------------------------*/
+/*  Hero (rediseño 2026) + header CTA
+/*--------------------------------*/
+
+/* Brand palette from the Gramanat brief, scoped to the hero and header
+   so the rest of the page keeps its current tokens until each section
+   is reviewed. Orange is only for the primary CTA and small accents.
+   Sizes are in px, not rem: Bootstrap 3 sets html { font-size: 10px }. */
+.gn-hero,
+nav,
+.menubar {
+  --gn-navy: #071c33;
+  --gn-blue: #0f3f78;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-orange: #ff7417;
+  --gn-orange-hover: #ff8a3d;
+}
+
+.gn-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(640px, 92vh, 820px);
+  /* 80px = the fixed <nav> height. */
+  padding: calc(80px + 72px) 0 88px;
+  background: var(--gn-navy);
+  color: #fff;
+}
+
+/* Photo layer. object-position keeps the counter and the cashier in
+   frame as the box gets wider than the photo itself. */
+.gn-hero-media,
+.gn-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gn-hero-media {
+  z-index: -2;
+}
+
+.gn-hero-media img {
+  object-fit: cover;
+  object-position: 70% center;
+}
+
+/* Navy gradient between photo/video and text: solid enough behind the
+   text column for AA contrast, clear over the people on the right. */
+.gn-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 28, 51, 0.96) 0%,
+    rgba(7, 28, 51, 0.9) 36%,
+    rgba(7, 28, 51, 0.45) 62%,
+    rgba(7, 28, 51, 0.08) 100%
+  );
+}
+
+.gn-hero-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.gn-hero-text {
+  max-width: 620px;
+}
+
+.gn-hero-eyebrow {
+  margin: 0 0 18px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-sky);
+}
+
+.gn-hero-title {
+  margin: 0 0 22px;
+  font-size: clamp(34px, 22.4px + 2.9vw, 56px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.gn-hero-accent {
+  color: var(--gn-sky);
+}
+
+.gn-hero-subtitle {
+  margin: 0 0 32px;
+  max-width: 54ch;
+  font-size: 19px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.gn-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.gn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: var(--radius-pill);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Navy text, not white: white on #FF7417 is only 2.7:1 and fails WCAG
+   AA, navy on it is 6.4:1. */
+.gn-btn-primary,
+.gn-btn-primary:visited,
+.gn-btn-primary:focus {
+  background: var(--gn-orange);
+  color: var(--gn-navy);
+}
+
+.gn-btn-primary i {
+  font-size: 20px;
+}
+
+.gn-btn-ghost,
+.gn-btn-ghost:visited,
+.gn-btn-ghost:focus {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-btn-primary:hover {
+    background: var(--gn-orange-hover);
+    color: var(--gn-navy);
+    transform: translateY(-1px);
+  }
+
+  .gn-btn-ghost:hover {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.gn-btn:active {
+  transform: scale(0.98);
+}
+
+/* Segment links: deliberately quieter than both CTAs (outline only,
+   smaller type, below the buttons). */
+.gn-hero-segments {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 28px;
+}
+
+.gn-hero-segments-label {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.gn-hero-segments ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gn-hero-segments a,
+.gn-hero-segments a:visited,
+.gn-hero-segments a:focus {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(99, 178, 242, 0.35);
+  border-radius: var(--radius-pill);
+  background: rgba(7, 28, 51, 0.35);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-hero-segments a:hover {
+    color: #fff;
+    border-color: var(--gn-sky);
+    background: rgba(99, 178, 242, 0.12);
+  }
+}
+
+.gn-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.gn-hero-trust li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.gn-hero-trust i {
+  color: var(--gn-sky);
+}
+
+/* style.css removes the outline from every a:focus sitewide; keyboard
+   users still need to see where they are in the hero and header. */
+.gn-hero a:focus-visible,
+nav a:focus-visible,
+nav .hamburger:focus-visible,
+.menubar a:focus-visible {
+  outline: 3px solid var(--gn-sky) !important;
+  outline-offset: 3px;
+}
+
+/* Tablet: the photo has less room on the right, so the gradient
+   covers more of it. */
+@media (max-width: 991px) {
+  .gn-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(7, 28, 51, 0.96) 0%,
+      rgba(7, 28, 51, 0.88) 55%,
+      rgba(7, 28, 51, 0.55) 100%
+    );
+  }
+}
+
+/* Mobile: a 4:3 crop of the photo (img/hero/hero-gramanat-mobile.jpg,
+   both faces + the POS) sits right under the fixed nav, its top band
+   left clear; the text starts over its lower half and continues on
+   near-solid navy so long Spanish lines stay readable. Buttons go full
+   width for a large thumb target. */
+@media (max-width: 767px) {
+  .gn-hero {
+    min-height: 0;
+    padding: calc(80px + 170px) 0 48px;
+  }
+
+  .gn-hero-media {
+    top: 80px;
+    bottom: auto;
+    height: auto;
+  }
+
+  .gn-hero-media img {
+    position: static;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .gn-hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(7, 28, 51, 0.1) 80px,
+      rgba(7, 28, 51, 0.15) 170px,
+      rgba(7, 28, 51, 0.82) 250px,
+      rgba(7, 28, 51, 0.97) 360px
+    );
+  }
+
+  .gn-hero-inner {
+    padding: 0 20px;
+  }
+
+  .gn-hero-eyebrow {
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+
+  .gn-hero-title {
+    margin-bottom: 18px;
+  }
+
+  .gn-hero-subtitle {
+    margin-bottom: 28px;
+    font-size: 17px;
+  }
+
+  .gn-hero-actions {
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  .gn-btn {
+    width: 100%;
+    min-height: 56px;
+  }
+
+  .gn-hero-segments {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gn-hero-trust {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-btn,
+  .gn-hero-segments a {
+    transition: none;
+  }
+
+  .gn-btn-primary:hover,
+  .gn-btn:active {
+    transform: none;
+  }
+}
+
+/* Header CTA: same orange + navy text as the hero primary button.
+   Overrides the shared .cta-demo-header pill colours (still used by
+   the headers of the other pages). */
+nav ul li a.cta-demo-header,
+.menubar ul li a.cta-demo-header {
+  background: var(--gn-orange);
+  color: var(--gn-navy);
+  font-weight: 700;
+}
+
+nav ul li a.cta-demo-header:hover,
+.menubar ul li a.cta-demo-header:hover {
+  background: var(--gn-orange-hover);
+  color: var(--gn-navy);
+}
+
+/* The logo is an <a> now; without flex-shrink:0 the long link row
+   squeezes it (and its max-width:100% img) down to a sliver. */
+nav .logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Compact header CTA for phones, next to the hamburger. */
+.gn-header-cta {
+  display: none;
+}
+
+/* The hamburger is a <button> now; strip the UA button chrome so it
+   keeps the look of the old <div>. */
+button.hamburger {
+  border: 0;
+  font: inherit;
+  line-height: normal;
+}
+
+/* Below 1200px the full link row (logo + 8 links + CTA) overflows and
+   clips the CTA, so tablets get the phone header too: hamburger + side
+   menu (.menubar) + compact CTA. responsive.css still owns <=790px. */
+@media screen and (min-width: 791px) and (max-width: 1199px) {
+  nav ul {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .gn-header-cta,
+  .gn-header-cta:visited,
+  .gn-header-cta:focus {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: var(--radius-pill);
+    background: var(--gn-orange);
+    color: var(--gn-navy);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .gn-header-cta ~ .hamburger {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  /* Less photo band, so the primary CTA still lands above the fold on
+     ~360x740 phones. */
+  .gn-hero {
+    padding-top: calc(80px + 130px);
+  }
+
+  /* a.logo (not .logo) so this outranks responsive.css, loaded later. */
+  nav a.logo img {
+    padding: 0 6px;
+  }
+
+  .gn-header-cta,
+  .gn-header-cta:visited,
+  .gn-header-cta:focus {
+    padding: 0 12px;
+    font-size: 13px;
   }
 }
