@@ -167,6 +167,12 @@
       });
     });
 
+    // Desktop flyout parents ("Comercios y PyMEs", ...) only open their
+    // flyout on hover; their href="#" would otherwise jump to the top.
+    document.querySelectorAll('.has-flyout > a[href="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => e.preventDefault());
+    });
+
     // Cerrar menú al hacer clic fuera
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.menubar') && !e.target.closest('.hamburger')) {
@@ -1782,6 +1788,63 @@
 
     video.src = src;
     video.load();
+  });
+
+  /*---------------------
+    Floating WhatsApp button: step aside while a CTA sits under it
+    Watches only the bottom band of the viewport where the button lives
+    (rootMargin trims everything above it). Any CTA inside that band that
+    also reaches the button's column hides it (.is-tucked) — it comes
+    back as soon as the CTA scrolls out of the band. Mostly matters on
+    phones, where full-width buttons always reach the right edge.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const floatBtn = document.querySelector('.whatsapp-float');
+
+    if (!floatBtn || !('IntersectionObserver' in window)) return;
+
+    const ctas = Array.from(document.querySelectorAll(
+      '.gn-btn, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button'
+    )).filter((el) => el !== floatBtn && !el.closest('nav, .menubar'));
+
+    const covering = new Set();
+    let observer = null;
+
+    const watch = () => {
+      if (observer) observer.disconnect();
+      covering.clear();
+      floatBtn.classList.remove('is-tucked');
+
+      // From the fixed bottom/right offsets, not getBoundingClientRect(),
+      // so a mid-transition transform can't skew the band. Band = from
+      // 16px above the button down to the viewport bottom.
+      const cs = getComputedStyle(floatBtn);
+      const bandTop = Math.max(0, window.innerHeight - parseFloat(cs.bottom) - floatBtn.offsetHeight - 16);
+      const floatLeft = document.documentElement.clientWidth - parseFloat(cs.right) - floatBtn.offsetWidth - 16;
+
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const reachesColumn = entry.boundingClientRect.right > floatLeft;
+          if (entry.isIntersecting && reachesColumn) {
+            covering.add(entry.target);
+          } else {
+            covering.delete(entry.target);
+          }
+        });
+        floatBtn.classList.toggle('is-tucked', covering.size > 0);
+      }, { rootMargin: `-${Math.round(bandTop)}px 0px 0px 0px` });
+
+      ctas.forEach((el) => observer.observe(el));
+    };
+
+    watch();
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(watch, 200);
+    });
   });
 
 })(jQuery);

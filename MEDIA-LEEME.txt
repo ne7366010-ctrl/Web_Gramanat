@@ -11,6 +11,10 @@ Formato de cada entrada:
 ---------------------------------------------------------------------------
 
 video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, sin audio · Tomas de un negocio usando el punto de venta / imprimiendo factura.
+  ACTIVACIÓN: este es el único archivo que NO se usa solo. Después de subirlo,
+  en index.html (etiqueta <video class="hero-bg-video">) cambia el atributo
+  data-src-pendiente="video/hero-fondo.mp4" por data-src="video/hero-fondo.mp4".
+  Mientras no exista, el hero muestra la foto y no se pide el archivo (sin error 404).
 
 ---------------------------------------------------------------------------
 

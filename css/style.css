@@ -163,6 +163,15 @@ body {
   transform: scale(1.1);
 }
 
+/* Set by js/main.js while a CTA scrolls through the button's corner, so
+   the floating button never sits on top of it. */
+.whatsapp-float.is-tucked {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+}
+
 .whatsapp-float i {
   position: relative;
   z-index: 1;
@@ -1944,6 +1953,16 @@ p.hero-subtitle {
   #sistemas .sistemas-panel.is-entering {
     animation: none;
   }
+}
+
+/* The glow below hangs 120px past the panel's right edge; on phones
+   that pushed the whole page ~100px wider than the screen (sideways
+   scroll + zoomed-out layout). Clip horizontally at the section, which
+   is full-bleed, so the glow and the floating cards still spill past
+   the panel itself. clip (not hidden) creates no scroll container and
+   leaves vertical overflow alone. */
+#sistemas {
+  overflow-x: clip;
 }
 
 #sistemas .sistemas-panel::before {
@@ -13028,6 +13047,32 @@ nav .logo {
   display: none;
 }
 
+/* Side menu: Soluciones now lists every real page (15 links in 6
+   groups), taller than a phone screen — let the panel scroll, and lift
+   the 500px cap main.js puts on an open submenu for this one list. */
+.menubar {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.menubar .soluciones-submenu .submenu.submenu-active {
+  max-height: none !important;
+}
+
+.menubar .soluciones-submenu .submenu li.submenu-heading {
+  padding: 16px 25px 6px 40px;
+  border-bottom: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.menubar .soluciones-submenu .submenu li a {
+  font-weight: 500;
+}
+
 /* The hamburger is a <button> now; strip the UA button chrome so it
    keeps the look of the old <div>. */
 button.hamburger {
@@ -13069,6 +13114,18 @@ button.hamburger {
 
   .gn-header-cta ~ .hamburger {
     margin-left: 10px;
+  }
+}
+
+/* 768-790px: responsive.css shrinks the logo and gives it
+   margin-bottom:-50px, but only takes it out of flow (position:absolute)
+   below 768px — in this band it sat pushed down over the hero. Use the
+   same logo as the 791-1199px tablet header instead. */
+@media screen and (min-width: 768px) and (max-width: 790px) {
+  nav a.logo img {
+    height: 130px;
+    margin-bottom: 0;
+    padding: 0;
   }
 }
 
