@@ -12999,6 +12999,24 @@ nav,
   border-radius: 12px;
 }
 
+/* A card photo inside <picture> (WebP + JPG fallback) is laid out as if
+   the <img> were the card's direct child (the desktop subgrid row). */
+.gn-seg-card picture {
+  display: contents;
+}
+
+/* With picture as contents, <source> would otherwise become a grid item
+   of its own and push the card's title one sub-row down. */
+.gn-seg-card source {
+  display: none;
+}
+
+/* Empresas: in the square phone thumbnail, centre on her face and laptop
+   rather than the middle of the frame. */
+.gn-seg-card img[src*="empresas-"] {
+  object-position: 42% 45%;
+}
+
 .gn-seg-body {
   display: flex;
   flex-direction: column;

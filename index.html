@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=108" rel="stylesheet" />
+    <link href="css/style.css?v=110" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -756,22 +756,32 @@
             </div>
           </li>
           <li class="gn-seg-card">
-            <!-- PENDIENTE: foto provisional. Sustituir por la foto aprobada
-               de Empresas (ver MEDIA-LEEME.txt): mismos nombres
-               img/segmentos/empresas-600.jpg / -1200.jpg. -->
-            <img
-              src="img/segmentos/empresas-provisional-600.jpg?v=1"
-              srcset="
-                img/segmentos/empresas-provisional-600.jpg?v=1   600w,
-                img/segmentos/empresas-provisional-1200.jpg?v=1 1200w
-              "
-              sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
-              width="1200"
-              height="800"
-              alt="Dos personas revisando un documento en una oficina"
-              loading="lazy"
-              decoding="async"
-            />
+            <!-- Official photo (master: img/gramanat-empresas-seccion-02.jpg,
+               portrait), cut to 3:2 from just above her head down to the
+               report on the front laptop. WebP with JPG fallback. -->
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  img/segmentos/empresas-600.webp?v=1   600w,
+                  img/segmentos/empresas-1200.webp?v=1 1200w
+                "
+                sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+              />
+              <img
+                src="img/segmentos/empresas-600.jpg?v=1"
+                srcset="
+                  img/segmentos/empresas-600.jpg?v=1   600w,
+                  img/segmentos/empresas-1200.jpg?v=1 1200w
+                "
+                sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+                width="1200"
+                height="800"
+                alt="Administradora revisando un reporte en su laptop en una oficina"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div class="gn-seg-body">
               <span class="gn-seg-num">03</span>
               <h3>Empresas</h3>
