@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=112" rel="stylesheet" />
+    <link href="css/style.css?v=117" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -195,7 +195,7 @@
             </li>
             <li>
               <a href="#verificador"
-                ><i class="fa-solid fa-clipboard-check"></i>Verificador</a
+                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
               >
             </li>
             <li>
@@ -425,7 +425,7 @@
               <a href="#sistemas">Sistemas</a>
             </li>
             <li>
-              <a href="#verificador">Verificador</a>
+              <a href="#verificador">Encuentra tu solución</a>
             </li>
             <li>
               <a href="#planes">Planes</a>
@@ -2438,245 +2438,299 @@
     </div>
     <!-- End Problems area -->
 
-    <!-- Start Verificador area ("¿Tu negocio ya está listo para facturar electrónico?") -->
-    <div id="verificador" class="custom-cards">
-      <div class="row">
-        <div class="section-headline text-center">
-          <p class="verificador-eyebrow">Facturación electrónica 2026</p>
-          <h2>¿Tu negocio ya está listo para facturar electrónico?</h2>
-          <p class="verificador-subtitle">
-            Responde 3 preguntas y descubre en 30 segundos qué necesitas para
-            cumplir con Hacienda.
+    <!-- Start Diagnóstico "Encuentra tu solución" (#verificador: id kept so
+       every existing link still lands here). Intro → 3 questions →
+       preliminary orientation → WhatsApp. Questions and answers live in
+       this markup; the orientation logic and texts are in js/main.js. -->
+    <section id="verificador" class="gn-diag" aria-labelledby="gn-diag-title">
+      <div class="gn-diag-inner">
+        <header class="gn-diag-head">
+          <p class="gn-diag-eyebrow">Encuentra tu solución</p>
+          <h2 id="gn-diag-title" class="gn-diag-title">
+            ¿Qué necesita realmente tu negocio para facturar?
+          </h2>
+          <p class="gn-diag-sub">
+            Responde 3 preguntas y recibe una orientación inicial según tu
+            forma de trabajar.
           </p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="verificador-card">
+        </header>
+
+        <div class="gn-diag-card">
           <div
-            class="verificador-progress"
+            class="gn-diag-progress"
             role="progressbar"
-            aria-valuenow="1"
+            aria-label="Progreso del diagnóstico"
             aria-valuemin="1"
             aria-valuemax="3"
-            aria-label="Progreso del verificador"
+            aria-valuenow="1"
+            hidden
           >
-            <span class="verificador-progress-bar" style="width: 33.33%"></span>
+            <div class="gn-diag-bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="gn-diag-step-label">Paso 1 de 3</span>
           </div>
-          <p class="verificador-step-label">Paso 1 de 3</p>
 
-          <div class="verificador-stage" aria-live="polite">
-            <div class="verificador-step is-active" data-step="1">
-              <h3 class="verificador-question">
-                ¿Ya te notificó Hacienda tu fecha para facturar electrónico?
-              </h3>
-              <div class="verificador-options">
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="1"
-                  data-value="notificado"
-                >
-                  <span class="verificador-option-icon"
-                    ><i class="fa-solid fa-circle-check" aria-hidden="true"></i
-                  ></span>
-                  <span class="verificador-option-text"
-                    >Sí, ya me notificaron</span
-                  >
-                </button>
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="1"
-                  data-value="todavia_no"
-                >
-                  <span class="verificador-option-icon"
-                    ><i
-                      class="fa-solid fa-hourglass-half"
-                      aria-hidden="true"
-                    ></i
-                  ></span>
-                  <span class="verificador-option-text">Todavía no</span>
-                </button>
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="1"
-                  data-value="no_se"
-                >
-                  <span class="verificador-option-icon"
-                    ><i
-                      class="fa-solid fa-circle-question"
-                      aria-hidden="true"
-                    ></i
-                  ></span>
-                  <span class="verificador-option-text"
-                    >No sé cómo revisarlo</span
-                  >
-                </button>
-              </div>
-            </div>
+          <div class="gn-diag-panel gn-diag-intro" data-panel="intro">
+            <ul class="gn-diag-facts">
+              <li>3 preguntas</li>
+              <li>Orientación inicial</li>
+              <li>Sin datos personales</li>
+            </ul>
+            <button
+              type="button"
+              class="gn-diag-btn gn-diag-btn-navy"
+              data-diag="start"
+            >
+              Comenzar diagnóstico <span aria-hidden="true">→</span>
+            </button>
+          </div>
 
-            <div class="verificador-step" data-step="2" hidden>
-              <h3 class="verificador-question">¿Cómo facturas hoy?</h3>
-              <div class="verificador-options">
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="2"
-                  data-value="papel"
-                >
-                  <span class="verificador-option-icon"
-                    ><i class="fa-solid fa-receipt" aria-hidden="true"></i
-                  ></span>
-                  <span class="verificador-option-text"
-                    >Facturas en papel / talonario</span
-                  >
-                </button>
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="2"
-                  data-value="sistema"
-                >
-                  <span class="verificador-option-icon"
-                    ><i class="fa-solid fa-display" aria-hidden="true"></i
-                  ></span>
-                  <span class="verificador-option-text"
-                    >Ya tengo un sistema electrónico</span
-                  >
-                </button>
-                <button
-                  type="button"
-                  class="verificador-option"
-                  data-question="2"
-                  data-value="no_emite"
-                >
-                  <span class="verificador-option-icon"
-                    ><i class="fa-solid fa-ban" aria-hidden="true"></i
-                  ></span>
-                  <span class="verificador-option-text">No emito facturas</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="verificador-step" data-step="3" hidden>
-              <h3 class="verificador-question">¿Qué tipo de negocio tienes?</h3>
-              <div class="verificador-chips">
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Restaurante"
-                >
-                  <i class="fa-solid fa-utensils" aria-hidden="true"></i
-                  >Restaurante
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Tienda"
-                >
-                  <i class="fa-solid fa-store" aria-hidden="true"></i>Tienda
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Farmacia"
-                >
-                  <i class="fa-solid fa-pills" aria-hidden="true"></i>Farmacia
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Ferretería"
-                >
-                  <i
-                    class="fa-solid fa-screwdriver-wrench"
-                    aria-hidden="true"
-                  ></i
-                  >Ferretería
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Boutique"
-                >
-                  <i class="fa-solid fa-shirt" aria-hidden="true"></i>Boutique
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Servicios"
-                >
-                  <i class="fa-solid fa-briefcase" aria-hidden="true"></i
-                  >Servicios
-                </button>
-                <button
-                  type="button"
-                  class="verificador-chip"
-                  data-question="3"
-                  data-value="Otro"
-                >
-                  <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>Otro
-                </button>
-              </div>
-            </div>
-
-            <div class="verificador-result" data-step="result" hidden>
-              <div class="verificador-result-icon">
-                <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
-              </div>
-              <h3 class="verificador-result-title"></h3>
-              <p class="verificador-result-text"></p>
-              <a
-                class="verificador-result-link"
-                href="https://factura.gob.sv"
-                target="_blank"
-                rel="noopener noreferrer"
-                hidden
-                >Abrir factura.gob.sv <span aria-hidden="true">↗</span></a
+          <div class="gn-diag-panel" data-panel="1" hidden>
+            <h3 class="gn-diag-q" id="gn-diag-q1" tabindex="-1">
+              ¿Qué tipo de negocio tienes?
+            </h3>
+            <p class="gn-diag-pre" hidden>
+              Marcamos tu tipo de negocio según la opción que elegiste. Puedes
+              cambiarlo.
+            </p>
+            <div
+              class="gn-diag-options"
+              role="radiogroup"
+              aria-labelledby="gn-diag-q1"
+            >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="tipo" value="servicios" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Servicios profesionales</span></label
               >
-              <a
-                class="verificador-whatsapp-btn"
-                href="https://wa.me/50370043346"
-                target="_blank"
-                rel="noopener noreferrer"
+              <label class="gn-diag-opt"
+                ><input type="radio" name="tipo" value="comercio" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Comercio o negocio con mostrador</span></label
               >
-                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>Recibe
-                orientación para tu negocio <span aria-hidden="true">→</span>
-              </a>
-              <button type="button" class="verificador-restart">
-                Volver a empezar
+              <label class="gn-diag-opt"
+                ><input type="radio" name="tipo" value="empresa" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Empresa con procesos administrativos</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="tipo" value="otro" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Otro tipo de negocio</span></label
+              >
+            </div>
+            <div class="gn-diag-actions">
+              <button
+                type="button"
+                class="gn-diag-btn gn-diag-btn-navy gn-diag-next"
+                data-diag="next"
+                disabled
+              >
+                Continuar <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
 
-          <p class="verificador-disclaimer">
-            Información orientativa. Confirma siempre tu fecha oficial en
-            factura.gob.sv.
-          </p>
+          <div class="gn-diag-panel" data-panel="2" hidden>
+            <h3 class="gn-diag-q" id="gn-diag-q2" tabindex="-1">
+              ¿Cómo facturas actualmente?
+            </h3>
+            <div
+              class="gn-diag-options"
+              role="radiogroup"
+              aria-labelledby="gn-diag-q2"
+            >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="factura" value="sistema" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Utilizo un sistema de facturación</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="factura" value="facturador_mh" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Utilizo el facturador de Hacienda</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="factura" value="fisico" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Utilizo documentos físicos</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="factura" value="iniciando" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Estoy iniciando y aún no emito documentos</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="factura" value="no_seguro" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>No estoy seguro</span></label
+              >
+            </div>
+            <div class="gn-diag-actions">
+              <button
+                type="button"
+                class="gn-diag-btn gn-diag-btn-ghost"
+                data-diag="prev"
+              >
+                <span aria-hidden="true">←</span> Anterior
+              </button>
+              <button
+                type="button"
+                class="gn-diag-btn gn-diag-btn-navy gn-diag-next"
+                data-diag="next"
+                disabled
+              >
+                Continuar <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="gn-diag-panel" data-panel="3" hidden>
+            <h3 class="gn-diag-q" id="gn-diag-q3" tabindex="-1">
+              ¿Qué necesitas gestionar?
+            </h3>
+            <div
+              class="gn-diag-options"
+              role="radiogroup"
+              aria-labelledby="gn-diag-q3"
+            >
+              <label class="gn-diag-opt"
+                ><input
+                  type="radio"
+                  name="gestion"
+                  value="solo_facturacion"
+                /><span class="gn-diag-dot" aria-hidden="true"></span
+                ><span>Solo facturación electrónica</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input
+                  type="radio"
+                  name="gestion"
+                  value="ventas_inventario"
+                /><span class="gn-diag-dot" aria-hidden="true"></span
+                ><span>Facturación, ventas o inventario</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="gestion" value="procesos" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Usuarios, procesos y reportes</span></label
+              >
+              <label class="gn-diag-opt"
+                ><input type="radio" name="gestion" value="orientacion" /><span
+                  class="gn-diag-dot"
+                  aria-hidden="true"
+                ></span
+                ><span>Necesito orientación para decidir</span></label
+              >
+            </div>
+            <div class="gn-diag-actions">
+              <button
+                type="button"
+                class="gn-diag-btn gn-diag-btn-ghost"
+                data-diag="prev"
+              >
+                <span aria-hidden="true">←</span> Anterior
+              </button>
+              <button
+                type="button"
+                class="gn-diag-btn gn-diag-btn-navy gn-diag-next"
+                data-diag="next"
+                disabled
+              >
+                Ver mi orientación <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="gn-diag-panel gn-diag-result" data-panel="result" hidden>
+            <p class="gn-diag-res-eyebrow">Tu orientación inicial</p>
+            <h3 class="gn-diag-res-title" tabindex="-1"></h3>
+            <dl class="gn-diag-summary">
+              <div>
+                <dt>Tipo de negocio</dt>
+                <dd data-answer="tipo"></dd>
+                <button type="button" class="gn-diag-link" data-edit="1">
+                  Cambiar<span class="gn-sr-only"> tipo de negocio</span>
+                </button>
+              </div>
+              <div>
+                <dt>Cómo facturas hoy</dt>
+                <dd data-answer="factura"></dd>
+                <button type="button" class="gn-diag-link" data-edit="2">
+                  Cambiar<span class="gn-sr-only"> cómo facturas hoy</span>
+                </button>
+              </div>
+              <div>
+                <dt>Necesitas gestionar</dt>
+                <dd data-answer="gestion"></dd>
+                <button type="button" class="gn-diag-link" data-edit="3">
+                  Cambiar<span class="gn-sr-only"> qué necesitas gestionar</span>
+                </button>
+              </div>
+            </dl>
+            <p class="gn-diag-orient"></p>
+            <p class="gn-diag-note" hidden></p>
+            <div class="gn-diag-cta-wrap">
+              <a
+                class="gn-diag-cta"
+                href="https://wa.me/50370043346"
+                target="_blank"
+                rel="noopener"
+                data-cta="diagnostico-asesoria"
+                >Hablar con un asesor por WhatsApp&nbsp;<span
+                  aria-hidden="true"
+                  >→</span
+                ></a
+              >
+              <p class="gn-diag-cta-note">
+                Se abrirá WhatsApp con tus respuestas ya escritas.
+              </p>
+            </div>
+            <div class="gn-diag-foot">
+              <button type="button" class="gn-diag-link" data-diag="restart">
+                Empezar de nuevo
+              </button>
+              <p>
+                ¿Dudas sobre tus obligaciones y fechas? Consulta la fuente
+                oficial en
+                <a
+                  href="https://factura.gob.sv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >factura.gob.sv <span aria-hidden="true">↗</span></a
+                >
+              </p>
+              <p class="gn-diag-disclaimer">
+                Es una orientación inicial, no una recomendación definitiva ni
+                una evaluación tributaria.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="verificador-urgency">
-          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
-          <span
-            >DTE 2.0: todos los sistemas deben actualizarse antes del 1 de
-            diciembre de 2026.
-            <strong class="verificador-countdown"
-              >Faltan
-              <span class="verificador-countdown-days">—</span> días</strong
-            ></span
-          >
-        </div>
-      </div>
-    </div>
-    <!-- End Verificador area -->
+    </section>
+    <!-- End Diagnóstico -->
 
     <!-- Start Service area -->
 
@@ -4821,7 +4875,7 @@
     <!-- Contact Form JavaScript File -->
     <script src="contactform/contactform.js"></script>
 
-    <script src="js/tracking.js?v=1"></script>
-    <script src="js/main.js?v=27"></script>
+    <script src="js/tracking.js?v=2"></script>
+    <script src="js/main.js?v=29"></script>
   </body>
 </html>

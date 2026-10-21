@@ -1003,207 +1003,248 @@
   });
 
   /*---------------------
-    Verificador (3-question DTE readiness wizard + live countdown)
+    Diagnóstico "Encuentra tu solución" (#verificador)
+    Intro → 3 questions (radio groups, Continuar/Anterior) → a
+    preliminary orientation → WhatsApp. Orientation = first matching
+    rule in DIAG_RULES (needs weigh most, business type adds context,
+    current invoicing adapts the note). #segmentos cards preselect the
+    business type. Events go to dataLayer with answer codes only.
   --------------------- */
+
+  // Orientation texts. None of them promises features, prices, savings
+  // or tax compliance; every one hands the decision to an adviser.
+  const DIAG_PROFILES = {
+    evaluacion: {
+      title: 'Revisemos tu sistema actual',
+      text: 'Ya usas un sistema de facturación. Antes de cambiar nada, conviene revisar con un asesor si responde a lo que necesitas hoy o si te conviene otra alternativa.',
+    },
+    personalizada: {
+      title: 'Te orientamos paso a paso',
+      text: 'Con tus respuestas aún no hay una dirección clara, y es normal. Un asesor puede hacerte algunas preguntas sobre tu forma de trabajar y orientarte desde ahí.',
+    },
+    administrativa: {
+      title: 'Facturación con gestión administrativa',
+      text: 'Tu operación parece requerir algo más que facturar: usuarios, procesos o reportes. Antes de proponerte una alternativa, conviene revisar tus procesos con un asesor.',
+    },
+    ventas: {
+      title: 'Facturación conectada a tus ventas',
+      text: 'Te conviene evaluar soluciones en las que la facturación forme parte de tu proceso de venta y, si lo necesitas, del control de inventario. Un asesor revisará cómo vendes y atiendes para orientarte.',
+    },
+    sencilla: {
+      title: 'Facturación electrónica sencilla',
+      text: 'Tu prioridad es emitir tus documentos electrónicos de forma simple. Evaluaremos alternativas con las funciones que realmente necesita tu operación.',
+    },
+  };
+
+  // First match wins. a = { tipo, factura, gestion } (answer codes).
+  const DIAG_RULES = [
+    // Already has a system and doesn't ask for more: start by reviewing it.
+    ['evaluacion', (a) => a.factura === 'sistema' && (a.gestion === 'solo_facturacion' || a.gestion === 'orientacion')],
+    // Not enough to go on: unsure what they need plus an unclear business
+    // or invoicing situation, or both business and invoicing unclear.
+    ['personalizada', (a) => (a.gestion === 'orientacion' && (a.tipo === 'otro' || a.factura === 'no_seguro')) ||
+      (a.tipo === 'otro' && a.factura === 'no_seguro')],
+    // Stated needs decide; when they ask for guidance, the business type does.
+    ['administrativa', (a) => a.gestion === 'procesos' || (a.gestion === 'orientacion' && a.tipo === 'empresa')],
+    ['ventas', (a) => a.gestion === 'ventas_inventario' || (a.gestion === 'orientacion' && a.tipo === 'comercio')],
+    ['sencilla', () => true],
+  ];
+
+  // Business-type context for answers that pull in different directions.
+  const DIAG_CONTEXT = [
+    [(a, p) => a.tipo === 'servicios' && p === 'ventas', 'Como ofreces servicios, el asesor confirmará contigo si realmente necesitas control de ventas o inventario.'],
+    [(a, p) => a.tipo === 'comercio' && p === 'sencilla', 'Si además necesitas controlar tus ventas o tu inventario, el asesor lo revisará contigo.'],
+    [(a, p) => a.tipo === 'empresa' && p === 'sencilla', 'Como tu empresa tiene procesos administrativos, el asesor revisará si conviene integrar otras áreas además de la facturación.'],
+    [(a) => a.tipo === 'otro', 'Como tu actividad no está en la lista, el asesor confirmará qué aplica a tu caso.'],
+  ];
+
+  // How they invoice today adapts the message.
+  const DIAG_NOTES = {
+    sistema: 'También revisaremos si tu sistema actual puede cubrir estas necesidades.',
+    facturador_mh: 'Hoy usas el facturador de Hacienda; te explicaremos en qué casos conviene otra solución.',
+    fisico: 'Como hoy trabajas con documentos físicos, te orientamos para planificar el paso a documentos electrónicos.',
+    iniciando: 'Como estás iniciando, conviene elegir una solución que pueda crecer con tu negocio.',
+    no_seguro: 'Revisaremos contigo cómo facturas hoy para orientarte mejor.',
+  };
+
+  function diagProfile(a) {
+    return DIAG_RULES.find(([, test]) => test(a))[0];
+  }
+
+  // Extra lines under the orientation: business context, then invoicing.
+  function diagNotes(a, profile) {
+    if (profile === 'personalizada') return [];
+    const notes = [];
+    const ctx = DIAG_CONTEXT.find(([test]) => test(a, profile));
+    if (ctx) notes.push(ctx[1]);
+    if (profile !== 'evaluacion' && DIAG_NOTES[a.factura]) notes.push(DIAG_NOTES[a.factura]);
+    return notes;
+  }
+
+  // Exposed for testing the 80 combinations from the console.
+  window.gramanatDiagnostico = { profile: diagProfile, notes: diagNotes, profiles: DIAG_PROFILES };
 
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('verificador');
+    if (!root || !root.classList.contains('gn-diag')) return;
 
-    if (!root) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const stage = root.querySelector('.verificador-stage');
-    const panels = {
-      1: root.querySelector('.verificador-step[data-step="1"]'),
-      2: root.querySelector('.verificador-step[data-step="2"]'),
-      3: root.querySelector('.verificador-step[data-step="3"]'),
-      result: root.querySelector('.verificador-result'),
+    const card = root.querySelector('.gn-diag-card');
+    const progress = root.querySelector('.gn-diag-progress');
+    const bars = Array.from(root.querySelectorAll('.gn-diag-bars span'));
+    const stepLabel = root.querySelector('.gn-diag-step-label');
+    const panels = {};
+    root.querySelectorAll('[data-panel]').forEach((p) => { panels[p.dataset.panel] = p; });
+    const QUESTIONS = ['tipo', 'factura', 'gestion'];
+    const SEGMENT_TIPO = {
+      'Profesionales independientes': 'servicios',
+      'Comercios y MiPyMEs': 'comercio',
+      'Empresas': 'empresa',
     };
-    const progressBar = root.querySelector('.verificador-progress-bar');
-    const progressTrack = root.querySelector('.verificador-progress');
-    const stepLabel = root.querySelector('.verificador-step-label');
-    const resultIcon = root.querySelector('.verificador-result-icon i');
-    const resultTitle = root.querySelector('.verificador-result-title');
-    const resultText = root.querySelector('.verificador-result-text');
-    const resultLink = root.querySelector('.verificador-result-link');
-    const whatsappBtn = root.querySelector('.verificador-whatsapp-btn');
-    const restartBtn = root.querySelector('.verificador-restart');
+    const WA_NUMBER = '50370043346';
+    const WA_INTRO = 'Hola, visité la web de Gramanat y completé el diagnóstico. Me gustaría recibir asesoría para encontrar una solución adecuada para mi negocio.';
 
-    if (!stage || !panels[1] || !panels[2] || !panels[3] || !panels.result) return;
+    let step = 'intro';
+    let editing = false;
+    let started = false;
+    let origin = 'directo';
 
-    const OPTION_LABELS = {
-      1: {
-        notificado: 'Sí, ya me notificaron',
-        todavia_no: 'Todavía no',
-        no_se: 'No sé cómo revisarlo',
-      },
-      2: {
-        papel: 'Facturas en papel / talonario',
-        sistema: 'Ya tengo un sistema electrónico',
-        no_emite: 'No emito facturas',
-      },
+    const track = (event, params) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event }, params));
     };
 
-    const answers = { 1: null, 2: null, 3: null };
-    let current = panels[1];
+    const answerOf = (name) => {
+      const checked = root.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : null;
+    };
+    const answers = () => ({ tipo: answerOf('tipo'), factura: answerOf('factura'), gestion: answerOf('gestion') });
+    const labelOf = (name) => {
+      const checked = root.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.closest('label').textContent.replace(/\s+/g, ' ').trim() : '';
+    };
 
-    function updateProgress(stepNum) {
-      const pct = (Math.min(stepNum, 3) / 3) * 100;
-      if (progressBar) progressBar.style.width = pct + '%';
-      if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.min(stepNum, 3)));
-      if (stepLabel) stepLabel.textContent = stepNum <= 3 ? 'Paso ' + stepNum + ' de 3' : 'Resultado';
+    function syncNext(n) {
+      const next = panels[n] && panels[n].querySelector('[data-diag="next"]');
+      if (next) next.disabled = !answerOf(QUESTIONS[n - 1]);
     }
 
-    function showPanel(next, direction) {
-      if (!next || next === current) return;
+    function show(target) {
+      step = target;
+      Object.entries(panels).forEach(([key, panel]) => { panel.hidden = key !== String(target); });
 
-      const outgoing = current;
-      current = next;
+      const n = target === 'result' ? 4 : Number(target) || 0;
+      progress.hidden = target === 'intro';
+      bars.forEach((bar, i) => bar.classList.toggle('is-on', i < n));
+      progress.setAttribute('aria-valuenow', String(Math.min(Math.max(n, 1), 3)));
+      stepLabel.textContent = n >= 1 && n <= 3 ? `Paso ${n} de 3` : 'Resultado';
+      if (n >= 1 && n <= 3) syncNext(n);
 
-      if (prefersReducedMotion) {
-        outgoing.hidden = true;
-        outgoing.classList.remove('is-active');
-        next.hidden = false;
-        next.classList.add('is-active');
-        return;
+      // Move focus to the new question/result title for keyboard and
+      // screen-reader users; bring the card's top into view if needed.
+      const heading = panels[target].querySelector('.gn-diag-q, .gn-diag-res-title, [data-diag="start"]');
+      if (heading && target !== 'intro') heading.focus({ preventScroll: true });
+      const top = card.getBoundingClientRect().top;
+      if (top < 90) window.scrollBy({ top: top - 100, behavior: 'smooth' });
+    }
+
+    function start(preTipo) {
+      if (preTipo) {
+        const input = root.querySelector(`input[name="tipo"][value="${preTipo}"]`);
+        if (input) input.checked = true;
       }
-
-      stage.style.setProperty('--slide-dir', direction === 'back' ? '-1' : '1');
-
-      outgoing.classList.remove('is-active', 'is-entering');
-      outgoing.classList.add('is-leaving');
-      setTimeout(() => {
-        outgoing.hidden = true;
-        outgoing.classList.remove('is-leaving');
-      }, 250);
-
-      next.classList.remove('is-leaving');
-      next.hidden = false;
-      next.classList.add('is-active', 'is-entering');
-      setTimeout(() => {
-        next.classList.remove('is-entering');
-      }, 320);
+      panels[1].querySelector('.gn-diag-pre').hidden = !preTipo;
+      if (!started) {
+        started = true;
+        track('diagnosis_start', { origen: origin, tipo_preseleccionado: preTipo || 'ninguno' });
+      }
+      show(1);
     }
 
-    function clearSelection(container) {
-      if (!container) return;
-      container.querySelectorAll('.is-selected').forEach((el) => el.classList.remove('is-selected'));
+    function reset() {
+      root.querySelectorAll('.gn-diag-opt input').forEach((input) => { input.checked = false; });
+      started = false;
+      editing = false;
     }
 
     function showResult() {
-      const r1 = answers[1];
-      const r2 = answers[2];
-      const r3 = answers[3];
+      const a = answers();
+      const profileKey = diagProfile(a);
+      const profile = DIAG_PROFILES[profileKey];
+      const notes = diagNotes(a, profileKey);
+      const result = panels.result;
 
-      let title;
-      let text;
-      let showLink = false;
-      let icon = 'fa-solid fa-sparkles';
+      result.querySelector('.gn-diag-res-title').textContent = profile.title;
+      QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
+      result.querySelector('.gn-diag-orient').textContent = profile.text;
+      const note = result.querySelector('.gn-diag-note');
+      note.textContent = notes.join(' ');
+      note.hidden = notes.length === 0;
 
-      if (r2 === 'sistema') {
-        title = 'Revisa que tu sistema esté listo para DTE 2.0';
-        text = 'Todos los sistemas deben actualizarse al nuevo estándar antes del 1 de diciembre de 2026. Te revisamos tu sistema actual gratis.';
-        icon = 'fa-solid fa-arrows-rotate';
-      } else if (r1 === 'notificado' && (r2 === 'papel' || r2 === 'no_emite')) {
-        title = 'Necesitas empezar pronto';
-        text = 'La instalación, pruebas y capacitación pueden tomar algunas semanas. Te ayudamos a dejar todo listo a tiempo.';
-        icon = 'fa-solid fa-triangle-exclamation';
-      } else {
-        title = 'Revisa tu fecha en 1 minuto';
-        text = 'Entra a factura.gob.sv, escribe tu NIT y elige "Conozca fecha para ser emisor". Si quieres, lo revisamos contigo.';
-        icon = 'fa-solid fa-magnifying-glass';
-        showLink = true;
-      }
+      const message = [
+        WA_INTRO,
+        '',
+        `Tipo de negocio: ${labelOf('tipo')}`,
+        `Cómo facturo hoy: ${labelOf('factura')}`,
+        `Necesito gestionar: ${labelOf('gestion')}`,
+        `Orientación inicial: ${profile.title}`,
+        '',
+        'Me gustaría una asesoría personalizada para mi caso.',
+      ].join('\n');
+      const cta = result.querySelector('.gn-diag-cta');
+      cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+      cta.dataset.orientacion = profileKey;
 
-      if (resultIcon) resultIcon.className = icon;
-      if (resultTitle) resultTitle.textContent = title;
-      if (resultText) resultText.textContent = text;
-      if (resultLink) resultLink.hidden = !showLink;
-
-      if (whatsappBtn) {
-        const label1 = OPTION_LABELS[1][r1] || r1 || '—';
-        const label2 = OPTION_LABELS[2][r2] || r2 || '—';
-        const label3 = r3 || '—';
-        const message =
-          'Hola Gramanat 👋 hice el verificador: Hacienda: ' +
-          label1 +
-          ' · Facturo: ' +
-          label2 +
-          ' · Negocio: ' +
-          label3 +
-          // Set by the #segmentos card the visitor came from, if any.
-          (root.dataset.segmento ? ' · Tipo de operación: ' + root.dataset.segmento : '') +
-          '. Quiero recibir orientación para mi negocio.';
-        whatsappBtn.href = 'https://wa.me/50370043346?text=' + encodeURIComponent(message);
-      }
-
-      updateProgress(4);
-      showPanel(panels.result, 'forward');
+      track('diagnosis_result', { orientacion: profileKey, tipo: a.tipo, factura: a.factura, gestion: a.gestion });
+      editing = false;
+      show('result');
     }
 
-    // #segmentos links remember which card sent the visitor here
-    // (data-segmento; empty on the general CTA clears it).
-    document.querySelectorAll('a[data-segmento]').forEach((link) => {
+    root.querySelectorAll('.gn-diag-opt input').forEach((input) => {
+      input.addEventListener('change', () => syncNext(Number(step)));
+    });
+
+    root.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-diag]');
+      const edit = e.target.closest('[data-edit]');
+      if (edit) {
+        editing = true;
+        show(Number(edit.dataset.edit));
+        return;
+      }
+      if (!action) return;
+
+      if (action.dataset.diag === 'start') {
+        start(null);
+      } else if (action.dataset.diag === 'next') {
+        const n = Number(step);
+        track('diagnosis_step_complete', { paso: n, respuesta: answerOf(QUESTIONS[n - 1]) });
+        if (n === 3 || editing) showResult(); else show(n + 1);
+      } else if (action.dataset.diag === 'prev') {
+        show(Number(step) - 1);
+      } else if (action.dataset.diag === 'restart') {
+        reset();
+        show('intro');
+        panels.intro.querySelector('[data-diag="start"]').focus({ preventScroll: true });
+      }
+    });
+
+    // Every link into the diagnóstico records where the visitor came
+    // from; #segmentos cards (data-segmento) also preselect the type.
+    document.querySelectorAll('a[href="#verificador"]').forEach((link) => {
       link.addEventListener('click', () => {
-        if (link.dataset.segmento) {
-          root.dataset.segmento = link.dataset.segmento;
-        } else {
-          delete root.dataset.segmento;
+        origin = link.dataset.cta || (link.closest('nav, .menubar') ? 'menu' : 'enlace');
+        const preTipo = SEGMENT_TIPO[link.dataset.segmento];
+        if (preTipo) {
+          reset();
+          start(preTipo);
+          // The anchor jump runs after this handler and resets focus to
+          // the page; put it back on question 1 once it has happened.
+          setTimeout(() => panels[1].querySelector('.gn-diag-q').focus({ preventScroll: true }), 60);
         }
       });
     });
 
-    root.querySelectorAll('.verificador-option, .verificador-chip').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const q = btn.getAttribute('data-question');
-        const value = btn.getAttribute('data-value');
-
-        answers[q] = value;
-        clearSelection(btn.closest('.verificador-options, .verificador-chips'));
-        btn.classList.add('is-selected');
-
-        if (q === '1') {
-          updateProgress(2);
-          showPanel(panels[2], 'forward');
-        } else if (q === '2') {
-          updateProgress(3);
-          showPanel(panels[3], 'forward');
-        } else if (q === '3') {
-          showResult();
-        }
-      });
-    });
-
-    if (restartBtn) {
-      restartBtn.addEventListener('click', () => {
-        answers[1] = null;
-        answers[2] = null;
-        answers[3] = null;
-        root.querySelectorAll('.verificador-option.is-selected, .verificador-chip.is-selected').forEach((el) => {
-          el.classList.remove('is-selected');
-        });
-        updateProgress(1);
-        showPanel(panels[1], 'back');
-      });
-    }
-
-    // Live countdown to the DTE 2.0 deadline (2026-12-01, El Salvador is
-    // UTC-6 year-round, no DST). Recomputed hourly in case the page is
-    // left open; a daily figure doesn't need finer-grained ticking.
-    const countdownDaysEl = root.querySelector('.verificador-countdown-days');
-
-    function updateCountdown() {
-      if (!countdownDaysEl) return;
-      const deadline = new Date('2026-12-01T00:00:00-06:00');
-      const now = new Date();
-      const diffMs = deadline.getTime() - now.getTime();
-      const days = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-      countdownDaysEl.textContent = String(days);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 60);
+    show('intro');
   });
 
   /*---------------------

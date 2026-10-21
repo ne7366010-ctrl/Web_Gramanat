@@ -31,6 +31,8 @@
       cta_text: link.textContent.replace(/\s+/g, ' ').trim().slice(0, 100),
       page_path: window.location.pathname,
     };
+    // Diagnóstico CTA: which orientation (a code, not personal data) led here.
+    if (link.dataset.orientacion) params.orientacion = link.dataset.orientacion;
 
     window.dataLayer.push(Object.assign({ event: 'whatsapp_click' }, params));
 
