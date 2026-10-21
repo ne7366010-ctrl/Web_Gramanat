@@ -1026,9 +1026,11 @@
       title: 'Facturación con gestión administrativa',
       text: 'Tu operación parece requerir algo más que facturar: usuarios, procesos o reportes. Antes de proponerte una alternativa, conviene revisar tus procesos con un asesor.',
     },
+    // Doesn't assume a POS, printer or inventory: equipment is something
+    // to evaluate, not a given.
     ventas: {
       title: 'Facturación conectada a tus ventas',
-      text: 'Te conviene evaluar soluciones en las que la facturación forme parte de tu proceso de venta y, si lo necesitas, del control de inventario. Un asesor revisará cómo vendes y atiendes para orientarte.',
+      text: 'Según tus respuestas, podría convenirte una solución que integre la facturación electrónica con la gestión de ventas de tu negocio. En Gramanat podemos ayudarte a evaluar qué funcionalidades necesitas, cómo registrar tus operaciones y si requieres equipos adicionales.',
     },
     sencilla: {
       title: 'Facturación electrónica sencilla',
@@ -1037,16 +1039,23 @@
   };
 
   // First match wins. a = { tipo, factura, gestion } (answer codes).
+  // A concrete need in question 3 always decides; "Otro" (with its typed
+  // activity) and "No estoy seguro" only matter when the visitor asks
+  // for guidance instead of naming a need.
   const DIAG_RULES = [
-    // Already has a system and doesn't ask for more: start by reviewing it.
+    // Already has a system and only needs invoicing (or asks for
+    // guidance): start by reviewing that system.
     ['evaluacion', (a) => a.factura === 'sistema' && (a.gestion === 'solo_facturacion' || a.gestion === 'orientacion')],
-    // Not enough to go on: unsure what they need plus an unclear business
-    // or invoicing situation, or both business and invoicing unclear.
-    ['personalizada', (a) => (a.gestion === 'orientacion' && (a.tipo === 'otro' || a.factura === 'no_seguro')) ||
-      (a.tipo === 'otro' && a.factura === 'no_seguro')],
-    // Stated needs decide; when they ask for guidance, the business type does.
-    ['administrativa', (a) => a.gestion === 'procesos' || (a.gestion === 'orientacion' && a.tipo === 'empresa')],
-    ['ventas', (a) => a.gestion === 'ventas_inventario' || (a.gestion === 'orientacion' && a.tipo === 'comercio')],
+    // Stated needs.
+    ['administrativa', (a) => a.gestion === 'procesos'],
+    ['ventas', (a) => a.gestion === 'ventas_inventario'],
+    ['sencilla', (a) => a.gestion === 'solo_facturacion'],
+    // Asks for guidance: the business category points the way, unless it
+    // is "Otro" (a free-text activity we don't classify) or they're
+    // unsure how they invoice — then an adviser starts from scratch.
+    ['personalizada', (a) => a.tipo === 'otro' || a.factura === 'no_seguro'],
+    ['administrativa', (a) => a.tipo === 'empresa'],
+    ['ventas', (a) => a.tipo === 'comercio'],
     ['sencilla', () => true],
   ];
 
@@ -1055,7 +1064,8 @@
     [(a, p) => a.tipo === 'servicios' && p === 'ventas', 'Como ofreces servicios, el asesor confirmará contigo si realmente necesitas control de ventas o inventario.'],
     [(a, p) => a.tipo === 'comercio' && p === 'sencilla', 'Si además necesitas controlar tus ventas o tu inventario, el asesor lo revisará contigo.'],
     [(a, p) => a.tipo === 'empresa' && p === 'sencilla', 'Como tu empresa tiene procesos administrativos, el asesor revisará si conviene integrar otras áreas además de la facturación.'],
-    [(a) => a.tipo === 'otro', 'Como tu actividad no está en la lista, el asesor confirmará qué aplica a tu caso.'],
+    // No line for "Otro": the typed activity shows in the summary and the
+    // WhatsApp message, and nothing should suggest the business "doesn't fit".
   ];
 
   // How they invoice today adapts the message.
@@ -1064,7 +1074,7 @@
     facturador_mh: 'Hoy usas el facturador de Hacienda; te explicaremos en qué casos conviene otra solución.',
     fisico: 'Como hoy trabajas con documentos físicos, te orientamos para planificar el paso a documentos electrónicos.',
     iniciando: 'Como estás iniciando, conviene elegir una solución que pueda crecer con tu negocio.',
-    no_seguro: 'Revisaremos contigo cómo facturas hoy para orientarte mejor.',
+    no_seguro: 'Como aún no tienes claro cómo facturas actualmente, un asesor también puede orientarte sobre ese aspecto.',
   };
 
   function diagProfile(a) {
@@ -1214,19 +1224,15 @@
       const a = answers();
       const profileKey = diagProfile(a);
       const profile = DIAG_PROFILES[profileKey];
-      let notes = diagNotes(a, profileKey);
+      const notes = diagNotes(a, profileKey);
       const result = panels.result;
 
-      // "Otro": the typed activity is extra context only — the rules (and
-      // so the orientation) still come from the three category answers.
+      // "Otro": the typed activity personalises the summary and the
+      // WhatsApp message; the orientation still comes from the category
+      // answers (free text is never interpreted).
       const activity = a.tipo === 'otro' ? otherText() : '';
       const tipoSummary = activity ? `Otro — ${activity}` : labelOf('tipo');
       const tipoMessage = activity || labelOf('tipo');
-      if (activity) {
-        const generic = DIAG_CONTEXT.find(([test]) => test({ tipo: 'otro' }))[1];
-        const personal = `Tu actividad (${activity}) no está entre las opciones; el asesor confirmará qué aplica a tu caso.`;
-        notes = notes.includes(generic) ? notes.map((n) => (n === generic ? personal : n)) : [personal, ...notes];
-      }
 
       result.querySelector('.gn-diag-res-title').textContent = profile.title;
       QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
