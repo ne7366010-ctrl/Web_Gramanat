@@ -13017,6 +13017,11 @@ nav,
   object-position: 42% 45%;
 }
 
+/* Profesionales: keep her and the laptop in the square thumbnail. */
+.gn-seg-card img[src*="profesionales-"] {
+  object-position: 62% 50%;
+}
+
 .gn-seg-body {
   display: flex;
   flex-direction: column;

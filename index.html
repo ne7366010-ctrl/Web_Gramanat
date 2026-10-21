@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=110" rel="stylesheet" />
+    <link href="css/style.css?v=111" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -694,19 +694,33 @@
 
         <ul class="gn-segments-cards">
           <li class="gn-seg-card">
-            <img
-              src="img/segmentos/profesionales-600.jpg?v=1"
-              srcset="
-                img/segmentos/profesionales-600.jpg?v=1   600w,
-                img/segmentos/profesionales-1200.jpg?v=1 1200w
-              "
-              sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
-              width="1200"
-              height="800"
-              alt="Profesional independiente trabajando con su laptop en casa"
-              loading="lazy"
-              decoding="async"
-            />
+            <!-- Official photo (portrait master kept outside the site, in
+               ../Gramanat-respaldos/gramanat-profesionales-seccion-02.jpg),
+               cut to 3:2 from just above her hair down past the laptop
+               and papers. WebP with JPG fallback. -->
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  img/segmentos/profesionales-600.webp?v=2   600w,
+                  img/segmentos/profesionales-1200.webp?v=2 1200w
+                "
+                sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+              />
+              <img
+                src="img/segmentos/profesionales-600.jpg?v=2"
+                srcset="
+                  img/segmentos/profesionales-600.jpg?v=2   600w,
+                  img/segmentos/profesionales-1200.jpg?v=2 1200w
+                "
+                sizes="(min-width: 992px) 30vw, (min-width: 768px) 220px, 96px"
+                width="1200"
+                height="800"
+                alt="Profesional independiente revisando documentos junto a su laptop en su estudio"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div class="gn-seg-body">
               <span class="gn-seg-num">01</span>
               <h3>Profesionales independientes</h3>
