@@ -13143,8 +13143,16 @@ nav,
     font-size: 40px;
   }
 
+  /* 720px fits the paragraph in three even lines at 18px (balance
+     keeps the last line from being a short tail). */
+  .gn-segments-title {
+    margin-bottom: 18px;
+  }
+
   .gn-segments-lead {
+    max-width: 720px;
     font-size: 18px;
+    text-wrap: balance;
   }
 
   .gn-segments-cards {
