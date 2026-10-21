@@ -1107,6 +1107,11 @@
     let editing = false;
     let started = false;
     let origin = 'directo';
+    // Per run: the answer each step was first completed with, and the
+    // orientation first shown. Lets analytics tell first progress apart
+    // from going back and changing an answer (no double counting).
+    let completed = {};
+    let shownProfile = null;
 
     const track = (event, params) => {
       window.dataLayer = window.dataLayer || [];
@@ -1164,6 +1169,21 @@
       root.querySelectorAll('.gn-diag-opt input').forEach((input) => { input.checked = false; });
       started = false;
       editing = false;
+      completed = {};
+      shownProfile = null;
+    }
+
+    // diagnosis_step_complete: only the first time a step is completed in
+    // this run. diagnosis_answer_change: a later, different answer to an
+    // already completed step. Same answer again: nothing is recorded.
+    function trackStep(n, answer) {
+      if (!(n in completed)) {
+        completed[n] = answer;
+        track('diagnosis_step_complete', { paso: n, respuesta: answer });
+      } else if (completed[n] !== answer) {
+        track('diagnosis_answer_change', { paso: n, respuesta_anterior: completed[n], respuesta: answer });
+        completed[n] = answer;
+      }
     }
 
     function showResult() {
@@ -1194,7 +1214,14 @@
       cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
       cta.dataset.orientacion = profileKey;
 
-      track('diagnosis_result', { orientacion: profileKey, tipo: a.tipo, factura: a.factura, gestion: a.gestion });
+      // First result of the run → diagnosis_result; a later recalculation
+      // that changes the orientation → diagnosis_result_change.
+      if (!shownProfile) {
+        track('diagnosis_result', { orientacion: profileKey, tipo: a.tipo, factura: a.factura, gestion: a.gestion });
+      } else if (shownProfile !== profileKey) {
+        track('diagnosis_result_change', { orientacion_anterior: shownProfile, orientacion: profileKey });
+      }
+      shownProfile = profileKey;
       editing = false;
       show('result');
     }
@@ -1217,7 +1244,7 @@
         start(null);
       } else if (action.dataset.diag === 'next') {
         const n = Number(step);
-        track('diagnosis_step_complete', { paso: n, respuesta: answerOf(QUESTIONS[n - 1]) });
+        trackStep(n, answerOf(QUESTIONS[n - 1]));
         if (n === 3 || editing) showResult(); else show(n + 1);
       } else if (action.dataset.diag === 'prev') {
         show(Number(step) - 1);
@@ -1240,6 +1267,10 @@
           // The anchor jump runs after this handler and resets focus to
           // the page; put it back on question 1 once it has happened.
           setTimeout(() => panels[1].querySelector('.gn-diag-q').focus({ preventScroll: true }), 60);
+        } else if (step === 'intro') {
+          // Hero, menu and the general CTA land on the intro: put focus on
+          // "Comenzar diagnóstico" so Enter starts it.
+          setTimeout(() => panels.intro.querySelector('[data-diag="start"]').focus({ preventScroll: true }), 60);
         }
       });
     });

@@ -73,6 +73,15 @@
         var scene = visual.querySelector(".sistemas-pos-scene");
         if (scene) scene.style.display = "flex";
       }
+
+      // Photos not uploaded yet keep their path in data-src-pendiente
+      // (no request, no 404) and show the POS scene straight away. Once
+      // a photo is in img/media/, rename its attribute back to src.
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .querySelectorAll("#sistemas img[data-src-pendiente]")
+          .forEach(sistemasHandleImgError);
+      });
     </script>
 
     <!-- LocalBusiness structured data -->
@@ -1619,7 +1628,7 @@
               <div class="sistemas-panel-visual">
                 <div class="sistemas-visual-photo-frame">
                   <img
-                    src="img/media/sistema-tienda.jpg?v=1"
+                    data-src-pendiente="img/media/sistema-tienda.jpg?v=1"
                     alt="Sistema de punto de venta funcionando en una tienda"
                     loading="lazy"
                     onerror="sistemasHandleImgError(this)"
@@ -1769,7 +1778,7 @@
               <div class="sistemas-panel-visual">
                 <div class="sistemas-visual-photo-frame">
                   <img
-                    src="img/media/sistema-farmacia.jpg?v=1"
+                    data-src-pendiente="img/media/sistema-farmacia.jpg?v=1"
                     alt="Sistema de punto de venta funcionando en una farmacia"
                     loading="lazy"
                     onerror="sistemasHandleImgError(this)"
@@ -1923,7 +1932,7 @@
               <div class="sistemas-panel-visual">
                 <div class="sistemas-visual-photo-frame">
                   <img
-                    src="img/media/sistema-ferreteria.jpg?v=1"
+                    data-src-pendiente="img/media/sistema-ferreteria.jpg?v=1"
                     alt="Sistema de punto de venta funcionando en una ferretería"
                     loading="lazy"
                     onerror="sistemasHandleImgError(this)"
@@ -2075,7 +2084,7 @@
               <div class="sistemas-panel-visual">
                 <div class="sistemas-visual-photo-frame">
                   <img
-                    src="img/media/sistema-boutique.jpg?v=1"
+                    data-src-pendiente="img/media/sistema-boutique.jpg?v=1"
                     alt="Sistema de punto de venta funcionando en una boutique"
                     loading="lazy"
                     onerror="sistemasHandleImgError(this)"
@@ -2223,7 +2232,7 @@
               <div class="sistemas-panel-visual">
                 <div class="sistemas-visual-photo-frame">
                   <img
-                    src="img/media/sistema-servicios.jpg?v=1"
+                    data-src-pendiente="img/media/sistema-servicios.jpg?v=1"
                     alt="Sistema de punto de venta funcionando en un negocio de servicios"
                     loading="lazy"
                     onerror="sistemasHandleImgError(this)"
@@ -4876,6 +4885,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=2"></script>
-    <script src="js/main.js?v=29"></script>
+    <script src="js/main.js?v=31"></script>
   </body>
 </html>
