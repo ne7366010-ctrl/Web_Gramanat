@@ -18,7 +18,7 @@ video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, s
 
 ---------------------------------------------------------------------------
 
-img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMPLETADO: foto oficial img/gramanat-empresas-seccion-02.jpg recortada a 3:2 (1200x800 y 600x400), WebP con respaldo JPG.
+img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMPLETADO: foto oficial gramanat-empresas-seccion-02.jpg (original guardado fuera del sitio, en la carpeta Gramanat-respaldos junto al repositorio) recortada a 3:2 (1200x800 y 600x400), WebP con respaldo JPG. Los empresas-*.jpg sí se usan: son la versión para navegadores sin WebP.
 
 ---------------------------------------------------------------------------
 
