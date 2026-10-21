@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=118" rel="stylesheet" />
+    <link href="css/style.css?v=119" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -2537,6 +2537,25 @@
                 ><span>Otro tipo de negocio</span></label
               >
             </div>
+            <!-- Only for "Otro tipo de negocio": free text, used in the
+               result and the WhatsApp message, never sent to analytics. -->
+            <div class="gn-diag-other" hidden>
+              <label for="gn-diag-otro" class="gn-diag-other-label"
+                >¿A qué se dedica tu negocio?</label
+              >
+              <input
+                type="text"
+                id="gn-diag-otro"
+                name="tipo_otro"
+                maxlength="100"
+                autocomplete="off"
+                placeholder="Ej. Salón de belleza, taller, academia..."
+                aria-describedby="gn-diag-otro-help"
+              />
+              <p id="gn-diag-otro-help" class="gn-diag-other-help">
+                Escribe brevemente la actividad principal de tu negocio.
+              </p>
+            </div>
             <div class="gn-diag-actions">
               <button
                 type="button"
@@ -4885,6 +4904,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=2"></script>
-    <script src="js/main.js?v=32"></script>
+    <script src="js/main.js?v=33"></script>
   </body>
 </html>

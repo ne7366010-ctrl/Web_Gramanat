@@ -3775,6 +3775,55 @@ p.hero-subtitle {
   }
 }
 
+/* "Otro tipo de negocio" → activity field under the options. */
+.gn-diag-other {
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.gn-diag-other[hidden] {
+  display: none !important;
+}
+
+.gn-diag-other-label {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gd-navy);
+}
+
+/* 16px text: iOS doesn't zoom the page when the field gets focus. */
+.gn-diag-other input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gd-line);
+  border-radius: 12px;
+  background: #fff;
+  font: 400 16px var(--font-sans);
+  color: var(--gd-navy);
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.gn-diag-other input::placeholder {
+  color: #8593a6;
+}
+
+.gn-diag-other input:focus {
+  border-color: var(--gd-blue-mid);
+  outline: 3px solid var(--gd-sky);
+  outline-offset: 1px;
+}
+
+.gn-diag-other-help {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--gd-text);
+}
+
 /* Buttons */
 .gn-diag-actions {
   display: flex;

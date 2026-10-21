@@ -1128,9 +1128,28 @@
       return checked ? checked.closest('label').textContent.replace(/\s+/g, ' ').trim() : '';
     };
 
+    // "Otro tipo de negocio": free-text activity. Untrusted input: only
+    // ever written with textContent or encodeURIComponent, and never sent
+    // to analytics (events carry the category code 'otro' only).
+    const otherBox = root.querySelector('.gn-diag-other');
+    const otherInput = root.querySelector('#gn-diag-otro');
+    const otherText = () => (otherInput ? otherInput.value : '')
+      .replace(/[\u0000-\u001F\u007F]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 100);
+
+    // Shown only while "Otro" is selected; hiding keeps the typed text,
+    // so it's back if the visitor picks "Otro" again or returns here.
+    function syncOther() {
+      if (otherBox) otherBox.hidden = answerOf('tipo') !== 'otro';
+    }
+
     function syncNext(n) {
       const next = panels[n] && panels[n].querySelector('[data-diag="next"]');
-      if (next) next.disabled = !answerOf(QUESTIONS[n - 1]);
+      if (!next) return;
+      const answer = answerOf(QUESTIONS[n - 1]);
+      next.disabled = !answer || (n === 1 && answer === 'otro' && !otherText());
     }
 
     function show(target) {
@@ -1145,6 +1164,7 @@
       bars.forEach((bar, i) => bar.classList.toggle('is-on', i < n));
       progress.setAttribute('aria-valuenow', String(Math.min(Math.max(n, 1), 3)));
       stepLabel.textContent = n >= 1 && n <= 3 ? `Paso ${n} de 3` : 'Resultado';
+      if (n === 1) syncOther();
       if (n >= 1 && n <= 3) syncNext(n);
 
       // Move focus to the new question/result title for keyboard and
@@ -1170,6 +1190,7 @@
 
     function reset() {
       root.querySelectorAll('.gn-diag-opt input').forEach((input) => { input.checked = false; });
+      if (otherInput) otherInput.value = '';
       started = false;
       editing = false;
       completed = {};
@@ -1193,11 +1214,23 @@
       const a = answers();
       const profileKey = diagProfile(a);
       const profile = DIAG_PROFILES[profileKey];
-      const notes = diagNotes(a, profileKey);
+      let notes = diagNotes(a, profileKey);
       const result = panels.result;
+
+      // "Otro": the typed activity is extra context only — the rules (and
+      // so the orientation) still come from the three category answers.
+      const activity = a.tipo === 'otro' ? otherText() : '';
+      const tipoSummary = activity ? `Otro — ${activity}` : labelOf('tipo');
+      const tipoMessage = activity || labelOf('tipo');
+      if (activity) {
+        const generic = DIAG_CONTEXT.find(([test]) => test({ tipo: 'otro' }))[1];
+        const personal = `Tu actividad (${activity}) no está entre las opciones; el asesor confirmará qué aplica a tu caso.`;
+        notes = notes.includes(generic) ? notes.map((n) => (n === generic ? personal : n)) : [personal, ...notes];
+      }
 
       result.querySelector('.gn-diag-res-title').textContent = profile.title;
       QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
+      result.querySelector('[data-answer="tipo"]').textContent = tipoSummary;
       result.querySelector('.gn-diag-orient').textContent = profile.text;
       const note = result.querySelector('.gn-diag-note');
       note.textContent = notes.join(' ');
@@ -1206,7 +1239,7 @@
       const message = [
         WA_INTRO,
         '',
-        `Tipo de negocio: ${labelOf('tipo')}`,
+        `Tipo de negocio: ${tipoMessage}`,
         `Cómo facturo hoy: ${labelOf('factura')}`,
         `Necesito gestionar: ${labelOf('gestion')}`,
         `Orientación inicial: ${profile.title}`,
@@ -1230,8 +1263,20 @@
     }
 
     root.querySelectorAll('.gn-diag-opt input').forEach((input) => {
-      input.addEventListener('change', () => syncNext(Number(step)));
+      input.addEventListener('change', () => {
+        if (input.name === 'tipo') {
+          syncOther();
+          // Picking "Otro" by pointer: go straight to the text field.
+          // (Arrow-key users stay in the radio group.)
+          if (input.value === 'otro' && otherInput && !input.matches(':focus-visible')) {
+            otherInput.focus({ preventScroll: true });
+          }
+        }
+        syncNext(Number(step));
+      });
     });
+
+    if (otherInput) otherInput.addEventListener('input', () => syncNext(1));
 
     root.addEventListener('click', (e) => {
       const action = e.target.closest('[data-diag]');
