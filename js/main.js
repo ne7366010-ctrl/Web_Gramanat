@@ -1136,6 +1136,9 @@
     function show(target) {
       step = target;
       Object.entries(panels).forEach(([key, panel]) => { panel.hidden = key !== String(target); });
+      // Lets the CSS give the result screen a wider card and, on phones,
+      // a compact section header.
+      root.classList.toggle('is-result', target === 'result');
 
       const n = target === 'result' ? 4 : Number(target) || 0;
       progress.hidden = target === 'intro';

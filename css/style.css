@@ -3961,31 +3961,99 @@ p.hero-subtitle {
   color: var(--gd-text);
 }
 
+/* Secondary content under the CTA: smaller and greyer, so nothing
+   competes with the WhatsApp button. */
 .gn-diag-foot {
   display: grid;
   justify-items: center;
-  gap: 8px;
-  margin-top: 18px;
+  gap: 6px;
+  margin-top: 22px;
   padding-top: 14px;
-  border-top: 1px solid #e6ecf3;
-  font-size: 13.5px;
+  border-top: 1px solid #edf1f6;
+  font-size: 12.5px;
+  line-height: 1.5;
   text-align: center;
-  color: var(--gd-text);
+  color: #6b7a8f;
 }
 
 .gn-diag-foot p {
   margin: 0;
-  color: var(--gd-text);
+  color: #6b7a8f;
 }
 
 .gn-diag-foot a {
-  font-weight: 600;
-  color: var(--gd-blue-mid);
+  font-weight: 500;
+  color: #4b5a70;
   text-decoration: underline;
 }
 
+.gn-diag-foot .gn-diag-link {
+  padding: 4px 2px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #4b5a70;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .gn-diag-disclaimer {
-  font-size: 12.5px;
+  font-size: 12px;
+}
+
+/* Result screen: the orientation and its title lead. */
+.gn-diag.is-result .gn-diag-res-eyebrow {
+  font-size: 13px;
+}
+
+/* Phones, result screen: the section intro (written for the start)
+   shrinks and loses its subtitle, so the orientation, the three answers
+   and the CTA come first; vertical gaps tighten a little. */
+@media (max-width: 767px) {
+  .gn-diag.is-result .gn-diag-inner {
+    padding-top: 32px;
+  }
+
+  .gn-diag.is-result .gn-diag-head {
+    margin-bottom: 18px;
+  }
+
+  .gn-diag.is-result .gn-diag-eyebrow {
+    margin-bottom: 8px;
+  }
+
+  .gn-diag.is-result .gn-diag-title {
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+
+  .gn-diag.is-result .gn-diag-sub {
+    display: none;
+  }
+
+  .gn-diag.is-result .gn-diag-card {
+    padding: 20px 16px 18px;
+  }
+
+  .gn-diag.is-result .gn-diag-progress {
+    margin-bottom: 14px;
+  }
+
+  .gn-diag.is-result .gn-diag-res-title {
+    margin-bottom: 12px;
+    font-size: 26px;
+  }
+
+  .gn-diag.is-result .gn-diag-summary div {
+    padding: 8px 0;
+  }
+
+  .gn-diag.is-result .gn-diag-orient {
+    font-size: 15.5px;
+  }
+
+  .gn-diag.is-result .gn-diag-note {
+    margin-bottom: 16px;
+  }
 }
 
 .gn-sr-only {
@@ -4023,7 +4091,14 @@ p.hero-subtitle {
   }
 
   .gn-diag-res-title {
-    font-size: 28px;
+    font-size: 30px;
+  }
+
+  /* Result card ~10% wider (760 → 840px) so the result doesn't read as
+     small inside the navy band; questions keep 760px. */
+  .gn-diag.is-result .gn-diag-card {
+    max-width: 840px;
+    padding: 34px 40px 28px;
   }
 
   .gn-diag-cta,
@@ -4031,7 +4106,8 @@ p.hero-subtitle {
   .gn-diag-cta:focus {
     display: inline-block;
     width: auto;
-    padding: 16px 30px;
+    padding: 18px 34px;
+    font-size: 17px;
   }
 
   .gn-diag-cta-wrap {
