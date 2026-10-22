@@ -12284,28 +12284,108 @@ button.hamburger {
   outline-offset: 3px;
 }
 
-/* Photo: 3:2 crop below the CTA on phones/tablets; on desktop the full
-   vertical frame fills the right column (cover, centred a little above
-   the middle to keep both faces) without setting the card height. */
-.gn-sol-photo {
-  position: relative;
+/* Motion graphic: the whole vertical video (9:16, contain) in a rounded
+   frame. Phones/tablets: centred below the CTA, inside the navy card.
+   Desktop: centred in the right column on a navy panel, without setting
+   the card height. The poster stays underneath; the video fades in once
+   it is actually playing. */
+.gn-sol-media {
   margin: 0;
-  aspect-ratio: 3 / 2;
-  overflow: hidden;
-  background: #0d2a4a;
+  padding: 0 18px 26px;
 }
 
-.gn-sol-photo picture {
+.gn-sol-media-frame {
+  position: relative;
+  width: min(240px, 100%);
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 1px solid rgba(99, 178, 242, 0.22);
+  border-radius: 16px;
+  background: #eaf3fc;
+}
+
+.gn-sol-media-frame picture {
   display: block;
   height: 100%;
 }
 
-.gn-sol-photo img {
+.gn-sol-media-poster,
+.gn-sol-media-video {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.gn-sol-media-video {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gn-sol-media-frame.is-playing .gn-sol-media-video,
+.gn-sol-media-frame.has-played .gn-sol-media-video {
+  opacity: 1;
+}
+
+/* Play/pause: bottom-right corner of the frame. */
+.gn-sol-media-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(7, 28, 51, 0.72);
+  color: #fff;
+  cursor: pointer;
+}
+
+.gn-sol-media-toggle[hidden] {
+  display: none;
+}
+
+.gn-sol-media-toggle:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-sol-media-toggle:hover {
+    background: rgba(7, 28, 51, 0.9);
+  }
+}
+
+/* Pause icon (two bars) while playing; play icon (triangle) otherwise. */
+.gn-sol-media-icon {
+  display: block;
+  width: 12px;
+  height: 14px;
+  border-left: 4px solid currentColor;
+  border-right: 4px solid currentColor;
+}
+
+.gn-sol-media-frame:not(.is-playing) .gn-sol-media-icon {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid currentColor;
+  border-right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-sol-media-video {
+    transition: none;
+  }
 }
 
 /* What we review before recommending */
@@ -12498,6 +12578,14 @@ button.hamburger {
     padding: 32px 32px 34px;
   }
 
+  .gn-sol-media {
+    padding: 0 32px 34px;
+  }
+
+  .gn-sol-media-frame {
+    width: min(280px, 100%);
+  }
+
   .gn-sol-paths {
     grid-template-columns: 1fr 1fr;
   }
@@ -12598,14 +12686,20 @@ button.hamburger {
     white-space: nowrap;
   }
 
-  .gn-sol-photo {
-    aspect-ratio: auto;
+  .gn-sol-media {
+    position: relative;
+    padding: 0;
+    background: #0b2744;
   }
 
-  .gn-sol-photo img {
+  .gn-sol-media-frame {
     position: absolute;
-    inset: 0;
-    object-position: 50% 45%;
+    top: 40px;
+    bottom: 40px;
+    left: 50%;
+    width: auto;
+    border-radius: 18px;
+    transform: translateX(-50%);
   }
 
   .gn-sol-lower.has-more {

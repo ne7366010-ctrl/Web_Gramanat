@@ -22,7 +22,9 @@ img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMP
 
 ---------------------------------------------------------------------------
 
-img/sistemas/facturacion-electronica-oficina-*.webp / *.jpg · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: foto oficial gramanat-sistemas-soluciones-foto-principal-oficina.png (original vertical 1122x1402 guardado fuera del sitio, en Gramanat-respaldos). Versión vertical (800 y 1122 px de ancho, sin ampliar) para la columna derecha en escritorio y recorte 3:2 (800x533 y 1122x748) para móvil y tablet, en WebP con respaldo JPG. Reemplaza a la foto anterior de la tienda (también respaldada). Las fotos por giro de la sección anterior (img/media/sistema-*.jpg) ya no se usan.
+video/gramanat_decision.mp4 · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: motion graphic oficial, 1080x1920 (9:16), 10 s, H.264, 3,5 MB, se muestra sin sonido y en bucle. Original respaldado en Gramanat-respaldos. Portada: video/gramanat_decision-portada.webp / .jpg (fotograma de los 5 s, 720x1280). El video solo se descarga cuando la sección se acerca a la pantalla. Pendiente opcional: una versión recodificada sin pista de audio (por ejemplo con ffmpeg) pesaría menos.
+
+img/sistemas/facturacion-electronica-oficina-*.webp / *.jpg · ya no se usan en la página (la foto de oficina se reemplazó por el video); se conservan por si se quiere volver a ella. Original en Gramanat-respaldos.
 
 ---------------------------------------------------------------------------
 

@@ -1331,6 +1331,94 @@
   });
 
   /*---------------------
+    Sistemas y soluciones: motion graphic
+    The MP4 is only requested when the section gets near the viewport
+    (data-src → src), plays muted in a loop while at least a quarter of
+    it is on screen and pauses when it scrolls away. Autoplay is started
+    from here (play() can be refused, so the button stays usable). With
+    "reduce motion" it never starts on its own: the poster stays and the
+    button offers to play it. The visitor's pause is respected.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const frame = document.querySelector('.gn-sol-media-frame');
+    const video = frame && frame.querySelector('.gn-sol-media-video');
+    const toggle = frame && frame.querySelector('.gn-sol-media-toggle');
+
+    if (!video || !toggle) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let userPaused = reduceMotion.matches;
+    let inView = false;
+
+    video.removeAttribute('autoplay');
+    video.muted = true;
+    toggle.hidden = false;
+
+    const load = () => {
+      if (video.getAttribute('src')) return;
+      video.src = video.dataset.src;
+      video.load();
+    };
+
+    const setPlaying = (playing) => {
+      frame.classList.toggle('is-playing', playing);
+      if (playing) frame.classList.add('has-played');
+      toggle.setAttribute('aria-label', playing ? 'Pausar animación' : 'Reproducir animación');
+    };
+
+    const play = () => {
+      load();
+      const attempt = video.play();
+      if (attempt && attempt.catch) attempt.catch(() => setPlaying(false));
+    };
+
+    video.addEventListener('playing', () => setPlaying(true));
+    video.addEventListener('pause', () => setPlaying(false));
+    setPlaying(false);
+
+    toggle.addEventListener('click', () => {
+      if (video.paused) {
+        userPaused = false;
+        play();
+      } else {
+        userPaused = true;
+        video.pause();
+      }
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      if (!userPaused) play();
+      return;
+    }
+
+    // Start downloading a little before the frame scrolls in.
+    const nearObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        if (!userPaused) load();
+        nearObserver.disconnect();
+      }
+    }, { rootMargin: '300px 0px' });
+    nearObserver.observe(frame);
+
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        inView = entry.isIntersecting;
+        if (inView && !userPaused) play();
+        else if (!inView && !video.paused) video.pause();
+      });
+    }, { threshold: 0.25 }).observe(frame);
+
+    // If the preference changes while the page is open, follow it.
+    reduceMotion.addEventListener('change', (e) => {
+      if (e.matches) {
+        userPaused = true;
+        video.pause();
+      }
+    });
+  });
+
+  /*---------------------
     Floating buttons: step aside while a CTA sits under them
     Each button (WhatsApp, back to top) watches only its own band of the
     viewport (rootMargin trims everything above it, and below it for the

@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=127" rel="stylesheet" />
+    <link href="css/style.css?v=128" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -1350,25 +1350,49 @@
               >
             </div>
           </div>
-          <!-- Phones/tablets: 3:2 crop below the CTA. Desktop: the full
-             vertical frame fills the right column. Originals are kept
-             outside the site (Gramanat-respaldos). -->
-          <figure class="gn-sol-photo">
-            <picture>
-              <source media="(min-width: 1100px)" type="image/webp" srcset="img/sistemas/facturacion-electronica-oficina-vertical-800.webp 800w, img/sistemas/facturacion-electronica-oficina-vertical-1122.webp 1122w" sizes="(min-width: 1440px) 566px, 40vw" />
-              <source media="(min-width: 1100px)" srcset="img/sistemas/facturacion-electronica-oficina-vertical-800.jpg 800w, img/sistemas/facturacion-electronica-oficina-vertical-1122.jpg 1122w" sizes="(min-width: 1440px) 566px, 40vw" />
-              <source type="image/webp" srcset="img/sistemas/facturacion-electronica-oficina-horizontal-800.webp 800w, img/sistemas/facturacion-electronica-oficina-horizontal-1122.webp 1122w" sizes="(min-width: 768px) 704px, calc(100vw - 32px)" />
-              <img
-                src="img/sistemas/facturacion-electronica-oficina-horizontal-800.jpg"
-                srcset="img/sistemas/facturacion-electronica-oficina-horizontal-800.jpg 800w, img/sistemas/facturacion-electronica-oficina-horizontal-1122.jpg 1122w"
-                sizes="(min-width: 768px) 704px, calc(100vw - 32px)"
-                width="1200"
-                height="800"
-                alt="Dos personas conversan en una oficina mientras revisan información en una tablet."
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+          <!-- Motion graphic (video/gramanat_decision.mp4, 1080x1920, 10 s,
+             no sound). Shown whole (contain) in a vertical frame: right
+             column on desktop, below the CTA on phones/tablets. The file is
+             only requested near the viewport; until it plays, the poster
+             (its 5 s frame) shows. js/main.js handles autoplay, the
+             play/pause button, off-screen pausing and reduced motion.
+             Original kept outside the site (Gramanat-respaldos). -->
+          <figure class="gn-sol-media">
+            <div class="gn-sol-media-frame">
+              <picture>
+                <source type="image/webp" srcset="video/gramanat_decision-portada.webp" />
+                <img
+                  class="gn-sol-media-poster"
+                  src="video/gramanat_decision-portada.jpg"
+                  width="720"
+                  height="1280"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+              <video
+                class="gn-sol-media-video"
+                data-src="video/gramanat_decision.mp4"
+                width="1080"
+                height="1920"
+                muted
+                loop
+                playsinline
+                autoplay
+                preload="none"
+                disablepictureinpicture
+                aria-label="Animación: un documento se presenta en dos alternativas, software propio y otros proveedores, y termina con una marca de verificación."
+              ></video>
+              <button
+                class="gn-sol-media-toggle"
+                type="button"
+                aria-label="Pausar animación"
+                hidden
+              >
+                <span class="gn-sol-media-icon" aria-hidden="true"></span>
+              </button>
+            </div>
           </figure>
         </article>
 
@@ -3941,6 +3965,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=3"></script>
-    <script src="js/main.js?v=46"></script>
+    <script src="js/main.js?v=47"></script>
   </body>
 </html>
