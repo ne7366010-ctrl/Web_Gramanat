@@ -22,7 +22,7 @@ img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMP
 
 ---------------------------------------------------------------------------
 
-video/gramanat_decision.mp4 · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: motion graphic oficial, 1080x1920 (9:16), 10 s, H.264, 3,5 MB, se muestra sin sonido y en bucle. Original respaldado en Gramanat-respaldos. Portada: video/gramanat_decision-portada.webp / .jpg (fotograma de los 5 s, 720x1280). El video solo se descarga cuando la sección se acerca a la pantalla. Pendiente opcional: una versión recodificada sin pista de audio (por ejemplo con ffmpeg) pesaría menos.
+video/gramanat-sistemas-soluciones-motion-v2.mp4 · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: motion graphic oficial v2, 1080x1920 (9:16), 10 s, H.264, 2,6 MB, se muestra sin sonido y en bucle. Reemplaza a gramanat_decision.mp4 (v1). Ambos originales respaldados en Gramanat-respaldos. Portada: video/gramanat-sistemas-soluciones-motion-v2-portada.webp / .jpg (fotograma de los 5 s, 720x1280). El video solo se descarga cuando la sección se acerca a la pantalla. Pendiente opcional: una versión recodificada sin pista de audio (por ejemplo con ffmpeg) pesaría menos.
 
 img/sistemas/facturacion-electronica-oficina-*.webp / *.jpg · ya no se usan en la página (la foto de oficina se reemplazó por el video); se conservan por si se quiere volver a ella. Original en Gramanat-respaldos.
 
