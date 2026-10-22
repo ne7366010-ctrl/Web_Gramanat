@@ -22,19 +22,7 @@ img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMP
 
 ---------------------------------------------------------------------------
 
-img/media/sistema-restaurante.jpg · #sistemas (panel "Restaurantes y cafeterías") · 1200x1500 (4:5, escritorio) o 1600x1200 (4:3, se recorta igual en celular) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en un restaurante o cafetería (pantalla/tablet visible, ojalá con alguien usándola). Se le aplica un degradado oscuro abajo y tarjetas flotantes (ticket, DTE, ventas) encima, así que deja espacio despejado en la mitad/parte inferior de la foto para que el texto de las tarjetas no quede sobre un área muy ocupada. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-ACTIVACIÓN de las fotos de #sistemas (tienda, farmacia, ferretería, boutique, servicios): mientras no existan, su ruta está en data-src-pendiente (no se pide el archivo, no hay error 404) y se muestra la escena dibujada. Al subir una, en index.html cambia data-src-pendiente="img/media/sistema-….jpg?v=1" por src="…" en su panel.
-
-img/media/sistema-tienda.jpg · #sistemas (panel "Tiendas y minisúper") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una tienda o minisúper. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-farmacia.jpg · #sistemas (panel "Farmacias") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una farmacia. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-ferreteria.jpg · #sistemas (panel "Ferreterías y distribuidoras") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una ferretería. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-boutique.jpg · #sistemas (panel "Boutiques y ropa") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una boutique. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-servicios.jpg · #sistemas (panel "Servicios y oficinas") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una oficina o negocio de servicios. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
+img/sistemas/facturacion-electronica-*.webp / *.jpg · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: foto oficial gramanat-facturacion-electronica-sistemas-soluciones.jpg (original vertical 1792x2400 guardado fuera del sitio, en Gramanat-respaldos). Versión vertical (800 y 1200 px de ancho) para la columna derecha en escritorio y recorte 3:2 (800x533 y 1200x800) para móvil y tablet, en WebP con respaldo JPG. Las fotos por giro de la sección anterior (img/media/sistema-*.jpg) ya no se usan.
 
 ---------------------------------------------------------------------------
 

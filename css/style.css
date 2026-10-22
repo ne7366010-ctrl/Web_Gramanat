@@ -1806,1713 +1806,6 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------------------*/
-/* 2a. Sistemas Area ("Encuentra el sistema justo para tu negocio")
-/* Scoped to #sistemas so it never affects #services/#equipment, which
-/* share the same .custom-cards/.card/.icon-wrapper base. A single
-/* horizontal pill selector (centered on desktop, scroll-snap on
-/* mobile) driving a full-width dark navy detail panel with a 50/50
-/* info/visual split, toggled by js/main.js.
-/*--------------------------------------------------*/
-
-#sistemas .sistemas-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-#sistemas .section-headline h2 {
-  margin-bottom: 0;
-}
-
-#sistemas .sistemas-subtitle {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px auto 48px;
-}
-
-/* --- Pill selector: one horizontal row, centered on desktop --- */
-
-#sistemas .sistemas-pills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 980px;
-  margin: 0 auto 48px;
-}
-
-#sistemas .sistemas-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--color-paper);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  padding: 12px 22px;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-navy);
-  cursor: pointer;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.12s ease;
-}
-
-#sistemas .sistemas-pill i {
-  color: var(--color-accent);
-  font-size: 15px;
-  transition: color 0.25s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #sistemas .sistemas-pill:hover {
-    border-color: var(--color-accent);
-  }
-}
-
-#sistemas .sistemas-pill:active {
-  transform: scale(0.96);
-}
-
-#sistemas .sistemas-pill.is-active {
-  background: var(--color-navy);
-  border-color: var(--color-navy);
-  color: #fff;
-}
-
-#sistemas .sistemas-pill.is-active i {
-  color: var(--color-accent);
-}
-
-/* --- Panel: full width, 50/50 info/visual grid --- */
-
-#sistemas .sistemas-panels {
-  width: 100%;
-}
-
-#sistemas .sistemas-panel {
-  position: relative;
-  width: 100%;
-  background: var(--color-paper);
-  border: 1px solid var(--color-border);
-  border-radius: 28px;
-  padding: 48px;
-  /* The floating cards (and, as a fallback, the POS scene's tilted
-     hardware/notifications) are meant to spill past their own box —
-     let them, instead of being clipped by the panel's corner radius.
-     The glow (::before) still fades to transparent well before the
-     edge, so it reads fine unclipped too. */
-  overflow: visible;
-  box-shadow: var(--shadow-md);
-}
-
-/* The sitewide `.row { overflow: hidden; }` (template clearfix) would
-   otherwise clip the same spilling content one level up. */
-#sistemas .row {
-  overflow: visible;
-}
-
-/* The grid below would otherwise outrank the UA stylesheet's
-   `[hidden] { display: none }` and make every panel render at once. */
-#sistemas .sistemas-panel[hidden] {
-  display: none;
-}
-
-/* Pill switch crossfade: the outgoing panel fades out in place, the
-   incoming one fades/lifts in as a single block — a plain, unified
-   350ms transition on the panel itself rather than staggered per
-   element. Mirrors the #services switchGroup leave/enter pattern
-   (js/main.js), whose 180ms/500ms timers already fit these durations. */
-#sistemas .sistemas-panel.is-leaving {
-  animation: sistemasPanelLeave 0.18s ease both;
-}
-
-#sistemas .sistemas-panel.is-entering {
-  animation: sistemasPanelEnter 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-@keyframes sistemasPanelLeave {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes sistemasPanelEnter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-panel.is-leaving,
-  #sistemas .sistemas-panel.is-entering {
-    animation: none;
-  }
-}
-
-/* The glow below hangs 120px past the panel's right edge; on phones
-   that pushed the whole page ~100px wider than the screen (sideways
-   scroll + zoomed-out layout). Clip horizontally at the section, which
-   is full-bleed, so the glow and the floating cards still spill past
-   the panel itself. clip (not hidden) creates no scroll container and
-   leaves vertical overflow alone. */
-#sistemas {
-  overflow-x: clip;
-}
-
-#sistemas .sistemas-panel::before {
-  content: "";
-  position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.15) 0%, rgba(255, 122, 41, 0) 70%);
-  pointer-events: none;
-}
-
-#sistemas .sistemas-panel-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 45fr 55fr;
-  gap: 48px;
-  align-items: center;
-}
-
-/* Explicit (the grid's own align-items:center already does this), and
-   no top padding/margin of its own — so the info column sits centered
-   against the photo column (capped by the frame's own max-height), not
-   pinned to the top. */
-#sistemas .sistemas-panel-info {
-  align-self: center;
-  margin-top: 0;
-  padding-top: 0;
-}
-
-#sistemas .sistemas-panel-label {
-  color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
-}
-
-#sistemas .sistemas-panel-title {
-  color: var(--color-navy);
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1.25;
-  margin: 0 0 0.75rem;
-}
-
-#sistemas .sistemas-panel-tagline {
-  color: var(--color-graphite);
-  font-size: 18px;
-  line-height: 1.5;
-  margin: 0 0 2rem;
-}
-
-#sistemas .sistemas-panel-features {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  list-style: none;
-  margin: 0 0 2rem;
-  padding: 0;
-}
-
-#sistemas .sistemas-panel-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--color-navy);
-  font-size: 16px;
-}
-
-#sistemas .sistemas-panel-features li i {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: rgba(255, 122, 41, 0.15);
-  color: var(--color-accent);
-  font-size: 13px;
-}
-
-#sistemas .sistemas-panel-ideal {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 2rem;
-}
-
-#sistemas .sistemas-panel-ideal-label {
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 600;
-  margin-right: 2px;
-}
-
-#sistemas .sistemas-panel-chip {
-  display: inline-flex;
-  align-items: center;
-  background: var(--color-panel);
-  border-radius: var(--radius-pill);
-  padding: 6px 14px;
-  color: var(--color-navy);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-#sistemas .sistemas-panel-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-#sistemas .sistemas-panel-btn,
-#sistemas .sistemas-panel-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 16px;
-  text-transform: none;
-  letter-spacing: normal;
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-#sistemas .sistemas-panel-btn {
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #sistemas .sistemas-panel-btn:hover {
-    background: #e0691f;
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-  }
-
-  #sistemas .sistemas-panel-btn:hover .arrow {
-    transform: translateX(4px);
-  }
-}
-
-#sistemas .sistemas-panel-btn:active {
-  transform: scale(0.97);
-}
-
-#sistemas .sistemas-panel-btn .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-#sistemas .sistemas-panel-btn-secondary {
-  background: transparent;
-  color: var(--color-navy);
-  border: 1.5px solid var(--color-navy);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #sistemas .sistemas-panel-btn-secondary:hover {
-    background: var(--color-panel);
-  }
-}
-
-#sistemas .sistemas-panel-btn-secondary:active {
-  transform: scale(0.97);
-}
-
-/* --- Visual: a real photo (img/media/sistema-[negocio].jpg) with
-   floating UI cards on top — falling back to the interactive CSS/JS POS
-   scene (built by js/main.js) only when the photo is missing. The img's
-   onerror (sistemasHandleImgError, defined in <head>) hides the photo
-   frame and cards and reveals the scene instead. --- */
-
-#sistemas .sistemas-panel-visual {
-  position: relative;
-  width: 100%;
-  overflow: visible;
-}
-
-#sistemas .sistemas-visual-photo-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3.5;
-  max-height: 520px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--color-panel);
-  transition: transform 0.2s ease-out;
-}
-
-#sistemas .sistemas-visual-photo-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#sistemas .sistemas-visual-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10, 15, 30, 0.6) 0%, rgba(10, 15, 30, 0.15) 38%, transparent 62%);
-  pointer-events: none;
-}
-
-/* --- Floating glass cards over the photo --- */
-
-#sistemas .sistemas-visual-cards {
-  position: absolute;
-  inset: 0;
-  transition: transform 0.2s ease-out;
-}
-
-#sistemas .sistemas-visual-card {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow:
-    0 20px 40px rgba(10, 15, 30, 0.28),
-    0 6px 14px rgba(10, 15, 30, 0.16);
-  padding: 16px 18px;
-  color: var(--color-navy);
-  font-size: 13px;
-  opacity: 0;
-}
-
-@keyframes sistemasCardIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes sistemasCardFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-#sistemas .sistemas-visual-card.is-visible {
-  animation: sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both;
-}
-
-/* The only 2 floating cards left (ticket + DTE) get their own gentle,
-   continuous up/down drift once they've landed — a flat 6s loop each,
-   the DTE card starting 1.5s later so the two never bob in sync. */
-#sistemas .sistemas-visual-card-ticket.is-visible {
-  animation:
-    sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both,
-    sistemasCardFloat 6s ease-in-out 0s infinite;
-}
-
-#sistemas .sistemas-visual-card-dte.is-visible {
-  animation:
-    sistemasCardIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--card-delay, 0s) both,
-    sistemasCardFloat 6s ease-in-out 1.5s infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-visual-card.is-visible,
-  #sistemas .sistemas-visual-card-ticket.is-visible,
-  #sistemas .sistemas-visual-card-dte.is-visible {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-/* Ticket: bottom-left, overflowing only past the photo's LEFT edge —
-   vertically it stays flush with the photo's own bottom (no negative
-   bottom offset), so its full height — including the total and the
-   "Facturar" button — always lands inside the panel's own padding-box
-   and never gets clipped. */
-#sistemas .sistemas-visual-card-ticket {
-  left: -24px;
-  bottom: 0;
-  width: 280px;
-  padding: 16px;
-}
-
-#sistemas .sistemas-ticket-business {
-  margin: 0 0 6px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-#sistemas .sistemas-ticket-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-#sistemas .sistemas-ticket-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 13px;
-  line-height: 1.3;
-  color: #374151;
-}
-
-#sistemas .sistemas-ticket-row {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 4px;
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--color-muted);
-  border-top: 1px dashed #d1d5db;
-}
-
-#sistemas .sistemas-ticket-row.sistemas-ticket-total {
-  margin-top: 2px;
-  padding-top: 4px;
-  border-top: none;
-  font-size: 17px;
-  line-height: 1.3;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-#sistemas .sistemas-ticket-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  margin-top: 10px;
-  padding: 9px 16px;
-  background: var(--color-accent);
-  border: none;
-  border-radius: var(--radius-pill);
-  color: #fff;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.12s ease,
-    background-color 0.2s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #sistemas .sistemas-ticket-btn:hover {
-    background: #e0691f;
-  }
-}
-
-#sistemas .sistemas-ticket-btn:active:not(:disabled) {
-  transform: scale(0.97);
-}
-
-#sistemas .sistemas-ticket-btn-spinner {
-  display: none;
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-}
-
-#sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-label {
-  display: none;
-}
-
-#sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-spinner {
-  display: block;
-  animation: posSpin 0.6s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-ticket-btn.is-loading .sistemas-ticket-btn-spinner {
-    animation: none;
-  }
-}
-
-/* DTE: top-right, inset inside the photo (no overflow). */
-#sistemas .sistemas-visual-card-dte {
-  top: 20px;
-  right: 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  width: 260px;
-}
-
-#sistemas .sistemas-dte-icon {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  font-size: 14px;
-}
-
-#sistemas .sistemas-dte-title {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.3;
-  font-weight: 800;
-}
-
-#sistemas .sistemas-dte-subtitle {
-  margin: 2px 0 6px;
-  font-size: 13px;
-  line-height: 1.3;
-  color: var(--color-graphite);
-}
-
-#sistemas .sistemas-dte-control {
-  margin: 0 0 2px;
-  font-family: "Courier New", monospace;
-  font-size: 11px;
-  color: var(--color-muted);
-  white-space: nowrap;
-}
-
-#sistemas .sistemas-dte-time {
-  margin: 0;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-subtle);
-}
-
-@keyframes sistemasDtePulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 14px rgba(34, 197, 94, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-  }
-}
-
-#sistemas .sistemas-visual-card-dte.is-pulsing {
-  animation: sistemasDtePulse 0.8s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-visual-card-dte.is-pulsing {
-    animation: none;
-  }
-}
-
-/* Ventas de hoy: left-center, overflowing past the photo's left edge —
-   kept off the right side so it never sits over the customer/cashier's
-   face, which this photo's subject occupies. */
-#sistemas .sistemas-visual-card-sales {
-  display: none;
-  top: 45%;
-  left: -24px;
-  width: 200px;
-}
-
-#sistemas .sistemas-sales-label {
-  margin: 0 0 4px;
-  font-size: 12px;
-  line-height: 1.3;
-  font-weight: 600;
-  color: var(--color-muted);
-}
-
-#sistemas .sistemas-sales-amount {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-#sistemas .sistemas-sales-delta {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin: 4px 0 6px;
-  font-size: 12px;
-  line-height: 1.3;
-  font-weight: 700;
-  color: #16a34a;
-}
-
-#sistemas .sistemas-sales-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 34px;
-}
-
-#sistemas .sistemas-sales-chart span {
-  flex: 1 1 auto;
-  height: var(--bar-h, 50%);
-  background: var(--color-accent);
-  border-radius: 2px 2px 0 0;
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-#sistemas .sistemas-visual-card-sales.is-visible .sistemas-sales-chart span {
-  transform: scaleY(1);
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(1) {
-  transition-delay: 0s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(2) {
-  transition-delay: 0.04s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(3) {
-  transition-delay: 0.08s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(4) {
-  transition-delay: 0.12s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(5) {
-  transition-delay: 0.16s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(6) {
-  transition-delay: 0.2s;
-}
-
-#sistemas .sistemas-sales-chart span:nth-child(7) {
-  transition-delay: 0.24s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .sistemas-sales-chart span {
-    transition: none;
-  }
-}
-
-#sistemas .sistemas-visual-note {
-  margin: 16px 0 0;
-  color: var(--color-subtle);
-  font-size: 12px;
-  text-align: right;
-}
-
-#sistemas .sistemas-pos-scene {
-  display: none;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 380px;
-  align-items: center;
-  justify-content: center;
-}
-
-#sistemas .pos-stage {
-  position: relative;
-  width: 100%;
-  max-width: 440px;
-  padding: 30px 20px 6px;
-  opacity: 0;
-  transform: scale(0.96);
-  transition:
-    opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* Revealed once by the IntersectionObserver in js/main.js (same one
-   that staggers the notifications in) the first time the scene scrolls
-   into view — a one-time "system wakes up" moment, not a repeat. */
-#sistemas .pos-stage.is-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-stage {
-    opacity: 1;
-    transform: scale(1);
-    transition: none;
-  }
-}
-
-/* --- Hardware group: tablet + printer + card terminal + table glow.
-   Perspective lives here (not on .pos-stage) so the notification cards
-   stay flat/legible instead of tilting with the hardware. --- */
-
-#sistemas .pos-hardware {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 14px;
-  transform: perspective(1200px) rotateY(-6deg);
-}
-
-#sistemas .pos-glow {
-  position: absolute;
-  bottom: -18px;
-  left: 50%;
-  width: 75%;
-  height: 36px;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(255, 122, 41, 0.35) 0%, rgba(255, 122, 41, 0) 70%);
-  filter: blur(3px);
-  pointer-events: none;
-}
-
-/* --- Tablet --- */
-
-#sistemas .pos-tablet {
-  flex: 0 0 auto;
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#sistemas .pos-tablet-frame {
-  width: 100%;
-  background: linear-gradient(155deg, #4b5160 0%, #23262e 55%, #15171c 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 22px;
-  padding: 8px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 2px 6px rgba(0, 0, 0, 0.3),
-    0 24px 48px rgba(0, 0, 0, 0.45),
-    0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-#sistemas .pos-screen {
-  background: #f4f5f7;
-  border-radius: 15px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-#sistemas .pos-screen-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  padding: 8px 10px;
-  background: var(--color-paper);
-  border-bottom: 1px solid var(--color-border);
-}
-
-#sistemas .pos-business-name {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#sistemas .pos-clock {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--color-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-#sistemas .pos-user {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--color-muted);
-  white-space: nowrap;
-}
-
-#sistemas .pos-user i {
-  color: var(--color-accent);
-  font-size: 9px;
-}
-
-#sistemas .pos-screen-body {
-  display: flex;
-  gap: 8px;
-  padding: 10px;
-}
-
-#sistemas .pos-screen-left {
-  flex: 1 1 58%;
-  min-width: 0;
-}
-
-#sistemas .pos-screen-right {
-  flex: 1 1 42%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-#sistemas .pos-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-#sistemas .pos-category {
-  flex: 0 0 auto;
-  font-family: inherit;
-  font-size: 8px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  background: var(--color-paper);
-  color: var(--color-muted);
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-#sistemas .pos-category.is-active {
-  background: var(--color-navy);
-  border-color: var(--color-navy);
-  color: #fff;
-}
-
-#sistemas .pos-products {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-}
-
-#sistemas .pos-product {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  background: var(--color-paper);
-  border: 1px solid #eef0f3;
-  border-radius: 10px;
-  padding: 6px 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  font-family: inherit;
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    border-color 0.15s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #sistemas .pos-product:hover {
-    border-color: var(--color-accent);
-  }
-}
-
-#sistemas .pos-product:active {
-  transform: scale(0.95);
-}
-
-#sistemas .pos-product-emoji {
-  font-size: 16px;
-  line-height: 1;
-}
-
-#sistemas .pos-product-name {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 7px;
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--color-navy);
-  text-align: center;
-}
-
-#sistemas .pos-product-price {
-  font-size: 7px;
-  font-weight: 700;
-  color: var(--color-accent);
-}
-
-@keyframes posProductPulse {
-  0% {
-    transform: scale(1);
-  }
-  45% {
-    transform: scale(1.07);
-    box-shadow: 0 3px 8px rgba(255, 122, 41, 0.3);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-#sistemas .pos-product.is-pulsing {
-  animation: posProductPulse 0.18s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-product.is-pulsing {
-    animation: none;
-  }
-}
-
-#sistemas .pos-ticket-lines {
-  flex: 1 1 auto;
-  min-height: 40px;
-  max-height: 110px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-bottom: 6px;
-  overflow-y: auto;
-}
-
-#sistemas .pos-ticket-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  padding: 1px 2px;
-  border-radius: 3px;
-  font-size: 7.5px;
-  color: #374151;
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* A line newly appended to the ticket (new product added) fades/slides
-   in from its freshly-inserted state instead of just appearing. */
-@starting-style {
-  #sistemas .pos-ticket-line {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-}
-
-#sistemas .pos-ticket-line-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* A line whose qty/price changed (product clicked again) gets a brief
-   highlight instead of silently updating its text. */
-#sistemas .pos-ticket-line.is-updated {
-  animation: posTicketLineFlash 0.5s ease;
-}
-
-@keyframes posTicketLineFlash {
-  0% {
-    background-color: rgba(255, 122, 41, 0.16);
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-ticket-line {
-    transition: none;
-  }
-
-  #sistemas .pos-ticket-line.is-updated {
-    animation: none;
-  }
-}
-
-#sistemas .pos-ticket-totals {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-top: 6px;
-  border-top: 1px dashed #d1d5db;
-}
-
-#sistemas .pos-ticket-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 7.5px;
-  color: var(--color-muted);
-}
-
-#sistemas .pos-ticket-row.pos-ticket-total {
-  margin-top: 2px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-#sistemas .pos-total.is-updated {
-  animation: posTotalFlash 0.45s ease;
-}
-
-@keyframes posTotalFlash {
-  0% {
-    color: var(--color-accent);
-  }
-  100% {
-    color: var(--color-navy);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-total.is-updated {
-    animation: none;
-  }
-}
-
-#sistemas .pos-invoice-btn {
-  position: relative;
-  margin-top: 8px;
-  background: var(--color-accent);
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 7px;
-  color: #fff;
-  font-family: inherit;
-  font-size: 9px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.12s ease;
-}
-
-#sistemas .pos-invoice-btn:active:not(:disabled) {
-  transform: scale(0.95);
-}
-
-#sistemas .pos-invoice-btn:disabled {
-  cursor: default;
-}
-
-#sistemas .pos-invoice-btn-spinner {
-  display: none;
-  width: 11px;
-  height: 11px;
-  margin: 0 auto;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-}
-
-#sistemas .pos-invoice-btn.is-loading .pos-invoice-btn-label {
-  display: none;
-}
-
-#sistemas .pos-invoice-btn.is-loading .pos-invoice-btn-spinner {
-  display: block;
-  animation: posSpin 0.6s linear infinite;
-}
-
-@keyframes posSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-invoice-btn.is-loading .pos-invoice-btn-spinner {
-    animation: none;
-  }
-}
-
-#sistemas .pos-tablet-neck {
-  width: 46px;
-  height: 22px;
-  margin-top: -1px;
-  background: linear-gradient(180deg, #2c2f36, #1a1c21);
-  clip-path: polygon(32% 0, 68% 0, 100% 100%, 0 100%);
-}
-
-#sistemas .pos-tablet-foot {
-  width: 120px;
-  height: 10px;
-  margin-top: -2px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #34383f, #15171b);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-}
-
-/* --- Thermal printer, to the right of the tablet --- */
-
-#sistemas .pos-printer {
-  position: relative;
-  flex: 0 0 auto;
-  width: 70px;
-  align-self: center;
-}
-
-#sistemas .pos-printer-body {
-  position: relative;
-  width: 100%;
-  height: 56px;
-  background: linear-gradient(155deg, #3c4049, #1d1f25);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
-}
-
-#sistemas .pos-printer-slot {
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  width: 70%;
-  height: 4px;
-  transform: translateX(-50%);
-  background: #000;
-  border-radius: 2px;
-}
-
-/* The receipt is already position:absolute (out of document flow), so
-   there's no layout reason to animate its height — a max-height collapse
-   also made the exit (4s auto-retract) snap back instantly, since nothing
-   transitioned the non-.is-printed state. transform/opacity read as the
-   same "paper sliding out from the slot" but retarget smoothly in both
-   directions from one transition, so the retract mirrors the print. */
-#sistemas .pos-printer-receipt {
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  z-index: 2;
-  width: 58px;
-  padding: 6px 5px;
-  background: var(--color-paper);
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-  color: #111827;
-  opacity: 0;
-  transform: translate(-50%, -18px) scaleY(0.92);
-  transform-origin: top center;
-  pointer-events: none;
-  transition:
-    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-#sistemas .pos-printer-receipt.is-printed {
-  opacity: 1;
-  transform: translate(-50%, 0) scaleY(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-printer-receipt {
-    transform: translate(-50%, 0) scaleY(1);
-    transition: opacity 0.25s ease;
-  }
-}
-
-#sistemas .pos-receipt-head {
-  margin-bottom: 3px;
-  font-size: 6.5px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-align: center;
-}
-
-#sistemas .pos-receipt-business {
-  margin-bottom: 4px;
-  font-size: 7.5px;
-  font-weight: 700;
-  text-align: center;
-}
-
-#sistemas .pos-receipt-lines {
-  padding: 3px 0;
-  margin-bottom: 3px;
-  border-top: 1px dashed #cbd5e1;
-  border-bottom: 1px dashed #cbd5e1;
-}
-
-#sistemas .pos-receipt-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  font-size: 6.5px;
-}
-
-#sistemas .pos-receipt-total {
-  margin-bottom: 4px;
-  font-size: 8px;
-  font-weight: 800;
-  text-align: right;
-}
-
-#sistemas .pos-receipt-qr {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 1px;
-  width: 42px;
-  height: 42px;
-  margin: 0 auto 4px;
-}
-
-#sistemas .pos-qr-cell {
-  background: transparent;
-}
-
-#sistemas .pos-qr-cell.is-on {
-  background: #111827;
-}
-
-#sistemas .pos-receipt-thanks {
-  padding-bottom: 4px;
-  font-size: 6.5px;
-  font-style: italic;
-  color: var(--color-muted);
-  text-align: center;
-}
-
-/* --- Card terminal: absolutely positioned so it overlaps the tablet's
-   front-bottom-left corner (sitting "in front" of it), instead of
-   taking up its own flex slot and colliding with the notifications. --- */
-
-#sistemas .pos-terminal {
-  position: absolute;
-  left: -14px;
-  bottom: 4px;
-  z-index: 3;
-  width: 56px;
-  padding: 5px;
-  background: linear-gradient(155deg, #3c4049, #1d1f25);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-#sistemas .pos-terminal-screen {
-  margin-bottom: 4px;
-  padding: 4px 2px;
-  background: var(--color-navy);
-  border-radius: 4px;
-  color: #22c55e;
-  font-family: "Courier New", monospace;
-  font-size: 9px;
-  font-weight: 700;
-  text-align: center;
-}
-
-#sistemas .pos-terminal-pad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-}
-
-#sistemas .pos-terminal-pad span {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* --- Floating notifications: not part of .pos-hardware, so they stay
-   upright and legible regardless of the tablet's perspective tilt. --- */
-
-#sistemas .pos-notifications {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-#sistemas .pos-notification {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  background: var(--color-paper);
-  border-radius: var(--radius-md);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-  color: var(--color-navy);
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-}
-
-#sistemas .pos-notification-invoice {
-  top: 2%;
-  right: -2%;
-}
-
-#sistemas .pos-notification-invoice i {
-  color: #22c55e;
-}
-
-#sistemas .pos-notification-sale {
-  bottom: -2%;
-  right: 6%;
-  left: auto;
-}
-
-#sistemas .pos-notification-sale i {
-  color: var(--color-accent);
-}
-
-@keyframes posNotifIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes posNotifFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-#sistemas .pos-notification.is-visible {
-  animation:
-    posNotifIn 0.45s cubic-bezier(0.23, 1, 0.32, 1) forwards,
-    posNotifFloat 3s ease-in-out 0.45s infinite;
-}
-
-@keyframes posNotifPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-  }
-}
-
-#sistemas .pos-notification.is-pulsing {
-  animation: posNotifPulse 0.8s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sistemas .pos-notification.is-visible {
-    opacity: 1;
-    animation: none;
-  }
-
-  #sistemas .pos-notification.is-pulsing {
-    animation: none;
-  }
-}
-
-#sistemas .sistemas-closing {
-  width: 100%;
-  max-width: 700px;
-  margin: 3rem auto 0;
-}
-
-#sistemas .sistemas-closing-text {
-  font-size: 18px;
-  color: var(--color-navy);
-  margin: 0;
-}
-
-#sistemas .sistemas-closing-accent {
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-#sistemas .sistemas-cta-final {
-  margin-top: 1.25rem;
-}
-
-/* Between ~992px and ~1299px, the two-column grid is still active but
-   the photo column (capped at a max width above that) shrinks enough
-   in height that the sales card's "top: 45%" default starts landing
-   inside the ticket card, which is pinned to the photo's bottom edge
-   at a roughly constant pixel height. Pulling it up to 28% keeps a
-   clear, measured gap through this range. */
-@media (max-width: 1299px) and (min-width: 992px) {
-  #sistemas .sistemas-visual-card-sales {
-    top: 28%;
-  }
-}
-
-@media (max-width: 991px) {
-  #sistemas .sistemas-panel {
-    padding: 36px;
-  }
-
-  /* Below 992px the photo shrinks further still (down to ~396px tall
-     at 768px) — the sales card's fixed pixel height plus the DTE and
-     ticket cards' no longer fit without overlapping, so it's dropped
-     here too (same treatment as the sub-768px mobile layout), rather
-     than cramming three cards' text past the point of being legible. */
-  #sistemas .sistemas-visual-card-sales {
-    display: none;
-  }
-
-  #sistemas .sistemas-panel-grid {
-    gap: 32px;
-  }
-
-  #sistemas .sistemas-panel-title {
-    font-size: 26px;
-  }
-}
-
-@media (max-width: 767px) {
-  /* Horizontal scroll-snap row, no visible scrollbar. */
-  #sistemas .sistemas-pills {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 6px;
-    margin-bottom: 28px;
-  }
-
-  #sistemas .sistemas-pills::-webkit-scrollbar {
-    display: none;
-  }
-
-  #sistemas .sistemas-pill {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    white-space: nowrap;
-  }
-
-  #sistemas .sistemas-panel {
-    padding: 24px;
-    border-radius: var(--radius-lg);
-  }
-
-  #sistemas .sistemas-panel-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  #sistemas .sistemas-panel-visual {
-    order: -1;
-  }
-
-  #sistemas .sistemas-panel-title {
-    font-size: 24px;
-  }
-
-  #sistemas .sistemas-panel-features {
-    grid-template-columns: 1fr;
-  }
-
-  #sistemas .sistemas-panel-actions {
-    flex-direction: column;
-  }
-
-  #sistemas .sistemas-panel-btn,
-  #sistemas .sistemas-panel-btn-secondary {
-    width: 100%;
-  }
-
-  /* Compact POS scene fallback: no perspective tilt, card terminal
-     hidden, the tablet/printer shrink to fit a phone-width panel. */
-  #sistemas .sistemas-pos-scene {
-    min-height: 300px;
-  }
-
-  #sistemas .pos-stage {
-    max-width: 320px;
-    padding: 20px 10px 4px;
-  }
-
-  #sistemas .pos-hardware {
-    transform: none;
-  }
-
-  #sistemas .pos-tablet {
-    width: 210px;
-  }
-
-  #sistemas .pos-printer {
-    width: 48px;
-  }
-
-  #sistemas .pos-terminal {
-    display: none;
-  }
-
-  #sistemas .pos-notification {
-    font-size: 10px;
-    padding: 7px 10px;
-  }
-
-  #sistemas .pos-notification-invoice {
-    right: 0;
-  }
-
-  #sistemas .pos-notification-sale {
-    right: 0;
-  }
-
-  /* Photo switches to a shorter 4:3 crop, the "Ventas de hoy" card is
-     dropped, and ticket + DTE both get explicit (smaller) sizing for
-     every sub-element — not just a blanket font-size on the card,
-     which doesn't win against each piece's own more-specific desktop
-     rule. A ~342px-wide photo at 4:3 is only ~256px tall, so without
-     this the ticket card's natural desktop height (~230px) swallows
-     almost the whole photo and collides with the DTE card up top;
-     measured empirically to keep both comfortably clear of each other. */
-  #sistemas .sistemas-visual-photo-frame {
-    aspect-ratio: 4 / 3;
-    border-radius: 18px;
-  }
-
-  #sistemas .sistemas-visual-card {
-    padding: 10px 12px;
-  }
-
-  #sistemas .sistemas-visual-card-ticket {
-    left: 12px;
-    right: 12px;
-    bottom: -14px;
-  }
-
-  #sistemas .sistemas-ticket-business {
-    margin-bottom: 3px;
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-ticket-lines {
-    gap: 1px;
-    margin-bottom: 3px;
-  }
-
-  #sistemas .sistemas-ticket-line {
-    font-size: 10.5px;
-    line-height: 1.25;
-  }
-
-  #sistemas .sistemas-ticket-row {
-    padding-top: 2px;
-    font-size: 9.5px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-ticket-row.sistemas-ticket-total {
-    margin-top: 1px;
-    padding-top: 2px;
-    font-size: 13px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-ticket-btn {
-    margin-top: 5px;
-    padding: 6px 14px;
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-ticket-btn-spinner {
-    width: 12px;
-    height: 12px;
-  }
-
-  #sistemas .sistemas-visual-card-dte {
-    top: 12px;
-    right: 12px;
-    gap: 8px;
-    max-width: 155px;
-  }
-
-  #sistemas .sistemas-dte-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 10px;
-  }
-
-  #sistemas .sistemas-dte-title {
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-dte-subtitle {
-    margin: 1px 0 3px;
-    font-size: 10px;
-    line-height: 1.25;
-  }
-
-  #sistemas .sistemas-dte-control {
-    margin-bottom: 1px;
-    font-size: 7.5px;
-    line-height: 1.3;
-  }
-
-  #sistemas .sistemas-dte-time {
-    font-size: 9px;
-    line-height: 1.2;
-  }
-
-  #sistemas .sistemas-visual-card-sales {
-    display: none;
-  }
-}
-
-/*--------------------------------------------------*/
 /* Shared scroll-reveal fade-up animation. Applied via the .reveal-up
 /* class (with an optional --reveal-delay custom property per element)
 /* and toggled by a shared IntersectionObserver in js/main.js. Used by
@@ -13769,5 +12062,579 @@ button.hamburger {
   .gn-header-cta:focus {
     padding: 0 12px;
     font-size: 13px;
+  }
+}
+
+/*--------------------------------*/
+/*  Sistemas y soluciones (#sistemas.gn-sol)
+/*--------------------------------*/
+
+/* Electronic invoicing as the main product: navy card with the two
+   paths (own software / other providers), the WhatsApp CTA and the
+   photo; below it, what we review before recommending. Same tokens and
+   type scale as #segmentos and the diagnóstico. Sizes in px (Bootstrap 3
+   root is 10px). */
+.gn-sol {
+  --gn-navy: #071c33;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-orange: #ff7417;
+  --gn-orange-hover: #ff8a3d;
+  --gn-text: #4b5a70;
+  --gn-line: #e4e9f0;
+  --gn-tint: #eef5fd;
+  background: #fff;
+  color: var(--gn-navy);
+  padding: 40px 16px 56px;
+  scroll-margin-top: 80px;
+}
+
+.gn-sol-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+}
+
+.gn-sol-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-sol-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-sol-title {
+  margin: 0 0 10px;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.gn-sol-lead {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+/* Main product card */
+.gn-sol-main {
+  display: grid;
+  background: var(--gn-navy);
+  color: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px -32px rgba(7, 28, 51, 0.55);
+}
+
+.gn-sol-copy {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 22px 18px 24px;
+}
+
+.gn-sol-chip {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gn-sky);
+}
+
+.gn-sol-main h3 {
+  margin: -6px 0 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-transform: none;
+}
+
+.gn-sol-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #c9d8ea;
+}
+
+.gn-sol-paths {
+  display: grid;
+  gap: 10px;
+}
+
+.gn-sol-path {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 2px 12px;
+  padding: 12px 14px;
+  border: 1px solid #1f3f63;
+  border-radius: 12px;
+  background: #0b2744;
+}
+
+.gn-sol-path svg {
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+  border-radius: 9px;
+  background: #12365e;
+  color: var(--gn-sky);
+}
+
+.gn-sol-path b {
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #fff;
+}
+
+.gn-sol-path span {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #b7c9de;
+}
+
+.gn-sol-actions {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+/* Block on phones so the arrow stays with "WhatsApp" if it wraps. */
+.gn-sol-cta,
+.gn-sol-cta:visited,
+.gn-sol-cta:focus {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 15px 20px;
+  border-radius: 999px;
+  background: var(--gn-orange);
+  color: var(--gn-navy);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.gn-sol-cta span {
+  white-space: nowrap;
+}
+
+.gn-sol-alt,
+.gn-sol-alt:visited,
+.gn-sol-alt:focus {
+  padding: 4px 0;
+  color: var(--gn-sky);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-sol-cta:hover {
+    background: var(--gn-orange-hover);
+    color: var(--gn-navy);
+    text-decoration: none;
+  }
+
+  .gn-sol-alt:hover {
+    color: #fff;
+  }
+}
+
+.gn-sol-cta:focus-visible,
+.gn-sol-alt:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 3px;
+}
+
+/* Photo: 3:2 crop below the CTA on phones/tablets; on desktop the full
+   vertical frame fills the right column (cover, anchored right so the
+   person at the right edge stays in) without setting the card height. */
+.gn-sol-photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #0d2a4a;
+}
+
+.gn-sol-photo picture {
+  display: block;
+  height: 100%;
+}
+
+.gn-sol-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* What we review before recommending */
+.gn-sol-review {
+  display: grid;
+  gap: 12px;
+  padding: 20px 18px;
+  background: #f5f7fa;
+  border: 1px solid var(--gn-line);
+  border-radius: 16px;
+}
+
+.gn-sol-review h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--gn-navy);
+  text-transform: none;
+}
+
+.gn-sol-review ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-sol-review li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gn-text);
+}
+
+.gn-sol-review li::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--gn-tint)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d63b7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E")
+    center / 13px no-repeat;
+}
+
+.gn-sol-review li b {
+  display: block;
+  line-height: 1.4;
+  color: var(--gn-navy);
+  font-weight: 700;
+}
+
+/* Complements (only once confirmed): .gn-sol-more inside .gn-sol-lower.has-more,
+   one .gn-sol-mod card each, marked .kind-int (integrates with
+   electronic invoicing) or .kind-ind (independent). */
+.gn-sol-more {
+  display: grid;
+  gap: 14px;
+  padding-top: 10px;
+}
+
+.gn-sol-more-head h3 {
+  margin: 0 0 6px;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-transform: none;
+}
+
+.gn-sol-more-head p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--gn-text);
+}
+
+.gn-sol-mods {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-sol-mod {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-content: start;
+  gap: 2px 14px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--gn-line);
+  border-radius: 14px;
+}
+
+.gn-sol-mod svg {
+  grid-row: span 3;
+  width: 38px;
+  height: 38px;
+  padding: 9px;
+  border-radius: 10px;
+  background: var(--gn-tint);
+  color: var(--gn-blue-mid);
+}
+
+.gn-sol-mod b {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gn-sol-mod span {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--gn-text);
+}
+
+.gn-sol-kind {
+  display: grid;
+  grid-template-columns: 8px 1fr;
+  align-items: start;
+  justify-self: start;
+  gap: 7px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.gn-sol-kind::before {
+  content: "";
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 50%;
+}
+
+.gn-sol-kind.kind-int {
+  color: var(--gn-blue-mid);
+}
+
+.gn-sol-kind.kind-int::before {
+  background: var(--gn-blue-mid);
+}
+
+.gn-sol-kind.kind-ind {
+  color: #556275;
+}
+
+.gn-sol-kind.kind-ind::before {
+  border: 2px solid #8a97a8;
+}
+
+@media (max-width: 379px) {
+  .gn-sol-cta,
+  .gn-sol-cta:visited,
+  .gn-sol-cta:focus {
+    padding-inline: 14px;
+    font-size: 15px;
+  }
+
+  .gn-sol-main h3 {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-sol {
+    padding: 80px 32px 88px;
+  }
+
+  .gn-sol-inner {
+    gap: 28px;
+  }
+
+  .gn-sol-title {
+    font-size: 34px;
+  }
+
+  .gn-sol-copy {
+    gap: 18px;
+    padding: 32px 32px 34px;
+  }
+
+  .gn-sol-paths {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gn-sol-cta,
+  .gn-sol-cta:visited,
+  .gn-sol-cta:focus {
+    display: inline-block;
+    width: auto;
+    padding: 16px 30px;
+  }
+
+  .gn-sol-mods {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* No confirmed complements: the review points sit in a row. */
+  .gn-sol-lower:not(.has-more) .gn-sol-review ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-sol {
+    padding: 104px 48px 112px;
+  }
+
+  .gn-sol-inner {
+    gap: 32px;
+  }
+
+  .gn-sol-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 64px;
+  }
+
+  .gn-sol-title {
+    margin: 0;
+    font-size: 40px;
+  }
+
+  .gn-sol-lead {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .gn-sol-main {
+    grid-template-columns: 1.12fr 1fr;
+    border-radius: 20px;
+  }
+
+  .gn-sol-copy {
+    gap: 22px;
+    padding: 48px;
+  }
+
+  .gn-sol-main h3 {
+    margin-top: -8px;
+    font-size: 36px;
+  }
+
+  .gn-sol-text {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .gn-sol-paths {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .gn-sol-path {
+    grid-template-columns: 40px 1fr;
+    gap: 4px 14px;
+    padding: 16px;
+  }
+
+  .gn-sol-path svg {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+  }
+
+  .gn-sol-path b {
+    font-size: 16px;
+  }
+
+  .gn-sol-actions {
+    gap: 16px;
+  }
+
+  .gn-sol-cta {
+    white-space: nowrap;
+  }
+
+  .gn-sol-photo {
+    aspect-ratio: auto;
+  }
+
+  .gn-sol-photo img {
+    position: absolute;
+    inset: 0;
+    object-position: 85% 60%;
+  }
+
+  .gn-sol-lower.has-more {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: start;
+    gap: 28px;
+  }
+
+
+  .gn-sol-review {
+    padding: 28px;
+  }
+
+  .gn-sol-lower:not(.has-more) .gn-sol-review {
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+    gap: 40px;
+    padding: 28px 32px;
+  }
+
+  .gn-sol-lower:not(.has-more) .gn-sol-review h3 {
+    font-size: 20px;
+  }
+
+  .gn-sol-more {
+    padding-top: 0;
+  }
+
+  .gn-sol-mods {
+    gap: 12px;
+  }
+
+  .gn-sol-mod {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 20px;
+  }
+
+  .gn-sol-mod svg {
+    grid-row: auto;
+    margin-bottom: 6px;
   }
 }
