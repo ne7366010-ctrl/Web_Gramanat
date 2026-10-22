@@ -3969,6 +3969,11 @@ p.hero-subtitle {
   color: var(--gd-navy);
 }
 
+/* No note under the orientation: comfortable gap straight to the CTA. */
+.gn-diag-orient:has(+ .gn-diag-note[hidden]) {
+  margin-bottom: 22px;
+}
+
 .gn-diag-note {
   margin: 0 0 18px;
   padding-left: 12px;

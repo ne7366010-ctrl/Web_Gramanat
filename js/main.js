@@ -1045,7 +1045,7 @@
       // Just starting and asks for guidance: help them choose from day one.
       ['inicio', (a) => a.factura === 'iniciando', {
         title: 'Te ayudamos a elegir desde el inicio',
-        text: 'Como estás comenzando tu negocio, es importante conocer cómo ofrecerás tus servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
+        text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
       }],
     ],
   };
@@ -1253,11 +1253,6 @@
       const activity = a.tipo === 'otro' ? otherText() : '';
       const tipoSummary = activity ? `Otro — ${activity}` : labelOf('tipo');
       const tipoMessage = activity || labelOf('tipo');
-      // Starting out: name their activity as context, without assuming
-      // how that kind of business works.
-      if (profile.variant === 'inicio' && activity) {
-        notes.push(`Tendremos en cuenta que tu negocio es «${activity}» y revisaremos contigo cómo vas a trabajar, porque cada negocio opera de forma distinta.`);
-      }
 
       result.querySelector('.gn-diag-res-title').textContent = profile.title;
       QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
