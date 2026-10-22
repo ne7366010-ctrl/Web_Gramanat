@@ -12183,6 +12183,7 @@ button.hamburger {
   font-size: 16px;
   line-height: 1.55;
   color: #c9d8ea;
+  text-wrap: pretty;
 }
 
 .gn-sol-paths {
