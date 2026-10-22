@@ -1016,7 +1016,7 @@
   const DIAG_PROFILES = {
     evaluacion: {
       title: 'Revisemos tu sistema actual',
-      text: 'Ya usas un sistema de facturación. Antes de cambiar nada, conviene revisar con un asesor si responde a lo que necesitas hoy o si te conviene otra alternativa.',
+      text: 'Ya utilizas un sistema de facturación. Antes de considerar un cambio, es importante evaluar si responde a las necesidades de tu negocio, qué funciones aprovechas y cuáles podrías necesitar.\n\nEn Gramanat te orientamos para identificar si tu sistema actual se adapta a tu operación o si conviene explorar otras alternativas.',
     },
     personalizada: {
       title: 'Te orientamos paso a paso',
