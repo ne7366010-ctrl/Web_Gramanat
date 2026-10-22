@@ -1035,7 +1035,7 @@
     },
     sencilla: {
       title: 'Facturación electrónica sencilla',
-      text: 'Tu prioridad es emitir tus documentos electrónicos de forma simple. Evaluaremos alternativas con las funciones que realmente necesita tu operación.',
+      text: 'Por lo que nos compartiste, tu prioridad es contar con una solución de facturación electrónica que se adapte a tu negocio, sin incorporar funciones o equipos innecesarios.\n\nEn Gramanat evaluamos tu operación para ayudarte a elegir una alternativa adecuada a tus necesidades.',
     },
   };
 
@@ -1113,6 +1113,9 @@
   const DIAG_NOTES_BY_PROFILE = {
     administrativa: {
       fisico: 'Como actualmente utilizas documentos físicos, también podemos orientarte sobre cómo preparar la transición hacia la facturación electrónica.',
+    },
+    sencilla: {
+      no_seguro: 'Como aún no tienes claro cómo facturas actualmente, primero revisaremos contigo ese proceso para orientarte mejor.',
     },
   };
 
