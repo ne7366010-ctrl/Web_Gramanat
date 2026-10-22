@@ -392,6 +392,14 @@ a:hover {
   animation: popUp 0.4s ease;
 }
 
+/* Set by js/main.js while a CTA scrolls under the button (same rule as
+   the floating WhatsApp button). */
+#backToTopBtn.is-tucked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @keyframes popUp {
   0% {
     transform: scale(0.8) translateY(10px);
@@ -12179,7 +12187,8 @@ button.hamburger {
 
 .gn-sol-paths {
   display: grid;
-  gap: 10px;
+  gap: 14px;
+  margin-top: 4px;
 }
 
 .gn-sol-path {
@@ -12218,8 +12227,8 @@ button.hamburger {
 .gn-sol-actions {
   display: grid;
   justify-items: start;
-  gap: 12px;
-  padding-top: 2px;
+  gap: 16px;
+  padding-top: 8px;
 }
 
 /* Block on phones so the arrow stays with "WhatsApp" if it wraps. */
@@ -12507,7 +12516,7 @@ button.hamburger {
   /* No confirmed complements: the review points sit in a row. */
   .gn-sol-lower:not(.has-more) .gn-sol-review ul {
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 28px;
   }
 }
 
@@ -12532,8 +12541,9 @@ button.hamburger {
     font-size: 40px;
   }
 
+  /* A touch larger (+3%) so it balances the 40px title. */
   .gn-sol-lead {
-    font-size: 18px;
+    font-size: 18.5px;
     line-height: 1.6;
   }
 
@@ -12559,7 +12569,8 @@ button.hamburger {
 
   .gn-sol-paths {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
+    margin-top: 6px;
   }
 
   .gn-sol-path {
@@ -12579,7 +12590,7 @@ button.hamburger {
   }
 
   .gn-sol-actions {
-    gap: 16px;
+    gap: 20px;
   }
 
   .gn-sol-cta {
@@ -12610,13 +12621,17 @@ button.hamburger {
 
   .gn-sol-lower:not(.has-more) .gn-sol-review {
     grid-template-columns: 280px 1fr;
-    align-items: start;
+    align-items: center;
     gap: 40px;
     padding: 28px 32px;
   }
 
   .gn-sol-lower:not(.has-more) .gn-sol-review h3 {
-    font-size: 20px;
+    font-size: 19px;
+  }
+
+  .gn-sol-lower:not(.has-more) .gn-sol-review ul {
+    gap: 32px;
   }
 
   .gn-sol-more {

@@ -1331,53 +1331,64 @@
   });
 
   /*---------------------
-    Floating WhatsApp button: step aside while a CTA sits under it
-    Watches only the bottom band of the viewport where the button lives
-    (rootMargin trims everything above it). Any CTA inside that band that
-    also reaches the button's column hides it (.is-tucked) — it comes
-    back as soon as the CTA scrolls out of the band. Mostly matters on
-    phones, where full-width buttons always reach the right edge.
+    Floating buttons: step aside while a CTA sits under them
+    Each button (WhatsApp, back to top) watches only its own band of the
+    viewport (rootMargin trims everything above it, and below it for the
+    back-to-top button, which sits above WhatsApp). Any CTA inside that
+    band that also reaches the button's column hides it (.is-tucked) —
+    it comes back as soon as the CTA scrolls out of the band. Mostly
+    matters on phones, where full-width buttons always reach the right
+    edge.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
     const floatBtn = document.querySelector('.whatsapp-float');
+    const backBtn = document.getElementById('backToTopBtn');
+    const buttons = [floatBtn, backBtn].filter(Boolean);
 
-    if (!floatBtn || !('IntersectionObserver' in window)) return;
+    if (!buttons.length || !('IntersectionObserver' in window)) return;
 
     // CTAs, plus the trust strip's benefits (its right column sits
     // exactly under the button on phones).
     const ctas = Array.from(document.querySelectorAll(
-      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li'
-    )).filter((el) => el !== floatBtn && !el.closest('nav, .menubar'));
+      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, .gn-sol-alt, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li'
+    )).filter((el) => !buttons.includes(el) && !el.closest('nav, .menubar'));
 
-    const covering = new Set();
-    let observer = null;
+    let observers = [];
 
-    const watch = () => {
-      if (observer) observer.disconnect();
-      covering.clear();
-      floatBtn.classList.remove('is-tucked');
+    const watchButton = (btn) => {
+      const covering = new Set();
+      btn.classList.remove('is-tucked');
 
       // From the fixed bottom/right offsets, not getBoundingClientRect(),
       // so a mid-transition transform can't skew the band. Band = from
-      // 16px above the button down to the viewport bottom.
-      const cs = getComputedStyle(floatBtn);
-      const bandTop = Math.max(0, window.innerHeight - parseFloat(cs.bottom) - floatBtn.offsetHeight - 16);
-      const floatLeft = document.documentElement.clientWidth - parseFloat(cs.right) - floatBtn.offsetWidth - 16;
+      // 16px above the button down to the viewport bottom (WhatsApp) or
+      // to 16px below the button (back to top).
+      const cs = getComputedStyle(btn);
+      const bottom = parseFloat(cs.bottom);
+      const bandTop = Math.max(0, window.innerHeight - bottom - btn.offsetHeight - 16);
+      const bandBottom = btn === floatBtn ? 0 : Math.max(0, bottom - 16);
+      const columnLeft = document.documentElement.clientWidth - parseFloat(cs.right) - btn.offsetWidth - 16;
 
-      observer = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          const reachesColumn = entry.boundingClientRect.right > floatLeft;
+          const reachesColumn = entry.boundingClientRect.right > columnLeft;
           if (entry.isIntersecting && reachesColumn) {
             covering.add(entry.target);
           } else {
             covering.delete(entry.target);
           }
         });
-        floatBtn.classList.toggle('is-tucked', covering.size > 0);
-      }, { rootMargin: `-${Math.round(bandTop)}px 0px 0px 0px` });
+        btn.classList.toggle('is-tucked', covering.size > 0);
+      }, { rootMargin: `-${Math.round(bandTop)}px 0px -${Math.round(bandBottom)}px 0px` });
 
       ctas.forEach((el) => observer.observe(el));
+      return observer;
+    };
+
+    const watch = () => {
+      observers.forEach((o) => o.disconnect());
+      observers = buttons.map(watchButton);
     };
 
     watch();
