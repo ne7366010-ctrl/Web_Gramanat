@@ -22,7 +22,7 @@ img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMP
 
 ---------------------------------------------------------------------------
 
-img/sistemas/facturacion-electronica-*.webp / *.jpg · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: foto oficial gramanat-facturacion-electronica-sistemas-soluciones.jpg (original vertical 1792x2400 guardado fuera del sitio, en Gramanat-respaldos). Versión vertical (800 y 1200 px de ancho) para la columna derecha en escritorio y recorte 3:2 (800x533 y 1200x800) para móvil y tablet, en WebP con respaldo JPG. Las fotos por giro de la sección anterior (img/media/sistema-*.jpg) ya no se usan.
+img/sistemas/facturacion-electronica-oficina-*.webp / *.jpg · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: foto oficial gramanat-sistemas-soluciones-foto-principal-oficina.png (original vertical 1122x1402 guardado fuera del sitio, en Gramanat-respaldos). Versión vertical (800 y 1122 px de ancho, sin ampliar) para la columna derecha en escritorio y recorte 3:2 (800x533 y 1122x748) para móvil y tablet, en WebP con respaldo JPG. Reemplaza a la foto anterior de la tienda (también respaldada). Las fotos por giro de la sección anterior (img/media/sistema-*.jpg) ya no se usan.
 
 ---------------------------------------------------------------------------
 

@@ -12275,8 +12275,8 @@ button.hamburger {
 }
 
 /* Photo: 3:2 crop below the CTA on phones/tablets; on desktop the full
-   vertical frame fills the right column (cover, anchored right so the
-   person at the right edge stays in) without setting the card height. */
+   vertical frame fills the right column (cover, centred a little above
+   the middle to keep both faces) without setting the card height. */
 .gn-sol-photo {
   position: relative;
   margin: 0;
@@ -12593,7 +12593,7 @@ button.hamburger {
   .gn-sol-photo img {
     position: absolute;
     inset: 0;
-    object-position: 85% 60%;
+    object-position: 50% 45%;
   }
 
   .gn-sol-lower.has-more {
