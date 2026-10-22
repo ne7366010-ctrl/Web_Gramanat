@@ -3979,6 +3979,12 @@ p.hero-subtitle {
   margin-top: 1.44em;
 }
 
+/* Two-paragraph text followed by a note: a bit more air before the
+   note than the 10px used under a single paragraph. */
+.gn-diag-orient:has(.gn-diag-orient-p + .gn-diag-orient-p):has(+ .gn-diag-note:not([hidden])) {
+  margin-bottom: 16px;
+}
+
 /* No note under the orientation: comfortable gap straight to the CTA. */
 .gn-diag-orient:has(+ .gn-diag-note[hidden]) {
   margin-bottom: 22px;

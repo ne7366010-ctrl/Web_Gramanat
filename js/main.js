@@ -1024,7 +1024,8 @@
     },
     administrativa: {
       title: 'Facturación con gestión administrativa',
-      text: 'Tu operación parece requerir algo más que facturar: usuarios, procesos o reportes. Antes de proponerte una alternativa, conviene revisar tus procesos con un asesor.',
+      // "tu negocio" here; the "empresa" variant says "tu empresa".
+      text: 'Según tus respuestas, tu negocio necesita evaluar una solución que, además de la facturación electrónica, contemple la administración de usuarios, el control de operaciones y la generación de reportes.\n\nEn Gramanat analizamos tus necesidades para orientarte hacia una alternativa que se adapte a tu forma de trabajar.',
     },
     // Doesn't assume a POS, printer or inventory: equipment is something
     // to evaluate, not a given.
@@ -1041,6 +1042,12 @@
   // Text variants inside a result category: same orientation (and rules),
   // wording adapted to a specific situation. First match wins.
   const DIAG_VARIANTS = {
+    administrativa: [
+      ['empresa', (a) => a.tipo === 'empresa', {
+        title: 'Facturación con gestión administrativa',
+        text: 'Según tus respuestas, tu empresa necesita evaluar una solución que, además de la facturación electrónica, contemple la administración de usuarios, el control de operaciones y la generación de reportes.\n\nEn Gramanat analizamos tus necesidades para orientarte hacia una alternativa que se adapte a tu forma de trabajar.',
+      }],
+    ],
     personalizada: [
       // Just starting and asks for guidance: help them choose from day one.
       ['inicio', (a) => a.factura === 'iniciando', {
@@ -1102,6 +1109,13 @@
     no_seguro: 'Como aún no tienes claro cómo facturas actualmente, un asesor también puede orientarte sobre ese aspecto.',
   };
 
+  // Result-specific wording of an invoicing note (overrides DIAG_NOTES).
+  const DIAG_NOTES_BY_PROFILE = {
+    administrativa: {
+      fisico: 'Como actualmente utilizas documentos físicos, también podemos orientarte sobre cómo preparar la transición hacia la facturación electrónica.',
+    },
+  };
+
   function diagProfile(a) {
     return DIAG_RULES.find(([, test]) => test(a))[0];
   }
@@ -1120,7 +1134,8 @@
     const notes = [];
     const ctx = DIAG_CONTEXT.find(([test]) => test(a, profile));
     if (ctx) notes.push(ctx[1]);
-    if (profile !== 'evaluacion' && DIAG_NOTES[a.factura]) notes.push(DIAG_NOTES[a.factura]);
+    const note = (DIAG_NOTES_BY_PROFILE[profile] || {})[a.factura] || DIAG_NOTES[a.factura];
+    if (profile !== 'evaluacion' && note) notes.push(note);
     return notes;
   }
 
