@@ -1049,6 +1049,11 @@
       }],
       // Uses Hacienda's free invoicing tool and asks for guidance: review
       // whether it is enough before assuming a change (two paragraphs).
+      // Professional services get wording about their activity.
+      ['facturador_mh_servicios', (a) => a.factura === 'facturador_mh' && a.tipo === 'servicios', {
+        title: 'Te ayudamos a elegir la mejor opción para tu negocio',
+        text: 'Actualmente utilizas el facturador de Hacienda. Antes de considerar otra solución, es importante evaluar si esta herramienta cubre las necesidades de tu actividad profesional o si necesitas funciones adicionales.\n\nEn Gramanat te ayudamos a identificar qué funcionalidades se adaptan a tu forma de trabajar para que puedas tomar una decisión con mayor claridad.',
+      }],
       ['facturador_mh', (a) => a.factura === 'facturador_mh', {
         title: 'Te ayudamos a elegir la mejor opción para tu negocio',
         text: 'Actualmente utilizas el facturador de Hacienda. Antes de considerar otro sistema, es importante evaluar si esta herramienta responde a las necesidades de tu negocio o si te conviene una solución con funciones adicionales.\n\nEn Gramanat te ayudamos a revisar cómo trabajas, qué necesitas controlar y qué alternativas pueden adaptarse mejor a tu operación.',
@@ -1069,9 +1074,11 @@
     ['ventas', (a) => a.gestion === 'ventas_inventario'],
     ['sencilla', (a) => a.gestion === 'solo_facturacion'],
     // Asks for guidance: the business category points the way, unless it
-    // is "Otro" (a free-text activity we don't classify) or they're
-    // unsure how they invoice — then an adviser starts from scratch.
-    ['personalizada', (a) => a.tipo === 'otro' || a.factura === 'no_seguro'],
+    // is "Otro" (a free-text activity we don't classify), they're unsure
+    // how they invoice, or they use Hacienda's facturador (first check
+    // whether it is enough, whatever the business type) — then an
+    // adviser starts from their situation.
+    ['personalizada', (a) => a.tipo === 'otro' || a.factura === 'no_seguro' || a.factura === 'facturador_mh'],
     ['administrativa', (a) => a.tipo === 'empresa'],
     ['ventas', (a) => a.tipo === 'comercio'],
     ['sencilla', () => true],
