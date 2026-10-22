@@ -1257,13 +1257,24 @@
       // WhatsApp message; the orientation still comes from the category
       // answers (free text is never interpreted).
       const activity = a.tipo === 'otro' ? otherText() : '';
-      const tipoSummary = activity ? `Otro — ${activity}` : labelOf('tipo');
+      // Display only: first letter upper-cased ("taller" → "Taller"); the
+      // typed value and the WhatsApp message keep it exactly as written.
+      const activityShown = activity.replace(/\p{L}/u, (c) => c.toLocaleUpperCase('es'));
+      const tipoSummary = activity ? `Otro — ${activityShown}` : labelOf('tipo');
       const tipoMessage = activity || labelOf('tipo');
 
       result.querySelector('.gn-diag-res-title').textContent = profile.title;
       QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
       result.querySelector('[data-answer="tipo"]').textContent = tipoSummary;
-      result.querySelector('.gn-diag-orient').textContent = profile.text;
+      // One block per paragraph ("\n\n" in the text), so the CSS controls
+      // the gap between them.
+      const orient = result.querySelector('.gn-diag-orient');
+      orient.replaceChildren(...profile.text.split('\n\n').map((para) => {
+        const span = document.createElement('span');
+        span.className = 'gn-diag-orient-p';
+        span.textContent = para;
+        return span;
+      }));
       const note = result.querySelector('.gn-diag-note');
       note.textContent = notes.join(' ');
       note.hidden = notes.length === 0;
