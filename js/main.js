@@ -1038,6 +1038,18 @@
     },
   };
 
+  // Text variants inside a result category: same orientation (and rules),
+  // wording adapted to a specific situation. First match wins.
+  const DIAG_VARIANTS = {
+    personalizada: [
+      // Just starting and asks for guidance: help them choose from day one.
+      ['inicio', (a) => a.factura === 'iniciando', {
+        title: 'Te ayudamos a elegir desde el inicio',
+        text: 'Como estás comenzando tu negocio, es importante conocer cómo ofrecerás tus servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
+      }],
+    ],
+  };
+
   // First match wins. a = { tipo, factura, gestion } (answer codes).
   // A concrete need in question 3 always decides; "Otro" (with its typed
   // activity) and "No estoy seguro" only matter when the visitor asks
@@ -1081,6 +1093,14 @@
     return DIAG_RULES.find(([, test]) => test(a))[0];
   }
 
+  // Title and text shown for a result: its variant if one applies.
+  function diagContent(a, profile) {
+    const variant = (DIAG_VARIANTS[profile] || []).find(([, test]) => test(a));
+    return variant
+      ? { variant: variant[0], title: variant[2].title, text: variant[2].text }
+      : { variant: null, title: DIAG_PROFILES[profile].title, text: DIAG_PROFILES[profile].text };
+  }
+
   // Extra lines under the orientation: business context, then invoicing.
   function diagNotes(a, profile) {
     if (profile === 'personalizada') return [];
@@ -1092,7 +1112,7 @@
   }
 
   // Exposed for testing the 80 combinations from the console.
-  window.gramanatDiagnostico = { profile: diagProfile, notes: diagNotes, profiles: DIAG_PROFILES };
+  window.gramanatDiagnostico = { profile: diagProfile, notes: diagNotes, content: diagContent, profiles: DIAG_PROFILES };
 
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('verificador');
@@ -1223,7 +1243,7 @@
     function showResult() {
       const a = answers();
       const profileKey = diagProfile(a);
-      const profile = DIAG_PROFILES[profileKey];
+      const profile = diagContent(a, profileKey);
       const notes = diagNotes(a, profileKey);
       const result = panels.result;
 
@@ -1233,6 +1253,11 @@
       const activity = a.tipo === 'otro' ? otherText() : '';
       const tipoSummary = activity ? `Otro — ${activity}` : labelOf('tipo');
       const tipoMessage = activity || labelOf('tipo');
+      // Starting out: name their activity as context, without assuming
+      // how that kind of business works.
+      if (profile.variant === 'inicio' && activity) {
+        notes.push(`Tendremos en cuenta que tu negocio es «${activity}» y revisaremos contigo cómo vas a trabajar, porque cada negocio opera de forma distinta.`);
+      }
 
       result.querySelector('.gn-diag-res-title').textContent = profile.title;
       QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
@@ -1268,7 +1293,7 @@
       // First result of the run → diagnosis_result; a later recalculation
       // that changes the orientation → diagnosis_result_change.
       if (!shownProfile) {
-        track('diagnosis_result', { orientacion: profileKey, tipo: a.tipo, factura: a.factura, gestion: a.gestion });
+        track('diagnosis_result', { orientacion: profileKey, variante: profile.variant || 'general', tipo: a.tipo, factura: a.factura, gestion: a.gestion });
       } else if (shownProfile !== profileKey) {
         track('diagnosis_result_change', { orientacion_anterior: shownProfile, orientacion: profileKey });
       }
