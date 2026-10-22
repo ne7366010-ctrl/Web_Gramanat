@@ -3962,11 +3962,13 @@ p.hero-subtitle {
   align-self: center;
 }
 
+/* pre-line: a "\n\n" in an orientation text renders as a paragraph break. */
 .gn-diag-orient {
   margin: 0 0 10px;
   font-size: 16px;
   line-height: 1.6;
   color: var(--gd-navy);
+  white-space: pre-line;
 }
 
 /* No note under the orientation: comfortable gap straight to the CTA. */

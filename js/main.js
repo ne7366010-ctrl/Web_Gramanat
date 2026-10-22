@@ -1047,6 +1047,12 @@
         title: 'Te ayudamos a elegir desde el inicio',
         text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
       }],
+      // Uses Hacienda's free invoicing tool and asks for guidance: review
+      // whether it is enough before assuming a change (two paragraphs).
+      ['facturador_mh', (a) => a.factura === 'facturador_mh', {
+        title: 'Te ayudamos a elegir la mejor opción para tu negocio',
+        text: 'Actualmente utilizas el facturador de Hacienda. Antes de considerar otro sistema, es importante evaluar si esta herramienta responde a las necesidades de tu negocio o si te conviene una solución con funciones adicionales.\n\nEn Gramanat te ayudamos a revisar cómo trabajas, qué necesitas controlar y qué alternativas pueden adaptarse mejor a tu operación.',
+      }],
     ],
   };
 
