@@ -12610,8 +12610,12 @@ button.hamburger {
 }
 
 @media (min-width: 1100px) {
+  /* Arriving from the menu, the header (80px) covers the first 24px of
+     the top padding, so the eyebrow sits 56px below it and the CTA
+     stays inside a 1440x900 screen. */
   .gn-sol {
-    padding: 104px 48px 112px;
+    padding: 80px 48px 112px;
+    scroll-margin-top: 56px;
   }
 
   .gn-sol-inner {
@@ -12643,7 +12647,7 @@ button.hamburger {
 
   .gn-sol-copy {
     gap: 22px;
-    padding: 48px;
+    padding: 40px 48px;
   }
 
   .gn-sol-main h3 {
