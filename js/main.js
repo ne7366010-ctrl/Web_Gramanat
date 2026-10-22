@@ -1111,7 +1111,7 @@
       'Empresas': 'empresa',
     };
     const WA_NUMBER = '50370043346';
-    const WA_INTRO = 'Hola, visité la web de Gramanat y completé el diagnóstico. Me gustaría recibir asesoría para encontrar una solución adecuada para mi negocio.';
+    const WA_INTRO = '¡Hola! 👋 Completé el diagnóstico en la página web de Gramanat y me gustaría recibir asesoría para mi negocio.';
 
     let step = 'intro';
     let editing = false;
@@ -1245,15 +1245,24 @@
       const message = [
         WA_INTRO,
         '',
-        `Tipo de negocio: ${tipoMessage}`,
-        `Cómo facturo hoy: ${labelOf('factura')}`,
-        `Necesito gestionar: ${labelOf('gestion')}`,
-        `Orientación inicial: ${profile.title}`,
+        '📋 Mi información:',
         '',
-        'Me gustaría una asesoría personalizada para mi caso.',
+        `🏪 Tipo de negocio: ${tipoMessage}`,
+        '',
+        `🧾 Facturación actual: ${labelOf('factura')}`,
+        '',
+        `⚙️ Necesito gestionar: ${labelOf('gestion')}`,
+        '',
+        `💡 Orientación recibida: ${profile.title}`,
+        '',
+        '¿Podrían ayudarme a evaluar las opciones disponibles y recibir una cotización personalizada?',
+        '',
+        '¡Muchas gracias!',
       ].join('\n');
       const cta = result.querySelector('.gn-diag-cta');
-      cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+      // api.whatsapp.com/send, not wa.me: wa.me's redirect turns every emoji
+      // in the text into "�"; this endpoint keeps them.
+      cta.href = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`;
       cta.dataset.orientacion = profileKey;
 
       // First result of the run → diagnosis_result; a later recalculation
@@ -1948,7 +1957,7 @@
     // CTAs, plus the trust strip's benefits (its right column sits
     // exactly under the button on phones).
     const ctas = Array.from(document.querySelectorAll(
-      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, a[href*="wa.me/"], button[type="submit"], #verificador button, .gn-trust-list li'
+      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li'
     )).filter((el) => el !== floatBtn && !el.closest('nav, .menubar'));
 
     const covering = new Set();

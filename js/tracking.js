@@ -23,7 +23,7 @@
   }
 
   document.addEventListener('click', (e) => {
-    const link = e.target.closest('a[href*="wa.me/"]');
+    const link = e.target.closest('a[href*="wa.me/"], a[href*="api.whatsapp.com/send"]');
     if (!link) return;
 
     const params = {
