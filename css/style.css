@@ -12637,6 +12637,7 @@ button.hamburger {
   font-size: 14.5px;
   line-height: 1.55;
   color: var(--gn-text);
+  text-wrap: pretty;
 }
 
 .gn-quote-sheet-foot {
@@ -12660,6 +12661,7 @@ button.hamburger {
   font-weight: 600;
   line-height: 1.5;
   color: var(--gn-navy);
+  text-wrap: pretty;
 }
 
 /* Process + CTA */
