@@ -378,6 +378,12 @@
     ],
     personalizada: [
       // Just starting and asks for guidance: help them choose from day one.
+      // A shop gets its own wording and a note (no sales/stock/POS assumed).
+      ['inicio_comercio', (a) => a.factura === 'iniciando' && a.tipo === 'comercio', {
+        title: 'Te ayudamos a elegir desde el inicio',
+        text: 'Como estás iniciando tu comercio y todavía no emites documentos, el primer paso es conocer cómo venderás, cobrarás y registrarás tus operaciones.\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica y determinar qué funciones o equipos podrías necesitar según tu forma de trabajar.',
+        note: 'Si tienes previsto ampliar tu negocio, también podemos considerar tus necesidades futuras al evaluar las opciones disponibles.',
+      }],
       ['inicio', (a) => a.factura === 'iniciando', {
         title: 'Te ayudamos a elegir desde el inicio',
         text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
@@ -408,15 +414,10 @@
     ['administrativa', (a) => a.gestion === 'procesos'],
     ['ventas', (a) => a.gestion === 'ventas_inventario'],
     ['sencilla', (a) => a.gestion === 'solo_facturacion'],
-    // Asks for guidance: the business category points the way, unless it
-    // is "Otro" (a free-text activity we don't classify), they're unsure
-    // how they invoice, or they use Hacienda's facturador (first check
-    // whether it is enough, whatever the business type) — then an
-    // adviser starts from their situation.
-    ['personalizada', (a) => a.tipo === 'otro' || a.factura === 'no_seguro' || a.factura === 'facturador_mh'],
-    ['administrativa', (a) => a.tipo === 'empresa'],
-    ['ventas', (a) => a.tipo === 'comercio'],
-    ['sencilla', () => true],
+    // Asks for guidance (and has no system to review): an adviser starts
+    // from their situation. The business type alone never decides a
+    // result, so no sales, stock or POS need is assumed.
+    ['personalizada', () => true],
   ];
 
   // Business-type context for answers that pull in different directions.
@@ -455,13 +456,17 @@
   function diagContent(a, profile) {
     const variant = (DIAG_VARIANTS[profile] || []).find(([, test]) => test(a));
     return variant
-      ? { variant: variant[0], title: variant[2].title, text: variant[2].text }
+      ? { variant: variant[0], title: variant[2].title, text: variant[2].text, note: variant[2].note }
       : { variant: null, title: DIAG_PROFILES[profile].title, text: DIAG_PROFILES[profile].text };
   }
 
   // Extra lines under the orientation: business context, then invoicing.
   function diagNotes(a, profile) {
-    if (profile === 'personalizada') return [];
+    // Guidance results carry only their variant's own note, if any.
+    if (profile === 'personalizada') {
+      const { note } = diagContent(a, profile);
+      return note ? [note] : [];
+    }
     const notes = [];
     const ctx = DIAG_CONTEXT.find(([test]) => test(a, profile));
     if (ctx) notes.push(ctx[1]);
