@@ -41,7 +41,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=129" rel="stylesheet" />
+    <link href="css/style.css?v=130" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -170,7 +170,7 @@
               >
             </li>
             <li>
-              <a href="#planes"><i class="fa-solid fa-tags"></i>Planes</a>
+              <a href="#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
@@ -399,7 +399,7 @@
               <a href="#verificador">Encuentra tu solución</a>
             </li>
             <li>
-              <a href="#planes">Planes</a>
+              <a href="#cotizacion">Cotización</a>
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
@@ -1411,6 +1411,84 @@
       </div>
     </section>
     <!-- End Sistemas y soluciones -->
+
+    <!-- Cotización a medida (#cotizacion): how a quote is prepared — the
+       factors it considers, the three-step process and the WhatsApp CTA.
+       Replaces the old "Planes y paquetes" section; the #planes anchor
+       below keeps old links working. No prices or included services. -->
+    <section id="cotizacion" class="gn-quote" aria-labelledby="gn-quote-title">
+      <span id="planes" class="gn-quote-anchor" aria-hidden="true"></span>
+      <div class="gn-quote-inner">
+        <header class="gn-quote-head">
+          <p class="gn-quote-eyebrow">Cotización personalizada</p>
+          <h2 id="gn-quote-title" class="gn-quote-title">
+            Una propuesta clara, preparada para tu operación.
+          </h2>
+          <p class="gn-quote-lead">
+            Antes de preparar tu cotización, analizamos los requerimientos de
+            tu negocio para definir la solución, las funcionalidades y los
+            recursos necesarios. Así tendrás mayor claridad sobre lo que
+            estás evaluando.
+          </p>
+        </header>
+
+        <div class="gn-quote-body">
+          <article class="gn-quote-sheet" aria-labelledby="gn-quote-sheet-title">
+            <div class="gn-quote-sheet-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>
+              <p>
+                <b id="gn-quote-sheet-title">Tu cotización considera</b>
+                <span>Tres aspectos que se definen con tu asesor</span>
+              </p>
+            </div>
+            <ol class="gn-quote-items">
+              <li class="gn-quote-item">
+                <span class="gn-quote-num" aria-hidden="true">01</span>
+                <b>La solución que necesitas</b>
+                <span>La alternativa de facturación electrónica y las funciones que requiere tu operación.</span>
+              </li>
+              <li class="gn-quote-item">
+                <span class="gn-quote-num" aria-hidden="true">02</span>
+                <b>Usuarios y procesos</b>
+                <span>Cuántas personas usarán el sistema y qué procesos de tu negocio debe cubrir.</span>
+              </li>
+              <li class="gn-quote-item">
+                <span class="gn-quote-num" aria-hidden="true">03</span>
+                <b>Implementación y equipos</b>
+                <span>Lo que ya tienes y los equipos o servicios adicionales que convenga evaluar.</span>
+              </li>
+            </ol>
+            <div class="gn-quote-sheet-foot">
+              <small>Inversión</small>
+              <span>La inversión se determina según la solución y los recursos que necesite tu negocio.</span>
+            </div>
+          </article>
+
+          <div class="gn-quote-process">
+            <h3>Cómo preparamos tu propuesta</h3>
+            <ol class="gn-quote-steps">
+              <li class="gn-quote-step"><b>Cuéntanos tu operación</b><span>Escríbenos por WhatsApp y cuéntanos cómo trabaja tu negocio.</span></li>
+              <li class="gn-quote-step"><b>Revisamos tus necesidades</b><span>Evaluamos las alternativas y los recursos que corresponden a tu caso.</span></li>
+              <li class="gn-quote-step"><b>Preparamos tu cotización</b><span>Te presentamos una propuesta según los requerimientos identificados.</span></li>
+            </ol>
+            <div class="gn-quote-actions">
+              <a
+                class="gn-quote-cta"
+                href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20secci%C3%B3n%20de%20Cotizaci%C3%B3n%20a%20medida%20en%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20personalizada%20para%20mi%20negocio.%20Quisiera%20recibir%20orientaci%C3%B3n%20sobre%20las%20opciones%20disponibles."
+                target="_blank"
+                rel="noopener"
+                data-cta="cotizacion-whatsapp"
+                >Solicita tu cotización por <span>WhatsApp →</span></a
+              >
+              <a class="gn-quote-alt" href="#verificador"
+                >¿Todavía no tienes claro qué necesitas? Haz el diagnóstico</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Cotización a medida -->
 
     <!-- Start Problems area ("¿Te suena familiar?") -->
     <div id="problems" class="custom-cards">
@@ -2457,167 +2535,6 @@
     </div>
 
     <!-- End Service area -->
-
-    <!-- Start Planes area ("Elige cómo empezar") -->
-    <div id="planes" class="custom-cards">
-      <div class="row">
-        <div class="section-headline text-center">
-          <p class="planes-eyebrow">Planes y paquetes</p>
-          <h2>Elige cómo empezar</h2>
-          <p class="planes-subtitle">
-            Sin sorpresas: la instalación y la capacitación van incluidas con tu
-            sistema de facturación electrónica.
-          </p>
-        </div>
-      </div>
-      <div class="row">
-        <!-- PRECIO: escribe el número en data-precio, ej. data-precio="25" -->
-        <div
-          class="planes-card reveal-up"
-          data-precio=""
-          data-periodo="/mes"
-          style="--reveal-delay: 0s"
-        >
-          <div class="planes-icon">
-            <i class="fa-solid fa-file-invoice-dollar"></i>
-          </div>
-          <h3 class="planes-card-title">Facturación electrónica</h3>
-          <p class="planes-card-desc">
-            Emite DTE válidos ante Hacienda desde el primer día.
-          </p>
-          <div class="planes-price">
-            <p class="planes-price-main"></p>
-            <p class="planes-price-sub"></p>
-          </div>
-          <ul class="planes-features">
-            <li>
-              <i class="fa-solid fa-check"></i>Sistema de facturación
-              electrónica (DTE)
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>Instalación y configuración
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>Capacitación para tu equipo
-            </li>
-            <li><i class="fa-solid fa-check"></i>Soporte local por WhatsApp</li>
-            <li><i class="fa-solid fa-check"></i>Listo para DTE 2.0</li>
-          </ul>
-          <a
-            class="planes-btn planes-btn-outline"
-            href="https://wa.me/50370043346?text=Hola%20Gramanat%20%F0%9F%91%8B%20quiero%20cotizar%20el%20sistema%20de%20facturaci%C3%B3n%20electr%C3%B3nica."
-            target="_blank"
-            rel="noopener noreferrer"
-            >Cotizar facturación</a
-          >
-        </div>
-
-        <!-- PRECIO: escribe el número en data-precio, ej. data-precio="25" -->
-        <div
-          class="planes-card planes-card-featured reveal-up"
-          data-precio=""
-          data-periodo="/mes"
-          style="--reveal-delay: 0.1s"
-        >
-          <span class="planes-badge">⭐ Recomendado</span>
-          <div class="planes-icon">
-            <i class="fa-solid fa-cash-register"></i>
-          </div>
-          <h3 class="planes-card-title">Combo completo</h3>
-          <p class="planes-card-desc">
-            Sistema + equipo listo para vender y facturar.
-          </p>
-          <div class="planes-price">
-            <p class="planes-price-main"></p>
-            <p class="planes-price-sub"></p>
-          </div>
-          <ul class="planes-features">
-            <li>
-              <i class="fa-solid fa-check"></i>Todo lo de Facturación
-              electrónica
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>Tablet o computadora punto de
-              venta
-            </li>
-            <li><i class="fa-solid fa-check"></i>Impresora de tickets</li>
-            <li>
-              <i class="fa-solid fa-check"></i>Lector de código de barras /
-              gaveta (según negocio)
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>Instalación completa en tu
-              negocio
-            </li>
-          </ul>
-          <a
-            class="planes-btn planes-btn-solid"
-            href="https://wa.me/50370043346?text=Hola%20Gramanat%20%F0%9F%91%8B%20quiero%20cotizar%20el%20combo%20completo%20(sistema%20%2B%20equipo)."
-            target="_blank"
-            rel="noopener noreferrer"
-            >Quiero el combo</a
-          >
-        </div>
-
-        <!-- PRECIO: escribe el número en data-precio, ej. data-precio="25" -->
-        <div
-          class="planes-card reveal-up"
-          data-precio=""
-          data-periodo="/mes"
-          style="--reveal-delay: 0.2s"
-        >
-          <div class="planes-icon"><i class="fa-solid fa-print"></i></div>
-          <h3 class="planes-card-title">Equipo punto de venta</h3>
-          <p class="planes-card-desc">
-            ¿Ya tienes sistema? Te equipamos tu caja.
-          </p>
-          <div class="planes-price">
-            <p class="planes-price-main"></p>
-            <p class="planes-price-sub"></p>
-          </div>
-          <ul class="planes-features">
-            <li><i class="fa-solid fa-check"></i>Tablets y computadoras POS</li>
-            <li>
-              <i class="fa-solid fa-check"></i>Impresoras térmicas de tickets
-            </li>
-            <li>
-              <i class="fa-solid fa-check"></i>Lectores de código de barras
-            </li>
-            <li><i class="fa-solid fa-check"></i>Gavetas de dinero</li>
-            <li>
-              <i class="fa-solid fa-check"></i>Asesoría para elegir el equipo
-              correcto
-            </li>
-          </ul>
-          <p class="planes-note">
-            Se vende por separado o en combo con el sistema.
-          </p>
-          <a
-            class="planes-btn planes-btn-outline"
-            href="https://wa.me/50370043346?text=Hola%20Gramanat%20%F0%9F%91%8B%20quiero%20cotizar%20equipo%20de%20punto%20de%20venta."
-            target="_blank"
-            rel="noopener noreferrer"
-            >Cotizar equipo</a
-          >
-        </div>
-      </div>
-      <div class="row">
-        <ul class="planes-trust">
-          <li>
-            <i class="fa-solid fa-screwdriver-wrench"></i>Instalación y
-            capacitación incluidas
-          </li>
-          <li>
-            <i class="fa-solid fa-location-dot"></i>Soporte local en El Salvador
-          </li>
-          <li>
-            <i class="fa-solid fa-bolt"></i>Cotización exacta en 5 minutos por
-            WhatsApp
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- End Planes area -->
 
     <!-- Start How It Works area -->
     <div id="how-it-works" class="how-it-works-area area-padding">
@@ -3965,6 +3882,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=3"></script>
-    <script src="js/main.js?v=47"></script>
+    <script src="js/main.js?v=48"></script>
   </body>
 </html>
