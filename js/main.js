@@ -1463,6 +1463,61 @@
   });
 
   /*---------------------
+    Clientes: balanced rows and "Ver más clientes"
+    Tiles keep their size; --cols-* (per breakpoint) is the fewest columns
+    that keep the same number of rows (6 → 3 + 3, 7 → 4 + 3), and the
+    last row is centred by CSS. On phones only the first 8 clients show
+    until "Ver más clientes"; the button stays hidden with 8 or fewer, and
+    without JS every client is visible.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.gn-clients');
+    const grid = section && section.querySelector('.gn-clients-grid');
+    const more = section && section.querySelector('.gn-clients-more');
+
+    if (!grid || !more) return;
+
+    const count = grid.children.length;
+    if (count === 0) {
+      section.hidden = true;
+      return;
+    }
+
+    const cols = (max) => Math.ceil(count / Math.ceil(count / max));
+    section.style.setProperty('--cols-sm', cols(2));
+    section.style.setProperty('--cols-md', cols(4));
+    section.style.setProperty('--cols-lg', cols(5));
+
+    if (count <= 8) return;
+
+    const label = (expanded) => (expanded
+      ? 'Ver menos <span aria-hidden="true">↑</span>'
+      : 'Ver más clientes <span aria-hidden="true">↓</span>');
+
+    grid.classList.add('is-collapsed');
+    more.hidden = false;
+    // Collapsing removes the cards above the button: scroll by the same
+    // amount at once so the button stays where it was on screen (the
+    // page's smooth scroll would otherwise leave it under the header).
+    // If it was off screen (keyboard use after expanding), centre it.
+    more.addEventListener('click', () => {
+      const expand = grid.classList.contains('is-collapsed');
+      const top = more.getBoundingClientRect().top;
+      const onScreen = top >= 0 && top + more.offsetHeight <= window.innerHeight;
+      grid.classList.toggle('is-collapsed', !expand);
+      more.setAttribute('aria-expanded', String(expand));
+      more.innerHTML = label(expand);
+      if (expand) return;
+      if (onScreen) {
+        window.scrollBy({ top: more.getBoundingClientRect().top - top, behavior: 'instant' });
+      } else {
+        more.scrollIntoView({ block: 'center', behavior: 'instant' });
+      }
+    });
+  });
+
+  /*---------------------
     Floating buttons: step aside while a CTA sits under them
     Each button (WhatsApp, back to top) watches only its own band of the
     viewport (rootMargin trims everything above it, and below it for the

@@ -20,7 +20,7 @@
   9. Review Area
   10. Portafolio Area
   11. Pricing Area
-  12. Start Clients area
+  12. Clients area (.gn-clients, end of file)
   13. Testimonials area
   14. Blog Area
   15. Quote Area
@@ -6399,124 +6399,6 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------*/
-/*12. Start Clients area
-/*--------------------------------------*/
-
-.clients-area {
-  padding: 60px 0px 5px 0px;
-}
-
-.clients-container {
-  margin-top: 5px;
-}
-
-.client-logo-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.client-logo-item {
-  position: relative;
-  flex: 0 0 23%;
-  max-width: 23%;
-  margin: 1%;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 180px;
-  transition: all 0.4s ease;
-  overflow: hidden;
-}
-
-.client-logo-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-}
-
-.client-logo-item.empty-item {
-  background: transparent;
-  box-shadow: none;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  width: 100%;
-  transition: all 0.4s ease;
-}
-
-.client-logo-item img {
-  max-width: 100%;
-  max-height: 140px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  transition: all 0.4s ease;
-  border-radius: 10px;
-}
-
-.company-name {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  background: linear-gradient(135deg, var(--color-brand), #2a6bbd);
-  color: white;
-  padding: 10px 5px;
-  font-size: 14px;
-  font-weight: 500;
-  transform: translateY(100%);
-  transition: transform 0.4s ease;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.client-logo-item:hover .company-name {
-  transform: translateY(0);
-}
-
-.client-logo-item:hover img {
-  transform: scale(0.95);
-}
-
-@media (max-width: 1200px) {
-  .client-logo-item {
-    flex: 0 0 31%;
-    max-width: 31%;
-  }
-}
-
-@media (max-width: 768px) {
-  .client-logo-item {
-    flex: 0 0 calc(50% - 2%);
-    max-width: calc(50% - 2%);
-    margin: 1%;
-    height: 160px;
-  }
-}
-
-@media (max-width: 576px) {
-  .client-logo-item {
-    flex: 0 0 calc(50% - 2%) !important;
-    max-width: calc(50% - 2%) !important;
-    margin: 1% !important;
-    height: 150px;
-  }
-}
-
-/*--------------------------------------*/
 /*13. Testimonios Area ("Negocios que ya facturan sin preocupaciones")
 /* Scoped to #testimonios. "Review card" style: giant decorative
 /* orange wordmark behind the cards, white cards with a thick navy
@@ -9162,270 +9044,6 @@ p.hero-subtitle {
      availability row when the page is scrolled all the way down. */
   #footer.footer-premium .footer-area-bottom {
     padding-bottom: 150px;
-  }
-}
-
-/* ==========================================================================
-   16b. Clients premium redesign ("Negocios salvadoreños que ya trabajan
-   con Gramanat"). Scoped to #clientes.clients-premium — the old #clients
-   id and .clients-area/.client-logo-item classes were only ever used on
-   this page, but the new id keeps this isolated the same way the other
-   redesigned sections are.
-   ========================================================================== */
-
-#clientes.clients-premium {
-  background: #fff;
-  padding: 90px 0 70px;
-  overflow: hidden;
-}
-
-#clientes.clients-premium .clients-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-#clientes.clients-premium .section-headline h2 {
-  margin-bottom: 0;
-}
-
-#clientes.clients-premium .clients-subtitle {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px auto 0;
-}
-
-/* --- Marquee --- */
-
-#clientes.clients-premium .clients-marquee-wrap {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-#clientes.clients-premium .clients-marquee-row {
-  overflow: hidden;
-  padding: 6px 0;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-}
-
-#clientes.clients-premium .clients-marquee-track {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  width: max-content;
-  will-change: transform;
-}
-
-#clientes.clients-premium .clients-marquee-dup {
-  display: contents;
-}
-
-#clientes.clients-premium .clients-marquee-row-1 .clients-marquee-track {
-  animation: clients-marquee 40s linear infinite;
-}
-
-#clientes.clients-premium .clients-marquee-row-2 .clients-marquee-track {
-  animation: clients-marquee 40s linear infinite reverse;
-}
-
-#clientes.clients-premium .clients-marquee-row:hover .clients-marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes clients-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* --- Logo cards (overrides the legacy .client-logo-item/.logo-container/
-   .company-name rules from section 12 above — those stay as-is since
-   nothing else references them once this section no longer uses the
-   Bootstrap grid markup) --- */
-
-#clientes.clients-premium .client-logo-item {
-  /* !important beats the legacy .client-logo-item rules' own !important
-     flex/max-width/margin at <=576px (section 12 above) which would
-     otherwise force these into huge percentage-based flex-basis cards
-     inside this flex track. */
-  flex: 0 0 auto !important;
-  width: auto;
-  max-width: none !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 0;
-  background: none;
-  box-shadow: none;
-  overflow: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-#clientes.clients-premium .client-logo-item:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-#clientes.clients-premium .logo-container {
-  width: 200px;
-  height: 110px;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-
-#clientes.clients-premium .client-logo-item:hover .logo-container {
-  border-color: var(--color-accent);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
-}
-
-#clientes.clients-premium .client-logo-item img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 0;
-  transition: none;
-}
-
-/* The source asset for Ferretería Los Amigos has a lot of built-in
-   whitespace, so it renders much smaller than the other logos at the
-   same max-width/max-height — scaled up to match their visual size. */
-#clientes.clients-premium .client-logo-item img.logo-scale-ferreteria {
-  transform: scale(1.8);
-}
-
-#clientes.clients-premium .client-logo-item:hover img {
-  transform: none;
-}
-
-#clientes.clients-premium .company-name {
-  position: static;
-  transform: none;
-  background: #f1f5f9;
-  color: var(--color-navy);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@media (max-width: 767px) {
-  #clientes.clients-premium .logo-container {
-    width: 160px;
-    height: 90px;
-  }
-
-  #clientes.clients-premium .company-name {
-    max-width: 160px;
-  }
-}
-
-/* --- Stats + CTA --- */
-
-#clientes.clients-premium .clients-stats-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 56px;
-  color: var(--color-graphite);
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-}
-
-#clientes.clients-premium .clients-stat-dot {
-  width: 5px;
-  height: 5px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  /* Was var(--color-accent) — this dot repeats 2-3x as a plain
-     separator between stats, so it stays neutral rather than
-     diluting orange into decoration. */
-  background: var(--color-subtle);
-  display: inline-block;
-}
-
-#clientes.clients-premium .clients-cta-row {
-  margin-top: 24px;
-}
-
-#clientes.clients-premium .clients-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 52px;
-  border: 1.5px solid var(--color-navy);
-  color: var(--color-navy);
-  padding: 0 28px;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 16px;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-#clientes.clients-premium .clients-cta-btn:hover {
-  background: var(--color-panel);
-}
-
-#clientes.clients-premium .clients-cta-btn .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-#clientes.clients-premium .clients-cta-btn:hover .arrow {
-  transform: translateX(4px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #clientes.clients-premium .clients-marquee-dup {
-    display: none !important;
-  }
-
-  #clientes.clients-premium .clients-marquee-track {
-    animation: none !important;
-    transform: none !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: auto;
-  }
-
-  #clientes.clients-premium .clients-marquee-row {
-    overflow: visible;
-    mask-image: none;
-    -webkit-mask-image: none;
   }
 }
 
@@ -12930,5 +12548,253 @@ button.hamburger {
 
   .gn-quote-cta {
     white-space: nowrap;
+  }
+}
+
+/* ==========================================================================
+   Clientes (#clientes.gn-clients): static grid of client logos with their
+   names, after Cotización a medida. Logos are WebP copies with the empty
+   margin trimmed (brand pixels untouched); each one's width follows the
+   square root of its aspect ratio (--sar), so wide and square marks read
+   at a similar weight. Tiles keep the size they have at --max columns;
+   main.js sets --cols-* so rows are even, and the last row is centred.
+   Phones: 2 columns, first 8 clients + "Ver más clientes" (main.js).
+   ========================================================================== */
+
+.gn-clients {
+  --gn-navy: #071c33;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-text: #4b5a70;
+  --gn-line: #e4e9f0;
+  --k: 49%;
+  --max: 2;
+  --gap: 12px;
+  --row-gap: 18px;
+  --W: 100%;
+  --cols: var(--cols-sm, 2);
+  background: #fff;
+  color: var(--gn-navy);
+  padding: 52px 16px 60px;
+  scroll-margin-top: 80px;
+}
+
+.gn-clients-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+}
+
+.gn-clients-head {
+  display: grid;
+  gap: 12px;
+}
+
+.gn-clients-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-clients-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-clients-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-wrap: balance;
+}
+
+.gn-clients-lead {
+  margin: 4px 0 0;
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gn-text);
+  text-wrap: balance;
+}
+
+.gn-clients-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-self: center;
+  gap: var(--row-gap) var(--gap);
+  width: calc(var(--cols) * ((var(--W) - (var(--max) - 1) * var(--gap)) / var(--max)) + (var(--cols) - 1) * var(--gap));
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-client {
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols) - 0.1px);
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+
+.gn-client-logo {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 3 / 2;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--gn-line);
+  border-radius: 14px;
+}
+
+.gn-client-logo img {
+  display: block;
+  width: min(100%, calc(var(--k) * var(--sar)));
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.gn-client-name {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #3d4b60;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Collapsed on phones: only the first 8 clients. */
+.gn-clients-grid.is-collapsed .gn-client:nth-child(n + 9) {
+  display: none;
+}
+
+.gn-clients-more {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid #cfd9e6;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--gn-navy);
+  font: 600 14.5px Inter, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.gn-clients-more[hidden] {
+  display: none;
+}
+
+.gn-clients-more:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-clients-more:hover {
+    border-color: var(--gn-blue-mid);
+    color: var(--gn-blue-mid);
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-clients {
+    --k: 47%;
+    --max: 4;
+    --gap: 16px;
+    --row-gap: 22px;
+    --cols: var(--cols-md, 4);
+    padding: 84px 32px 92px;
+  }
+
+  .gn-clients-inner {
+    gap: 44px;
+  }
+
+  .gn-clients-head {
+    justify-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .gn-clients-title {
+    font-size: 34px;
+  }
+
+  .gn-clients-lead {
+    margin-top: 8px;
+    font-size: 17px;
+  }
+
+  .gn-clients-grid.is-collapsed .gn-client:nth-child(n + 9) {
+    display: grid;
+  }
+
+  .gn-client-logo {
+    aspect-ratio: 16 / 10;
+    padding: 14px 16px;
+  }
+
+  .gn-client-name {
+    font-size: 13px;
+  }
+
+  .gn-clients-more,
+  .gn-clients-more[hidden] {
+    display: none;
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-clients {
+    --k: 46%;
+    --max: 5;
+    --gap: 20px;
+    --row-gap: 24px;
+    --W: min(100%, 1080px);
+    --cols: var(--cols-lg, 5);
+    padding: 96px 48px 104px;
+    scroll-margin-top: 56px;
+  }
+
+  .gn-clients-inner {
+    gap: 48px;
+  }
+
+  .gn-clients-title {
+    font-size: 40px;
+  }
+
+  .gn-clients-lead {
+    max-width: 760px;
+    font-size: 18px;
+  }
+
+  .gn-client-logo {
+    aspect-ratio: 16 / 9;
+    padding: 14px 18px;
+  }
+
+  .gn-client-name {
+    font-size: 13.5px;
   }
 }
