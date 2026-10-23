@@ -388,6 +388,13 @@
         title: 'Te ayudamos a elegir desde el inicio',
         text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
       }],
+      // Professional services, unsure how they invoice today: start by
+      // clarifying their activity and the documents they issue.
+      ['no_seguro_servicios', (a) => a.factura === 'no_seguro' && a.tipo === 'servicios', {
+        title: 'Te ayudamos a aclarar qué necesitas para facturar',
+        text: 'Si ofreces servicios profesionales y tienes dudas sobre tu forma actual de facturación, el primer paso es conocer cómo realizas tu actividad y qué documentos necesitas emitir.\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica que mejor podrían adaptarse a tu trabajo, sin recomendar funciones o equipos innecesarios.',
+        note: 'Un asesor puede ayudarte a revisar cómo facturas actualmente y qué aspectos debes considerar antes de elegir una solución.',
+      }],
       // Uses Hacienda's free invoicing tool and asks for guidance: review
       // whether it is enough before assuming a change (two paragraphs).
       // Professional services get wording about their activity.
