@@ -367,19 +367,62 @@
     },
   };
 
-  // Text variants inside a result category: same orientation (and rules),
-  // wording adapted to a specific situation. First match wins.
+  // "Otro" activities the guidance text can name as "tu …": normalised
+  // typed value (lower case, no accents, no leading article) → the
+  // phrase written after "Para tu". Anything else gets the neutral
+  // wording, so no article is ever glued to free text.
+  const DIAG_KNOWN_ACTIVITIES = {
+    restaurante: 'restaurante',
+    cafeteria: 'cafetería',
+    pupuseria: 'pupusería',
+    panaderia: 'panadería',
+    taller: 'taller',
+    'taller mecanico': 'taller mecánico',
+    'salon de belleza': 'salón de belleza',
+    barberia: 'barbería',
+    imprenta: 'imprenta',
+    farmacia: 'farmacia',
+    ferreteria: 'ferretería',
+    libreria: 'librería',
+    papeleria: 'papelería',
+    clinica: 'clínica',
+    consultorio: 'consultorio',
+    'clinica dental': 'clínica dental',
+    veterinaria: 'veterinaria',
+    optica: 'óptica',
+    gimnasio: 'gimnasio',
+    hotel: 'hotel',
+    lavanderia: 'lavandería',
+    floristeria: 'floristería',
+    carniceria: 'carnicería',
+    tienda: 'tienda',
+    boutique: 'boutique',
+    academia: 'academia',
+    agencia: 'agencia',
+  };
+
+  function diagKnownActivity(activity) {
+    const key = activity.toLocaleLowerCase('es').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[.!]+$/, '').replace(/\s+/g, ' ').trim().replace(/^(un|una|mi|el|la) /, '');
+    return DIAG_KNOWN_ACTIVITIES[key] || '';
+  }
+
   // First paragraph of the "No estoy seguro" + guidance result, per
-  // business type. activity = the "Otro" text as shown (capitalised).
+  // business type. activity = the "Otro" text as typed.
   const DIAG_NO_SEGURO_INTRO = {
     servicios: () => 'Si ofreces servicios profesionales y tienes dudas sobre cómo facturas actualmente, el primer paso es conocer cómo realizas tu actividad y qué documentos podrías necesitar emitir.',
     comercio: () => 'Si tienes un comercio o negocio con mostrador y no tienes claro cómo facturas actualmente, el primer paso es conocer cómo realizas tus ventas y qué documentos podrías necesitar emitir.',
     empresa: () => 'Si tu empresa tiene procesos administrativos y tienes dudas sobre tu facturación actual, el primer paso es revisar cómo funciona tu operación y qué documentos podrías necesitar emitir.',
-    otro: (activity) => (activity
-      ? `En tu negocio —${activity}—, el primer paso es conocer cómo trabajas y aclarar qué documentos podrías necesitar emitir.`
-      : 'En tu negocio, el primer paso es conocer cómo trabajas y aclarar qué documentos podrías necesitar emitir.'),
+    otro: (activity) => {
+      const known = diagKnownActivity(activity);
+      return known
+        ? `Para tu ${known}, es importante conocer cómo realizas tus ventas, cómo registras tus operaciones y qué documentos electrónicos podrías necesitar emitir antes de elegir una solución de facturación.`
+        : 'En el negocio que nos indicaste, es importante conocer cómo realizas tus operaciones y qué documentos electrónicos podrías necesitar emitir antes de elegir una solución de facturación.';
+    },
   };
 
+  // Text variants inside a result category: same orientation (and rules),
+  // wording adapted to a specific situation. First match wins.
   const DIAG_VARIANTS = {
     administrativa: [
       ['empresa', (a) => a.tipo === 'empresa', {
@@ -401,12 +444,12 @@
       }],
       // Unsure how they invoice today: start by clarifying how they work
       // and which documents they may need. Only the first paragraph
-      // depends on the business type; "Otro" quotes the typed activity
-      // (inserted as text, never as markup).
+      // depends on the business type (and, for "Otro", on whether the
+      // typed activity is a known one).
       ['no_seguro', (a) => a.factura === 'no_seguro', {
         title: 'Te ayudamos a aclarar qué necesitas para facturar',
-        text: (a, activity) => `${DIAG_NO_SEGURO_INTRO[a.tipo](activity)}\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica que mejor podrían adaptarse a tu operación, sin recomendar funciones o equipos innecesarios.`,
-        note: 'Un asesor puede ayudarte a revisar cómo facturas actualmente y qué aspectos debes considerar antes de elegir una solución.',
+        text: (a, activity) => `${DIAG_NO_SEGURO_INTRO[a.tipo](activity)}\n\nEn Gramanat te brindamos orientación para evaluar las alternativas de facturación electrónica que podrían adaptarse a las necesidades de tu negocio, considerando las funcionalidades y los equipos que realmente requiera tu operación.`,
+        note: 'Un asesor podrá revisar contigo tu situación actual de facturación y explicarte qué aspectos debes considerar antes de seleccionar una solución adecuada.',
       }],
       // Uses Hacienda's free invoicing tool and asks for guidance: review
       // whether it is enough before assuming a change (two paragraphs).
