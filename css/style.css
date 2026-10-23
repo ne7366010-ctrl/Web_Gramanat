@@ -12539,7 +12539,7 @@ button.hamburger {
   font-size: 16px;
   line-height: 1.6;
   color: var(--gn-text);
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .gn-quote-body {
@@ -12836,9 +12836,11 @@ button.hamburger {
     font-size: 34px;
   }
 
+  /* Centred from tablet up: balanced lines, no short tail. */
   .gn-quote-lead {
     margin-top: 8px;
     font-size: 17px;
+    text-wrap: balance;
   }
 
   .gn-quote-sheet-head {
@@ -12885,9 +12887,9 @@ button.hamburger {
   }
 
   .gn-quote-lead {
-    max-width: 64ch;
+    max-width: 800px;
     font-size: 18px;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
   /* Top-aligned: the process heading sits on the same line as the card
