@@ -11,7 +11,7 @@
 
   1. Theme Default CSS (body, link color, section etc)
   2. Header Area
-  3. About Area
+  3. About area (.gn-about, end of file)
   4. Services Area
   5. Skill Area
   6. Faq Area
@@ -1533,187 +1533,6 @@ p.hero-subtitle {
 
   .hero-trust-row li {
     font-size: 13px;
-  }
-}
-
-/*------------------------------*/
-/*3. About Area ("¿Por qué elegir Gramanat?")
-/* Scoped to #about so it never affects other sections. Styled to match
-/* the rest of the page (navy headline + accent-orange details).
-/*------------------------------*/
-
-.about-area {
-  background: #ffffff;
-  padding: 90px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.about-area::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(42, 95, 255, 0.05) 0%,
-    rgba(158, 218, 229, 0.05) 100%
-  );
-  z-index: 0;
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.section-subtitle {
-  color: var(--color-brand-light);
-  font-size: 1.5rem;
-  font-weight: 300;
-  letter-spacing: 1px;
-}
-
-/* Left-aligned (not centered like most other sections), per request. */
-/* padding-left matches .about-content's col-md-6 gutter (15px) so the
-   title block's left edge lines up exactly with the photo's left edge
-   below it, instead of sitting flush with the container. */
-#about .section-headline {
-  text-align: left;
-  padding-left: 15px;
-}
-
-#about .section-headline h2 {
-  margin-bottom: 0;
-}
-
-#about .about-subtitle {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px 0 48px;
-}
-
-#about .about-content {
-  position: relative;
-  z-index: 1;
-}
-
-.about-image-wrapper {
-  margin-top: 0;
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
-  height: 340px;
-  transition: transform 0.3s ease;
-}
-
-.about-image-wrapper:hover {
-  transform: translateY(-5px);
-}
-
-.about-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(42, 95, 255, 0.1) 0%,
-    rgba(102, 144, 255, 0.1) 100%
-  );
-}
-
-#about .about-stats {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 28px;
-  text-align: center;
-}
-
-#about .about-stat-number {
-  display: block;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--color-accent);
-  white-space: nowrap;
-}
-
-#about .about-stat-label {
-  display: block;
-  font-size: 14px;
-  color: #6b7280;
-  margin-top: 4px;
-}
-
-.about-text-content {
-  padding-left: 40px;
-}
-
-#about .about-reason {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-#about .about-reason .icon-wrapper {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background-color: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-#about .about-reason-content h4 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0a0f1e;
-  margin: 0 0 4px;
-}
-
-#about .about-reason-content p {
-  font-size: 15px;
-  color: #6b7280;
-  line-height: 1.5;
-  margin: 0;
-}
-
-#about .about-cta-btn {
-  margin-top: 8px;
-}
-
-@media (max-width: 767px) {
-  .about-area {
-    padding: 60px 0;
-  }
-
-  .about-text-content {
-    padding-left: 0;
-    margin-top: 40px;
-  }
-
-  .about-image-wrapper {
-    height: 260px;
   }
 }
 
@@ -12796,5 +12615,307 @@ button.hamburger {
 
   .gn-client-name {
     font-size: 13.5px;
+  }
+}
+
+/* ==========================================================================
+   Nosotros (#about.gn-about): who Gramanat is, what it does and why trust
+   it — no products, process or prices (those live in Sistemas and
+   Cotización). Editorial column (statement + three values separated by
+   hairlines) and a factual company sheet ("Gramanat en breve"). Desktop:
+   two columns; tablet: values in 2 columns, the third across both; phones:
+   one column. No photo, icons or orange.
+   ========================================================================== */
+
+.gn-about {
+  --gn-navy: #071c33;
+  --gn-blue: #0f3f78;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-text: #4b5a70;
+  --gn-muted: #6b7a8f;
+  --gn-line: #e4e9f0;
+  --gn-tint: #f5f7fa;
+  background: #fff;
+  color: var(--gn-navy);
+  padding: 52px 16px 60px;
+  scroll-margin-top: 80px;
+}
+
+.gn-about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 36px;
+}
+
+.gn-about-main {
+  display: grid;
+  gap: 36px;
+  min-width: 0;
+}
+
+.gn-about-head {
+  display: grid;
+  gap: 12px;
+}
+
+.gn-about-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-about-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-about-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-wrap: balance;
+}
+
+.gn-about-lead {
+  margin: 4px 0 0;
+  max-width: 60ch;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+.gn-about-values {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-about-value {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--gn-line);
+}
+
+.gn-about-value:last-child {
+  border-bottom: 1px solid var(--gn-line);
+}
+
+/* Title line-height matches the description's first line (15px x 1.6 =
+   24px) so both align when they sit side by side on desktop. */
+.gn-about-value h3 {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--gn-navy);
+  text-wrap: balance;
+}
+
+.gn-about-value p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+.gn-about-sheet {
+  align-self: start;
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: 22px 20px 20px;
+  background: var(--gn-tint);
+  border: 1px solid var(--gn-line);
+  border-radius: 14px;
+}
+
+.gn-about-sheet-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-muted);
+}
+
+.gn-about-facts {
+  display: grid;
+  margin: 0;
+}
+
+.gn-about-fact {
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  padding: 12px 0;
+  border-top: 1px solid #dfe6ef;
+}
+
+.gn-about-fact:first-child {
+  padding-top: 2px;
+  border-top: 0;
+}
+
+.gn-about-fact dt {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gn-muted);
+}
+
+.gn-about-fact dd {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--gn-navy);
+  text-wrap: pretty;
+}
+
+.gn-about-link {
+  justify-self: start;
+  display: inline-block;
+  padding-block: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--gn-blue-mid);
+  text-decoration: underline;
+  text-decoration-color: rgba(29, 99, 183, 0.35);
+  text-underline-offset: 4px;
+}
+
+.gn-about-link:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-about-link:hover {
+    color: var(--gn-blue);
+    text-decoration-color: currentColor;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-about {
+    padding: 84px 32px 92px;
+  }
+
+  .gn-about-inner {
+    gap: 40px;
+  }
+
+  .gn-about-title {
+    max-width: 18ch;
+    font-size: 34px;
+  }
+
+  .gn-about-lead {
+    max-width: 34em;
+    font-size: 17.5px;
+  }
+
+  .gn-about-sheet {
+    padding: 26px 28px 22px;
+  }
+
+  .gn-about-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  .gn-about-fact:nth-child(2) {
+    padding-top: 2px;
+    border-top: 0;
+  }
+}
+
+/* Tablet: first two values side by side, the third across both with its
+   text kept to the same comfortable measure. */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .gn-about-values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 24px;
+  }
+
+  .gn-about-value,
+  .gn-about-value:last-child {
+    padding: 18px 0 0;
+    border-bottom: 0;
+  }
+
+  .gn-about-value:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .gn-about-value:last-child p {
+    max-width: 30em;
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-about {
+    padding: 104px 48px 112px;
+    scroll-margin-top: 56px;
+  }
+
+  .gn-about-inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4.4fr);
+    column-gap: 72px;
+    align-items: start;
+  }
+
+  .gn-about-main {
+    gap: 46px;
+  }
+
+  .gn-about-title {
+    max-width: 16em;
+    font-size: 42px;
+  }
+
+  .gn-about-lead {
+    font-size: 18.5px;
+  }
+
+  .gn-about-value,
+  .gn-about-value:last-child {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+  }
+
+  .gn-about-sheet {
+    padding: 28px 28px 22px;
+  }
+
+  .gn-about-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .gn-about-fact:nth-child(2) {
+    padding-top: 12px;
+    border-top: 1px solid #dfe6ef;
   }
 }
