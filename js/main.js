@@ -369,6 +369,17 @@
 
   // Text variants inside a result category: same orientation (and rules),
   // wording adapted to a specific situation. First match wins.
+  // First paragraph of the "No estoy seguro" + guidance result, per
+  // business type. activity = the "Otro" text as shown (capitalised).
+  const DIAG_NO_SEGURO_INTRO = {
+    servicios: () => 'Si ofreces servicios profesionales y tienes dudas sobre cómo facturas actualmente, el primer paso es conocer cómo realizas tu actividad y qué documentos podrías necesitar emitir.',
+    comercio: () => 'Si tienes un comercio o negocio con mostrador y no tienes claro cómo facturas actualmente, el primer paso es conocer cómo realizas tus ventas y qué documentos podrías necesitar emitir.',
+    empresa: () => 'Si tu empresa tiene procesos administrativos y tienes dudas sobre tu facturación actual, el primer paso es revisar cómo funciona tu operación y qué documentos podrías necesitar emitir.',
+    otro: (activity) => (activity
+      ? `En tu negocio —${activity}—, el primer paso es conocer cómo trabajas y aclarar qué documentos podrías necesitar emitir.`
+      : 'En tu negocio, el primer paso es conocer cómo trabajas y aclarar qué documentos podrías necesitar emitir.'),
+  };
+
   const DIAG_VARIANTS = {
     administrativa: [
       ['empresa', (a) => a.tipo === 'empresa', {
@@ -388,11 +399,13 @@
         title: 'Te ayudamos a elegir desde el inicio',
         text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
       }],
-      // Professional services, unsure how they invoice today: start by
-      // clarifying their activity and the documents they issue.
-      ['no_seguro_servicios', (a) => a.factura === 'no_seguro' && a.tipo === 'servicios', {
+      // Unsure how they invoice today: start by clarifying how they work
+      // and which documents they may need. Only the first paragraph
+      // depends on the business type; "Otro" quotes the typed activity
+      // (inserted as text, never as markup).
+      ['no_seguro', (a) => a.factura === 'no_seguro', {
         title: 'Te ayudamos a aclarar qué necesitas para facturar',
-        text: 'Si ofreces servicios profesionales y tienes dudas sobre tu forma actual de facturación, el primer paso es conocer cómo realizas tu actividad y qué documentos necesitas emitir.\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica que mejor podrían adaptarse a tu trabajo, sin recomendar funciones o equipos innecesarios.',
+        text: (a, activity) => `${DIAG_NO_SEGURO_INTRO[a.tipo](activity)}\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica que mejor podrían adaptarse a tu operación, sin recomendar funciones o equipos innecesarios.`,
         note: 'Un asesor puede ayudarte a revisar cómo facturas actualmente y qué aspectos debes considerar antes de elegir una solución.',
       }],
       // Uses Hacienda's free invoicing tool and asks for guidance: review
@@ -459,12 +472,13 @@
     return DIAG_RULES.find(([, test]) => test(a))[0];
   }
 
-  // Title and text shown for a result: its variant if one applies.
-  function diagContent(a, profile) {
+  // Title and text shown for a result: its variant if one applies. A
+  // variant's text may depend on the answers and the "Otro" activity.
+  function diagContent(a, profile, activity = '') {
     const variant = (DIAG_VARIANTS[profile] || []).find(([, test]) => test(a));
-    return variant
-      ? { variant: variant[0], title: variant[2].title, text: variant[2].text, note: variant[2].note }
-      : { variant: null, title: DIAG_PROFILES[profile].title, text: DIAG_PROFILES[profile].text };
+    if (!variant) return { variant: null, title: DIAG_PROFILES[profile].title, text: DIAG_PROFILES[profile].text };
+    const { title, text, note } = variant[2];
+    return { variant: variant[0], title, text: typeof text === 'function' ? text(a, activity) : text, note };
   }
 
   // Extra lines under the orientation: business context, then invoicing.
@@ -613,18 +627,20 @@
 
     function showResult() {
       const a = answers();
-      const profileKey = diagProfile(a);
-      const profile = diagContent(a, profileKey);
-      const notes = diagNotes(a, profileKey);
       const result = panels.result;
 
-      // "Otro": the typed activity personalises the summary and the
-      // WhatsApp message; the orientation still comes from the category
-      // answers (free text is never interpreted).
+      // "Otro": the typed activity personalises the summary, the WhatsApp
+      // message and, where a result quotes it, the orientation text; the
+      // orientation itself still comes from the category answers (free
+      // text is never interpreted).
       const activity = a.tipo === 'otro' ? otherText() : '';
       // Display only: first letter upper-cased ("taller" → "Taller"); the
       // typed value and the WhatsApp message keep it exactly as written.
       const activityShown = activity.replace(/\p{L}/u, (c) => c.toLocaleUpperCase('es'));
+
+      const profileKey = diagProfile(a);
+      const profile = diagContent(a, profileKey, activityShown);
+      const notes = diagNotes(a, profileKey);
       const tipoSummary = activity ? `Otro — ${activityShown}` : labelOf('tipo');
       const tipoMessage = activity || labelOf('tipo');
 
