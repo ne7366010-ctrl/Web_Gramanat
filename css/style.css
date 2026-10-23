@@ -12667,6 +12667,7 @@ button.hamburger {
   margin: 0;
   font-size: 12px;
   font-weight: 600;
+  line-height: normal;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gn-blue-mid);
@@ -12752,6 +12753,7 @@ button.hamburger {
   margin: 0;
   font-size: 12px;
   font-weight: 600;
+  line-height: normal;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gn-muted);
@@ -12775,9 +12777,12 @@ button.hamburger {
   border-top: 0;
 }
 
+/* Labels set their own line-height: the site's global one (Bootstrap) would
+   make them taller than in the approved design. */
 .gn-about-fact dt {
   font-size: 12.5px;
   font-weight: 600;
+  line-height: normal;
   color: var(--gn-muted);
 }
 
