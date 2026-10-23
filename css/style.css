@@ -12808,8 +12808,18 @@ button.hamburger {
   text-underline-offset: 4px;
 }
 
+/* The global "a:focus, a:active, a:visited" rule removes outline and
+   underline with !important, and Bootstrap recolours focused links: keep
+   this link's colour and underline when focused and show a visible
+   keyboard focus ring. */
+.gn-about-link:focus,
+.gn-about-link:active {
+  color: var(--gn-blue-mid);
+  text-decoration: underline !important;
+}
+
 .gn-about-link:focus-visible {
-  outline: 3px solid var(--gn-sky);
+  outline: 3px solid var(--gn-sky) !important;
   outline-offset: 3px;
   border-radius: 4px;
 }
