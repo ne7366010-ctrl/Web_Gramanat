@@ -40,7 +40,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=139" rel="stylesheet" />
+    <link href="css/style.css?v=140" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -2201,52 +2201,55 @@
 
     <!-- End Service area -->
 
-    <!-- Start How It Works area -->
-    <div id="how-it-works" class="how-it-works-area area-padding">
-      <div class="container">
-        <div class="row">
-          <div class="section-headline text-center">
-            <h2>Cómo funciona</h2>
-            <p class="how-it-works-subtitle">
-              Empezar es fácil, rápido y sin compromiso.
-            </p>
-          </div>
-        </div>
-        <div class="row how-it-works-row">
-          <div class="how-step">
-            <div class="how-step-number">1</div>
-            <h3>Nos escribes por WhatsApp</h3>
-            <p>Cuéntanos qué tipo de negocio tienes y qué necesitas.</p>
-          </div>
-          <div class="how-step">
-            <div class="how-step-number">2</div>
-            <h3>Te hacemos una demo gratis</h3>
-            <p>
-              Te mostramos el sistema funcionando con ejemplos de tu negocio.
-            </p>
-          </div>
-          <div class="how-step">
-            <div class="how-step-number">3</div>
-            <h3>Instalamos y te capacitamos en 24-48 h</h3>
-            <p>
-              Dejamos todo listo y te enseñamos a usarlo. Siempre con soporte.
-            </p>
-          </div>
-        </div>
-        <div class="row text-center">
+    <!-- Cómo funciona (#how-it-works): the advisory process up to an informed
+       decision. Differs from Cotización (which is about the price): step 02
+       compares own software with other providers. No promises of free
+       demos, deadlines or included services. -->
+    <section id="how-it-works" class="gn-hiw" aria-labelledby="gn-hiw-title">
+      <div class="gn-hiw-inner">
+        <header class="gn-hiw-head">
+          <p class="gn-hiw-eyebrow">Cómo funciona</p>
+          <h2 id="gn-hiw-title" class="gn-hiw-title">Del primer mensaje a una decisión informada</h2>
+          <p class="gn-hiw-lead">Así trabajamos contigo antes de que elijas una solución de facturación electrónica para tu negocio.</p>
+        </header>
+
+        <ol class="gn-hiw-steps">
+          <li class="gn-hiw-step">
+            <span class="gn-hiw-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Nos cuentas sobre tu negocio</h3>
+              <p>Cuéntanos a qué te dedicas, cómo trabajas actualmente y qué necesitas resolver.</p>
+            </div>
+          </li>
+          <li class="gn-hiw-step">
+            <span class="gn-hiw-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Evaluamos tus necesidades y las alternativas</h3>
+              <p>Analizamos tu operación y evaluamos las opciones disponibles, incluyendo nuestro software propio y soluciones de otros proveedores.</p>
+            </div>
+          </li>
+          <li class="gn-hiw-step">
+            <span class="gn-hiw-num" aria-hidden="true">03</span>
+            <div>
+              <h3>Te presentamos una solución adecuada</h3>
+              <p>Te presentamos una propuesta con la solución recomendada, su alcance y sus condiciones, para que puedas decidir con claridad.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="gn-hiw-actions">
           <a
-            class="ready-btn cta-demo how-it-works-btn"
-            href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat."
+            class="gn-hiw-cta"
+            data-cta="como-funciona-whatsapp"
+            href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20para%20encontrar%20una%20soluci%C3%B3n%20de%20facturaci%C3%B3n%20electr%C3%B3nica%20adecuada%20para%20mi%20negocio."
             target="_blank"
-            >Agenda tu demo gratis</a
+            rel="noopener"
+            >Solicita asesoría por WhatsApp <span aria-hidden="true">→</span></a
           >
-          <p class="how-it-works-note">
-            Sin costo · Sin compromiso · Respuesta inmediata
-          </p>
+          <a class="gn-hiw-alt" href="#verificador">¿Prefieres orientarte primero? Haz el diagnóstico</a>
         </div>
       </div>
-    </div>
-    <!-- End How It Works area -->
+    </section>
 
     <!-- Nosotros (#about): who Gramanat is, what it does and why trust it.
        No products, process or prices (Sistemas / Cotización cover those).
