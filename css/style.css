@@ -4291,183 +4291,6 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------*/
-/* 7a. Final CTA Area ("¿Listo para facturar sin preocupaciones?")
-/* Scoped to #final-cta; replaces the old "Bienvenidos a Gramanat"
-/* wellcome-area block (still shared/used as-is on other pages) as the
-/* page's closing call-to-action.
-/*--------------------------------------*/
-
-#final-cta {
-  position: relative;
-  background: #0a0f1e;
-  padding: 100px 0;
-  overflow: hidden;
-}
-
-#final-cta::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 900px;
-  height: 900px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.15) 0%, rgba(255, 122, 41, 0) 70%);
-  pointer-events: none;
-}
-
-#final-cta .final-cta-content {
-  position: relative;
-  z-index: 1;
-  max-width: 760px;
-  margin: 0 auto;
-}
-
-#final-cta .final-cta-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-#final-cta .final-cta-title {
-  color: #fff;
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
-}
-
-#final-cta .final-cta-accent {
-  color: var(--color-accent);
-}
-
-#final-cta .final-cta-subtitle {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px auto 48px;
-}
-
-#final-cta .final-cta-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 2rem;
-}
-
-#final-cta .final-cta-btn-solid,
-#final-cta .final-cta-btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 16px;
-  text-transform: none;
-  letter-spacing: normal;
-  text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-#final-cta .final-cta-btn-solid {
-  background: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  color: #fff;
-}
-
-#final-cta .final-cta-btn-solid:hover {
-  background: #e0691f;
-  border-color: #e0691f;
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-#final-cta .final-cta-btn-outline {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
-}
-
-#final-cta .final-cta-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-#final-cta .final-cta-trust-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#final-cta .final-cta-trust-list li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
-}
-
-#final-cta .final-cta-trust-list li i {
-  color: var(--color-accent);
-}
-
-#final-cta .final-cta-trust-list li + li::before {
-  content: "·";
-  margin: 0 10px 0 4px;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 767px) {
-  #final-cta {
-    padding: 70px 0;
-  }
-
-  #final-cta .final-cta-title {
-    font-size: 32px;
-  }
-
-  #final-cta .final-cta-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  #final-cta .final-cta-btn-solid,
-  #final-cta .final-cta-btn-outline {
-    width: 100%;
-  }
-
-  #final-cta .final-cta-trust-list {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  #final-cta .final-cta-trust-list li + li::before {
-    content: none;
-    margin: 0;
-  }
-}
-
-/*--------------------------------------*/
 /*8.Team Area Css
 /*--------------------------------------*/
 
@@ -12485,5 +12308,233 @@ button.hamburger {
 
   .gn-hiw-step {
     padding-bottom: 36px;
+  }
+}
+
+/* ==========================================================================
+   CTA final (#final-cta)
+   Brand navy band closing the page with the editorial language of the
+   approved sections: left-aligned header and one main action. The action
+   panel groups what happens on WhatsApp, the orange button (the only
+   orange) and a quiet link to Contacto. On phones the panel becomes a
+   hairline above the action (a frame would squeeze the button). Reading
+   order is the HTML order: header, panel.
+   ========================================================================== */
+
+.gn-cta {
+  --gn-navy: #071c33;
+  --gn-sky: #63b2f2;
+  --gn-white: #ffffff;
+  --gn-text: #b6c3d4;
+  --gn-link: #9fd0f7;
+  --gn-line: rgba(255, 255, 255, 0.14);
+  --gn-panel: rgba(255, 255, 255, 0.04);
+  --gn-orange: #ff7417;
+  --gn-orange-hover: #ff8a3d;
+  background: var(--gn-navy);
+  color: var(--gn-white);
+  padding: 56px 16px 64px;
+  scroll-margin-top: 80px;
+}
+
+.gn-cta-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+}
+
+.gn-cta-head {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.gn-cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-sky);
+}
+
+.gn-cta-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-cta-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-white);
+  text-wrap: balance;
+}
+
+.gn-cta-lead {
+  margin: 4px 0 0;
+  max-width: 36em;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+.gn-cta-panel {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+  min-width: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--gn-line);
+}
+
+.gn-cta-panel-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gn-sky);
+}
+
+.gn-cta-panel-text {
+  margin: -8px 0 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+/* Global link rules recolour hovered/focused links, remove outline and
+   underline with !important and animate "all": restate them here. */
+.gn-cta-btn,
+.gn-cta-btn:visited,
+.gn-cta-btn:focus,
+.gn-cta-btn:active {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: var(--gn-orange);
+  color: var(--gn-navy);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.gn-cta-alt,
+.gn-cta-alt:visited,
+.gn-cta-alt:focus,
+.gn-cta-alt:active {
+  display: inline-block;
+  padding-block: 6px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--gn-link);
+  text-decoration: underline !important;
+  text-decoration-color: rgba(159, 208, 247, 0.4);
+  text-underline-offset: 4px;
+  transition: none;
+}
+
+.gn-cta-btn:focus-visible,
+.gn-cta-alt:focus-visible {
+  outline: 3px solid var(--gn-sky) !important;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-cta-btn:hover {
+    background: var(--gn-orange-hover);
+    color: var(--gn-navy);
+  }
+
+  .gn-cta-alt:hover {
+    color: var(--gn-white);
+    text-decoration-color: currentColor;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-cta-btn {
+    transition: none;
+  }
+}
+
+/* Below 380px the button label needs 4px more than the content width:
+   trim only its side padding so it stays on one line. */
+@media (max-width: 379px) {
+  .gn-cta-btn,
+  .gn-cta-btn:visited,
+  .gn-cta-btn:focus,
+  .gn-cta-btn:active {
+    padding-inline: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-cta {
+    padding: 84px 32px 92px;
+  }
+
+  .gn-cta-inner {
+    gap: 40px;
+  }
+
+  .gn-cta-title {
+    max-width: 18em;
+    font-size: 34px;
+  }
+
+  .gn-cta-lead {
+    font-size: 17.5px;
+  }
+
+  .gn-cta-panel {
+    padding: 28px 32px;
+    border: 1px solid var(--gn-line);
+    border-radius: 16px;
+    background: var(--gn-panel);
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-cta {
+    padding: 104px 48px 112px;
+    scroll-margin-top: 56px;
+  }
+
+  .gn-cta-inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: 72px;
+    align-items: center;
+  }
+
+  .gn-cta-title {
+    max-width: 13em;
+    font-size: 42px;
+  }
+
+  .gn-cta-lead {
+    font-size: 18px;
   }
 }
