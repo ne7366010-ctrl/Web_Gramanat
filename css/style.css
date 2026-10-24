@@ -4191,28 +4191,8 @@ p.hero-subtitle {
 /*6.Faq Area ("Preguntas frecuentes")
 /*--------------------------------------*/
 
-.faq-area {
-  background-color: #f9f9f9;
-  padding: 60px 0;
-}
-
-/* #faq.faq-premium below overrides/extends this base block for the
-   interactive filter + card redesign. Scoped to #faq.faq-premium so it
-   can never leak anywhere else. */
-#faq.faq-premium {
-  background-color: #f8fafc;
-  background-image: radial-gradient(rgba(10, 15, 30, 0.06) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-#faq .faq-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
+/* Preguntas frecuentes is styled by the .gn-faq block at the end of
+   the file; the shared .section-headline rule below stays here. */
 
 /* Shared base rule other sections without an ID-scoped override still
    fall back to. Unified section-title system: every section's own h2/
@@ -4247,481 +4227,6 @@ p.hero-subtitle {
 @media (max-width: 767px) {
   .section-headline h2 {
     font-size: 32px;
-  }
-}
-
-/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
-   display:table; }`) would otherwise occupy its own implicit grid cell. */
-#faq .faq-layout::before,
-#faq .faq-layout::after {
-  content: none;
-  display: none;
-}
-
-#faq > .container,
-#faq .faq-layout {
-  overflow: visible;
-}
-
-#faq .faq-layout {
-  display: flex;
-  gap: 64px;
-}
-
-/* --- Left column (intro + contact card) ---
-   Static in normal flow at every breakpoint — no position:sticky, no
-   scroll-driven JS or transform. Just aligned to the top of the row. */
-#faq .faq-aside {
-  flex: 0 0 40%;
-  position: static;
-  align-self: flex-start;
-}
-
-#faq .faq-main {
-  flex: 1 1 60%;
-  min-width: 0;
-}
-
-#faq .faq-title {
-  color: var(--color-navy);
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
-  position: relative;
-}
-
-#faq .faq-title::after {
-  display: none;
-}
-
-#faq .faq-intro {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px 0 48px;
-}
-
-@media (max-width: 767px) {
-  #faq .faq-title {
-    font-size: 32px;
-  }
-}
-
-#faq.faq-premium .faq-contact-card {
-  position: relative;
-  overflow: hidden;
-  background: #0a0f1e;
-  border-radius: 16px;
-  padding: 32px;
-}
-
-/* Subtle orange radial glow in the top-right corner, clipped by the
-   card's own overflow:hidden. Painted first (::before is the card's
-   first child), so it sits behind all the static in-flow content below
-   with no z-index needed. */
-#faq.faq-premium .faq-contact-card::before {
-  content: "";
-  position: absolute;
-  top: -70px;
-  right: -70px;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.28) 0%, rgba(255, 122, 41, 0) 70%);
-  pointer-events: none;
-}
-
-#faq.faq-premium .faq-online-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #86efac;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 16px;
-}
-
-#faq.faq-premium .faq-online-dot {
-  position: relative;
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22c55e;
-}
-
-#faq.faq-premium .faq-online-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #22c55e;
-  animation: faq-online-pulse 2s ease-out infinite;
-}
-
-@keyframes faq-online-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(2.4);
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #faq.faq-premium .faq-online-dot::after {
-    animation: none;
-    opacity: 0;
-  }
-}
-
-#faq .faq-contact-card i {
-  color: var(--color-accent);
-  font-size: 26px;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-#faq .faq-contact-card h3 {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 0.5rem;
-}
-
-#faq .faq-contact-card p {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  line-height: 1.5;
-  margin: 0 0 1.5rem;
-}
-
-#faq.faq-premium .faq-quick-questions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 0 0 1.5rem;
-}
-
-#faq.faq-premium .faq-quick-btn {
-  display: inline-block;
-  max-width: 100%;
-  padding: 8px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease;
-}
-
-#faq.faq-premium .faq-quick-btn:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-/* --- Right column (accordion) --- */
-
-#faq.faq-premium .faq-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-
-#faq.faq-premium .faq-filter-pill {
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  background: #fff;
-  color: #4b5563;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-#faq.faq-premium .faq-filter-pill:hover {
-  border-color: var(--color-accent);
-  color: #0a0f1e;
-}
-
-#faq.faq-premium .faq-filter-pill.is-active {
-  background: #0a0f1e;
-  border-color: #0a0f1e;
-  color: #fff;
-}
-
-#faq.faq-premium .faq-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#faq.faq-premium .faq-item {
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  background: #fff;
-  position: relative;
-  overflow: hidden;
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease,
-    opacity 0.25s ease;
-}
-
-#faq.faq-premium .faq-item::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--color-accent);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.3s ease;
-}
-
-#faq.faq-premium .faq-item.is-open::after {
-  transform: scaleY(1);
-}
-
-#faq.faq-premium .faq-item:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-#faq.faq-premium .faq-item.is-open {
-  border-color: var(--color-accent);
-  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.08);
-}
-
-/* Fade-out used while a filter is hiding non-matching cards (see
-   js/main.js) — `.faq-item[hidden]` is removed once the fade finishes. */
-#faq.faq-premium .faq-item.is-filtered-out {
-  opacity: 0;
-  transform: scale(0.98);
-  pointer-events: none;
-}
-
-#faq.faq-premium .faq-item[hidden] {
-  display: none;
-}
-
-#faq .faq-question {
-  margin: 0;
-}
-
-#faq.faq-premium .faq-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 22px 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
-}
-
-#faq.faq-premium .faq-trigger:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: -2px;
-  border-radius: 14px;
-}
-
-#faq.faq-premium .faq-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #f1f5f9;
-  color: #64748b;
-  font-size: 14px;
-  font-weight: 700;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
-}
-
-#faq.faq-premium .faq-item.is-open .faq-number {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-#faq .faq-question-text {
-  flex: 1 1 auto;
-  font-size: 19px;
-  font-weight: 600;
-  color: #0a0f1e;
-  transition: color 0.25s ease;
-}
-
-#faq .faq-item.is-open .faq-question-text {
-  color: var(--color-accent);
-}
-
-#faq.faq-premium .faq-toggle-icon {
-  position: relative;
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #f1f5f9;
-  transition:
-    background-color 0.25s ease,
-    transform 0.3s ease;
-}
-
-#faq .faq-toggle-icon::before,
-#faq .faq-toggle-icon::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: #0a0f1e;
-  transition: background-color 0.25s ease;
-}
-
-#faq .faq-toggle-icon::before {
-  width: 16px;
-  height: 1.5px;
-  transform: translate(-50%, -50%);
-}
-
-#faq .faq-toggle-icon::after {
-  width: 1.5px;
-  height: 16px;
-  transform: translate(-50%, -50%);
-}
-
-#faq .faq-item.is-open .faq-toggle-icon {
-  transform: rotate(45deg);
-}
-
-#faq.faq-premium .faq-item.is-open .faq-toggle-icon {
-  background: var(--color-accent);
-}
-
-#faq.faq-premium .faq-item.is-open .faq-toggle-icon::before,
-#faq.faq-premium .faq-item.is-open .faq-toggle-icon::after {
-  background: #fff;
-}
-
-#faq .faq-answer {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease;
-}
-
-#faq .faq-item.is-open .faq-answer {
-  grid-template-rows: 1fr;
-}
-
-#faq .faq-answer-inner {
-  overflow: hidden;
-}
-
-/* Only horizontal padding on the item itself — vertical padding here
-   would stay as an unavoidable minimum height even while the parent
-   grid row is collapsed to 0fr (padding is part of this element's own
-   box, unlike its children's content, which `overflow: hidden` can
-   clip away entirely). The old design kept all vertical spacing on the
-   <p> for the same reason; the trailing margin below does the same job
-   for the space after the WhatsApp link. */
-#faq.faq-premium .faq-answer-inner {
-  padding: 0 24px 0 74px;
-}
-
-#faq.faq-premium .faq-answer-inner p {
-  margin: 0 0 12px;
-  padding: 0;
-  font-size: 16px;
-  color: #6b7280;
-  line-height: 1.75;
-}
-
-#faq.faq-premium .faq-whatsapp-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 24px;
-  color: var(--color-accent);
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-#faq.faq-premium .faq-whatsapp-link:hover {
-  text-decoration: underline;
-}
-
-#faq.faq-premium .faq-whatsapp-link .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-#faq.faq-premium .faq-whatsapp-link:hover .arrow {
-  transform: translateX(4px);
-}
-
-@media (max-width: 767px) {
-  #faq .faq-layout {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  #faq .faq-aside {
-    flex-basis: auto;
-  }
-
-  #faq.faq-premium .faq-aside {
-    order: 2;
-  }
-
-  #faq.faq-premium .faq-main {
-    order: 1;
-  }
-
-  #faq.faq-premium .faq-filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  #faq.faq-premium .faq-filters::-webkit-scrollbar {
-    display: none;
-  }
-
-  #faq.faq-premium .faq-answer-inner {
-    padding: 0 20px;
-  }
-
-  #faq.faq-premium .faq-trigger {
-    padding: 20px;
-    gap: 14px;
   }
 }
 
@@ -12527,5 +12032,324 @@ button.hamburger {
 @media (min-width: 1100px) {
   .gn-anchor-alias {
     scroll-margin-top: 56px;
+  }
+}
+
+/* ==========================================================================
+   Preguntas frecuentes (#faq.gn-faq): same editorial language as Nosotros
+   (left-aligned header, hairlines instead of cards, navy and blues, no
+   orange: the final CTA right below keeps it). Reading order is the HTML
+   order everywhere: header, questions, help link. On desktop the help
+   link sits under the header column via grid areas. One answer open at a
+   time (main.js).
+   ========================================================================== */
+
+.gn-faq {
+  --gn-navy: #071c33;
+  --gn-blue: #0f3f78;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-text: #4b5a70;
+  --gn-line: #dfe6ef;
+  --gn-tint: #f5f7fa;
+  background: var(--gn-tint);
+  color: var(--gn-navy);
+  padding: 52px 16px 60px;
+  scroll-margin-top: 80px;
+}
+
+.gn-faq-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+}
+
+.gn-faq-head {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.gn-faq-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-faq-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-faq-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-wrap: balance;
+}
+
+.gn-faq-lead {
+  margin: 4px 0 0;
+  max-width: 60ch;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+.gn-faq-list {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--gn-line);
+}
+
+.gn-faq-item {
+  border-bottom: 1px solid var(--gn-line);
+}
+
+.gn-faq-item h3 {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.gn-faq-q {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  padding: 18px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font: 600 16.5px/1.4 Inter, system-ui, sans-serif;
+  color: var(--gn-navy);
+}
+
+.gn-faq-icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #c9d6e6;
+  border-radius: 50%;
+  background: #fff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.gn-faq-icon::before,
+.gn-faq-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  margin: -1px 0 0 -6px;
+  border-radius: 1px;
+  background: var(--gn-blue-mid);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.gn-faq-icon::after {
+  transform: rotate(90deg);
+}
+
+.gn-faq-q[aria-expanded="true"] .gn-faq-icon {
+  background: var(--gn-blue-mid);
+  border-color: var(--gn-blue-mid);
+}
+
+.gn-faq-q[aria-expanded="true"] .gn-faq-icon::before,
+.gn-faq-q[aria-expanded="true"] .gn-faq-icon::after {
+  background: #fff;
+}
+
+.gn-faq-q[aria-expanded="true"] .gn-faq-icon::after {
+  transform: rotate(0deg);
+}
+
+.gn-faq-q:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-faq-q:hover {
+    color: var(--gn-blue);
+  }
+
+  .gn-faq-q:hover .gn-faq-icon {
+    border-color: var(--gn-blue-mid);
+  }
+}
+
+.gn-faq-a {
+  padding: 0 48px 20px 0;
+}
+
+.gn-faq-a p {
+  max-width: 62ch;
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+/* The global "a:focus, a:active, a:visited" rule removes outline and
+   underline with !important, and Bootstrap recolours focused links. */
+.gn-faq-link {
+  justify-self: start;
+  display: inline-block;
+  padding-block: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--gn-blue-mid);
+  text-decoration: underline;
+  text-decoration-color: rgba(29, 99, 183, 0.35);
+  text-underline-offset: 4px;
+}
+
+.gn-faq-link:focus,
+.gn-faq-link:active {
+  color: var(--gn-blue-mid);
+  text-decoration: underline !important;
+}
+
+.gn-faq-link:focus-visible {
+  outline: 3px solid var(--gn-sky) !important;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-faq-link:hover {
+    color: var(--gn-blue);
+    text-decoration-color: currentColor;
+  }
+}
+
+.gn-faq-a .gn-faq-link {
+  margin-top: 6px;
+  padding-block: 4px;
+  font-size: 14px;
+}
+
+.gn-faq-help {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.gn-faq-help p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--gn-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-faq-icon,
+  .gn-faq-icon::before,
+  .gn-faq-icon::after {
+    transition: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-faq {
+    padding: 84px 32px 92px;
+  }
+
+  .gn-faq-inner {
+    gap: 36px;
+  }
+
+  .gn-faq-title {
+    max-width: 20ch;
+    font-size: 34px;
+  }
+
+  .gn-faq-lead {
+    max-width: 34em;
+    font-size: 17.5px;
+  }
+
+  .gn-faq-help {
+    grid-template-columns: auto auto;
+    justify-content: start;
+    align-items: center;
+    gap: 0 12px;
+    max-width: 34em;
+  }
+
+  .gn-faq-q {
+    padding: 20px 0;
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-faq {
+    padding: 104px 48px 112px;
+    scroll-margin-top: 56px;
+  }
+
+  .gn-faq-inner {
+    grid-template-columns: minmax(0, 4.2fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "head list"
+      "help list";
+    column-gap: 72px;
+    row-gap: 28px;
+    align-items: start;
+  }
+
+  .gn-faq-head {
+    grid-area: head;
+  }
+
+  .gn-faq-list {
+    grid-area: list;
+    margin-top: 6px;
+  }
+
+  .gn-faq-help {
+    grid-area: help;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding-top: 18px;
+    border-top: 1px solid var(--gn-line);
+  }
+
+  .gn-faq-title {
+    max-width: 12em;
+    font-size: 42px;
+  }
+
+  .gn-faq-lead {
+    font-size: 18px;
   }
 }
