@@ -18,14 +18,13 @@
     <link href="img/about/Favicon.png" rel="icon" />
     <link href="img/about/Favicon.png" rel="apple-touch-icon" />
 
-    <!-- Google Fonts. Inter now carries the site-wide base typography
-       (body text + the global h1-h6 default in css/style.css); the rest
-       (Space Grotesk, Fraunces, Rubik) are still used only by the
-       #equipment "Tu Equipo de Confianza" section. -->
+    <!-- Google Fonts. Inter carries the site-wide typography (body text +
+       the global h1-h6 default in css/style.css). Space Grotesk, Fraunces
+       and Rubik were only used by the retired #equipment section. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Fraunces:ital,wght@1,400;1,500&family=Inter:wght@400;500;600;700;800&family=Rubik:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -41,7 +40,7 @@
     <link href="lib/venobox/venobox.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=137" rel="stylesheet" />
+    <link href="css/style.css?v=138" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="css/responsive.css" rel="stylesheet" />
@@ -347,9 +346,6 @@
               </ul>
             </li>
             <li>
-              <a href="#equipment"><i class="fa-solid fa-users"></i>Equipo</a>
-            </li>
-            <li>
               <a href="#faq"
                 ><i class="fa-solid fa-circle-question"></i>Preguntas</a
               >
@@ -492,9 +488,6 @@
                 <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li><a href="#">AppKloud</a></li> -->
               </ul>
-            </li>
-            <li>
-              <a href="#equipment">Equipo</a>
             </li>
             <li class="mobile-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
@@ -1009,6 +1002,8 @@
        authorisation are confirmed (all 20 confirmed on 2026-10-23); the
        register is kept outside the site. Alphabetical. Balanced rows and
        the mobile "Ver más clientes" toggle come from main.js. -->
+    <!-- Compatibility anchor: old links to the retired Testimonios section. -->
+    <span id="testimonios" class="gn-anchor-alias" aria-hidden="true"></span>
     <section id="clientes" class="gn-clients" aria-labelledby="gn-clients-title">
       <div class="gn-clients-inner">
         <header class="gn-clients-head">
@@ -2249,6 +2244,9 @@
        No products, process or prices (Sistemas / Cotización cover those).
        Pending: confirm the office in San Salvador is still current (it
        matches the address published in #contact). -->
+    <!-- Compatibility anchor: the retired "Nuestro equipo" section (#equipment)
+       is still linked from the menus of the other pages. -->
+    <span id="equipment" class="gn-anchor-alias" aria-hidden="true"></span>
     <section id="about" class="gn-about" aria-labelledby="gn-about-title">
       <div class="gn-about-inner">
         <div class="gn-about-main">
@@ -2320,240 +2318,6 @@
       </div>
     </section>
     <!-- End Nosotros -->
-
-    <!-- Start team Area -->
-    <div id="equipment" class="custom-cards">
-      <div class="row">
-        <div class="section-headline text-center">
-          <p class="equipment-eyebrow">Nuestro equipo</p>
-          <h2>Tu equipo de confianza</h2>
-          <p class="equipment-subtitle">
-            Profesionales especializados que te acompañan en cada etapa de tu
-            proyecto.
-          </p>
-        </div>
-      </div>
-      <div class="row equipment-row">
-        <div class="card reveal-up" style="--reveal-delay: 0s">
-          <div class="icon-wrapper"><i class="fa-solid fa-code"></i></div>
-          <h3>Desarrollo de software</h3>
-          <p>Diseñamos e implementamos soluciones a la medida de tu negocio.</p>
-        </div>
-        <div class="card reveal-up" style="--reveal-delay: 0.1s">
-          <div class="icon-wrapper"><i class="fa-solid fa-headset"></i></div>
-          <h3>Soporte técnico</h3>
-          <p>
-            Asistencia remota y presencial para mantener tus equipos y sistemas
-            funcionando.
-          </p>
-        </div>
-        <div class="card reveal-up" style="--reveal-delay: 0.2s">
-          <div class="icon-wrapper">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <h3>Especialistas en cumplimiento</h3>
-          <p>
-            Te asesoramos en la normativa del DTE para que tu empresa siempre
-            esté al día.
-          </p>
-        </div>
-        <div class="card reveal-up" style="--reveal-delay: 0.3s">
-          <div class="icon-wrapper">
-            <i class="fa-solid fa-chalkboard-user"></i>
-          </div>
-          <h3>Implementación y capacitación</h3>
-          <p>
-            Te acompañamos desde la instalación hasta que tu equipo domine el
-            sistema.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- End Team Area -->
-
-    <!-- Start Results Strip -->
-    <div id="results">
-      <div class="container">
-        <div class="row results-row">
-          <div class="result-item reveal-up" style="--reveal-delay: 0s">
-            <i class="fa-solid fa-store"></i>
-            <div class="result-number">
-              <span class="result-number-prefix">+</span
-              ><span class="result-number-value" data-count-to="20">0</span>
-            </div>
-            <p>negocios atendidos</p>
-          </div>
-          <div class="result-item reveal-up" style="--reveal-delay: 0.1s">
-            <i class="fa-solid fa-cash-register"></i>
-            <div class="result-number">
-              <span class="result-number-prefix">+</span
-              ><span class="result-number-value" data-count-to="30">0</span>
-            </div>
-            <p>equipos instalados</p>
-          </div>
-          <div class="result-item reveal-up" style="--reveal-delay: 0.2s">
-            <i class="fa-solid fa-clock"></i>
-            <div class="result-number">
-              <span class="result-number-value">Al instante</span>
-            </div>
-            <p>tiempo de respuesta</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Results Strip -->
-
-    <section id="testimonios" class="testimonios-area">
-      <div class="testimonios-giant-text" aria-hidden="true">
-        <span class="testimonios-giant-word testimonios-giant-top"
-          >Nuestros</span
-        >
-        <span class="testimonios-giant-word testimonios-giant-bottom"
-          >Clientes</span
-        >
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="section-headline text-center">
-            <p class="testimonios-eyebrow">Lo que dicen nuestros clientes</p>
-            <h2>Negocios que ya facturan sin preocupaciones</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="testimonios-track">
-            <article
-              class="testimonio-card reveal-up"
-              style="--reveal-delay: 0s"
-            >
-              <div class="testimonio-header">
-                <div class="testimonio-avatar testimonio-avatar-has-photo">
-                  <img
-                    src="img/testimonios/cliente-1.jpg?v=1"
-                    alt="Carlos M."
-                    loading="lazy"
-                    onerror="
-                      this.style.display = 'none';
-                      this.nextElementSibling.style.display = 'flex';
-                    "
-                  />
-                  <span class="testimonio-avatar-fallback">CM</span>
-                </div>
-                <div class="testimonio-person">
-                  <span class="testimonio-name">Carlos M.</span>
-                  <span class="testimonio-meta"
-                    >Cliente de Gramanat · Restaurante</span
-                  >
-                  <div class="testimonio-stars" aria-hidden="true">
-                    <i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="testimonio-positives">
-                <strong>Positivos:</strong> Rapidez, Facilidad de uso y
-                Capacitación.
-              </p>
-              <p class="testimonio-text">
-                Antes perdíamos bastante tiempo cuadrando la caja y haciendo las
-                facturas. Desde que usamos Gramanat, podemos facturar mucho más
-                rápido y el equipo aprendió a usar el sistema prácticamente el
-                mismo día.
-              </p>
-              <span class="testimonio-pill">Facturación electrónica</span>
-            </article>
-            <article
-              class="testimonio-card testimonio-card-featured reveal-up"
-              style="--reveal-delay: 0.1s"
-            >
-              <div class="testimonio-header">
-                <div class="testimonio-avatar testimonio-avatar-has-photo">
-                  <img
-                    src="img/testimonios/cliente-2.jpg?v=1"
-                    alt="María L."
-                    loading="lazy"
-                    onerror="
-                      this.style.display = 'none';
-                      this.nextElementSibling.style.display = 'flex';
-                    "
-                  />
-                  <span class="testimonio-avatar-fallback">ML</span>
-                </div>
-                <div class="testimonio-person">
-                  <span class="testimonio-name">María L.</span>
-                  <span class="testimonio-meta"
-                    >Cliente de Gramanat · Minisúper</span
-                  >
-                  <div class="testimonio-stars" aria-hidden="true">
-                    <i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="testimonio-positives">
-                <strong>Positivos:</strong> Soporte, Capacidad de respuesta y
-                Control de inventario.
-              </p>
-              <p class="testimonio-text">
-                Lo que más me ha gustado es el soporte. Una vez tuve una duda,
-                escribí por WhatsApp y me ayudaron en minutos. Ahora puedo
-                revisar fácilmente cuánto estoy vendiendo y qué productos
-                necesito reponer.
-              </p>
-              <span class="testimonio-pill">Soporte técnico</span>
-            </article>
-            <article
-              class="testimonio-card reveal-up"
-              style="--reveal-delay: 0.2s"
-            >
-              <div class="testimonio-header">
-                <div class="testimonio-avatar testimonio-avatar-has-photo">
-                  <img
-                    src="img/testimonios/cliente-3.jpg?v=1"
-                    alt="Andrea H."
-                    loading="lazy"
-                    onerror="
-                      this.style.display = 'none';
-                      this.nextElementSibling.style.display = 'flex';
-                    "
-                  />
-                  <span class="testimonio-avatar-fallback">AH</span>
-                </div>
-                <div class="testimonio-person">
-                  <span class="testimonio-name">Andrea H.</span>
-                  <span class="testimonio-meta"
-                    >Cliente de Gramanat · Servicios profesionales</span
-                  >
-                  <div class="testimonio-stars" aria-hidden="true">
-                    <i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i
-                    ><i class="fa-solid fa-star"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="testimonio-positives">
-                <strong>Positivos:</strong> Acompañamiento, Claridad y
-                Confianza.
-              </p>
-              <p class="testimonio-text">
-                Al principio me daba miedo equivocarme con la facturación
-                electrónica, pero con Gramanat me ayudaron a dejar todo listo y
-                me explicaron paso a paso cómo utilizarlo. Ahora lo manejo con
-                mucha más confianza.
-              </p>
-              <span class="testimonio-pill">Facturación electrónica</span>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Faq area start -->
     <div id="faq" class="faq-area area-padding faq-premium">
@@ -3426,8 +3190,6 @@
                     <li><a href="#about">Nosotros</a></li>
                     <li><a href="#sistemas">Sistemas por negocio</a></li>
                     <li><a href="#how-it-works">Cómo funciona</a></li>
-                    <li><a href="#equipment">Equipo</a></li>
-                    <li><a href="#testimonios">Testimonios</a></li>
                     <li><a href="#faq">Preguntas frecuentes</a></li>
                   </ul>
                 </div>
@@ -3520,6 +3282,6 @@
     <script src="contactform/contactform.js"></script>
 
     <script src="js/tracking.js?v=3"></script>
-    <script src="js/main.js?v=53"></script>
+    <script src="js/main.js?v=54"></script>
   </body>
 </html>

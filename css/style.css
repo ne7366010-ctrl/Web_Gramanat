@@ -3830,8 +3830,8 @@ p.hero-subtitle {
 
 /*--------------------------------------------------*/
 /* 4a. Problems Area ("¿Te suena familiar?")
-/* Scoped to #problems so it never affects #services/#equipment,
-/* which share the same .custom-cards/.card/.icon-wrapper base.
+/* Scoped to #problems so it never affects #services, which shares
+/* the same .custom-cards/.card/.icon-wrapper base.
 /* Styled to match the hero (dark navy #0A0F1E + accent orange)
 /* instead of the blue theme the other .custom-cards sections use.
 /*--------------------------------------------------*/
@@ -4161,10 +4161,10 @@ p.hero-subtitle {
 }
 
 /*--------------------------------------------------*/
-/* 4b. Equipment Area ("Tu equipo de confianza")
-/* Scoped to #equipment so it never affects #services/#sistemas, which
-/* share the same .custom-cards/.card/.icon-wrapper base. Styled to
-/* match #services (navy headline + accent-orange details).
+/* 4b. Shared font tokens
+/* Kept from the retired #equipment section ("Tu equipo de confianza"):
+/* --font-heading is still used by the Administrativo, Punto de venta
+/* and Webinars pages.
 /*--------------------------------------------------*/
 
 :root {
@@ -4173,125 +4173,11 @@ p.hero-subtitle {
   --font-body: "Inter", sans-serif;
 }
 
-#equipment .section-headline h2 {
-  margin-bottom: 0;
-}
-
-#equipment .equipment-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-#equipment .equipment-subtitle {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px auto 48px;
-}
-
-/* Bootstrap's .row clearfix (`.row::before/::after { content:" ";
-   display:table; }`) would otherwise occupy its own implicit grid cell. */
-#equipment .equipment-row::before,
-#equipment .equipment-row::after {
-  content: none;
-  display: none;
-}
-
-#equipment .equipment-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-#equipment .card {
-  background: #fff;
-  border: 1px solid #ebedf2;
-  border-top: 4px solid var(--color-accent);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
-  padding: 2rem;
-  text-align: left;
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-#equipment .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.14);
-}
-
-#equipment .icon-wrapper {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background-color: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
-  font-size: 22px;
-  margin: 0 0 1.25rem;
-}
-
-#equipment .card:hover .icon-wrapper {
-  background-color: var(--color-accent);
-  color: #fff;
-}
-
-#equipment h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0a0f1e;
-  text-transform: none;
-  font-style: normal;
-  line-height: 1.3;
-  margin-bottom: 0.6rem;
-}
-
-#equipment .card:hover h3 {
-  color: #0a0f1e;
-}
-
-#equipment .card p {
-  font-size: 15px;
-  color: #6b7280;
-  line-height: 1.5;
-  margin: 0;
-}
-
-#equipment .card:hover p {
-  color: #6b7280;
-}
-
-@media (max-width: 991px) {
-  #equipment .equipment-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-
-@media (max-width: 600px) {
-  #equipment .equipment-row {
-    grid-template-columns: 1fr;
-  }
-}
-
 /*--------------------------------------*/
-/*5. Results Strip
-/* Replaces the old percentage-circle skill counters. #results is only
-/* used on index.html, but .test-overly is still shared by the
-/* "Wellcome Area" dark overlay on marketing.html/casas.html/
-/* arquitectura.html, so it stays here untouched.
+/*5. Wellcome overlay (shared)
+/* The #results strip was retired from index.html; .test-overly is still
+/* used by the "Wellcome Area" dark overlay on marketing.html/casas.html/
+/* arquitectura.html.
 /*--------------------------------------*/
 
 .test-overly {
@@ -4299,75 +4185,6 @@ p.hero-subtitle {
   position: absolute;
   width: 100%;
   height: 100%;
-}
-
-#results {
-  background: #0a0f1e;
-  padding: 70px 0;
-}
-
-#results .results-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem 0;
-}
-
-#results .result-item {
-  flex: 1 1 33.333%;
-  max-width: 33.333%;
-  text-align: center;
-  padding: 0 1.5rem;
-}
-
-#results .result-item + .result-item {
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#results .result-item i {
-  display: block;
-  color: var(--color-accent);
-  font-size: 22px;
-  margin-bottom: 0.75rem;
-}
-
-#results .result-number {
-  font-size: 52px;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-#results .result-number-value {
-  color: #fff;
-}
-
-#results .result-number-prefix,
-#results .result-number-suffix {
-  color: var(--color-accent);
-}
-
-#results .result-item p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
-}
-
-@media (max-width: 767px) {
-  #results {
-    padding: 50px 0;
-  }
-
-  #results .result-item {
-    padding: 0 0.5rem;
-  }
-
-  #results .result-number {
-    font-size: 26px;
-  }
-
-  #results .result-item p {
-    font-size: 13px;
-  }
 }
 
 /*--------------------------------------*/
@@ -4403,9 +4220,9 @@ p.hero-subtitle {
    weight, letter-spacing, line-height, spacing) and only vary color
    (light vs dark section) and text-align (most centered, a couple
    left-aligned) and subtitle max-width.
-   text-transform:none is required here, not just cosmetic: 6 of these
-   sections (#sistemas/#problems/#verificador/#services/#planes/
-   #equipment) also carry the legacy .custom-cards wrapper class, whose
+   text-transform:none is required here, not just cosmetic: some of
+   these sections (#sistemas/#problems/#verificador/#services/#planes)
+   also carry the legacy .custom-cards wrapper class, whose
    own `.custom-cards h2` rule (same specificity as this one, but
    earlier in the file) sets text-transform:uppercase — without an
    explicit override here that `uppercase` wins by source order. */
@@ -6214,246 +6031,6 @@ p.hero-subtitle {
 @media screen and (max-width: 600px) {
   .wrapper {
     grid-template-columns: 1fr;
-  }
-}
-
-/*--------------------------------------*/
-/*13. Testimonios Area ("Negocios que ya facturan sin preocupaciones")
-/* Scoped to #testimonios. "Review card" style: giant decorative
-/* orange wordmark behind the cards, white cards with a thick navy
-/* border like a phone screen.
-/*--------------------------------------*/
-
-#testimonios {
-  position: relative;
-  background: #fff;
-  padding: 90px 0;
-  overflow: hidden;
-}
-
-/* Decorative only (aria-hidden) — the giant "Nuestros" / "Clientes"
-   wordmark sitting behind the cards. */
-#testimonios .testimonios-giant-text {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#testimonios .testimonios-giant-word {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 900;
-  font-size: clamp(80px, 14vw, 200px);
-  line-height: 1;
-  color: rgba(255, 122, 41, 0.1);
-  white-space: nowrap;
-}
-
-#testimonios .testimonios-giant-top {
-  top: -10px;
-}
-
-#testimonios .testimonios-giant-bottom {
-  bottom: -10px;
-}
-
-#testimonios .container {
-  position: relative;
-  z-index: 1;
-}
-
-#testimonios .testimonios-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-/* .container/.row carry a sitewide `overflow: hidden` (see that rule in
-   section 8 above) which clips .testimonio-card-featured's
-   translateY(40px) shift — its bottom 40px (including the pill tag)
-   was getting cut off by its own .row ancestor. Same fix as the hero
-   slider's .nivo-caption override further up: restore overflow:visible
-   for this section's rows/container. */
-#testimonios .container,
-#testimonios .row {
-  overflow: visible;
-}
-
-#testimonios .testimonios-track {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto;
-  padding-bottom: 60px;
-}
-
-#testimonios .testimonio-card {
-  position: relative;
-  background: #fff;
-  border: 6px solid #0a0f1e;
-  border-radius: 32px;
-  box-shadow: 0 24px 48px rgba(10, 15, 30, 0.18);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-#testimonios .testimonio-card:hover {
-  transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 0 32px 64px rgba(10, 15, 30, 0.24);
-}
-
-@media (min-width: 768px) {
-  #testimonios .testimonio-card-featured {
-    transform: translateY(40px);
-  }
-
-  #testimonios .testimonio-card-featured:hover {
-    transform: translateY(32px) rotate(-1deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #testimonios .testimonio-card,
-  #testimonios .testimonio-card-featured:hover {
-    transition: none;
-  }
-}
-
-#testimonios .testimonio-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 1.1rem;
-}
-
-#testimonios .testimonio-avatar {
-  position: relative;
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  overflow: hidden;
-}
-
-#testimonios .testimonio-avatar img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-}
-
-/* Scoped to avatars that actually have a photo loaded (currently just
-   María L.'s) so the fallback-initials circles (Carlos M., Andrea H.)
-   stay unchanged until they have photos too. */
-#testimonios .testimonio-avatar-has-photo {
-  border: 3px solid var(--color-accent);
-  box-shadow: 0 4px 12px rgba(10, 15, 30, 0.15);
-}
-
-#testimonios .testimonio-avatar-fallback {
-  display: none;
-  position: absolute;
-  inset: 0;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-#testimonios .testimonio-person {
-  display: flex;
-  flex-direction: column;
-  padding-top: 2px;
-}
-
-#testimonios .testimonio-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-accent);
-}
-
-#testimonios .testimonio-meta {
-  font-size: 13px;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-#testimonios .testimonio-stars {
-  color: var(--color-accent);
-  font-size: 13px;
-  margin-top: 6px;
-}
-
-#testimonios .testimonio-stars i {
-  margin-right: 2px;
-}
-
-#testimonios .testimonio-positives {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #0a0f1e;
-  margin: 0 0 1rem;
-}
-
-#testimonios .testimonio-positives strong {
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-#testimonios .testimonio-text {
-  font-size: 16px;
-  font-style: normal;
-  line-height: 1.6;
-  color: #0a0f1e;
-  margin: 0 0 1.5rem;
-  flex-grow: 1;
-}
-
-#testimonios .testimonio-pill {
-  display: inline-block;
-  width: fit-content;
-  background: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 14px;
-  border-radius: 999px;
-  margin-top: auto;
-}
-
-@media (max-width: 767px) {
-  #testimonios {
-    padding: 60px 0;
-  }
-
-  #testimonios .testimonios-track {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  #testimonios .testimonio-card-featured {
-    transform: none;
-  }
-
-  #testimonios .testimonio-card-featured:hover {
-    transform: translateY(-8px) rotate(-1deg);
   }
 }
 
@@ -12932,5 +12509,23 @@ button.hamburger {
   .gn-about-fact:nth-child(2) {
     padding-top: 12px;
     border-top: 1px solid #dfe6ef;
+  }
+}
+
+/* ==========================================================================
+   Compatibility anchors for retired sections: old links to #equipment
+   (menus on the other pages) land on Nosotros and #testimonios on
+   Clientes. Invisible, zero-height; same offset as the sections.
+   ========================================================================== */
+
+.gn-anchor-alias {
+  display: block;
+  height: 0;
+  scroll-margin-top: 80px;
+}
+
+@media (min-width: 1100px) {
+  .gn-anchor-alias {
+    scroll-margin-top: 56px;
   }
 }

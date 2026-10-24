@@ -804,8 +804,7 @@
 
   /*---------------------
     Scroll reveal (fade-up)
-    Shared by #problems, #equipment, #results and #testimonios via the
-    .reveal-up class.
+    Used by #problems via the .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -833,62 +832,9 @@
   });
 
   /*---------------------
-    Results strip counters
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const counters = document.querySelectorAll('#results .result-number-value[data-count-to]');
-
-    if (!counters.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const DURATION = 1500;
-
-    const setFinal = (el) => {
-      el.textContent = el.getAttribute('data-count-to');
-    };
-
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      counters.forEach(setFinal);
-      return;
-    }
-
-    const animateCount = (el) => {
-      const target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
-      const start = performance.now();
-
-      const step = (now) => {
-        const progress = Math.min((now - start) / DURATION, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(eased * target);
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = target;
-        }
-      };
-
-      requestAnimationFrame(step);
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-
-    counters.forEach((counter) => observer.observe(counter));
-  });
-
-  /*---------------------
-    #services bento: invoice card total count-up. Mirrors the results-
-    strip counter above (same IntersectionObserver + reduced-motion
-    guard), but formats a 2-decimal dollar amount instead of a plain
-    integer. The 1100ms start delay matches the CSS stagger the rest of
+    #services bento: invoice card total count-up. Uses an
+    IntersectionObserver with a reduced-motion guard and formats a
+    2-decimal dollar amount. The 1100ms start delay matches the CSS stagger the rest of
     the mini-invoice uses (--svc-i:6 on .svc-dte-total), so the number
     starts counting right as that row fades in.
   --------------------- */
