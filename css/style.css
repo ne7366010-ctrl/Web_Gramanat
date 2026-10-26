@@ -5897,1109 +5897,6 @@ p.hero-subtitle {
   font-size: 13px;
 }
 
-/*--------------------------------*/
-/* 15a. Contact Area premium redesign ("Hablemos de tu negocio")
-/* Scoped to #contact.contact-premium — NOT #contact or .contact-area, which
-/* are shared with marketing.html/casas.html/arquitectura.html — so
-/* none of this can leak into those other pages.
-/*--------------------------------*/
-
-#contact.contact-premium {
-  background-color: #fff;
-  padding: 90px 0;
-}
-
-#contact.contact-premium .contact-eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 12px;
-}
-
-#contact.contact-premium .section-headline h2 {
-  margin-bottom: 0;
-}
-
-#contact.contact-premium .section-headline h2:after {
-  display: none;
-}
-
-#contact.contact-premium .contact-subtitle {
-  color: var(--color-graphite);
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 16px auto 48px;
-}
-
-/* --- Cards --- */
-
-/* --- WhatsApp strip (full width, above the 3 info cards) --- */
-
-#contact.contact-premium .contact-whatsapp-strip {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1.22fr 1fr;
-  align-items: center;
-  gap: 40px;
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto 20px;
-  background: #0a0f1e;
-  border-radius: 28px;
-  padding: 56px;
-}
-
-/* Same subtle glow style as #final-cta's centered one: orange top-right,
-   a faint green echo bottom-left. */
-#contact.contact-premium .contact-whatsapp-strip::before {
-  content: "";
-  position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(255, 122, 41, 0.18) 0%, rgba(255, 122, 41, 0) 70%);
-  pointer-events: none;
-}
-
-#contact.contact-premium .contact-whatsapp-strip::after {
-  content: "";
-  position: absolute;
-  bottom: -120px;
-  left: -120px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(37, 211, 102, 0.12) 0%, rgba(37, 211, 102, 0) 70%);
-  pointer-events: none;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-left {
-  position: relative;
-  z-index: 1;
-}
-
-#contact.contact-premium .contact-live-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 1.25rem;
-  padding: 7px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #e2e8f0;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-#contact.contact-premium .contact-live-dot {
-  position: relative;
-  flex-shrink: 0;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #6b7280;
-  transition: background-color 0.25s ease;
-}
-
-#contact.contact-premium .contact-live-status.is-open .contact-live-dot {
-  background: #22c55e;
-}
-
-#contact.contact-premium .contact-live-status.is-open .contact-live-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #22c55e;
-  animation: contact-live-pulse 2s ease-out infinite;
-}
-
-@keyframes contact-live-pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #contact.contact-premium .contact-live-status.is-open .contact-live-dot::after {
-    animation: none;
-    opacity: 0;
-  }
-}
-
-#contact.contact-premium .contact-live-note {
-  margin: -0.75rem 0 1.25rem;
-  color: #94a3b8;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-#contact.contact-premium .contact-whatsapp-strip h3.contact-whatsapp-strip-title {
-  color: #fff;
-  font-size: 44px;
-  font-weight: 700;
-  line-height: 1.15;
-  margin: 0 0 1rem;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-accent {
-  color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-whatsapp-strip-text {
-  color: #94a3b8;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0 0 1.5rem;
-  max-width: 480px;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-number {
-  display: inline-block;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 700;
-  text-decoration: none;
-  margin: 0 0 1.75rem;
-  transition: color 0.25s ease;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-number:hover {
-  color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-whatsapp-strip-actions {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: 12px;
-  margin: 0 0 1.75rem;
-}
-
-#contact.contact-premium .contact-whatsapp-btn-primary,
-#contact.contact-premium .contact-whatsapp-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 52px;
-  padding: 0 28px;
-  border-radius: var(--radius-pill);
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-#contact.contact-premium .contact-whatsapp-btn-primary {
-  border: none;
-  background: #25d366;
-  color: #fff;
-}
-
-#contact.contact-premium .contact-whatsapp-btn-primary:hover {
-  background: #1ebe5a;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
-}
-
-#contact.contact-premium .contact-whatsapp-btn-secondary {
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
-  color: #fff;
-}
-
-#contact.contact-premium .contact-whatsapp-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-#contact.contact-premium .contact-whatsapp-strip a:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-checks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-checks li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #94a3b8;
-  font-size: 13px;
-}
-
-#contact.contact-premium .contact-whatsapp-strip-checks li i {
-  color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-whatsapp-strip-checks li + li::before {
-  content: "·";
-  margin: 0 10px 0 4px;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-/* --- Phone mockup (decorative, HTML/CSS only) --- */
-
-#contact.contact-premium .contact-whatsapp-strip-right {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#contact.contact-premium .contact-phone {
-  width: 300px;
-  max-width: 100%;
-  transform: rotate(-4deg);
-  animation: contact-phone-float 4s ease-in-out infinite;
-}
-
-@keyframes contact-phone-float {
-  0%,
-  100% {
-    transform: rotate(-4deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-4deg) translateY(-10px);
-  }
-}
-
-#contact.contact-premium .contact-phone-frame {
-  position: relative;
-  background: #0f0f0f;
-  border-radius: 40px;
-  padding: 12px;
-  box-shadow:
-    0 40px 70px rgba(0, 0, 0, 0.45),
-    0 12px 24px rgba(0, 0, 0, 0.3);
-}
-
-#contact.contact-premium .contact-phone-notch {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 18px;
-  background: #0f0f0f;
-  border-radius: 0 0 12px 12px;
-  z-index: 2;
-}
-
-#contact.contact-premium .contact-phone-screen {
-  position: relative;
-  background: #ece5dd;
-  background-image: radial-gradient(rgba(10, 15, 30, 0.04) 1px, transparent 1px);
-  background-size: 16px 16px;
-  border-radius: 30px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 430px;
-}
-
-#contact.contact-premium .contact-phone-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #075e54;
-  padding: 30px 16px 12px;
-}
-
-#contact.contact-premium .contact-phone-avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #fff;
-  padding: 4px;
-}
-
-#contact.contact-premium .contact-phone-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-#contact.contact-premium .contact-phone-header-info {
-  display: flex;
-  flex-direction: column;
-}
-
-#contact.contact-premium .contact-phone-name {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-#contact.contact-premium .contact-phone-status {
-  color: #8fd9c4;
-  font-size: 11px;
-}
-
-#contact.contact-premium .contact-phone-chat {
-  position: relative;
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px 12px;
-}
-
-#contact.contact-premium .contact-phone-bubble {
-  max-width: 82%;
-  padding: 8px 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  line-height: 1.4;
-  color: #111b21;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
-}
-
-#contact.contact-premium .contact-phone-bubble.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#contact.contact-premium .contact-phone-bubble p {
-  margin: 0 0 4px;
-}
-
-#contact.contact-premium .contact-phone-meta {
-  display: block;
-  color: rgba(17, 27, 33, 0.45);
-  font-size: 10px;
-  text-align: right;
-}
-
-#contact.contact-premium .contact-phone-meta i {
-  color: #53bdeb;
-}
-
-#contact.contact-premium .contact-phone-bubble-client {
-  align-self: flex-end;
-  background: #dcf8c6;
-  border-top-right-radius: 2px;
-}
-
-#contact.contact-premium .contact-phone-bubble-gramanat {
-  align-self: flex-start;
-  background: #fff;
-  border-top-left-radius: 2px;
-}
-
-#contact.contact-premium .contact-phone-bubble-typing {
-  align-self: flex-start;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: #fff;
-  border-top-left-radius: 2px;
-  padding: 11px 14px;
-}
-
-#contact.contact-premium .contact-phone-typing-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #9aa5a1;
-  animation: contact-typing-bounce 1.2s infinite ease-in-out;
-}
-
-#contact.contact-premium .contact-phone-typing-dot:nth-child(2) {
-  animation-delay: 0.15s;
-}
-
-#contact.contact-premium .contact-phone-typing-dot:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-@keyframes contact-typing-bounce {
-  0%,
-  60%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.4;
-  }
-  30% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
-}
-
-#contact.contact-premium .contact-phone-quick-replies {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  margin-top: 2px;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
-}
-
-#contact.contact-premium .contact-phone-quick-replies.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#contact.contact-premium .contact-phone-quick-btn {
-  display: block;
-  text-align: center;
-  padding: 8px 6px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  color: #111b21;
-  font-size: 11px;
-  font-weight: 600;
-  text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-#contact.contact-premium .contact-phone-quick-btn:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #fff;
-}
-
-#contact.contact-premium .contact-phone-quick-btn:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-}
-
-#contact.contact-premium .contact-phone-hint {
-  margin: 16px 0 0;
-  color: #94a3b8;
-  font-size: 13px;
-  text-align: center;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #contact.contact-premium .contact-phone {
-    animation: none;
-  }
-
-  #contact.contact-premium .contact-phone-bubble,
-  #contact.contact-premium .contact-phone-quick-replies {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  #contact.contact-premium .contact-phone-typing-dot {
-    animation: none;
-  }
-}
-
-/* --- 3 equal info cards (Correo / Ubicación / Horario) --- */
-
-#contact.contact-premium .contact-cards.contact-info-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto 2.5rem;
-}
-
-#contact.contact-premium .contact-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(10, 15, 30, 0.06);
-  padding: 28px;
-  text-align: left;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-
-#contact.contact-premium .contact-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(10, 15, 30, 0.12);
-  border-color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-card-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 1rem;
-}
-
-#contact.contact-premium .contact-card-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background-color: rgba(255, 122, 41, 0.12);
-  color: var(--color-accent);
-  font-size: 18px;
-}
-
-#contact.contact-premium .contact-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0a0f1e;
-  margin: 0;
-}
-
-#contact.contact-premium .contact-card-text {
-  font-size: 15px;
-  color: #6b7280;
-  line-height: 1.6;
-  margin: 0 0 0.5rem;
-}
-
-#contact.contact-premium .contact-card-link {
-  display: block;
-  width: fit-content;
-  font-size: 15px;
-  font-weight: 700;
-  color: #0a0f1e;
-  text-decoration: none;
-  margin-bottom: 0.4rem;
-  transition: color 0.25s ease;
-}
-
-#contact.contact-premium .contact-card-link:hover {
-  color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-card a:focus-visible,
-#contact.contact-premium .contact-card button:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* --- Correo card --- */
-
-#contact.contact-premium .contact-copy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  width: fit-content;
-  margin-top: 0.75rem;
-  padding: 8px 16px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  color: #0a0f1e;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-
-#contact.contact-premium .contact-copy-btn:hover {
-  border-color: var(--color-accent);
-}
-
-#contact.contact-premium .contact-copy-btn.is-copied {
-  background: rgba(37, 211, 102, 0.12);
-  border-color: #25d366;
-  color: #16a34a;
-}
-
-#contact.contact-premium .contact-card-note {
-  margin: 0.75rem 0 0;
-  color: #9ca3af;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-/* --- Ubicación card --- */
-
-#contact.contact-premium .contact-location-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 0.75rem;
-}
-
-#contact.contact-premium .contact-location-btn {
-  flex: 1 1 0;
-  text-align: center;
-  padding: 10px 14px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  color: #0a0f1e;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-
-#contact.contact-premium .contact-location-btn:hover {
-  border-color: var(--color-accent);
-  background: rgba(255, 122, 41, 0.08);
-  color: var(--color-accent);
-}
-
-/* --- Horario card --- */
-
-#contact.contact-premium .contact-schedule-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-#contact.contact-premium .contact-schedule-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #4b5563;
-  white-space: nowrap;
-  transition: background-color 0.25s ease;
-}
-
-#contact.contact-premium .contact-schedule-day {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  color: #0a0f1e;
-}
-
-#contact.contact-premium .contact-schedule-sep {
-  display: none;
-}
-
-#contact.contact-premium .contact-schedule-today-badge {
-  padding: 1px 8px;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border-radius: 10px;
-}
-
-#contact.contact-premium .contact-schedule-list li.is-today {
-  background: rgba(255, 122, 41, 0.08);
-}
-
-#contact.contact-premium .contact-schedule-list li.is-today .contact-schedule-day,
-#contact.contact-premium .contact-schedule-list li.is-today .contact-schedule-time {
-  font-weight: 700;
-  color: #0a0f1e;
-}
-
-/* --- Banner --- */
-
-#contact.contact-premium .contact-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto 3rem;
-  background: #0a0f1e;
-  border-radius: 20px;
-  padding: 36px 44px;
-}
-
-#contact.contact-premium .contact-banner-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 4px;
-}
-
-#contact.contact-premium .contact-banner-subtitle {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
-#contact.contact-premium .contact-banner-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  background: var(--color-accent);
-  color: #fff;
-  padding: 16px 32px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: background-color 0.25s ease;
-}
-
-#contact.contact-premium .contact-banner-btn:hover {
-  background: #e0691f;
-  color: #fff;
-}
-
-#contact.contact-premium .contact-banner-btn .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-#contact.contact-premium .contact-banner-btn:hover .arrow {
-  transform: translateX(4px);
-}
-
-/* --- Map + form --- */
-
-#contact.contact-premium .contact-bottom-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: stretch;
-  gap: 24px;
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-#contact.contact-premium .contact-map-col,
-#contact.contact-premium .contact-form-col {
-  /* Bootstrap's `.col-md-6 { width: 50% }` (from its own responsive
-     grid, meant for float layout) still applies here and resolves
-     against the grid TRACK (50% of 558px = 279px) instead of filling
-     it, and left auto-placement ended up swapping the two columns —
-     both overridden explicitly rather than relying on grid defaults. */
-  display: flex;
-  width: 100%;
-  float: none;
-}
-
-#contact.contact-premium .contact-map-col {
-  grid-column: 1;
-}
-
-#contact.contact-premium .contact-form-col {
-  grid-column: 2;
-}
-
-#contact.contact-premium .contact-map-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
-  overflow: hidden;
-}
-
-#contact.contact-premium .contact-map-header {
-  padding: 40px 24px 0;
-  flex: none;
-}
-
-#contact.contact-premium .contact-map-eyebrow,
-#contact.contact-premium .contact-form-eyebrow {
-  color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
-}
-
-#contact.contact-premium .contact-map-title,
-#contact.contact-premium .contact-form-title {
-  color: #0a0f1e;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 0.5rem;
-}
-
-#contact.contact-premium .contact-map-text,
-#contact.contact-premium .contact-form-text {
-  color: #6b7280;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0 0 1rem;
-}
-
-#contact.contact-premium .contact-map-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 2px solid #0a0f1e;
-  color: #0a0f1e;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
-}
-
-#contact.contact-premium .contact-map-btn:hover {
-  background: #0a0f1e;
-  color: #fff;
-}
-
-#contact.contact-premium .contact-map-btn .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-}
-
-#contact.contact-premium .contact-map-btn:hover .arrow {
-  transform: translateX(4px);
-}
-
-#contact.contact-premium .contact-map-card iframe {
-  display: block;
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 240px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-#contact.contact-premium .contact-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(10, 15, 30, 0.1);
-  padding: 40px;
-}
-
-#contact.contact-premium .contact-form-header {
-  margin-bottom: 1.5rem;
-}
-
-#contact.contact-premium .form-group {
-  margin-bottom: 18px;
-}
-
-#contact.contact-premium .contact-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #0a0f1e;
-  margin-bottom: 6px;
-}
-
-#contact.contact-premium .form-control {
-  width: 100%;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 14px 16px;
-  font-size: 15px;
-  color: #0a0f1e;
-  transition:
-    border-color 0.25s ease,
-    background-color 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-#contact.contact-premium textarea.form-control {
-  min-height: 140px;
-  resize: vertical;
-}
-
-#contact.contact-premium .form-control:focus {
-  border-color: var(--color-accent);
-  background: #fff;
-  /* A sitewide `input[type="text"], ... { box-shadow: none !important; }`
-     reset (line ~294) would otherwise always win over this, regardless
-     of selector specificity — !important is the only way to restore
-     the focus ring here. */
-  box-shadow: 0 0 0 4px rgba(255, 122, 41, 0.15) !important;
-  outline: none;
-}
-
-#contact.contact-premium .contactForm button[type="submit"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  background: var(--color-accent);
-  border: none;
-  color: #fff;
-  border-radius: 12px;
-  padding: 16px 36px;
-  font-weight: 700;
-  text-transform: none;
-  letter-spacing: normal;
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-#contact.contact-premium .contactForm button[type="submit"]:hover {
-  background: #e0691f;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-#contact.contact-premium .contact-form-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  text-align: center;
-  color: #6b7280;
-  font-size: 13px;
-  margin: 1.25rem 0 0;
-}
-
-#contact.contact-premium .contact-form-note i {
-  color: #25d366;
-  font-size: 15px;
-}
-
-#contact.contact-premium .contact-form-note a {
-  color: var(--color-accent);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-#contact.contact-premium .contact-form-note a:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 767px) {
-  #contact.contact-premium {
-    padding: 60px 0;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip {
-    grid-template-columns: 1fr;
-    padding: 32px 24px;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip h3.contact-whatsapp-strip-title {
-    font-size: 30px;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip-right {
-    margin-top: 32px;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip-checks {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  #contact.contact-premium .contact-whatsapp-strip-checks li + li::before {
-    content: none;
-    margin: 0;
-  }
-
-  #contact.contact-premium .contact-whatsapp-btn-primary,
-  #contact.contact-premium .contact-whatsapp-btn-secondary {
-    width: 100%;
-  }
-
-  #contact.contact-premium .contact-cards.contact-info-row {
-    grid-template-columns: 1fr;
-  }
-
-  #contact.contact-premium .contact-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    padding: 28px;
-  }
-
-  #contact.contact-premium .contact-bottom-row {
-    grid-template-columns: 1fr;
-  }
-
-  #contact.contact-premium .contact-form-col {
-    grid-column: 1;
-    order: 1;
-  }
-
-  #contact.contact-premium .contact-map-col {
-    grid-column: 1;
-    order: 2;
-  }
-
-  #contact.contact-premium .contact-map-card iframe {
-    flex: none;
-    height: 300px;
-  }
-
-  #contact.contact-premium .contact-form {
-    padding: 24px;
-  }
-
-  #contact.contact-premium .contact-banner-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
 /*----------------------------------------*/
 /*  16. Footer Area
 /*----------------------------------------*/
@@ -12536,6 +11433,501 @@ button.hamburger {
 
   .gn-cta-lead {
     font-size: 18px;
+  }
+}
+
+/* ==========================================================================
+   Contacto (#contact)
+   Light band between the navy final CTA and the dark footer, with the
+   editorial language of the approved sections: left-aligned header,
+   channels separated by hairlines and the form on a quiet surface. Orange
+   only on the form's submit, the one action that exists only here. The
+   class names contact-schedule-list, contact-schedule-today-badge and
+   contact-copy-btn are kept so main.js keeps driving the "today" highlight
+   and the copy button. Global link, heading and label rules are restated
+   here because they would recolour, underline or re-space this section.
+   ========================================================================== */
+
+.gn-contact {
+  --gn-navy: #071c33;
+  --gn-blue: #0f3f78;
+  --gn-blue-mid: #1d63b7;
+  --gn-sky: #63b2f2;
+  --gn-text: #4b5a70;
+  --gn-muted: #5f6e83;
+  --gn-line: #dfe6ef;
+  --gn-tint: #f5f7fa;
+  --gn-field: #ffffff;
+  --gn-field-line: #c9d3df;
+  --gn-orange: #ff7417;
+  --gn-orange-hover: #ff8a3d;
+  --gn-error: #b42318;
+  --gn-ok: #17663f;
+  background: #fff;
+  color: var(--gn-navy);
+  padding: 52px 16px 60px;
+  scroll-margin-top: 80px;
+}
+
+.gn-contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 36px;
+}
+
+.gn-contact-info {
+  display: grid;
+  gap: 28px;
+  align-content: start;
+  min-width: 0;
+}
+
+.gn-contact-head {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.gn-contact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-blue-mid);
+}
+
+.gn-contact-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--gn-sky);
+}
+
+.gn-contact-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gn-navy);
+  text-wrap: balance;
+}
+
+.gn-contact-lead {
+  margin: 4px 0 0;
+  max-width: 40em;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+/* Channels: label, value and actions, separated by hairlines. */
+.gn-contact-channels {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+}
+
+.gn-contact-channel {
+  display: grid;
+  gap: 6px;
+  padding: 18px 0;
+  border-top: 1px solid var(--gn-line);
+  min-width: 0;
+}
+
+.gn-contact-channel:last-child {
+  border-bottom: 1px solid var(--gn-line);
+}
+
+.gn-contact .gn-contact-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gn-muted);
+}
+
+.gn-contact-value {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--gn-navy);
+  overflow-wrap: anywhere;
+}
+
+.gn-contact-value a,
+.gn-contact-value a:visited,
+.gn-contact-value a:focus,
+.gn-contact-value a:active,
+.gn-contact-value a:hover {
+  color: inherit;
+  text-decoration: none;
+  transition: none;
+}
+
+.gn-contact-note {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gn-text);
+}
+
+.gn-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.gn-contact .gn-contact-btn,
+.gn-contact .gn-contact-btn:visited,
+.gn-contact .gn-contact-btn:focus,
+.gn-contact .gn-contact-btn:active,
+.gn-contact .gn-contact-btn:hover {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--gn-field-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--gn-navy);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.gn-contact .gn-contact-btn.is-copied {
+  border-color: var(--gn-ok);
+  color: var(--gn-ok);
+}
+
+.gn-contact .contact-schedule-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+
+.gn-contact .contact-schedule-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 10px;
+  margin-inline: -10px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gn-text);
+}
+
+.gn-contact .contact-schedule-list li.is-today {
+  background: var(--gn-tint);
+  color: var(--gn-navy);
+  font-weight: 600;
+}
+
+.gn-contact .contact-schedule-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gn-contact .contact-schedule-today-badge {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--gn-navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.gn-contact .contact-schedule-time {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Form on a quiet surface. */
+.gn-contact-form {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  min-width: 0;
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: var(--gn-tint);
+}
+
+.gn-contact .gn-contact-form-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--gn-navy);
+}
+
+.gn-contact-form-text {
+  margin: -10px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gn-text);
+}
+
+.gn-field-row {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.gn-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.gn-field label {
+  display: block;
+  max-width: none;
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--gn-navy);
+}
+
+.gn-field label span {
+  font-weight: 400;
+  color: var(--gn-muted);
+}
+
+.gn-field input,
+.gn-field textarea {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--gn-field-line);
+  border-radius: 10px;
+  background: var(--gn-field);
+  color: var(--gn-navy);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.gn-field textarea {
+  min-height: 128px;
+  resize: vertical;
+}
+
+.gn-field input[aria-invalid="true"],
+.gn-field textarea[aria-invalid="true"] {
+  border-color: var(--gn-error);
+}
+
+/* Anti-spam trap: off-screen, out of the tab order and hidden from
+   assistive tech; people never fill it. */
+.gn-contact-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.gn-field-error {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--gn-error);
+}
+
+.gn-field-error:empty {
+  display: none;
+}
+
+.gn-contact .gn-contact-submit {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--gn-orange);
+  color: var(--gn-navy);
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.gn-contact .gn-contact-submit[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.gn-contact-status {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Empty, it stays in the accessibility tree (so screen readers announce
+   what is written into it later) but out of the grid flow, so it adds no
+   gap and the layout does not change. */
+.gn-contact-status:empty {
+  position: absolute;
+}
+
+.gn-contact-status.is-ok {
+  color: var(--gn-ok);
+}
+
+.gn-contact-status.is-error {
+  color: var(--gn-error);
+}
+
+.gn-contact-status a,
+.gn-contact-status a:visited,
+.gn-contact-status a:focus,
+.gn-contact-status a:active,
+.gn-contact-status a:hover {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline !important;
+  transition: none;
+}
+
+.gn-contact a:focus-visible,
+.gn-contact button:focus-visible {
+  outline: 3px solid var(--gn-sky) !important;
+  outline-offset: 3px;
+}
+
+.gn-field input:focus-visible,
+.gn-field textarea:focus-visible {
+  outline: 3px solid var(--gn-sky);
+  outline-offset: 1px;
+  border-color: var(--gn-blue-mid);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gn-contact .gn-contact-btn:hover {
+    border-color: var(--gn-navy);
+  }
+
+  .gn-contact .gn-contact-submit:hover {
+    background: var(--gn-orange-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-contact .gn-contact-btn,
+  .gn-contact .gn-contact-submit {
+    transition: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-contact {
+    padding: 84px 32px 92px;
+  }
+
+  .gn-contact-inner {
+    gap: 48px;
+  }
+
+  .gn-contact-title {
+    max-width: 18em;
+    font-size: 34px;
+  }
+
+  .gn-contact-lead {
+    font-size: 17.5px;
+  }
+
+  .gn-contact-channels {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+  }
+
+  .gn-contact-channel:nth-last-child(2) {
+    border-bottom: 1px solid var(--gn-line);
+  }
+
+  .gn-contact-form {
+    padding: 32px;
+  }
+
+  .gn-contact-form .gn-field-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .gn-contact {
+    padding: 104px 48px 112px;
+    scroll-margin-top: 56px;
+  }
+
+  .gn-contact-inner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: 72px;
+    align-items: start;
+  }
+
+  .gn-contact-title {
+    max-width: 12em;
+    font-size: 42px;
+  }
+
+  .gn-contact-lead {
+    font-size: 18px;
+  }
+
+  .gn-contact-channels {
+    grid-template-columns: 1fr;
+  }
+
+  .gn-contact-channel:nth-last-child(2) {
+    border-bottom: 0;
+  }
+
+  /* The channels column is taller: keep the form in view while reading it
+     (below the 56px fixed header). */
+  .gn-contact-form {
+    position: sticky;
+    top: 88px;
+    padding: 36px;
   }
 }
 

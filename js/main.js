@@ -1221,7 +1221,7 @@
       if (!label) return;
 
       copyBtn.classList.add('is-copied');
-      label.textContent = '¡Copiado! ✓';
+      label.textContent = 'Correo copiado';
 
       window.setTimeout(() => {
         copyBtn.classList.remove('is-copied');
@@ -1534,6 +1534,101 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(watch, 200);
+    });
+  });
+
+  /*---------------------
+    Contacto: A1 form (#contact form.gn-contact-form, index.html only).
+  --------------------- */
+
+  // Proposed form handler for js/main.js (replaces contactform.js on index.html only). It binds only to
+  // form.gn-contact-form, which exists only on index.html, and only once, so the other pages that load main.js and
+  // their .contactForm forms are untouched. Validation mirrors contacto-envio.php (lengths counted as code points with
+  // unified line breaks, like mb_strlen), a signed single-use token is requested by POST on first use (browsers always
+  // send Origin on POST, even when an extension strips Referer), renewed after 90 minutes or any failure, and the
+  // message waits at least 2 s after it. One status message. The visitor's text never goes to analytics.
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#contact form.gn-contact-form');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = 'true';
+
+    const status = form.querySelector('.gn-contact-status');
+    const submit = form.querySelector('.gn-contact-submit');
+    const headers = { 'X-Requested-With': 'GramanatContacto' };
+    const minWait = 2000;
+    const maxTokenAge = 90 * 60 * 1000;
+    let tokenAt = 0;
+    let tokenRequest = null;
+
+    const length = (v) => [...v.trim().replace(/\r\n?/g, '\n')].length;
+    const rules = {
+      name: (v) => length(v) >= 2 || 'Escribe tu nombre.',
+      email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Escribe un correo válido, por ejemplo nombre@empresa.com.',
+      phone: (v) => !v.trim() || /^[0-9+()\-\s]{7,30}$/.test(v.trim()) || 'Escribe un teléfono válido o deja el campo vacío.',
+      message: (v) => {
+        const n = length(v);
+        if (n < 10) return 'Cuéntanos tu consulta en al menos 10 caracteres.';
+        if (n > 5000) return 'Tu mensaje supera los 5.000 caracteres. Acórtalo e inténtalo de nuevo.';
+        return true;
+      },
+    };
+
+    const check = (field) => {
+      const result = rules[field.name](field.value);
+      const bad = result !== true;
+      field.setAttribute('aria-invalid', bad);
+      document.getElementById(field.name + '-error').textContent = bad ? result : '';
+      return !bad;
+    };
+
+    // One token per use of the form: requested on first focus, retried on submit if that failed.
+    const requestToken = () => {
+      if (!tokenRequest) {
+        tokenRequest = fetch(form.action, { method: 'POST', body: new URLSearchParams({ accion: 'token' }), headers, credentials: 'same-origin' })
+          .then(async (res) => {
+            const token = (await res.text()).trim();
+            if (!res.ok || !/^\d+\.[0-9a-f]{16}\.[\w-]{43}$/.test(token)) throw new Error('token');
+            form.elements.token.value = token;
+            tokenAt = Date.now();
+          })
+          .catch((err) => { tokenRequest = null; throw err; });
+      }
+      return tokenRequest;
+    };
+
+    form.addEventListener('focusin', () => { requestToken().catch(() => {}); }, { once: true });
+    Object.keys(rules).forEach((name) => form.elements[name].addEventListener('blur', (e) => { if (e.target.value) check(e.target); }));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (submit.disabled) return;
+      status.className = 'gn-contact-status';
+      status.textContent = '';
+
+      const invalid = Object.keys(rules).map((name) => form.elements[name]).filter((field) => !check(field));
+      if (invalid.length) { invalid[0].focus(); return; }
+
+      submit.disabled = true;
+      submit.textContent = 'Enviando…';
+      try {
+        if (tokenRequest && Date.now() - tokenAt > maxTokenAge) tokenRequest = null;
+        await requestToken();
+        const wait = minWait - (Date.now() - tokenAt);
+        if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers, credentials: 'same-origin' });
+        const text = (await res.text()).trim();
+        if (!res.ok || text !== 'OK') throw new Error('send');
+        form.reset();
+        status.classList.add('is-ok');
+        status.textContent = 'Recibimos tu mensaje. Gracias por escribirnos.';
+      } catch (err) {
+        status.classList.add('is-error');
+        status.innerHTML = 'No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos por <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener" data-cta="contacto-formulario-error">WhatsApp</a> o a igramanat@gmail.com.';
+      } finally {
+        tokenRequest = null; // each token is single-use: the next attempt asks for a new one
+        submit.disabled = false;
+        submit.textContent = 'Enviar mensaje';
+      }
     });
   });
 
