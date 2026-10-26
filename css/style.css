@@ -12538,3 +12538,88 @@ button.hamburger {
     font-size: 18px;
   }
 }
+
+/* --- Soluciones: propuesta editorial ---
+   Requirement cards stacked by group (server / user's computer / additional), the discreet regional
+   note under manufacturer videos, and a visible keyboard focus on the video link and the main CTA
+   (same ring as the diagnostic: the global a:focus rule above removes outlines). */
+.ab-req-card + .ab-req-card {
+  margin-top: 16px;
+}
+
+.ab-video-note {
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
+.ab-video-thumb:focus-visible,
+.ab-cta-btn:focus-visible {
+  outline: 3px solid #63b2f2 !important;
+  outline-offset: 3px;
+}
+
+/* --- Menús de la cabecera: acceso con teclado ---
+   Same ring as the rest of the site's keyboard focus. The global a:focus
+   rule above removes outlines, hence !important. Mouse and touch see no change. */
+nav a:focus-visible,
+.menubar a:focus-visible,
+.hamburger:focus-visible,
+.whatsapp-float:focus-visible {
+  outline: 3px solid #63b2f2 !important;
+  outline-offset: 2px;
+}
+
+.menubar a:focus-visible {
+  outline-offset: -3px;
+}
+
+/* A closed side menu is only moved off-screen; hide its link list too so the
+   links don't receive focus. Only the list: the panel keeps its look (and the
+   edge of its shadow on phones). The list hides once the 0.6s slide-out ends
+   and shows at once when the menu opens. */
+.menubar > ul {
+  visibility: hidden;
+  transition: visibility 0s linear 0.6s;
+}
+
+.menubar.active > ul {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (min-width: 992px) {
+  /* "Soluciones" and its categories open on hover only; open them as well
+     while keyboard focus is inside. main.js adds .kbd-open on keyboard focus
+     (not on mouse clicks) and removes it only once focus leaves the item, so
+     the panel can't vanish mid-Tab and drop focus to <body>. */
+  .soluciones-submenu.kbd-open .submenu {
+    display: block !important;
+    transform: translateY(0);
+  }
+
+  .has-flyout.kbd-open > .submenu-flyout {
+    display: block !important;
+    transform: translateX(0);
+  }
+
+  /* The rule that keeps the desktop dropdown hover-only also matched the
+     hamburger menu's list between 992 and 1259px, so Enter could not show it:
+     an open list there (.submenu-active, set by main.js) is always shown. */
+  .menubar .soluciones-submenu .submenu.submenu-active {
+    display: block !important;
+  }
+
+  /* Escape: keep the dropdown closed while focus stays on its toggle. */
+  .soluciones-submenu.is-closed .submenu,
+  .soluciones-submenu.is-closed .submenu-flyout {
+    display: none !important;
+  }
+}
+
+nav .has-submenu.is-closed > .submenu {
+  display: none !important;
+}

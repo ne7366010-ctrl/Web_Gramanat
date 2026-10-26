@@ -35,7 +35,7 @@
     <link href="../css/nivo-slider-theme.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/style.css?v=143" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="../css/responsive.css" rel="stylesheet" />
@@ -54,10 +54,11 @@
     class="page-administrative-business page-centro-impresion-fiscal"
   >
     <a
-      aria-hidden="true"
-      href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat."
+      aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
+      href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
       class="whatsapp-float"
       target="_blank"
+      rel="noopener"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -176,7 +177,7 @@
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a href="../recursosHumanosNomina/SistemaNomina.html"
+                      <a href="../recursosHumanosNomina/sistemaNomina.html"
                         >Sistema de Nómina</a
                       >
                     </li>
@@ -223,10 +224,10 @@
                     </li>
                   </ul>
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
                   <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
-                </li>
+                </li> -->
               </ul>
             </li>
             <li class="has-submenu">
@@ -262,17 +263,23 @@
             </li>
             <li>
               <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+                >Solicita asesoría</a
               >
             </li>
           </ul>
-          <div class="hamburger">
+          <button
+            type="button"
+            class="hamburger"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="menu-movil"
+          >
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
-          </div>
+          </button>
         </nav>
-        <div class="menubar">
+        <div class="menubar" id="menu-movil">
           <ul>
             <li>
               <a href="../index.html#about">Nosotros</a>
@@ -281,60 +288,92 @@
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
                 >Soluciones <i class="fas fa-chevron-down"></i
               ></a>
+              <!-- Same pages as the desktop flyouts, grouped under their
+                 category name (the flyouts are hover-only, so phones get
+                 the real links listed directly). -->
               <ul class="submenu">
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Comercios y PyMEs</li>
                 <li>
-                  <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrative-business.html"
+                    >Administrative Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrativo-punto-de-venta.html"
+                    >Administrativo y Punto de Venta</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/personalBusiness.html"
+                    >Personal Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/centroImpresionFiscal.html"
+                    >Centro de Impresión Fiscal</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Ecommerce y Gestión Digital</li>
                 <li>
-                  <a href="#"
-                    >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../ecommerceGestionDigital/PSKloudEShop.html"
+                    >PSKloud eShop</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+                  <a href="../ecommerceGestionDigital/PSKloudManager.html"
+                    >PSKloud Manager</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Contabilidad y Finanzas</li>
                 <li>
-                  <a href="#"
-                    >Talleres y Concesionarios
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../contabilidadFinanzas/SistemaContabilidad.html"
+                    >Sistema de Contabilidad</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Salud y Laboratorios</li>
                 <li>
-                  <a href="#"
-                    >Restaurantes <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="SistemaHistoriasMedicas.html"
+                    >Sistema de Historias Médicas</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="SistemaClinicasHospitales.html"
+                    >Sistema para Clínicas y Hospitales</a
+                  >
                 </li>
+                <li>
+                  <a href="SistemaLaboratorios.html"
+                    >Sistema de Laboratorios</a
+                  >
+                </li>
+                <li class="submenu-heading">Recursos Humanos y Nómina</li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNomina.html"
+                    >Sistema de Nómina</a
+                  >
+                </li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNominaWeb.html"
+                    >Sistema de Nómina Web</a
+                  >
+                </li>
+                <li class="submenu-heading">Otros sectores</li>
+                <li>
+                  <a href="../hoteleria/sistemaHoteles.html"
+                    >Sistema para Hoteles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="../talleresYConcesionarios/talleresYConcesionarios.html"
+                    >Talleres y Concesionarios</a
+                  >
+                </li>
+                <li>
+                  <a href="../restaurantes/restaurantes.html">Restaurantes</a>
+                </li>
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
+                <li><a href="#">AppKloud</a></li> -->
               </ul>
             </li>
             <li>
@@ -358,7 +397,7 @@
             </li>
             <li>
               <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+                >Solicita asesoría</a
               >
             </li>
           </ul>
@@ -373,15 +412,14 @@
         <div class="ab-hero-grid">
           <div class="ab-hero-content">
             <p class="ab-eyebrow">
-              Gestiona ventas, facturación e inventario desde una única
-              plataforma ágil y sencilla.
+              La historia clínica de cada paciente, en orden
             </p>
             <h1 class="ab-title">Sistema de Historias Médicas</h1>
             <p class="ab-lead">
-              Es el software para el control de historias médicas más completo
-              del mercado y al mejor precio, totalmente configurable y adaptado
-              a las necesidades del sector. Además, está totalmente integrado
-              con el Sistema de Clínicas.
+              Registra y consulta historias médicas configurables por especialidad, con imágenes, convenios y estadísticas. Se integra con el Sistema para Clínicas y Hospitales.
+            </p>
+            <p class="ab-ideal-for ab-maker">
+              Solución de <strong>Premium Soft</strong>, presentada por Gramanat como parte de su alianza comercial.
             </p>
             <!-- <p class="ab-ideal-for">
               <strong>Ideal para:</strong>Comercios en países con obligación de
@@ -389,13 +427,10 @@
             </p>-->
             <p class="ab-region-note">
               <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
-              <em
-                >Algunas soluciones pueden variar según el país en el que te
-                encuentres. Consulta la disponibilidad en tu región para obtener
-                la mejor experiencia con nuestras plataformas.</em
-              >
+              <em>Según la información publicada por el fabricante, esta solución está disponible para El Salvador en versión Desktop. Consulta con Gramanat cuál se ajusta a tu negocio y en qué condiciones.</em>
             </p>
-            <a href="../index.html#contact" class="ab-cta-btn">Obtener Ahora</a>
+            <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20p%C3%A1gina%20de%20Sistema%20de%20Historias%20M%C3%A9dicas%20en%20el%20sitio%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20esta%20soluci%C3%B3n%20para%20mi%20negocio." class="ab-cta-btn" target="_blank" rel="noopener" data-cta="solucion-sistema-de-historias-medicas"
+              >Solicita asesoría</a>
             <!-- Placeholders: no hay assets propios de "soporte técnico" ni
                "chatbot/asistente" en el proyecto — íconos genéricos de
                FontAwesome mientras se proporcionan las imágenes reales. -->
@@ -412,7 +447,7 @@
             <div class="ab-hero-mockup">
               <img
                 src="../img/soluciones/salud/historias_medicas.jpeg"
-                alt="Mockup del sistema administrativo Gramanat"
+                alt="Pantalla de Sistema de Historias Médicas (PSKloud)"
                 width="1536"
                 height="1024"
                 loading="lazy"
@@ -430,42 +465,32 @@
         <h2 class="ab-features-title">Principales Características</h2>
         <div class="ab-features-grid">
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Configurar la
-              anamnesis y los exámenes físicos por especialidad.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Crear tipos de
-              historia según su estilo profesional.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Incorporar la
-              fotografía del paciente a la historia, así como imágenes
-              complementarias (radiologías, tomografías, etc).
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Vademécum en
-              línea (documentado por usted con sus tratamientos más frecuentes).
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Anamnesis y examen físico configurables por especialidad.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Formatos de historia adaptados a tu forma de trabajar.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Fotografía del paciente e imágenes complementarias, como radiografías y tomografías.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Vademécum propio con tus tratamientos más frecuentes.
+              </li>
           </ul>
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Control de su
-              baremo profesional.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Control de
-              convenios con empresas y aseguradoras.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Estadísticas
-              médicas.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Diversas
-              opciones de reportes gerenciales: (cuentas por pagar,
-              ingresos/egresos bancarios, etc.)
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Control de tus honorarios profesionales.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Convenios con empresas y aseguradoras.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Estadísticas médicas.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Reportes de gestión, como cuentas por pagar e ingresos y egresos bancarios.
+              </li>
           </ul>
         </div>
       </div>
@@ -478,14 +503,15 @@
         <div class="ab-video-card">
           <a
             class="ab-video-thumb"
-            href="https://youtu.be/uuJXE1hZ_IY"
+            href="https://youtu.be/lDHoIF1BFLQ"
+            aria-label="Ver la demostración de Historias Médicas en YouTube (se abre en una pestaña nueva)"
             target="_blank"
             rel="noopener noreferrer"
-            title="Centro de Impresión Fiscal"
+            title="Ver en YouTube: Historias Médicas Desktop"
           >
             <img
-              src="../img/centro-impresion-fiscal-video-thumb.jpg"
-              alt="Vista previa del video Centro de Impresión Fiscal"
+              src="../img/videos-soluciones/lDHoIF1BFLQ.svg"
+              alt="Demostración en video de Sistema de Historias Médicas"
               width="1280"
               height="720"
               loading="lazy"
@@ -503,14 +529,14 @@
         </a>
         -->
           <div class="ab-video-info">
-            <h3 class="ab-video-title">Centro de Impresión Fiscal</h3>
+            <h3 class="ab-video-title">Demostración: Historias Médicas (versión Desktop)</h3>
             <p class="ab-video-desc">
-              La solución en la nube de Premium Soft para optimizar la gestión
-              administrativa en Venezuela. Conoce cómo centralizar procesos,
-              mejorar el control operativo y tomar decisiones con información
-              clara y confiable, desde una plataforma web segura y eficiente.
+              Video del fabricante con el recorrido del sistema: historia del paciente, consultas y emisión de documentos médicos.
             </p>
-            <p class="ab-video-date">26/01/2026</p>
+            <p class="ab-video-date">Video de PSKloud Software · 4 min · publicado el 20/02/2026</p>
+            <p class="ab-video-note">
+              Demostración del fabricante. Algunas configuraciones fiscales y operativas corresponden a otros países y pueden variar para El Salvador. Consulta con Gramanat las opciones disponibles.
+            </p>
           </div>
         </div>
       </div>
@@ -523,8 +549,36 @@
         <h2 class="ab-requirements-title">Requisitos del Sistema</h2>
         <div class="ab-req-card">
           <div class="ab-req-header">
+            <i class="fa-solid fa-server" aria-hidden="true"></i>
+            <span>Servidor</span>
+          </div>
+          <div class="ab-req-grid">
+            <div class="ab-req-item">
+              <h4>Base de Datos</h4>
+              <p>MySQL 5.5.62 o superior</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Memoria RAM</h4>
+              <p>8GB mínimo (16GB recomendado)</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Procesador</h4>
+              <p>Intel i3/i5/i7 2.4GHz 7ma gen o superior, o AMD Ryzen 3/5/7 2.4GHz 5ta gen o superior</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Almacenamiento</h4>
+              <p>SSD 500GB (o superior)</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Sistema Operativo</h4>
+              <p>Windows, Linux o macOS</p>
+            </div>
+          </div>
+        </div>
+        <div class="ab-req-card">
+          <div class="ab-req-header">
             <i class="fa-solid fa-display" aria-hidden="true"></i>
-            <span>Requisitos de Estación de Trabajo</span>
+            <span>Equipo de cada usuario</span>
           </div>
           <div class="ab-req-grid">
             <div class="ab-req-item">
@@ -542,6 +596,22 @@
             <div class="ab-req-item">
               <h4>Almacenamiento</h4>
               <p>SSD 256GB o superior</p>
+            </div>
+          </div>
+        </div>
+        <div class="ab-req-card">
+          <div class="ab-req-header">
+            <i class="fa-solid fa-plug" aria-hidden="true"></i>
+            <span>Componentes adicionales</span>
+          </div>
+          <div class="ab-req-grid">
+            <div class="ab-req-item">
+              <h4>Componentes y conexión</h4>
+              <p>Conexión estable a internet para funciones en la nube y actualizaciones</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Nota</h4>
+              <p>Los requisitos pueden variar según el volumen de datos y la cantidad de usuarios simultáneos. Para instalaciones grandes, consulta con un asesor.</p>
             </div>
           </div>
         </div>
@@ -728,6 +798,6 @@
     <!-- Contact Form JavaScript File -->
     <script src="../contactform/contactform.js"></script>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js?v=57"></script>
   </body>
 </html>

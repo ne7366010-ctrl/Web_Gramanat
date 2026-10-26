@@ -35,7 +35,7 @@
     <link href="../css/nivo-slider-theme.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/style.css?v=143" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="../css/responsive.css" rel="stylesheet" />
@@ -54,10 +54,11 @@
     class="page-administrative-business page-personal-business"
   >
     <a
-      aria-hidden="true"
-      href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat."
+      aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
+      href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
       class="whatsapp-float"
       target="_blank"
+      rel="noopener"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -176,12 +177,12 @@
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a href="../RecursosHumanosNomina/SistemaNomina.html"
+                      <a href="../recursosHumanosNomina/sistemaNomina.html"
                         >Sistema de Nómina</a
                       >
                     </li>
                     <li>
-                      <a href="../RecursosHumanosNomina/sistemaNominaWeb.html"
+                      <a href="../recursosHumanosNomina/sistemaNominaWeb.html"
                         >Sistema de Nómina Web</a
                       >
                     </li>
@@ -191,7 +192,7 @@
                   <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a href="hoteleria/sistemaHoteles.html"
+                      <a href="sistemaHoteles.html"
                         >Sistema para Hoteles</a
                       >
                     </li>
@@ -223,10 +224,10 @@
                     </li>
                   </ul>
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
                   <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
-                </li>
+                </li> -->
               </ul>
             </li>
             <li class="has-submenu">
@@ -262,17 +263,23 @@
             </li>
             <li>
               <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+                >Solicita asesoría</a
               >
             </li>
           </ul>
-          <div class="hamburger">
+          <button
+            type="button"
+            class="hamburger"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="menu-movil"
+          >
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
-          </div>
+          </button>
         </nav>
-        <div class="menubar">
+        <div class="menubar" id="menu-movil">
           <ul>
             <li>
               <a href="../index.html#about">Nosotros</a>
@@ -281,60 +288,92 @@
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
                 >Soluciones <i class="fas fa-chevron-down"></i
               ></a>
+              <!-- Same pages as the desktop flyouts, grouped under their
+                 category name (the flyouts are hover-only, so phones get
+                 the real links listed directly). -->
               <ul class="submenu">
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Comercios y PyMEs</li>
                 <li>
-                  <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrative-business.html"
+                    >Administrative Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrativo-punto-de-venta.html"
+                    >Administrativo y Punto de Venta</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/personalBusiness.html"
+                    >Personal Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/centroImpresionFiscal.html"
+                    >Centro de Impresión Fiscal</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Ecommerce y Gestión Digital</li>
                 <li>
-                  <a href="#"
-                    >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../ecommerceGestionDigital/PSKloudEShop.html"
+                    >PSKloud eShop</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+                  <a href="../ecommerceGestionDigital/PSKloudManager.html"
+                    >PSKloud Manager</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Contabilidad y Finanzas</li>
                 <li>
-                  <a href="#"
-                    >Talleres y Concesionarios
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../contabilidadFinanzas/SistemaContabilidad.html"
+                    >Sistema de Contabilidad</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Salud y Laboratorios</li>
                 <li>
-                  <a href="#"
-                    >Restaurantes <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
+                    >Sistema de Historias Médicas</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="../SaludLaboratorios/SistemaClinicasHospitales.html"
+                    >Sistema para Clínicas y Hospitales</a
+                  >
                 </li>
+                <li>
+                  <a href="../SaludLaboratorios/SistemaLaboratorios.html"
+                    >Sistema de Laboratorios</a
+                  >
+                </li>
+                <li class="submenu-heading">Recursos Humanos y Nómina</li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNomina.html"
+                    >Sistema de Nómina</a
+                  >
+                </li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNominaWeb.html"
+                    >Sistema de Nómina Web</a
+                  >
+                </li>
+                <li class="submenu-heading">Otros sectores</li>
+                <li>
+                  <a href="sistemaHoteles.html"
+                    >Sistema para Hoteles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="../talleresYConcesionarios/talleresYConcesionarios.html"
+                    >Talleres y Concesionarios</a
+                  >
+                </li>
+                <li>
+                  <a href="../restaurantes/restaurantes.html">Restaurantes</a>
+                </li>
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
+                <li><a href="#">AppKloud</a></li> -->
               </ul>
             </li>
             <li>
@@ -358,7 +397,7 @@
             </li>
             <li>
               <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+                >Solicita asesoría</a
               >
             </li>
           </ul>
@@ -373,25 +412,24 @@
         <div class="ab-hero-grid">
           <div class="ab-hero-content">
             <p class="ab-eyebrow">
-              Todo lo que tu hotel necesita, desde un solo sistema
+              Tu hotel, de la reserva a la factura
             </p>
             <h1 class="ab-title">Sistema para Hoteles</h1>
             <p class="ab-lead">
-              Reserva, facturación, housekeeping, consumos, servicios
-              adicionales y más. Integrado con contabilidad y nómina.
+              Reservas, habitaciones, huéspedes, consumos y facturación en un sistema que se integra con contabilidad y nómina.
             </p>
             <p class="ab-ideal-for">
-              <strong>Ideal para:</strong> Hoteles, posadas, alojamientos.
+              <strong>Ideal para:</strong> Hoteles, hostales y otros alojamientos.
+            </p>
+            <p class="ab-ideal-for ab-maker">
+              Solución de <strong>Premium Soft</strong>, presentada por Gramanat como parte de su alianza comercial.
             </p>
             <p class="ab-region-note">
               <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
-              <em
-                >Algunas soluciones pueden variar según el país en el que te
-                encuentres. Consulta la disponibilidad en tu región para obtener
-                la mejor experiencia con nuestras plataformas.</em
-              >
+              <em>Según la información publicada por el fabricante, esta solución está disponible para El Salvador en versión Desktop. Consulta con Gramanat cuál se ajusta a tu negocio y en qué condiciones.</em>
             </p>
-            <a href="../index.html#contact" class="ab-cta-btn">Obtener Ahora</a>
+            <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20p%C3%A1gina%20de%20Sistema%20para%20Hoteles%20en%20el%20sitio%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20esta%20soluci%C3%B3n%20para%20mi%20negocio." class="ab-cta-btn" target="_blank" rel="noopener" data-cta="solucion-sistema-para-hoteles"
+              >Solicita asesoría</a>
             <!-- Placeholders: no hay assets propios de "soporte técnico" ni
                "chatbot/asistente" en el proyecto — íconos genéricos de
                FontAwesome mientras se proporcionan las imágenes reales. -->
@@ -408,7 +446,7 @@
             <div class="ab-hero-mockup">
               <img
                 src="../img/soluciones/hoteleria/hoteles.jpeg"
-                alt="Mockup del sistema administrativo Gramanat"
+                alt="Pantalla de Sistema para Hoteles (PSKloud)"
                 width="1536"
                 height="1024"
                 loading="lazy"
@@ -426,40 +464,32 @@
         <h2 class="ab-features-title">Principales Características</h2>
         <div class="ab-features-grid">
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Reservas
-              online y en mostrador
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Control de
-              habitaciones, servicios y facturación
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Reportes
-              operativos y financieros
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Optimización
-              de la experiencia del cliente
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Reservas en línea y en recepción.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Habitaciones, servicios y facturación bajo control.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Reportes operativos y financieros.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Mejor atención a tus huéspedes.
+              </li>
           </ul>
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Registro
-              completo de huéspedes
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Compatible con
-              múltiples sedes o niveles
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Administración
-              de tarifas y temporadas
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Adaptado a
-              diferentes tipos de hospedaje
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Registro completo de cada huésped.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Varias sedes o niveles.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Tarifas y temporadas.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Se adapta a distintos tipos de alojamiento.
+              </li>
           </ul>
         </div>
       </div>
@@ -472,43 +502,45 @@
         <h2 class="ab-requirements-title">Requisitos del Sistema</h2>
         <div class="ab-req-card">
           <div class="ab-req-header">
-            <i class="fa-solid fa-display" aria-hidden="true"></i>
-            <span>Requisitos de Estación de Trabajo</span>
+            <i class="fa-solid fa-server" aria-hidden="true"></i>
+            <span>Servidor</span>
           </div>
           <div class="ab-req-grid">
             <div class="ab-req-item">
-              <h4>
-                <i class="fa-solid fa-desktop" aria-hidden="true"></i>Base de
-                Datos
-              </h4>
+              <h4>Base de Datos</h4>
               <p>MySQL 5.5.62 o superior</p>
             </div>
             <div class="ab-req-item">
-              <h4>
-                <i class="fa-solid fa-desktop" aria-hidden="true"></i>Sistema
-                Operativo
-              </h4>
-              <p>Windows 10/11 (64-bit)</p>
-            </div>
-            <div class="ab-req-item">
-              <h4>
-                <i class="fa-solid fa-memory" aria-hidden="true"></i>Memoria RAM
-              </h4>
+              <h4>Memoria RAM</h4>
               <p>16GB RAM (para 1-10 computadoras)</p>
             </div>
             <div class="ab-req-item">
-              <h4>
-                <i class="fa-solid fa-microchip" aria-hidden="true"></i
-                >Procesador
-              </h4>
+              <h4>Procesador</h4>
               <p>Intel i5/i7 12va generación 2.5GHz o superior</p>
             </div>
             <div class="ab-req-item">
-              <h4>
-                <i class="fa-solid fa-hard-drive" aria-hidden="true"></i
-                >Almacenamiento
-              </h4>
+              <h4>Almacenamiento</h4>
               <p>SSD 500GB</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Sistema Operativo</h4>
+              <p>Windows 10/11 (64-bit)</p>
+            </div>
+          </div>
+        </div>
+        <div class="ab-req-card">
+          <div class="ab-req-header">
+            <i class="fa-solid fa-plug" aria-hidden="true"></i>
+            <span>Componentes adicionales</span>
+          </div>
+          <div class="ab-req-grid">
+            <div class="ab-req-item">
+              <h4>Componentes y conexión</h4>
+              <p>Impresora de recibos, lector de tarjetas magnéticas, sistema de respaldo continuo</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Nota</h4>
+              <p>Para hoteles de más de 50 habitaciones, se recomienda servidor dedicado con mayor capacidad.</p>
             </div>
           </div>
         </div>
@@ -695,6 +727,6 @@
     <!-- Contact Form JavaScript File -->
     <script src="../contactform/contactform.js"></script>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js?v=57"></script>
   </body>
 </html>

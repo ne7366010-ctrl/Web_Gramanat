@@ -88,6 +88,22 @@
       });
     };
 
+    // Desktop dropdowns only (the hamburger menu lives in .menubar, outside <nav>).
+    // The scroll and outside-click handlers below use this one, so between
+    // 992 and 1259px — where the hamburger menu is still the one in use —
+    // scrolling (or focus moving with Tab) no longer closes its open list.
+    const closeDesktopSubmenus = () => {
+      document.querySelectorAll('nav .submenu').forEach(submenu => {
+        submenu.style.opacity = '0';
+        submenu.style.maxHeight = '0';
+        submenu.classList.remove("submenu-active");
+      });
+      document.querySelectorAll('nav .submenu-toggle').forEach(toggle => {
+        toggle.classList.remove("active");
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    };
+
     // Función para alternar el menú móvil
     const toggleNav = (forceClose = false) => {
       if (forceClose) {
@@ -121,6 +137,11 @@
 
     // Control de submenús
     const submenuToggles = document.querySelectorAll(".submenu-toggle");
+    // They are links with href="#" that behave as buttons: say so to screen readers.
+    submenuToggles.forEach(toggle => {
+      toggle.setAttribute('role', 'button');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
 
     submenuToggles.forEach(toggle => {
       toggle.addEventListener("click", (e) => {
@@ -130,9 +151,14 @@
         const parentLi = toggle.closest('li');
         const submenu = parentLi.querySelector(".submenu");
         
+        parentLi.classList.remove('is-closed');
+        // Enter on the desktop toggle after Escape reopens it (detail is 0 for keyboard clicks).
+        if (e.detail === 0 && parentLi.matches('nav .soluciones-submenu')) parentLi.classList.add('kbd-open');
+
         // Solo alternar si no estamos en scroll
         if (!isScrolling) {
           toggle.classList.toggle("active");
+          toggle.setAttribute('aria-expanded', toggle.classList.contains('active') ? 'true' : 'false');
           
           if (submenu.classList.contains("submenu-active")) {
             submenu.style.opacity = '0';
@@ -145,6 +171,7 @@
             submenuToggles.forEach(otherToggle => {
               if (otherToggle !== toggle) {
                 otherToggle.classList.remove("active");
+                otherToggle.setAttribute('aria-expanded', 'false');
                 const otherSubmenu = otherToggle.closest('li').querySelector(".submenu");
                 if (otherSubmenu) {
                   otherSubmenu.style.opacity = '0';
@@ -173,6 +200,44 @@
       link.addEventListener('click', (e) => e.preventDefault());
     });
 
+    // Keyboard opening of the hover-only desktop dropdown and its flyouts:
+    // .kbd-open while keyboard focus is inside the item (see style.css).
+    document.querySelectorAll('nav .soluciones-submenu, nav .has-flyout').forEach(item => {
+      item.addEventListener('focusin', (e) => {
+        if (e.target.matches(':focus-visible') && !item.classList.contains('is-closed')) item.classList.add('kbd-open');
+      });
+      item.addEventListener('focusout', (e) => {
+        if (!item.contains(e.relatedTarget)) item.classList.remove('kbd-open');
+      });
+    });
+
+    // Escape: closes the hamburger menu (focus back on the hamburger) or the
+    // desktop dropdown that has focus (focus back on its toggle). .is-closed
+    // keeps a keyboard-opened dropdown shut while focus stays on its toggle;
+    // it clears when focus or the mouse leaves the item, or on Enter/click.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (isMobileMenuOpen) {
+        toggleNav(true);
+        if (mobileNav) mobileNav.focus();
+        return;
+      }
+      const item = document.activeElement && document.activeElement.closest('nav .has-submenu');
+      if (!item) return;
+      item.classList.add('is-closed');
+      item.classList.remove('kbd-open');
+      item.querySelectorAll('.kbd-open').forEach(el => el.classList.remove('kbd-open'));
+      closeDesktopSubmenus();
+      const toggle = item.querySelector('.submenu-toggle');
+      if (toggle) toggle.focus();
+    });
+    document.querySelectorAll('nav .has-submenu').forEach(item => {
+      item.addEventListener('focusout', (e) => {
+        if (!item.contains(e.relatedTarget)) item.classList.remove('is-closed');
+      });
+      item.addEventListener('mouseleave', () => item.classList.remove('is-closed'));
+    });
+
     // Cerrar menú al hacer clic fuera
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.menubar') && !e.target.closest('.hamburger')) {
@@ -181,7 +246,7 @@
       
       // Cerrar submenús de desktop al hacer clic fuera
       if (window.innerWidth > 991 && !e.target.closest('.has-submenu')) {
-        closeAllSubmenus();
+        closeDesktopSubmenus();
       }
     });
 
@@ -197,7 +262,7 @@
       
       // Cerrar submenús de desktop al hacer scroll
       if (window.innerWidth > 991) {
-        closeAllSubmenus();
+        closeDesktopSubmenus();
       }
       
       // Si estamos en la parte superior

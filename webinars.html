@@ -32,7 +32,7 @@
   <link href="css/nivo-slider-theme.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?v=143" rel="stylesheet">
 
   <!-- Responsive Stylesheet File -->
   <link href="css/responsive.css" rel="stylesheet">
@@ -46,8 +46,14 @@
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example" class="page-webinars">
-    <a aria-label="Escríbenos por WhatsApp" href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat." class="whatsapp-float" target="_blank">
-    <span class="whatsapp-float-tooltip" aria-hidden="true">¿Hablamos? Respondemos en minutos</span>
+    <a
+      aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
+      href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener"
+    >
+    <span class="whatsapp-float-tooltip" aria-hidden="true">¿Hablamos? Escríbenos por WhatsApp</span>
     <i class="fa-brands fa-whatsapp"></i>
   </a>
   <div id="preloader"></div>
@@ -67,86 +73,288 @@
           <a href="#" class="submenu-toggle"><i class="fa-solid fa-wrench"></i>Soluciones <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
             <!-- Item con submenú de segundo nivel (flyout). Patrón reutilizable:
-                 <li class="has-flyout"> + <ul class="submenu-flyout"> dentro.
-                 Cualquier otro punto de este listado puede recibir su propio
-                 flyout agregando esas mismas dos clases, sin tocar el CSS. -->
+             <li class="has-flyout"> + <ul class="submenu-flyout"> dentro.
+             Cualquier otro punto de este listado puede recibir su propio
+             flyout agregando esas mismas dos clases, sin tocar el CSS. -->
             <li class="has-flyout">
-              <a href="#">Comercios y PyMEs <i class="fas fa-chevron-right"></i></a>
+              <a href="#"
+                >Comercios y PyMEs <i class="fas fa-chevron-right"></i
+              ></a>
               <ul class="submenu-flyout">
-                <li><a href="administrative-business.html">Administrative Business</a></li>
-                <li><a href="administrativo-punto-de-venta.html">Administrativo y Punto de Venta</a></li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
-                <li><a href="#">Personal Business</a></li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
-                <li><a href="#">Centro de Impresión Fiscal</a></li>
+                <li>
+                  <a href="administrative-business.html"
+                    >Administrative Business</a
+                  >
+                </li>
+                <li>
+                  <a href="administrativo-punto-de-venta.html"
+                    >Administrativo y Punto de Venta</a
+                  >
+                </li>
+                <li>
+                  <a href="soluciones/personalBusiness.html"
+                    >Personal Business</a
+                  >
+                </li>
+                <li>
+                  <a href="soluciones/centroImpresionFiscal.html"
+                    >Centro de Impresión Fiscal</a
+                  >
+                </li>
               </ul>
             </li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Ecommerce y Gestión Digital <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Contabilidad y Finanzas <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Salud y Laboratorios <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Recursos Humanos y Nómina <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Hotelería <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Talleres y Concesionarios <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Restaurantes <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">AppKloud <i class="fas fa-chevron-right"></i></a></li>
+            <li class="has-flyout">
+              <a href="#"
+                >Ecommerce y Gestión Digital
+                <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="./ecommerceGestionDigital/PSKloudEShop.html"
+                    >PSKloud eShop</a
+                  >
+                </li>
+                <li>
+                  <a href="./ecommerceGestionDigital/PSKloudManager.html"
+                    >PSKloud Manager</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#"
+                >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="contabilidadFinanzas/SistemaContabilidad.html"
+                    >Sistema de Contabilidad</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#"
+                >Salud y Laboratorios <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="SaludLaboratorios/SistemaHistoriasMedicas.html"
+                    >Sistema de Historias Médicas</a
+                  >
+                </li>
+                <li>
+                  <a href="SaludLaboratorios/SistemaClinicasHospitales.html"
+                    >Sistema para Clínicas y Hospitales</a
+                  >
+                </li>
+                <li>
+                  <a href="SaludLaboratorios/SistemaLaboratorios.html"
+                    >Sistema de Laboratorios</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#"
+                >Recursos Humanos y Nómina
+                <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="recursosHumanosNomina/sistemaNomina.html"
+                    >Sistema de Nómina</a
+                  >
+                </li>
+                <li>
+                  <a href="recursosHumanosNomina/sistemaNominaWeb.html"
+                    >Sistema de Nómina Web</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="hoteleria/sistemaHoteles.html"
+                    >Sistema para Hoteles</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#"
+                >Talleres y Concesionarios
+                <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a
+                    href="talleresYConcesionarios/talleresYConcesionarios.html"
+                    >Talleres y Concesionarios</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="has-flyout">
+              <a href="#"
+                >Restaurantes <i class="fas fa-chevron-right"></i
+              ></a>
+              <ul class="submenu-flyout">
+                <li>
+                  <a href="restaurantes/restaurantes.html">Restaurantes</a>
+                </li>
+              </ul>
+            </li>
+            <!-- AppKloud: oculto hasta tener su página (era href="#").
+            <li>
+              <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+            </li> -->
           </ul>
-        </li>
-        <li class="has-submenu">
-          <a href="#" class="submenu-toggle"><i class="fa-solid fa-right-long"></i>Servicios <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li class="has-submenu">
+          <a href="#" class="submenu-toggle"
+            ><i class="fa-solid fa-right-long"></i>Servicios
+            <i class="fas fa-chevron-down"></i
+          ></a>
           <ul class="submenu">
-            <li><a href="sistemas.html"><i class="fa-solid fa-microchip"></i>Diseño de Sistemas Informáticos</a></li>
-            <li><a href="marketing.html"><i class="fa-solid fa-bullhorn"></i>Marketing Digital</a></li>
-            <li><a href="casas.html"><i class="fa-solid fa-hammer"></i>Equipo de Punto de Venta</a></li>
+            <li>
+              <a href="sistemas.html"
+                ><i class="fa-solid fa-microchip"></i>Diseño de Sistemas
+                Informáticos</a
+              >
+            </li>
+            <li>
+              <a href="marketing.html"
+                ><i class="fa-solid fa-bullhorn"></i>Marketing Digital</a
+              >
+            </li>
+            <li>
+              <a href="casas.html"
+                ><i class="fa-solid fa-hammer"></i>Equipo de Punto de
+                Venta</a
+              >
+            </li>
             <!--<li><a href="arquitectura.html"><i class="fa-solid fa-sitemap"></i>Arquitectura y Bienes Raíces</a></li>-->
           </ul>
-        </li>
-        <li>
-          <a href="index.html#equipment"><i class="fa-solid fa-users"></i>Equipo</a>
-        </li>
-        <li>
-          <a href="index.html#contact" class="cta-demo-header">Solicita tu demo</a>
-        </li>
-      </ul>
-      <div class="hamburger">
+            </li>
+            <li>
+          <a href="index.html#equipment"
+            ><i class="fa-solid fa-users"></i>Equipo</a
+          >
+            </li>
+            <li>
+          <a href="index.html#contact" class="cta-demo-header"
+            >Solicita tu demo</a
+          >
+            </li>
+          </ul>
+      <button
+            type="button"
+            class="hamburger"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="menu-movil"
+          >
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
-      </div>
+      </button>
     </nav>
-    <div class="menubar">
+    <div class="menubar" id="menu-movil">
       <ul>
         <li>
           <a href="index.html#about">Nosotros</a>
         </li>
         <li class="mobile-submenu soluciones-submenu">
           <a href="#" class="submenu-toggle mobile-submenu-toggle">Soluciones <i class="fas fa-chevron-down"></i></a>
+          <!-- Same pages as the desktop flyouts, grouped under their
+             category name (the flyouts are hover-only, so phones get
+             the real links listed directly). -->
           <ul class="submenu">
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Comercios y PyMEs <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Ecommerce y Gestión Digital <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Contabilidad y Finanzas <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Salud y Laboratorios <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Recursos Humanos y Nómina <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Hotelería <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Talleres y Concesionarios <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">Restaurantes <i class="fas fa-chevron-right"></i></a></li>
-            <!-- TODO: reemplazar por el enlace/texto real -->
-            <li><a href="#">AppKloud <i class="fas fa-chevron-right"></i></a></li>
+            <li class="submenu-heading">Comercios y PyMEs</li>
+            <li>
+              <a href="administrative-business.html"
+                >Administrative Business</a
+              >
+            </li>
+            <li>
+              <a href="administrativo-punto-de-venta.html"
+                >Administrativo y Punto de Venta</a
+              >
+            </li>
+            <li>
+              <a href="soluciones/personalBusiness.html"
+                >Personal Business</a
+              >
+            </li>
+            <li>
+              <a href="soluciones/centroImpresionFiscal.html"
+                >Centro de Impresión Fiscal</a
+              >
+            </li>
+            <li class="submenu-heading">Ecommerce y Gestión Digital</li>
+            <li>
+              <a href="ecommerceGestionDigital/PSKloudEShop.html"
+                >PSKloud eShop</a
+              >
+            </li>
+            <li>
+              <a href="ecommerceGestionDigital/PSKloudManager.html"
+                >PSKloud Manager</a
+              >
+            </li>
+            <li class="submenu-heading">Contabilidad y Finanzas</li>
+            <li>
+              <a href="contabilidadFinanzas/SistemaContabilidad.html"
+                >Sistema de Contabilidad</a
+              >
+            </li>
+            <li class="submenu-heading">Salud y Laboratorios</li>
+            <li>
+              <a href="SaludLaboratorios/SistemaHistoriasMedicas.html"
+                >Sistema de Historias Médicas</a
+              >
+            </li>
+            <li>
+              <a href="SaludLaboratorios/SistemaClinicasHospitales.html"
+                >Sistema para Clínicas y Hospitales</a
+              >
+            </li>
+            <li>
+              <a href="SaludLaboratorios/SistemaLaboratorios.html"
+                >Sistema de Laboratorios</a
+              >
+            </li>
+            <li class="submenu-heading">Recursos Humanos y Nómina</li>
+            <li>
+              <a href="recursosHumanosNomina/sistemaNomina.html"
+                >Sistema de Nómina</a
+              >
+            </li>
+            <li>
+              <a href="recursosHumanosNomina/sistemaNominaWeb.html"
+                >Sistema de Nómina Web</a
+              >
+            </li>
+            <li class="submenu-heading">Otros sectores</li>
+            <li>
+              <a href="hoteleria/sistemaHoteles.html"
+                >Sistema para Hoteles</a
+              >
+            </li>
+            <li>
+              <a
+                href="talleresYConcesionarios/talleresYConcesionarios.html"
+                >Talleres y Concesionarios</a
+              >
+            </li>
+            <li>
+              <a href="restaurantes/restaurantes.html">Restaurantes</a>
+            </li>
+            <!-- AppKloud: oculto hasta tener su página (era href="#").
+            <li><a href="#">AppKloud</a></li> -->
           </ul>
         </li>
         <li>
@@ -401,7 +609,7 @@
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=57"></script>
   <script src="js/webinars.js"></script>
 </body>
 
