@@ -1468,6 +1468,58 @@
   });
 
   /*---------------------
+    Footer: Soluciones groups fold on phones
+    Only when the footer opts in (.gn-footer-plegable) and below 768px:
+    each group title becomes a button that shows or hides its list (the
+    group of the page being viewed starts open). Without JavaScript, or
+    from 768px up, every list stays visible.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector('.gn-footer.gn-footer-plegable');
+    if (!footer || !window.matchMedia) return;
+
+    const phone = window.matchMedia('(max-width: 767px)');
+    const groups = Array.from(footer.querySelectorAll('.gn-footer-group'));
+
+    const apply = () => {
+      groups.forEach((group) => {
+        const title = group.querySelector('.gn-footer-group-title');
+        const list = group.querySelector('.gn-footer-list');
+        let toggle = title.querySelector('.gn-footer-toggle');
+
+        if (phone.matches && !toggle) {
+          const open = !!list.querySelector('[aria-current="page"]');
+          toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'gn-footer-toggle';
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-controls', list.id);
+          toggle.textContent = title.textContent.trim();
+          title.textContent = '';
+          title.appendChild(toggle);
+          list.hidden = !open;
+          toggle.addEventListener('click', () => {
+            const expanded = toggle.getAttribute('aria-expanded') !== 'true';
+            toggle.setAttribute('aria-expanded', String(expanded));
+            list.hidden = !expanded;
+          });
+        } else if (!phone.matches && toggle) {
+          title.textContent = toggle.textContent;
+          list.hidden = false;
+        }
+      });
+    };
+
+    apply();
+    if (phone.addEventListener) {
+      phone.addEventListener('change', apply);
+    } else {
+      phone.addListener(apply);
+    }
+  });
+
+  /*---------------------
     Floating buttons: step aside while a CTA sits under them
     Each button (WhatsApp, back to top) watches only its own band of the
     viewport (rootMargin trims everything above it, and below it for the
@@ -1486,13 +1538,13 @@
     if (!buttons.length || !('IntersectionObserver' in window)) return;
 
     // CTAs, plus the trust strip's benefits (its right column sits
-    // exactly under the button on phones). On the home page, every link,
+    // exactly under the button on phones), and the footer's links and
+    // buttons on every page. On the home page, every link,
     // button and form field too (FAQ questions, the Contacto form), so a
-    // floating button never sits on top of something the visitor can tap,
-    // and the footer's last line, which would stay under it at the bottom.
+    // floating button never sits on top of something the visitor can tap.
     const ctas = Array.from(document.querySelectorAll(
-      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, .gn-sol-alt, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li'
-      + (document.body.classList.contains('page-home') ? ', a[href], button, input:not([type="hidden"]), textarea, select, .footer-availability' : '')
+      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, .gn-sol-alt, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li, .gn-footer a, .gn-footer button'
+      + (document.body.classList.contains('page-home') ? ', a[href], button, input:not([type="hidden"]), textarea, select' : '')
     )).filter((el) => !buttons.includes(el) && !el.closest('nav, .menubar, .whatsapp-float, .gn-contact-trap'));
 
     let observers = [];

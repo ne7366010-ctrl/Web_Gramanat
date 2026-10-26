@@ -12015,3 +12015,386 @@ nav a:focus-visible,
 nav .has-submenu.is-closed > .submenu {
   display: none !important;
 }
+
+/* ==========================================================================
+   Footer (.gn-footer): home page, the 15 system pages and webinars.html.
+   Same editorial language as the final CTA: navy surface, sky labels, white and
+   light-blue text, hairline dividers. No glow, no shadows, no orange (orange
+   stays for the main action), no motion beyond colour changes.
+   ========================================================================== */
+
+.gn-footer {
+  --gn-navy: #071c33;
+  --gn-sky: #63b2f2;
+  --gn-white: #ffffff;
+  --gn-text: #b6c3d4;
+  --gn-link: #dbe6f2;
+  --gn-muted: #92a5bc;
+  --gn-line: rgba(255, 255, 255, 0.12);
+  background: var(--gn-navy);
+  color: var(--gn-text);
+  padding: 56px 16px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.gn-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gn-footer p {
+  margin: 0;
+}
+
+/* Phones: brand on its own row, then Navegación and Contacto side by side. */
+.gn-footer-top {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 20px;
+  padding-bottom: 40px;
+}
+
+.gn-footer-brand {
+  grid-column: 1 / -1;
+}
+
+.gn-footer-brand,
+.gn-footer-col {
+  min-width: 0;
+}
+
+/* The logo file has wide transparent margins: the link is cropped to the mark
+   itself so its focus ring hugs it. */
+.gn-footer-logo {
+  display: block;
+  width: 80px;
+  height: 84px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.gn-footer-logo img {
+  display: block;
+  width: 160px;
+  max-width: none;
+  height: auto;
+  margin: -38px 0 0 -40px;
+  filter: brightness(0) invert(1);
+}
+
+.gn-footer-about {
+  margin-top: 18px !important;
+  max-width: 34em;
+  color: var(--gn-text);
+  text-wrap: pretty;
+}
+
+.gn-footer-social {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--gn-line);
+  border-radius: 50%;
+  color: var(--gn-white);
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.gn-footer-social a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: var(--gn-white);
+}
+
+.gn-footer .gn-footer-heading {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gn-sky);
+}
+
+.gn-footer-list,
+.gn-footer-contact {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gn-footer-list a,
+.gn-footer-contact a,
+.gn-footer-more {
+  display: inline-block;
+  padding: 6px 0;
+  color: var(--gn-link);
+  font-size: 15px;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.gn-footer-list a:hover,
+.gn-footer-contact a:hover,
+.gn-footer-more:hover {
+  color: var(--gn-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gn-footer-list a[aria-current="page"] {
+  color: var(--gn-white);
+  font-weight: 600;
+}
+
+.gn-footer-contact li {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+.gn-footer-label {
+  font-size: 13px;
+  color: var(--gn-muted);
+}
+
+.gn-footer-contact li > span:not(.gn-footer-label) {
+  padding: 6px 0;
+  color: var(--gn-link);
+  line-height: 1.4;
+}
+
+.gn-footer-contact a {
+  overflow-wrap: anywhere;
+}
+
+.gn-footer-more {
+  margin-top: 4px;
+  color: var(--gn-sky);
+  font-weight: 600;
+}
+
+.gn-footer-catalog {
+  display: grid;
+  gap: 24px;
+  padding: 40px 0 44px;
+  border-top: 1px solid var(--gn-line);
+}
+
+.gn-footer-alliance {
+  max-width: 30em;
+  font-size: 14px;
+  color: var(--gn-muted);
+}
+
+.gn-footer-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 20px;
+}
+
+.gn-footer-group {
+  min-width: 0;
+}
+
+.gn-footer .gn-footer-group h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gn-white);
+}
+
+.gn-footer-group .gn-footer-list a {
+  font-size: 14.5px;
+  padding: 5px 0;
+}
+
+.gn-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 32px;
+  padding: 20px 0 24px;
+  border-top: 1px solid var(--gn-line);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* The site's global paragraph colour would win over an inherited one. */
+.gn-footer-bottom p {
+  color: var(--gn-muted);
+}
+
+/* Same ring as the rest of the site; the global a:focus rule removes outlines. */
+.gn-footer a:focus-visible {
+  outline: 3px solid var(--gn-sky) !important;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.gn-footer-social a:focus-visible {
+  border-radius: 50%;
+}
+
+/* Narrow phones: Contacto below Navegación (so the e-mail address never breaks),
+   with the Navegación links in two short columns to keep the footer compact. */
+@media (max-width: 419px) {
+  .gn-footer-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gn-footer-col[role="navigation"] .gn-footer-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Room for the fixed WhatsApp and back-to-top buttons at the very bottom. */
+  .gn-footer-bottom {
+    padding-bottom: 96px;
+  }
+
+  /* Compact variant (.gn-footer-plegable): on phones js/main.js turns each
+     Soluciones group title into a button that opens its list. Without
+     JavaScript every list stays visible. */
+  .gn-footer-plegable .gn-footer-top {
+    gap: 32px 20px;
+    padding-bottom: 32px;
+  }
+
+  /* Contacto label beside its value instead of above it. */
+  .gn-footer-plegable .gn-footer-contact li {
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 12px;
+    margin-bottom: 2px;
+  }
+
+  .gn-footer-plegable .gn-footer-catalog {
+    gap: 20px;
+    padding: 32px 0 28px;
+  }
+
+  .gn-footer-plegable .gn-footer-groups {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--gn-line);
+  }
+
+  .gn-footer-plegable .gn-footer-group {
+    border-bottom: 1px solid var(--gn-line);
+  }
+
+  .gn-footer.gn-footer-plegable .gn-footer-group h3 {
+    margin: 0;
+  }
+
+  /* Without JavaScript the titles stay headings: keep them off the divider. */
+  .gn-footer.gn-footer-plegable .gn-footer-group h3:not(:has(.gn-footer-toggle)) {
+    padding-top: 12px;
+  }
+
+  .gn-footer-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 0;
+    border: 0;
+    background: none;
+    color: var(--gn-white);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .gn-footer-toggle::after {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-right: 2px solid var(--gn-sky);
+    border-bottom: 2px solid var(--gn-sky);
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .gn-footer-toggle[aria-expanded="true"]::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  .gn-footer-toggle:focus-visible {
+    outline: 3px solid var(--gn-sky);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .gn-footer-plegable .gn-footer-group .gn-footer-list {
+    padding-bottom: 12px;
+  }
+
+  .gn-footer-list[hidden] {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .gn-footer {
+    padding: 64px 24px 0;
+  }
+
+  .gn-footer-top {
+    gap: 40px 32px;
+  }
+
+  .gn-footer-groups {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gn-footer-top {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
+    gap: 48px;
+  }
+
+  .gn-footer-brand {
+    grid-column: auto;
+  }
+
+  .gn-footer-catalog {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    gap: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-footer a,
+  .gn-footer-toggle::after {
+    transition: none;
+  }
+}
