@@ -1486,10 +1486,14 @@
     if (!buttons.length || !('IntersectionObserver' in window)) return;
 
     // CTAs, plus the trust strip's benefits (its right column sits
-    // exactly under the button on phones).
+    // exactly under the button on phones). On the home page, every link,
+    // button and form field too (FAQ questions, the Contacto form), so a
+    // floating button never sits on top of something the visitor can tap,
+    // and the footer's last line, which would stay under it at the bottom.
     const ctas = Array.from(document.querySelectorAll(
       '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, .gn-sol-alt, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li'
-    )).filter((el) => !buttons.includes(el) && !el.closest('nav, .menubar'));
+      + (document.body.classList.contains('page-home') ? ', a[href], button, input:not([type="hidden"]), textarea, select, .footer-availability' : '')
+    )).filter((el) => !buttons.includes(el) && !el.closest('nav, .menubar, .whatsapp-float, .gn-contact-trap'));
 
     let observers = [];
 
