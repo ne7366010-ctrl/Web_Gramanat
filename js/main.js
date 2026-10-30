@@ -42,7 +42,9 @@
   // The hero is a single real slide (the other two are empty
   // placeholders) — manualAdvance stops the auto-rotate timer, and
   // directionNav/controlNav remove the now-pointless arrows and dots.
-  $('#ensign-nivoslider').nivoSlider({
+  // index.html no longer loads the plugin (its hero is a plain section
+  // now), so only run this on the pages that still include it.
+  if ($.fn.nivoSlider) $('#ensign-nivoslider').nivoSlider({
     effect: 'random',
     slices: 15,
     boxCols: 12,
@@ -86,6 +88,22 @@
       });
     };
 
+    // Desktop dropdowns only (the hamburger menu lives in .menubar, outside <nav>).
+    // The scroll and outside-click handlers below use this one, so between
+    // 992 and 1259px — where the hamburger menu is still the one in use —
+    // scrolling (or focus moving with Tab) no longer closes its open list.
+    const closeDesktopSubmenus = () => {
+      document.querySelectorAll('nav .submenu').forEach(submenu => {
+        submenu.style.opacity = '0';
+        submenu.style.maxHeight = '0';
+        submenu.classList.remove("submenu-active");
+      });
+      document.querySelectorAll('nav .submenu-toggle').forEach(toggle => {
+        toggle.classList.remove("active");
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    };
+
     // Función para alternar el menú móvil
     const toggleNav = (forceClose = false) => {
       if (forceClose) {
@@ -97,12 +115,16 @@
         isMobileMenuOpen = !isMobileMenuOpen;
         navbar.classList.toggle("active");
         mobileNav.classList.toggle("hamburger-active");
-        
+
         if (isMobileMenuOpen) {
           nav.classList.remove('scroll-down');
           nav.classList.add('scroll-up');
         }
       }
+
+      // Screen readers: keep the hamburger <button>'s state in sync.
+      mobileNav.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
+      mobileNav.setAttribute('aria-label', isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú');
     };
 
     // Evento para el botón hamburguesa
@@ -115,6 +137,11 @@
 
     // Control de submenús
     const submenuToggles = document.querySelectorAll(".submenu-toggle");
+    // They are links with href="#" that behave as buttons: say so to screen readers.
+    submenuToggles.forEach(toggle => {
+      toggle.setAttribute('role', 'button');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
 
     submenuToggles.forEach(toggle => {
       toggle.addEventListener("click", (e) => {
@@ -124,9 +151,14 @@
         const parentLi = toggle.closest('li');
         const submenu = parentLi.querySelector(".submenu");
         
+        parentLi.classList.remove('is-closed');
+        // Enter on the desktop toggle after Escape reopens it (detail is 0 for keyboard clicks).
+        if (e.detail === 0 && parentLi.matches('nav .soluciones-submenu')) parentLi.classList.add('kbd-open');
+
         // Solo alternar si no estamos en scroll
         if (!isScrolling) {
           toggle.classList.toggle("active");
+          toggle.setAttribute('aria-expanded', toggle.classList.contains('active') ? 'true' : 'false');
           
           if (submenu.classList.contains("submenu-active")) {
             submenu.style.opacity = '0';
@@ -139,6 +171,7 @@
             submenuToggles.forEach(otherToggle => {
               if (otherToggle !== toggle) {
                 otherToggle.classList.remove("active");
+                otherToggle.setAttribute('aria-expanded', 'false');
                 const otherSubmenu = otherToggle.closest('li').querySelector(".submenu");
                 if (otherSubmenu) {
                   otherSubmenu.style.opacity = '0';
@@ -161,6 +194,50 @@
       });
     });
 
+    // Desktop flyout parents ("Comercios y PyMEs", ...) only open their
+    // flyout on hover; their href="#" would otherwise jump to the top.
+    document.querySelectorAll('.has-flyout > a[href="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => e.preventDefault());
+    });
+
+    // Keyboard opening of the hover-only desktop dropdown and its flyouts:
+    // .kbd-open while keyboard focus is inside the item (see style.css).
+    document.querySelectorAll('nav .soluciones-submenu, nav .has-flyout').forEach(item => {
+      item.addEventListener('focusin', (e) => {
+        if (e.target.matches(':focus-visible') && !item.classList.contains('is-closed')) item.classList.add('kbd-open');
+      });
+      item.addEventListener('focusout', (e) => {
+        if (!item.contains(e.relatedTarget)) item.classList.remove('kbd-open');
+      });
+    });
+
+    // Escape: closes the hamburger menu (focus back on the hamburger) or the
+    // desktop dropdown that has focus (focus back on its toggle). .is-closed
+    // keeps a keyboard-opened dropdown shut while focus stays on its toggle;
+    // it clears when focus or the mouse leaves the item, or on Enter/click.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (isMobileMenuOpen) {
+        toggleNav(true);
+        if (mobileNav) mobileNav.focus();
+        return;
+      }
+      const item = document.activeElement && document.activeElement.closest('nav .has-submenu');
+      if (!item) return;
+      item.classList.add('is-closed');
+      item.classList.remove('kbd-open');
+      item.querySelectorAll('.kbd-open').forEach(el => el.classList.remove('kbd-open'));
+      closeDesktopSubmenus();
+      const toggle = item.querySelector('.submenu-toggle');
+      if (toggle) toggle.focus();
+    });
+    document.querySelectorAll('nav .has-submenu').forEach(item => {
+      item.addEventListener('focusout', (e) => {
+        if (!item.contains(e.relatedTarget)) item.classList.remove('is-closed');
+      });
+      item.addEventListener('mouseleave', () => item.classList.remove('is-closed'));
+    });
+
     // Cerrar menú al hacer clic fuera
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.menubar') && !e.target.closest('.hamburger')) {
@@ -169,7 +246,7 @@
       
       // Cerrar submenús de desktop al hacer clic fuera
       if (window.innerWidth > 991 && !e.target.closest('.has-submenu')) {
-        closeAllSubmenus();
+        closeDesktopSubmenus();
       }
     });
 
@@ -185,7 +262,7 @@
       
       // Cerrar submenús de desktop al hacer scroll
       if (window.innerWidth > 991) {
-        closeAllSubmenus();
+        closeDesktopSubmenus();
       }
       
       // Si estamos en la parte superior
@@ -319,889 +396,480 @@
   });
 
   /*---------------------
-    Sistemas selector (horizontal pills)
+    Diagnóstico "Encuentra tu solución" (#verificador)
+    Intro → 3 questions (radio groups, Continuar/Anterior) → a
+    preliminary orientation → WhatsApp. Orientation = first matching
+    rule in DIAG_RULES (needs weigh most, business type adds context,
+    current invoicing adapts the note). #segmentos cards preselect the
+    business type. Events go to dataLayer with answer codes only.
   --------------------- */
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const triggers = Array.from(document.querySelectorAll('#sistemas .sistemas-pill'));
-    const panels = Array.from(document.querySelectorAll('#sistemas .sistemas-panel'));
+  // Orientation texts. None of them promises features, prices, savings
+  // or tax compliance; every one hands the decision to an adviser.
+  const DIAG_PROFILES = {
+    evaluacion: {
+      title: 'Revisemos tu sistema actual',
+      text: 'Ya utilizas un sistema de facturación. Antes de considerar un cambio, es importante evaluar si responde a las necesidades de tu negocio, qué funciones aprovechas y cuáles podrías necesitar.\n\nEn Gramanat te orientamos para identificar si tu sistema actual se adapta a tu operación o si conviene explorar otras alternativas.',
+    },
+    personalizada: {
+      title: 'Te orientamos paso a paso',
+      text: 'Con tus respuestas aún no hay una dirección clara, y es normal. Un asesor puede hacerte algunas preguntas sobre tu forma de trabajar y orientarte desde ahí.',
+    },
+    administrativa: {
+      title: 'Facturación con gestión administrativa',
+      // "tu negocio" here; the "empresa" variant says "tu empresa".
+      text: 'Según tus respuestas, tu negocio necesita evaluar una solución que, además de la facturación electrónica, contemple la administración de usuarios, el control de operaciones y la generación de reportes.\n\nEn Gramanat analizamos tus necesidades para orientarte hacia una alternativa que se adapte a tu forma de trabajar.',
+    },
+    // Doesn't assume a POS, printer or inventory: equipment is something
+    // to evaluate, not a given.
+    ventas: {
+      title: 'Facturación conectada a tus ventas',
+      text: 'Según tus respuestas, podría convenirte una solución que integre la facturación electrónica con la gestión de ventas de tu negocio. En Gramanat podemos ayudarte a evaluar qué funcionalidades necesitas, cómo registrar tus operaciones y si requieres equipos adicionales.',
+    },
+    sencilla: {
+      title: 'Facturación electrónica sencilla',
+      text: 'Por lo que nos compartiste, tu prioridad es contar con una solución de facturación electrónica que se adapte a tu negocio, sin incorporar funciones o equipos innecesarios.\n\nEn Gramanat evaluamos tu operación para ayudarte a elegir una alternativa adecuada a tus necesidades.',
+    },
+  };
 
-    if (!triggers.length || !panels.length) return;
+  // "Otro" activities the guidance text can name as "tu …": normalised
+  // typed value (lower case, no accents, no leading article) → the
+  // phrase written after "Para tu". Anything else gets the neutral
+  // wording, so no article is ever glued to free text.
+  const DIAG_KNOWN_ACTIVITIES = {
+    restaurante: 'restaurante',
+    cafeteria: 'cafetería',
+    pupuseria: 'pupusería',
+    panaderia: 'panadería',
+    taller: 'taller',
+    'taller mecanico': 'taller mecánico',
+    'salon de belleza': 'salón de belleza',
+    barberia: 'barbería',
+    imprenta: 'imprenta',
+    farmacia: 'farmacia',
+    ferreteria: 'ferretería',
+    libreria: 'librería',
+    papeleria: 'papelería',
+    clinica: 'clínica',
+    consultorio: 'consultorio',
+    'clinica dental': 'clínica dental',
+    veterinaria: 'veterinaria',
+    optica: 'óptica',
+    gimnasio: 'gimnasio',
+    hotel: 'hotel',
+    lavanderia: 'lavandería',
+    floristeria: 'floristería',
+    carniceria: 'carnicería',
+    tienda: 'tienda',
+    boutique: 'boutique',
+    academia: 'academia',
+    agencia: 'agencia',
+  };
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let activePanel = panels.find((panel) => panel.classList.contains('is-active')) || panels[0];
-    let leaveTimer = null;
-    let enterTimer = null;
+  function diagKnownActivity(activity) {
+    const key = activity.toLocaleLowerCase('es').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[.!]+$/, '').replace(/\s+/g, ' ').trim().replace(/^(un|una|mi|el|la) /, '');
+    return DIAG_KNOWN_ACTIVITIES[key] || '';
+  }
 
-    function activate(targetId, focusTrigger) {
-      triggers.forEach((trigger) => {
-        const isMatch = trigger.getAttribute('data-target') === targetId;
-        trigger.classList.toggle('is-active', isMatch);
-        trigger.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-        trigger.tabIndex = isMatch ? 0 : -1;
+  // First paragraph of the "No estoy seguro" + guidance result, per
+  // business type. activity = the "Otro" text as typed.
+  const DIAG_NO_SEGURO_INTRO = {
+    servicios: () => 'Si ofreces servicios profesionales y tienes dudas sobre cómo facturas actualmente, el primer paso es conocer cómo realizas tu actividad y qué documentos podrías necesitar emitir.',
+    comercio: () => 'Si tienes un comercio o negocio con mostrador y no tienes claro cómo facturas actualmente, el primer paso es conocer cómo realizas tus ventas y qué documentos podrías necesitar emitir.',
+    empresa: () => 'Si tu empresa tiene procesos administrativos y tienes dudas sobre tu facturación actual, el primer paso es revisar cómo funciona tu operación y qué documentos podrías necesitar emitir.',
+    otro: (activity) => {
+      const known = diagKnownActivity(activity);
+      return known
+        ? `Para tu ${known}, es importante conocer cómo realizas tus ventas, cómo registras tus operaciones y qué documentos electrónicos podrías necesitar emitir antes de elegir una solución de facturación.`
+        : 'En el negocio que nos indicaste, es importante conocer cómo realizas tus operaciones y qué documentos electrónicos podrías necesitar emitir antes de elegir una solución de facturación.';
+    },
+  };
 
-        if (isMatch && focusTrigger) {
-          trigger.focus();
-        }
-      });
+  // Text variants inside a result category: same orientation (and rules),
+  // wording adapted to a specific situation. First match wins.
+  const DIAG_VARIANTS = {
+    administrativa: [
+      ['empresa', (a) => a.tipo === 'empresa', {
+        title: 'Facturación con gestión administrativa',
+        text: 'Según tus respuestas, tu empresa necesita evaluar una solución que, además de la facturación electrónica, contemple la administración de usuarios, el control de operaciones y la generación de reportes.\n\nEn Gramanat analizamos tus necesidades para orientarte hacia una alternativa que se adapte a tu forma de trabajar.',
+      }],
+    ],
+    personalizada: [
+      // Just starting and asks for guidance: help them choose from day one.
+      // A shop gets its own wording and a note (no sales/stock/POS assumed).
+      ['inicio_comercio', (a) => a.factura === 'iniciando' && a.tipo === 'comercio', {
+        title: 'Te ayudamos a elegir desde el inicio',
+        text: 'Como estás iniciando tu comercio y todavía no emites documentos, el primer paso es conocer cómo venderás, cobrarás y registrarás tus operaciones.\n\nEn Gramanat te orientamos para evaluar las alternativas de facturación electrónica y determinar qué funciones o equipos podrías necesitar según tu forma de trabajar.',
+        note: 'Si tienes previsto ampliar tu negocio, también podemos considerar tus necesidades futuras al evaluar las opciones disponibles.',
+      }],
+      ['inicio', (a) => a.factura === 'iniciando', {
+        title: 'Te ayudamos a elegir desde el inicio',
+        text: 'Como estás comenzando tu negocio, es importante conocer cómo venderás tus productos o servicios, cómo cobrarás y qué necesitas controlar antes de elegir un sistema de facturación electrónica. En Gramanat te orientamos para identificar una solución adecuada a tu operación, evitando incorporar funciones o equipos innecesarios.',
+      }],
+      // Unsure how they invoice today: start by clarifying how they work
+      // and which documents they may need. Only the first paragraph
+      // depends on the business type (and, for "Otro", on whether the
+      // typed activity is a known one).
+      ['no_seguro', (a) => a.factura === 'no_seguro', {
+        title: 'Te ayudamos a aclarar qué necesitas para facturar',
+        text: (a, activity) => `${DIAG_NO_SEGURO_INTRO[a.tipo](activity)}\n\nEn Gramanat te brindamos orientación para evaluar las alternativas de facturación electrónica que podrían adaptarse a las necesidades de tu negocio, considerando las funcionalidades y los equipos que realmente requiera tu operación.`,
+        note: 'Un asesor podrá revisar contigo tu situación actual de facturación y explicarte qué aspectos debes considerar antes de seleccionar una solución adecuada.',
+      }],
+      // Uses Hacienda's free invoicing tool and asks for guidance: review
+      // whether it is enough before assuming a change (two paragraphs).
+      // Professional services get wording about their activity.
+      ['facturador_mh_servicios', (a) => a.factura === 'facturador_mh' && a.tipo === 'servicios', {
+        title: 'Te ayudamos a elegir la mejor opción para tu negocio',
+        text: 'Actualmente utilizas el facturador de Hacienda. Antes de considerar otra solución, es importante evaluar si esta herramienta cubre las necesidades de tu actividad profesional o si necesitas funciones adicionales.\n\nEn Gramanat te ayudamos a identificar qué funcionalidades se adaptan a tu forma de trabajar para que puedas tomar una decisión con mayor claridad.',
+      }],
+      ['facturador_mh', (a) => a.factura === 'facturador_mh', {
+        title: 'Te ayudamos a elegir la mejor opción para tu negocio',
+        text: 'Actualmente utilizas el facturador de Hacienda. Antes de considerar otro sistema, es importante evaluar si esta herramienta responde a las necesidades de tu negocio o si te conviene una solución con funciones adicionales.\n\nEn Gramanat te ayudamos a revisar cómo trabajas, qué necesitas controlar y qué alternativas pueden adaptarse mejor a tu operación.',
+      }],
+    ],
+  };
 
-      const next = panels.find((panel) => panel.id === targetId);
-      if (!next || next === activePanel) return;
+  // First match wins. a = { tipo, factura, gestion } (answer codes).
+  // A concrete need in question 3 always decides; "Otro" (with its typed
+  // activity) and "No estoy seguro" only matter when the visitor asks
+  // for guidance instead of naming a need.
+  const DIAG_RULES = [
+    // Already has a system and only needs invoicing (or asks for
+    // guidance): start by reviewing that system.
+    ['evaluacion', (a) => a.factura === 'sistema' && (a.gestion === 'solo_facturacion' || a.gestion === 'orientacion')],
+    // Stated needs.
+    ['administrativa', (a) => a.gestion === 'procesos'],
+    ['ventas', (a) => a.gestion === 'ventas_inventario'],
+    ['sencilla', (a) => a.gestion === 'solo_facturacion'],
+    // Asks for guidance (and has no system to review): an adviser starts
+    // from their situation. The business type alone never decides a
+    // result, so no sales, stock or POS need is assumed.
+    ['personalizada', () => true],
+  ];
 
-      const outgoing = activePanel;
-      activePanel = next;
+  // Business-type context for answers that pull in different directions.
+  const DIAG_CONTEXT = [
+    [(a, p) => a.tipo === 'servicios' && p === 'ventas', 'Como ofreces servicios, el asesor confirmará contigo si realmente necesitas control de ventas o inventario.'],
+    [(a, p) => a.tipo === 'comercio' && p === 'sencilla', 'Si además necesitas controlar tus ventas o tu inventario, el asesor lo revisará contigo.'],
+    [(a, p) => a.tipo === 'empresa' && p === 'sencilla', 'Como tu empresa tiene procesos administrativos, el asesor revisará si conviene integrar otras áreas además de la facturación.'],
+    // No line for "Otro": the typed activity shows in the summary and the
+    // WhatsApp message, and nothing should suggest the business "doesn't fit".
+  ];
 
-      if (leaveTimer) clearTimeout(leaveTimer);
-      if (enterTimer) clearTimeout(enterTimer);
+  // How they invoice today adapts the message.
+  const DIAG_NOTES = {
+    sistema: 'También revisaremos si tu sistema actual puede cubrir estas necesidades.',
+    facturador_mh: 'Hoy usas el facturador de Hacienda; te explicaremos en qué casos conviene otra solución.',
+    fisico: 'Como hoy trabajas con documentos físicos, te orientamos para planificar el paso a documentos electrónicos.',
+    iniciando: 'Como estás iniciando, conviene elegir una solución que pueda crecer con tu negocio.',
+    no_seguro: 'Como aún no tienes claro cómo facturas actualmente, un asesor también puede orientarte sobre ese aspecto.',
+  };
 
-      // A panel interrupted mid-transition by a fast second click is
-      // neither the new outgoing nor the new target — snap it away
-      // instantly instead of leaving it half-visible.
-      panels.forEach((panel) => {
-        if (panel === outgoing || panel === next) return;
-        panel.classList.remove('is-leaving', 'is-entering', 'is-active');
-        panel.hidden = true;
-      });
+  // Result-specific wording of an invoicing note (overrides DIAG_NOTES).
+  const DIAG_NOTES_BY_PROFILE = {
+    administrativa: {
+      fisico: 'Como actualmente utilizas documentos físicos, también podemos orientarte sobre cómo preparar la transición hacia la facturación electrónica.',
+    },
+    sencilla: {
+      no_seguro: 'Como aún no tienes claro cómo facturas actualmente, primero revisaremos contigo ese proceso para orientarte mejor.',
+    },
+  };
 
-      if (prefersReducedMotion) {
-        if (outgoing) {
-          outgoing.classList.remove('is-active', 'is-leaving', 'is-entering');
-          outgoing.hidden = true;
-        }
-        next.classList.remove('is-leaving', 'is-entering');
-        next.classList.add('is-active');
-        next.hidden = false;
-        return;
-      }
+  function diagProfile(a) {
+    return DIAG_RULES.find(([, test]) => test(a))[0];
+  }
 
-      if (outgoing) {
-        outgoing.classList.remove('is-active', 'is-entering');
-        outgoing.classList.add('is-leaving');
-        leaveTimer = setTimeout(() => {
-          outgoing.hidden = true;
-          outgoing.classList.remove('is-leaving');
-        }, 180);
-      }
+  // Title and text shown for a result: its variant if one applies. A
+  // variant's text may depend on the answers and the "Otro" activity.
+  function diagContent(a, profile, activity = '') {
+    const variant = (DIAG_VARIANTS[profile] || []).find(([, test]) => test(a));
+    if (!variant) return { variant: null, title: DIAG_PROFILES[profile].title, text: DIAG_PROFILES[profile].text };
+    const { title, text, note } = variant[2];
+    return { variant: variant[0], title, text: typeof text === 'function' ? text(a, activity) : text, note };
+  }
 
-      next.classList.remove('is-leaving');
-      next.classList.add('is-active');
-      next.hidden = false;
-      next.classList.add('is-entering');
-      enterTimer = setTimeout(() => {
-        next.classList.remove('is-entering');
-      }, 500);
+  // Extra lines under the orientation: business context, then invoicing.
+  function diagNotes(a, profile) {
+    // Guidance results carry only their variant's own note, if any.
+    if (profile === 'personalizada') {
+      const { note } = diagContent(a, profile);
+      return note ? [note] : [];
     }
-
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        activate(trigger.getAttribute('data-target'), false);
-      });
-
-      trigger.addEventListener('keydown', (e) => {
-        const group = Array.from(trigger.parentElement.children).filter((el) => el.classList.contains('sistemas-pill'));
-        const index = group.indexOf(trigger);
-        let nextIndex = null;
-
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-          nextIndex = (index + 1) % group.length;
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          nextIndex = (index - 1 + group.length) % group.length;
-        } else if (e.key === 'Home') {
-          nextIndex = 0;
-        } else if (e.key === 'End') {
-          nextIndex = group.length - 1;
-        }
-
-        if (nextIndex !== null) {
-          e.preventDefault();
-          activate(group[nextIndex].getAttribute('data-target'), true);
-        }
-      });
-    });
-  });
-
-  /*---------------------
-    Sistemas POS scene (interactive mock point-of-sale per business,
-    shown when img/media/sistema-[negocio].jpg is missing)
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const scenes = Array.from(document.querySelectorAll('#sistemas .sistemas-pos-scene'));
-
-    if (!scenes.length) return;
-
-    const POS_DATA = {
-      restaurantes: {
-        name: 'Café Aroma',
-        categories: ['Bebidas', 'Comidas', 'Postres'],
-        products: [
-          { id: 'cafe', emoji: '☕', name: 'Café americano', price: 1.50 },
-          { id: 'croissant', emoji: '🥐', name: 'Croissant', price: 1.75 },
-          { id: 'sandwich', emoji: '🥪', name: 'Sándwich', price: 3.25 },
-          { id: 'jugo', emoji: '🥤', name: 'Jugo natural', price: 2.00 },
-          { id: 'pastel', emoji: '🍰', name: 'Pastel', price: 2.50 },
-          { id: 'pupusa', emoji: '🌮', name: 'Pupusa revuelta', price: 0.75 },
-        ],
-        initialOrder: ['cafe', 'croissant', 'sandwich'],
-      },
-      tiendas: {
-        name: 'Minisúper La Esquina',
-        categories: ['Lácteos', 'Abarrotes', 'Limpieza'],
-        products: [
-          { id: 'leche', emoji: '🥛', name: 'Leche', price: 1.10 },
-          { id: 'pan', emoji: '🍞', name: 'Pan de caja', price: 2.25 },
-          { id: 'huevos', emoji: '🥚', name: 'Huevos 12u', price: 2.80 },
-          { id: 'jugo', emoji: '🧃', name: 'Jugo', price: 0.85 },
-          { id: 'arroz', emoji: '🍚', name: 'Arroz 1lb', price: 0.65 },
-          { id: 'jabon', emoji: '🧼', name: 'Jabón', price: 0.95 },
-        ],
-        initialOrder: ['leche', 'pan', 'huevos'],
-      },
-      farmacias: {
-        name: 'Farmacia Salud',
-        categories: ['Medicamentos', 'Cuidado', 'Higiene'],
-        products: [
-          { id: 'acetaminofen', emoji: '💊', name: 'Acetaminofén', price: 1.50 },
-          { id: 'alcohol', emoji: '🧴', name: 'Alcohol gel', price: 2.25 },
-          { id: 'curitas', emoji: '🩹', name: 'Curitas', price: 1.20 },
-          { id: 'termometro', emoji: '🌡️', name: 'Termómetro', price: 6.50 },
-          { id: 'mascarillas', emoji: '😷', name: 'Mascarillas', price: 3.00 },
-          { id: 'vitaminac', emoji: '🧪', name: 'Vitamina C', price: 4.75 },
-        ],
-        initialOrder: ['acetaminofen', 'alcohol', 'curitas'],
-      },
-      ferreterias: {
-        name: 'Ferretería El Tornillo',
-        categories: ['Herramientas', 'Materiales', 'Pintura'],
-        products: [
-          { id: 'martillo', emoji: '🔨', name: 'Martillo', price: 8.50 },
-          { id: 'tornillos', emoji: '🔩', name: 'Tornillos 100u', price: 3.25 },
-          { id: 'desarmador', emoji: '🪛', name: 'Desarmador', price: 4.00 },
-          { id: 'cubeta', emoji: '🪣', name: 'Cubeta', price: 2.75 },
-          { id: 'brocha', emoji: '🖌️', name: 'Brocha', price: 1.90 },
-          { id: 'cinta', emoji: '📏', name: 'Cinta métrica', price: 5.25 },
-        ],
-        initialOrder: ['martillo', 'tornillos', 'desarmador'],
-      },
-      boutiques: {
-        name: 'Boutique Bella',
-        categories: ['Ropa', 'Calzado', 'Accesorios'],
-        products: [
-          { id: 'camiseta', emoji: '👕', name: 'Camiseta', price: 12.00 },
-          { id: 'vestido', emoji: '👗', name: 'Vestido', price: 28.00 },
-          { id: 'jeans', emoji: '👖', name: 'Jeans', price: 24.00 },
-          { id: 'tenis', emoji: '👟', name: 'Tenis', price: 35.00 },
-          { id: 'bolso', emoji: '👜', name: 'Bolso', price: 22.00 },
-          { id: 'gorra', emoji: '🧢', name: 'Gorra', price: 9.50 },
-        ],
-        initialOrder: ['camiseta', 'vestido', 'jeans'],
-      },
-      servicios: {
-        name: 'Consultorio Integral',
-        categories: ['Consultas', 'Trámites', 'Asesorías'],
-        products: [
-          { id: 'consulta', emoji: '🩺', name: 'Consulta', price: 25.00 },
-          { id: 'certificado', emoji: '📄', name: 'Certificado', price: 10.00 },
-          { id: 'asesoria', emoji: '💼', name: 'Asesoría', price: 40.00 },
-          { id: 'tramite', emoji: '🗂️', name: 'Trámite', price: 15.00 },
-          { id: 'declaracion', emoji: '🧾', name: 'Declaración', price: 30.00 },
-          { id: 'seguimiento', emoji: '📞', name: 'Seguimiento', price: 8.00 },
-        ],
-        initialOrder: ['consulta', 'certificado', 'asesoria'],
-      },
-    };
-
-    function escapeHtml(str) {
-      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-      return String(str).replace(/[&<>"']/g, (ch) => map[ch]);
-    }
-
-    function money(n) {
-      return '$' + n.toFixed(2);
-    }
-
-    function qrCellsHTML() {
-      const n = 7;
-      let html = '';
-      for (let r = 0; r < n; r++) {
-        for (let c = 0; c < n; c++) {
-          const inFinder = (r < 3 && c < 3) || (r < 3 && c >= n - 3) || (r >= n - 3 && c < 3);
-          const isRing = inFinder && (r === 1 || c === 1 || r === n - 2 || c === n - 2);
-          const on = inFinder ? !isRing : Math.random() < 0.45;
-          html += '<span class="pos-qr-cell' + (on ? ' is-on' : '') + '"></span>';
-        }
-      }
-      return html;
-    }
-
-    function buildSceneHTML(data) {
-      const categoriesHTML = data.categories
-        .map((cat, i) => '<button type="button" class="pos-category' + (i === 0 ? ' is-active' : '') + '">' + escapeHtml(cat) + '</button>')
-        .join('');
-
-      const productsHTML = data.products
-        .map(
-          (p) =>
-            '<button type="button" class="pos-product" data-id="' +
-            p.id +
-            '" aria-label="Agregar ' +
-            escapeHtml(p.name) +
-            ', ' +
-            money(p.price) +
-            '">' +
-            '<span class="pos-product-emoji" aria-hidden="true">' +
-            p.emoji +
-            '</span>' +
-            '<span class="pos-product-name">' +
-            escapeHtml(p.name) +
-            '</span>' +
-            '<span class="pos-product-price">' +
-            money(p.price) +
-            '</span>' +
-            '</button>'
-        )
-        .join('');
-
-      return (
-        '<div class="pos-stage">' +
-        '<div class="pos-hardware">' +
-        '<div class="pos-terminal" aria-hidden="true">' +
-        '<div class="pos-terminal-screen">$0.00</div>' +
-        '<div class="pos-terminal-pad"><span></span><span></span><span></span><span></span><span></span><span></span></div>' +
-        '</div>' +
-        '<div class="pos-tablet">' +
-        '<div class="pos-tablet-frame">' +
-        '<div class="pos-screen">' +
-        '<div class="pos-screen-topbar">' +
-        '<span class="pos-business-name">' +
-        escapeHtml(data.name) +
-        '</span>' +
-        '<span class="pos-clock"></span>' +
-        '<span class="pos-user"><i class="fa-solid fa-user" aria-hidden="true"></i>Caja 1</span>' +
-        '</div>' +
-        '<div class="pos-screen-body">' +
-        '<div class="pos-screen-left">' +
-        '<div class="pos-categories">' +
-        categoriesHTML +
-        '</div>' +
-        '<div class="pos-products">' +
-        productsHTML +
-        '</div>' +
-        '</div>' +
-        '<div class="pos-screen-right">' +
-        '<div class="pos-ticket-lines"></div>' +
-        '<div class="pos-ticket-totals">' +
-        '<div class="pos-ticket-row"><span>Subtotal</span><span class="pos-subtotal">$0.00</span></div>' +
-        '<div class="pos-ticket-row"><span>IVA 13%</span><span class="pos-iva">$0.00</span></div>' +
-        '<div class="pos-ticket-row pos-ticket-total"><span>Total</span><span class="pos-total">$0.00</span></div>' +
-        '</div>' +
-        '<button type="button" class="pos-invoice-btn" aria-label="Facturar la orden actual">' +
-        '<span class="pos-invoice-btn-label">Facturar</span>' +
-        '<span class="pos-invoice-btn-spinner" aria-hidden="true"></span>' +
-        '</button>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<div class="pos-tablet-neck"></div>' +
-        '<div class="pos-tablet-foot"></div>' +
-        '</div>' +
-        '<div class="pos-printer">' +
-        '<div class="pos-printer-receipt" aria-hidden="true">' +
-        '<div class="pos-receipt-head">FACTURA ELECTRÓNICA · DTE</div>' +
-        '<div class="pos-receipt-business">' +
-        escapeHtml(data.name) +
-        '</div>' +
-        '<div class="pos-receipt-lines"></div>' +
-        '<div class="pos-receipt-total"></div>' +
-        '<div class="pos-receipt-qr"></div>' +
-        '<div class="pos-receipt-thanks">¡Gracias por su compra!</div>' +
-        '</div>' +
-        '<div class="pos-printer-body"><div class="pos-printer-slot"></div></div>' +
-        '</div>' +
-        '<div class="pos-glow" aria-hidden="true"></div>' +
-        '</div>' +
-        '<div class="pos-notifications" aria-hidden="true">' +
-        '<div class="pos-notification pos-notification-invoice"><i class="fa-solid fa-circle-check"></i><span>Factura enviada a Hacienda</span></div>' +
-        '<div class="pos-notification pos-notification-sale"><i class="fa-solid fa-bag-shopping"></i><span>Venta registrada · <span class="pos-notification-amount">$0.00</span></span></div>' +
-        '</div>' +
-        '</div>'
-      );
-    }
-
-    function initScene(scene) {
-      const business = scene.getAttribute('data-business');
-      const data = POS_DATA[business];
-
-      if (!data) return;
-
-      scene.innerHTML = buildSceneHTML(data);
-
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const clockEl = scene.querySelector('.pos-clock');
-
-      function updateClock() {
-        const now = new Date();
-        clockEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-      }
-
-      updateClock();
-      setInterval(updateClock, 15000);
-
-      function productById(id) {
-        return data.products.find((p) => p.id === id);
-      }
-
-      let order = [];
-
-      function resetOrder() {
-        order = data.initialOrder.map((id) => ({ id, qty: 1 }));
-      }
-
-      resetOrder();
-
-      const linesEl = scene.querySelector('.pos-ticket-lines');
-      const subtotalEl = scene.querySelector('.pos-subtotal');
-      const ivaEl = scene.querySelector('.pos-iva');
-      const totalEl = scene.querySelector('.pos-total');
-      const saleAmountEl = scene.querySelector('.pos-notification-amount');
-
-      function renderTicket() {
-        // Diffed against existing nodes (by product id) instead of a full
-        // innerHTML rebuild, so a newly-added line can play an entrance
-        // (@starting-style in CSS) and a changed quantity can flash,
-        // rather than every line silently teleporting into existence.
-        const seenIds = new Set();
-
-        order.forEach((line) => {
-          const p = productById(line.id);
-          const label = line.qty + '× ' + p.name;
-          const priceText = money(p.price * line.qty);
-
-          seenIds.add(line.id);
-
-          let el = linesEl.querySelector('.pos-ticket-line[data-id="' + line.id + '"]');
-
-          if (el) {
-            const labelEl = el.querySelector('.pos-ticket-line-label');
-            const priceEl = el.querySelector('.pos-ticket-line-price');
-            const changed = labelEl.textContent !== label || priceEl.textContent !== priceText;
-
-            labelEl.textContent = label;
-            priceEl.textContent = priceText;
-
-            if (changed && !prefersReduced) {
-              el.classList.remove('is-updated');
-              void el.offsetWidth;
-              el.classList.add('is-updated');
-            }
-          } else {
-            el = document.createElement('div');
-            el.className = 'pos-ticket-line';
-            el.setAttribute('data-id', line.id);
-
-            const labelEl = document.createElement('span');
-            labelEl.className = 'pos-ticket-line-label';
-            labelEl.textContent = label;
-
-            const priceEl = document.createElement('span');
-            priceEl.className = 'pos-ticket-line-price';
-            priceEl.textContent = priceText;
-
-            el.appendChild(labelEl);
-            el.appendChild(priceEl);
-            linesEl.appendChild(el);
-          }
-        });
-
-        Array.from(linesEl.children).forEach((el) => {
-          if (!seenIds.has(el.getAttribute('data-id'))) el.remove();
-        });
-
-        const subtotal = order.reduce((sum, line) => sum + productById(line.id).price * line.qty, 0);
-        const iva = subtotal * 0.13;
-        const total = subtotal + iva;
-        const totalText = money(total);
-
-        subtotalEl.textContent = money(subtotal);
-        ivaEl.textContent = money(iva);
-
-        if (totalEl.textContent !== totalText) {
-          totalEl.textContent = totalText;
-          if (!prefersReduced) {
-            totalEl.classList.remove('is-updated');
-            void totalEl.offsetWidth;
-            totalEl.classList.add('is-updated');
-          }
-        }
-
-        if (saleAmountEl) saleAmountEl.textContent = totalText;
-      }
-
-      renderTicket();
-
-      scene.querySelectorAll('.pos-product').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-id');
-          const existing = order.find((l) => l.id === id);
-
-          if (existing) {
-            existing.qty += 1;
-          } else {
-            order.push({ id, qty: 1 });
-          }
-
-          renderTicket();
-
-          if (!prefersReduced) {
-            btn.classList.remove('is-pulsing');
-            void btn.offsetWidth;
-            btn.classList.add('is-pulsing');
-          }
-        });
-      });
-
-      scene.querySelectorAll('.pos-category').forEach((tab) => {
-        tab.addEventListener('click', () => {
-          scene.querySelectorAll('.pos-category').forEach((t) => t.classList.remove('is-active'));
-          tab.classList.add('is-active');
-        });
-      });
-
-      const invoiceBtn = scene.querySelector('.pos-invoice-btn');
-      const receipt = scene.querySelector('.pos-printer-receipt');
-      const receiptLines = scene.querySelector('.pos-receipt-lines');
-      const receiptTotal = scene.querySelector('.pos-receipt-total');
-      const receiptQr = scene.querySelector('.pos-receipt-qr');
-      const invoiceNotif = scene.querySelector('.pos-notification-invoice');
-      const saleNotif = scene.querySelector('.pos-notification-sale');
-
-      let printing = false;
-      let resetTimer = null;
-
-      function pulseNotification(el) {
-        if (!el || prefersReduced) return;
-        el.classList.remove('is-pulsing');
-        void el.offsetWidth;
-        el.classList.add('is-pulsing');
-      }
-
-      invoiceBtn.addEventListener('click', () => {
-        if (printing || !order.length) return;
-
-        printing = true;
-        invoiceBtn.classList.add('is-loading');
-        invoiceBtn.disabled = true;
-
-        const doPrint = () => {
-          receiptLines.innerHTML = order
-            .map((line) => {
-              const p = productById(line.id);
-              return '<div class="pos-receipt-line"><span>' + line.qty + '× ' + escapeHtml(p.name) + '</span><span>' + money(p.price * line.qty) + '</span></div>';
-            })
-            .join('');
-          receiptTotal.textContent = 'Total ' + totalEl.textContent;
-          receiptQr.innerHTML = qrCellsHTML();
-
-          invoiceBtn.classList.remove('is-loading');
-          invoiceBtn.disabled = false;
-
-          receipt.classList.add('is-printed');
-          pulseNotification(invoiceNotif);
-
-          if (resetTimer) clearTimeout(resetTimer);
-          resetTimer = setTimeout(() => {
-            receipt.classList.remove('is-printed');
-            resetOrder();
-            renderTicket();
-            printing = false;
-          }, 4000);
-        };
-
-        if (prefersReduced) {
-          doPrint();
-        } else {
-          setTimeout(doPrint, 800);
-        }
-      });
-
-      const notifications = [invoiceNotif, saleNotif].filter(Boolean);
-      const stage = scene.querySelector('.pos-stage');
-
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                if (stage) stage.classList.add('is-visible');
-                notifications.forEach((el, i) => {
-                  setTimeout(() => el.classList.add('is-visible'), prefersReduced ? 0 : 200 + i * 300);
-                });
-                observer.disconnect();
-              }
-            });
-          },
-          { threshold: 0.3 }
-        );
-        observer.observe(scene);
-      } else {
-        if (stage) stage.classList.add('is-visible');
-        notifications.forEach((el) => el.classList.add('is-visible'));
-      }
-    }
-
-    scenes.forEach(initScene);
-  });
-
-  /*---------------------
-    Sistemas visual cards (ticket/DTE/sales floating over the photo):
-    staggered scroll-reveal, the "Facturar" demo on the ticket card,
-    and a desktop-only mouse parallax between the photo and the cards.
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const visuals = Array.from(document.querySelectorAll('#sistemas .sistemas-panel-visual'));
-
-    if (!visuals.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-    visuals.forEach((visual) => {
-      const cards = Array.from(visual.querySelectorAll('.sistemas-visual-card'));
-      const ticketBtn = visual.querySelector('.sistemas-ticket-btn');
-      const dteCard = visual.querySelector('.sistemas-visual-card-dte');
-      const dteTimeEl = visual.querySelector('.sistemas-dte-time');
-
-      function updateDteTime() {
-        if (!dteTimeEl) return;
-        const now = new Date();
-        dteTimeEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-      }
-
-      updateDteTime();
-      setInterval(updateDteTime, 15000);
-
-      // Scroll-reveal: all three cards fade/float in together the first
-      // time the panel's visual scrolls into view (stagger timing lives
-      // in CSS via each card's --card-delay custom property).
-      if (cards.length) {
-        const reveal = () => cards.forEach((card) => card.classList.add('is-visible'));
-
-        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-          reveal();
-        } else {
-          const revealObserver = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  reveal();
-                  revealObserver.disconnect();
-                }
-              });
-            },
-            { threshold: 0.3 }
-          );
-          revealObserver.observe(visual);
-        }
-      }
-
-      // "Facturar" on the ticket card: 0.8s spinner, then the DTE card
-      // (already on screen) pulses to confirm — same demo pattern as
-      // the POS-scene fallback's own Facturar button.
-      if (ticketBtn) {
-        let busy = false;
-
-        ticketBtn.addEventListener('click', () => {
-          if (busy) return;
-
-          busy = true;
-          ticketBtn.classList.add('is-loading');
-          ticketBtn.disabled = true;
-
-          const finish = () => {
-            ticketBtn.classList.remove('is-loading');
-            ticketBtn.disabled = false;
-            updateDteTime();
-
-            if (dteCard && !prefersReducedMotion) {
-              dteCard.classList.remove('is-pulsing');
-              void dteCard.offsetWidth;
-              dteCard.classList.add('is-pulsing');
-            }
-
-            busy = false;
-          };
-
-          if (prefersReducedMotion) {
-            finish();
-          } else {
-            setTimeout(finish, 800);
-          }
-        });
-      }
-
-      // Desktop-only parallax: the photo drifts up to ~4px, the card
-      // layer up to ~10px (cards read as "closer" than the photo).
-      // Smoothed by the CSS transition already on both elements rather
-      // than tracking the cursor 1:1.
-      if (!canHover || prefersReducedMotion) return;
-
-      const photoFrame = visual.querySelector('.sistemas-visual-photo-frame');
-      const cardsLayer = visual.querySelector('.sistemas-visual-cards');
-
-      if (!photoFrame || !cardsLayer) return;
-
-      let rafId = null;
-      let lastEvent = null;
-
-      function applyParallax() {
-        rafId = null;
-        if (!lastEvent) return;
-
-        const rect = visual.getBoundingClientRect();
-        const px = (lastEvent.clientX - rect.left) / rect.width - 0.5;
-        const py = (lastEvent.clientY - rect.top) / rect.height - 0.5;
-
-        photoFrame.style.transform = 'translate(' + (px * 8).toFixed(1) + 'px, ' + (py * 8).toFixed(1) + 'px)';
-        cardsLayer.style.transform = 'translate(' + (px * 20).toFixed(1) + 'px, ' + (py * 20).toFixed(1) + 'px)';
-      }
-
-      visual.addEventListener('mousemove', (e) => {
-        lastEvent = e;
-        if (rafId === null) rafId = requestAnimationFrame(applyParallax);
-      });
-
-      visual.addEventListener('mouseleave', () => {
-        lastEvent = null;
-        photoFrame.style.transform = '';
-        cardsLayer.style.transform = '';
-      });
-    });
-  });
-
-  /*---------------------
-    Verificador (3-question DTE readiness wizard + live countdown)
-  --------------------- */
+    const notes = [];
+    const ctx = DIAG_CONTEXT.find(([test]) => test(a, profile));
+    if (ctx) notes.push(ctx[1]);
+    const note = (DIAG_NOTES_BY_PROFILE[profile] || {})[a.factura] || DIAG_NOTES[a.factura];
+    if (profile !== 'evaluacion' && note) notes.push(note);
+    return notes;
+  }
+
+  // Exposed for testing the 80 combinations from the console.
+  window.gramanatDiagnostico = { profile: diagProfile, notes: diagNotes, content: diagContent, profiles: DIAG_PROFILES };
 
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('verificador');
+    if (!root || !root.classList.contains('gn-diag')) return;
 
-    if (!root) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const stage = root.querySelector('.verificador-stage');
-    const panels = {
-      1: root.querySelector('.verificador-step[data-step="1"]'),
-      2: root.querySelector('.verificador-step[data-step="2"]'),
-      3: root.querySelector('.verificador-step[data-step="3"]'),
-      result: root.querySelector('.verificador-result'),
+    const card = root.querySelector('.gn-diag-card');
+    const progress = root.querySelector('.gn-diag-progress');
+    const bars = Array.from(root.querySelectorAll('.gn-diag-bars span'));
+    const stepLabel = root.querySelector('.gn-diag-step-label');
+    const panels = {};
+    root.querySelectorAll('[data-panel]').forEach((p) => { panels[p.dataset.panel] = p; });
+    const QUESTIONS = ['tipo', 'factura', 'gestion'];
+    const SEGMENT_TIPO = {
+      'Profesionales independientes': 'servicios',
+      'Comercios y MiPyMEs': 'comercio',
+      'Empresas': 'empresa',
     };
-    const progressBar = root.querySelector('.verificador-progress-bar');
-    const progressTrack = root.querySelector('.verificador-progress');
-    const stepLabel = root.querySelector('.verificador-step-label');
-    const resultIcon = root.querySelector('.verificador-result-icon i');
-    const resultTitle = root.querySelector('.verificador-result-title');
-    const resultText = root.querySelector('.verificador-result-text');
-    const resultLink = root.querySelector('.verificador-result-link');
-    const whatsappBtn = root.querySelector('.verificador-whatsapp-btn');
-    const restartBtn = root.querySelector('.verificador-restart');
+    const WA_NUMBER = '50370043346';
+    const WA_INTRO = '¡Hola! 👋 Completé el diagnóstico en la página web de Gramanat y me gustaría recibir asesoría para mi negocio.';
 
-    if (!stage || !panels[1] || !panels[2] || !panels[3] || !panels.result) return;
+    let step = 'intro';
+    let editing = false;
+    let started = false;
+    let origin = 'directo';
+    // Per run: the answer each step was first completed with, and the
+    // orientation first shown. Lets analytics tell first progress apart
+    // from going back and changing an answer (no double counting).
+    let completed = {};
+    let shownProfile = null;
 
-    const OPTION_LABELS = {
-      1: {
-        notificado: 'Sí, ya me notificaron',
-        todavia_no: 'Todavía no',
-        no_se: 'No sé cómo revisarlo',
-      },
-      2: {
-        papel: 'Facturas en papel / talonario',
-        sistema: 'Ya tengo un sistema electrónico',
-        no_emite: 'No emito facturas',
-      },
+    const track = (event, params) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event }, params));
     };
 
-    const answers = { 1: null, 2: null, 3: null };
-    let current = panels[1];
+    const answerOf = (name) => {
+      const checked = root.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : null;
+    };
+    const answers = () => ({ tipo: answerOf('tipo'), factura: answerOf('factura'), gestion: answerOf('gestion') });
+    const labelOf = (name) => {
+      const checked = root.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.closest('label').textContent.replace(/\s+/g, ' ').trim() : '';
+    };
 
-    function updateProgress(stepNum) {
-      const pct = (Math.min(stepNum, 3) / 3) * 100;
-      if (progressBar) progressBar.style.width = pct + '%';
-      if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.min(stepNum, 3)));
-      if (stepLabel) stepLabel.textContent = stepNum <= 3 ? 'Paso ' + stepNum + ' de 3' : 'Resultado';
+    // "Otro tipo de negocio": free-text activity. Untrusted input: only
+    // ever written with textContent or encodeURIComponent, and never sent
+    // to analytics (events carry the category code 'otro' only).
+    const otherBox = root.querySelector('.gn-diag-other');
+    const otherInput = root.querySelector('#gn-diag-otro');
+    const otherText = () => (otherInput ? otherInput.value : '')
+      .replace(/[\u0000-\u001F\u007F]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 100);
+
+    // Shown only while "Otro" is selected; hiding keeps the typed text,
+    // so it's back if the visitor picks "Otro" again or returns here.
+    function syncOther() {
+      if (otherBox) otherBox.hidden = answerOf('tipo') !== 'otro';
     }
 
-    function showPanel(next, direction) {
-      if (!next || next === current) return;
+    function syncNext(n) {
+      const next = panels[n] && panels[n].querySelector('[data-diag="next"]');
+      if (!next) return;
+      const answer = answerOf(QUESTIONS[n - 1]);
+      next.disabled = !answer || (n === 1 && answer === 'otro' && !otherText());
+    }
 
-      const outgoing = current;
-      current = next;
+    function show(target) {
+      step = target;
+      Object.entries(panels).forEach(([key, panel]) => { panel.hidden = key !== String(target); });
+      // Lets the CSS give the result screen a wider card and, on phones,
+      // a compact section header.
+      root.classList.toggle('is-result', target === 'result');
 
-      if (prefersReducedMotion) {
-        outgoing.hidden = true;
-        outgoing.classList.remove('is-active');
-        next.hidden = false;
-        next.classList.add('is-active');
-        return;
+      const n = target === 'result' ? 4 : Number(target) || 0;
+      progress.hidden = target === 'intro';
+      bars.forEach((bar, i) => bar.classList.toggle('is-on', i < n));
+      progress.setAttribute('aria-valuenow', String(Math.min(Math.max(n, 1), 3)));
+      stepLabel.textContent = n >= 1 && n <= 3 ? `Paso ${n} de 3` : 'Resultado';
+      if (n === 1) syncOther();
+      if (n >= 1 && n <= 3) syncNext(n);
+
+      // Move focus to the new question/result title for keyboard and
+      // screen-reader users; bring the card's top into view if needed.
+      const heading = panels[target].querySelector('.gn-diag-q, .gn-diag-res-title, [data-diag="start"]');
+      if (heading && target !== 'intro') heading.focus({ preventScroll: true });
+      const top = card.getBoundingClientRect().top;
+      if (top < 90) window.scrollBy({ top: top - 100, behavior: 'smooth' });
+    }
+
+    function start(preTipo) {
+      if (preTipo) {
+        const input = root.querySelector(`input[name="tipo"][value="${preTipo}"]`);
+        if (input) input.checked = true;
       }
-
-      stage.style.setProperty('--slide-dir', direction === 'back' ? '-1' : '1');
-
-      outgoing.classList.remove('is-active', 'is-entering');
-      outgoing.classList.add('is-leaving');
-      setTimeout(() => {
-        outgoing.hidden = true;
-        outgoing.classList.remove('is-leaving');
-      }, 250);
-
-      next.classList.remove('is-leaving');
-      next.hidden = false;
-      next.classList.add('is-active', 'is-entering');
-      setTimeout(() => {
-        next.classList.remove('is-entering');
-      }, 320);
+      panels[1].querySelector('.gn-diag-pre').hidden = !preTipo;
+      if (!started) {
+        started = true;
+        track('diagnosis_start', { origen: origin, tipo_preseleccionado: preTipo || 'ninguno' });
+      }
+      show(1);
     }
 
-    function clearSelection(container) {
-      if (!container) return;
-      container.querySelectorAll('.is-selected').forEach((el) => el.classList.remove('is-selected'));
+    function reset() {
+      root.querySelectorAll('.gn-diag-opt input').forEach((input) => { input.checked = false; });
+      if (otherInput) otherInput.value = '';
+      started = false;
+      editing = false;
+      completed = {};
+      shownProfile = null;
+    }
+
+    // diagnosis_step_complete: only the first time a step is completed in
+    // this run. diagnosis_answer_change: a later, different answer to an
+    // already completed step. Same answer again: nothing is recorded.
+    function trackStep(n, answer) {
+      if (!(n in completed)) {
+        completed[n] = answer;
+        track('diagnosis_step_complete', { paso: n, respuesta: answer });
+      } else if (completed[n] !== answer) {
+        track('diagnosis_answer_change', { paso: n, respuesta_anterior: completed[n], respuesta: answer });
+        completed[n] = answer;
+      }
     }
 
     function showResult() {
-      const r1 = answers[1];
-      const r2 = answers[2];
-      const r3 = answers[3];
+      const a = answers();
+      const result = panels.result;
 
-      let title;
-      let text;
-      let showLink = false;
-      let icon = 'fa-solid fa-sparkles';
+      // "Otro": the typed activity personalises the summary, the WhatsApp
+      // message and, where a result quotes it, the orientation text; the
+      // orientation itself still comes from the category answers (free
+      // text is never interpreted).
+      const activity = a.tipo === 'otro' ? otherText() : '';
+      // Display only: first letter upper-cased ("taller" → "Taller"); the
+      // typed value and the WhatsApp message keep it exactly as written.
+      const activityShown = activity.replace(/\p{L}/u, (c) => c.toLocaleUpperCase('es'));
 
-      if (r2 === 'sistema') {
-        title = 'Revisa que tu sistema esté listo para DTE 2.0';
-        text = 'Todos los sistemas deben actualizarse al nuevo estándar antes del 1 de diciembre de 2026. Te revisamos tu sistema actual gratis.';
-        icon = 'fa-solid fa-arrows-rotate';
-      } else if (r1 === 'notificado' && (r2 === 'papel' || r2 === 'no_emite')) {
-        title = 'Necesitas empezar pronto';
-        text = 'La instalación, pruebas y capacitación pueden tomar algunas semanas. Te ayudamos a dejar todo listo a tiempo.';
-        icon = 'fa-solid fa-triangle-exclamation';
-      } else {
-        title = 'Revisa tu fecha en 1 minuto';
-        text = 'Entra a factura.gob.sv, escribe tu NIT y elige "Conozca fecha para ser emisor". Si quieres, lo revisamos contigo.';
-        icon = 'fa-solid fa-magnifying-glass';
-        showLink = true;
+      const profileKey = diagProfile(a);
+      const profile = diagContent(a, profileKey, activityShown);
+      const notes = diagNotes(a, profileKey);
+      const tipoSummary = activity ? `Otro — ${activityShown}` : labelOf('tipo');
+      const tipoMessage = activity || labelOf('tipo');
+
+      result.querySelector('.gn-diag-res-title').textContent = profile.title;
+      QUESTIONS.forEach((q) => { result.querySelector(`[data-answer="${q}"]`).textContent = labelOf(q); });
+      result.querySelector('[data-answer="tipo"]').textContent = tipoSummary;
+      // One block per paragraph ("\n\n" in the text), so the CSS controls
+      // the gap between them.
+      const orient = result.querySelector('.gn-diag-orient');
+      orient.replaceChildren(...profile.text.split('\n\n').map((para) => {
+        const span = document.createElement('span');
+        span.className = 'gn-diag-orient-p';
+        span.textContent = para;
+        return span;
+      }));
+      const note = result.querySelector('.gn-diag-note');
+      note.textContent = notes.join(' ');
+      note.hidden = notes.length === 0;
+
+      const message = [
+        WA_INTRO,
+        '',
+        '📋 Mi información:',
+        '',
+        `🏪 Tipo de negocio: ${tipoMessage}`,
+        '',
+        `🧾 Facturación actual: ${labelOf('factura')}`,
+        '',
+        `⚙️ Necesito gestionar: ${labelOf('gestion')}`,
+        '',
+        `💡 Orientación recibida: ${profile.title}`,
+        '',
+        '¿Podrían ayudarme a evaluar las opciones disponibles y recibir una cotización personalizada?',
+        '',
+        '¡Muchas gracias!',
+      ].join('\n');
+      const cta = result.querySelector('.gn-diag-cta');
+      // api.whatsapp.com/send, not wa.me: wa.me's redirect turns every emoji
+      // in the text into "�"; this endpoint keeps them.
+      cta.href = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`;
+      cta.dataset.orientacion = profileKey;
+
+      // First result of the run → diagnosis_result; a later recalculation
+      // that changes the orientation → diagnosis_result_change.
+      if (!shownProfile) {
+        track('diagnosis_result', { orientacion: profileKey, variante: profile.variant || 'general', tipo: a.tipo, factura: a.factura, gestion: a.gestion });
+      } else if (shownProfile !== profileKey) {
+        track('diagnosis_result_change', { orientacion_anterior: shownProfile, orientacion: profileKey });
       }
-
-      if (resultIcon) resultIcon.className = icon;
-      if (resultTitle) resultTitle.textContent = title;
-      if (resultText) resultText.textContent = text;
-      if (resultLink) resultLink.hidden = !showLink;
-
-      if (whatsappBtn) {
-        const label1 = OPTION_LABELS[1][r1] || r1 || '—';
-        const label2 = OPTION_LABELS[2][r2] || r2 || '—';
-        const label3 = r3 || '—';
-        const message =
-          'Hola Gramanat 👋 hice el verificador: Hacienda: ' +
-          label1 +
-          ' · Facturo: ' +
-          label2 +
-          ' · Negocio: ' +
-          label3 +
-          '. Quiero mi diagnóstico gratis.';
-        whatsappBtn.href = 'https://wa.me/50370043346?text=' + encodeURIComponent(message);
-      }
-
-      updateProgress(4);
-      showPanel(panels.result, 'forward');
+      shownProfile = profileKey;
+      editing = false;
+      show('result');
     }
 
-    root.querySelectorAll('.verificador-option, .verificador-chip').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const q = btn.getAttribute('data-question');
-        const value = btn.getAttribute('data-value');
+    root.querySelectorAll('.gn-diag-opt input').forEach((input) => {
+      input.addEventListener('change', () => {
+        if (input.name === 'tipo') {
+          syncOther();
+          // Picking "Otro" by pointer: go straight to the text field.
+          // (Arrow-key users stay in the radio group.)
+          if (input.value === 'otro' && otherInput && !input.matches(':focus-visible')) {
+            otherInput.focus({ preventScroll: true });
+          }
+        }
+        syncNext(Number(step));
+      });
+    });
 
-        answers[q] = value;
-        clearSelection(btn.closest('.verificador-options, .verificador-chips'));
-        btn.classList.add('is-selected');
+    if (otherInput) otherInput.addEventListener('input', () => syncNext(1));
 
-        if (q === '1') {
-          updateProgress(2);
-          showPanel(panels[2], 'forward');
-        } else if (q === '2') {
-          updateProgress(3);
-          showPanel(panels[3], 'forward');
-        } else if (q === '3') {
-          showResult();
+    root.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-diag]');
+      const edit = e.target.closest('[data-edit]');
+      if (edit) {
+        editing = true;
+        show(Number(edit.dataset.edit));
+        return;
+      }
+      if (!action) return;
+
+      if (action.dataset.diag === 'start') {
+        start(null);
+      } else if (action.dataset.diag === 'next') {
+        const n = Number(step);
+        trackStep(n, answerOf(QUESTIONS[n - 1]));
+        if (n === 3 || editing) showResult(); else show(n + 1);
+      } else if (action.dataset.diag === 'prev') {
+        show(Number(step) - 1);
+      } else if (action.dataset.diag === 'restart') {
+        reset();
+        show('intro');
+        panels.intro.querySelector('[data-diag="start"]').focus({ preventScroll: true });
+      }
+    });
+
+    // Every link into the diagnóstico records where the visitor came
+    // from; #segmentos cards (data-segmento) also preselect the type.
+    document.querySelectorAll('a[href="#verificador"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        origin = link.dataset.cta || (link.closest('nav, .menubar') ? 'menu' : 'enlace');
+        const preTipo = SEGMENT_TIPO[link.dataset.segmento];
+        if (preTipo) {
+          reset();
+          start(preTipo);
+          // The anchor jump runs after this handler and resets focus to
+          // the page; put it back on question 1 once it has happened.
+          setTimeout(() => panels[1].querySelector('.gn-diag-q').focus({ preventScroll: true }), 60);
+        } else if (step === 'intro') {
+          // Hero, menu and the general CTA land on the intro: put focus on
+          // "Comenzar diagnóstico" so Enter starts it.
+          setTimeout(() => panels.intro.querySelector('[data-diag="start"]').focus({ preventScroll: true }), 60);
         }
       });
     });
 
-    if (restartBtn) {
-      restartBtn.addEventListener('click', () => {
-        answers[1] = null;
-        answers[2] = null;
-        answers[3] = null;
-        root.querySelectorAll('.verificador-option.is-selected, .verificador-chip.is-selected').forEach((el) => {
-          el.classList.remove('is-selected');
-        });
-        updateProgress(1);
-        showPanel(panels[1], 'back');
-      });
-    }
-
-    // Live countdown to the DTE 2.0 deadline (2026-12-01, El Salvador is
-    // UTC-6 year-round, no DST). Recomputed hourly in case the page is
-    // left open; a daily figure doesn't need finer-grained ticking.
-    const countdownDaysEl = root.querySelector('.verificador-countdown-days');
-
-    function updateCountdown() {
-      if (!countdownDaysEl) return;
-      const deadline = new Date('2026-12-01T00:00:00-06:00');
-      const now = new Date();
-      const diffMs = deadline.getTime() - now.getTime();
-      const days = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-      countdownDaysEl.textContent = String(days);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 60);
-  });
-
-  /*---------------------
-    Planes price blocks — reads each card's data-precio/data-periodo
-    and fills in "Cotización gratis" (no price set yet) or
-    "Desde $X/periodo" (once a real price is added to the markup).
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('#planes .planes-card');
-
-    cards.forEach((card) => {
-      const precio = (card.getAttribute('data-precio') || '').trim();
-      const periodo = card.getAttribute('data-periodo') || '/mes';
-      const mainEl = card.querySelector('.planes-price-main');
-      const subEl = card.querySelector('.planes-price-sub');
-
-      if (!mainEl) return;
-
-      if (precio) {
-        mainEl.textContent = 'Desde $' + precio + periodo;
-        if (subEl) subEl.textContent = '';
-      } else {
-        mainEl.textContent = 'Cotización gratis';
-        if (subEl) subEl.textContent = 'Precio según tu tipo de negocio';
-      }
-    });
+    show('intro');
   });
 
   /*---------------------
     Scroll reveal (fade-up)
-    Shared by #problems, #equipment, #results, #testimonios and
-    #planes via the .reveal-up class.
+    Used by #problems via the .reveal-up class.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1229,62 +897,9 @@
   });
 
   /*---------------------
-    Results strip counters
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const counters = document.querySelectorAll('#results .result-number-value[data-count-to]');
-
-    if (!counters.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const DURATION = 1500;
-
-    const setFinal = (el) => {
-      el.textContent = el.getAttribute('data-count-to');
-    };
-
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      counters.forEach(setFinal);
-      return;
-    }
-
-    const animateCount = (el) => {
-      const target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
-      const start = performance.now();
-
-      const step = (now) => {
-        const progress = Math.min((now - start) / DURATION, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(eased * target);
-
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = target;
-        }
-      };
-
-      requestAnimationFrame(step);
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-
-    counters.forEach((counter) => observer.observe(counter));
-  });
-
-  /*---------------------
-    #services bento: invoice card total count-up. Mirrors the results-
-    strip counter above (same IntersectionObserver + reduced-motion
-    guard), but formats a 2-decimal dollar amount instead of a plain
-    integer. The 1100ms start delay matches the CSS stagger the rest of
+    #services bento: invoice card total count-up. Uses an
+    IntersectionObserver with a reduced-motion guard and formats a
+    2-decimal dollar amount. The 1100ms start delay matches the CSS stagger the rest of
     the mini-invoice uses (--svc-i:6 on .svc-dte-total), so the number
     starts counting right as that row fades in.
   --------------------- */
@@ -1338,92 +953,31 @@
   });
 
   /*---------------------
-    Faq accordion
+    Preguntas frecuentes (#faq) accordion
+    Answers are open in the HTML so they read without JS. Here all but
+    the first are collapsed and only one stays open: opening a question
+    closes the others, and clicking the open one closes it.
   --------------------- */
 
   document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll('#faq .faq-item');
+    const items = [...document.querySelectorAll('#faq .gn-faq-q')]
+      .map((q) => ({ q, a: document.getElementById(q.getAttribute('aria-controls')) }))
+      .filter(({ a }) => a);
 
     if (!items.length) return;
 
-    items.forEach((item) => {
-      const trigger = item.querySelector('.faq-trigger');
+    const set = ({ q, a }, open) => {
+      q.setAttribute('aria-expanded', String(open));
+      a.hidden = !open;
+    };
 
-      trigger.addEventListener('click', () => {
-        const isOpen = item.classList.contains('is-open');
-
-        items.forEach((other) => {
-          other.classList.remove('is-open');
-          other.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
-        });
-
-        if (!isOpen) {
-          item.classList.add('is-open');
-          trigger.setAttribute('aria-expanded', 'true');
-        }
+    items.forEach((item, i) => {
+      set(item, i === 0);
+      item.q.addEventListener('click', () => {
+        const open = item.q.getAttribute('aria-expanded') !== 'true';
+        items.forEach((other) => set(other, false));
+        set(item, open);
       });
-    });
-  });
-
-  /*---------------------
-    Faq category filters
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const pills = document.querySelectorAll('#faq .faq-filter-pill');
-    const items = document.querySelectorAll('#faq .faq-item');
-
-    if (!pills.length || !items.length) return;
-
-    pills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        const filter = pill.dataset.filter;
-
-        pills.forEach((p) => {
-          p.classList.remove('is-active');
-          p.setAttribute('aria-pressed', 'false');
-        });
-        pill.classList.add('is-active');
-        pill.setAttribute('aria-pressed', 'true');
-
-        items.forEach((item) => {
-          const matches = filter === 'todas' || item.dataset.category === filter;
-
-          if (matches) {
-            item.hidden = false;
-            requestAnimationFrame(() => item.classList.remove('is-filtered-out'));
-          } else {
-            item.classList.add('is-filtered-out');
-            window.setTimeout(() => {
-              if (item.classList.contains('is-filtered-out')) item.hidden = true;
-            }, 250);
-          }
-        });
-      });
-    });
-  });
-
-  /*---------------------
-    Faq WhatsApp links (per-question "any doubts?" link + the aside's
-    quick-question pills) — built here so the message text stays out of
-    the HTML and is always encoded correctly.
-  --------------------- */
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const WHATSAPP_NUMBER = '50370043346';
-
-    document.querySelectorAll('#faq .faq-whatsapp-link').forEach((link) => {
-      const question = link.closest('.faq-item')?.querySelector('.faq-question-text')?.textContent.trim();
-
-      if (!question) return;
-
-      const message = `Hola Gramanat, tengo una duda: ${question}`;
-      link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    });
-
-    document.querySelectorAll('#faq .faq-quick-btn[data-wa-message]').forEach((btn) => {
-      const message = btn.dataset.waMessage;
-      btn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     });
   });
 
@@ -1667,7 +1221,7 @@
       if (!label) return;
 
       copyBtn.classList.add('is-copied');
-      label.textContent = '¡Copiado! ✓';
+      label.textContent = 'Correo copiado';
 
       window.setTimeout(() => {
         copyBtn.classList.remove('is-copied');
@@ -1768,6 +1322,370 @@
 
     video.src = src;
     video.load();
+  });
+
+  /*---------------------
+    Sistemas y soluciones: motion graphic
+    The MP4 is only requested when the section gets near the viewport
+    (data-src → src), plays muted in a loop while at least a quarter of
+    it is on screen and pauses when it scrolls away. Autoplay is started
+    from here (play() can be refused, so the button stays usable). With
+    "reduce motion" it never starts on its own: the poster stays and the
+    button offers to play it. The visitor's pause is respected.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const frame = document.querySelector('.gn-sol-media-frame');
+    const video = frame && frame.querySelector('.gn-sol-media-video');
+    const toggle = frame && frame.querySelector('.gn-sol-media-toggle');
+
+    if (!video || !toggle) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let userPaused = reduceMotion.matches;
+    let inView = false;
+
+    video.removeAttribute('autoplay');
+    video.muted = true;
+    toggle.hidden = false;
+
+    const load = () => {
+      if (video.getAttribute('src')) return;
+      video.src = video.dataset.src;
+      video.load();
+    };
+
+    const setPlaying = (playing) => {
+      frame.classList.toggle('is-playing', playing);
+      if (playing) frame.classList.add('has-played');
+      toggle.setAttribute('aria-label', playing ? 'Pausar animación' : 'Reproducir animación');
+    };
+
+    const play = () => {
+      load();
+      const attempt = video.play();
+      if (attempt && attempt.catch) attempt.catch(() => setPlaying(false));
+    };
+
+    video.addEventListener('playing', () => setPlaying(true));
+    video.addEventListener('pause', () => setPlaying(false));
+    setPlaying(false);
+
+    toggle.addEventListener('click', () => {
+      if (video.paused) {
+        userPaused = false;
+        play();
+      } else {
+        userPaused = true;
+        video.pause();
+      }
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      if (!userPaused) play();
+      return;
+    }
+
+    // Start downloading a little before the frame scrolls in.
+    const nearObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        if (!userPaused) load();
+        nearObserver.disconnect();
+      }
+    }, { rootMargin: '300px 0px' });
+    nearObserver.observe(frame);
+
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        inView = entry.isIntersecting;
+        if (inView && !userPaused) play();
+        else if (!inView && !video.paused) video.pause();
+      });
+    }, { threshold: 0.25 }).observe(frame);
+
+    // If the preference changes while the page is open, follow it.
+    reduceMotion.addEventListener('change', (e) => {
+      if (e.matches) {
+        userPaused = true;
+        video.pause();
+      }
+    });
+  });
+
+  /*---------------------
+    Clientes: balanced rows and "Ver más clientes"
+    Tiles keep their size; --cols-* (per breakpoint) is the fewest columns
+    that keep the same number of rows (6 → 3 + 3, 7 → 4 + 3), and the
+    last row is centred by CSS. On phones only the first 8 clients show
+    until "Ver más clientes"; the button stays hidden with 8 or fewer, and
+    without JS every client is visible.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.gn-clients');
+    const grid = section && section.querySelector('.gn-clients-grid');
+    const more = section && section.querySelector('.gn-clients-more');
+
+    if (!grid || !more) return;
+
+    const count = grid.children.length;
+    if (count === 0) {
+      section.hidden = true;
+      return;
+    }
+
+    const cols = (max) => Math.ceil(count / Math.ceil(count / max));
+    section.style.setProperty('--cols-sm', cols(2));
+    section.style.setProperty('--cols-md', cols(4));
+    section.style.setProperty('--cols-lg', cols(5));
+
+    if (count <= 8) return;
+
+    const label = (expanded) => (expanded
+      ? 'Ver menos <span aria-hidden="true">↑</span>'
+      : 'Ver más clientes <span aria-hidden="true">↓</span>');
+
+    grid.classList.add('is-collapsed');
+    more.hidden = false;
+    // Collapsing removes the cards above the button: scroll by the same
+    // amount at once so the button stays where it was on screen (the
+    // page's smooth scroll would otherwise leave it under the header).
+    // If it was off screen (keyboard use after expanding), centre it.
+    more.addEventListener('click', () => {
+      const expand = grid.classList.contains('is-collapsed');
+      const top = more.getBoundingClientRect().top;
+      const onScreen = top >= 0 && top + more.offsetHeight <= window.innerHeight;
+      grid.classList.toggle('is-collapsed', !expand);
+      more.setAttribute('aria-expanded', String(expand));
+      more.innerHTML = label(expand);
+      if (expand) return;
+      if (onScreen) {
+        window.scrollBy({ top: more.getBoundingClientRect().top - top, behavior: 'instant' });
+      } else {
+        more.scrollIntoView({ block: 'center', behavior: 'instant' });
+      }
+    });
+  });
+
+  /*---------------------
+    Footer: Soluciones groups fold on phones
+    Only when the footer opts in (.gn-footer-plegable) and below 768px:
+    each group title becomes a button that shows or hides its list (the
+    group of the page being viewed starts open). Without JavaScript, or
+    from 768px up, every list stays visible.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector('.gn-footer.gn-footer-plegable');
+    if (!footer || !window.matchMedia) return;
+
+    const phone = window.matchMedia('(max-width: 767px)');
+    const groups = Array.from(footer.querySelectorAll('.gn-footer-group'));
+
+    const apply = () => {
+      groups.forEach((group) => {
+        const title = group.querySelector('.gn-footer-group-title');
+        const list = group.querySelector('.gn-footer-list');
+        let toggle = title.querySelector('.gn-footer-toggle');
+
+        if (phone.matches && !toggle) {
+          const open = !!list.querySelector('[aria-current="page"]');
+          toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'gn-footer-toggle';
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-controls', list.id);
+          toggle.textContent = title.textContent.trim();
+          title.textContent = '';
+          title.appendChild(toggle);
+          list.hidden = !open;
+          toggle.addEventListener('click', () => {
+            const expanded = toggle.getAttribute('aria-expanded') !== 'true';
+            toggle.setAttribute('aria-expanded', String(expanded));
+            list.hidden = !expanded;
+          });
+        } else if (!phone.matches && toggle) {
+          title.textContent = toggle.textContent;
+          list.hidden = false;
+        }
+      });
+    };
+
+    apply();
+    if (phone.addEventListener) {
+      phone.addEventListener('change', apply);
+    } else {
+      phone.addListener(apply);
+    }
+  });
+
+  /*---------------------
+    Floating buttons: step aside while a CTA sits under them
+    Each button (WhatsApp, back to top) watches only its own band of the
+    viewport (rootMargin trims everything above it, and below it for the
+    back-to-top button, which sits above WhatsApp). Any CTA inside that
+    band that also reaches the button's column hides it (.is-tucked) —
+    it comes back as soon as the CTA scrolls out of the band. Mostly
+    matters on phones, where full-width buttons always reach the right
+    edge.
+  --------------------- */
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const floatBtn = document.querySelector('.whatsapp-float');
+    const backBtn = document.getElementById('backToTopBtn');
+    const buttons = [floatBtn, backBtn].filter(Boolean);
+
+    if (!buttons.length || !('IntersectionObserver' in window)) return;
+
+    // CTAs, plus the trust strip's benefits (its right column sits
+    // exactly under the button on phones), and the footer's links and
+    // buttons on every page. On the home page, every link,
+    // button and form field too (FAQ questions, the Contacto form), so a
+    // floating button never sits on top of something the visitor can tap.
+    const ctas = Array.from(document.querySelectorAll(
+      '.gn-btn, .gn-seg-link, .ready-btn, .cta-demo, .gn-sol-alt, a[href*="wa.me/"], a[href*="api.whatsapp.com/send"], button[type="submit"], #verificador button, .gn-trust-list li, .gn-footer a, .gn-footer button'
+      + (document.body.classList.contains('page-home') ? ', a[href], button, input:not([type="hidden"]), textarea, select' : '')
+    )).filter((el) => !buttons.includes(el) && !el.closest('nav, .menubar, .whatsapp-float, .gn-contact-trap'));
+
+    let observers = [];
+
+    const watchButton = (btn) => {
+      const covering = new Set();
+      btn.classList.remove('is-tucked');
+
+      // From the fixed bottom/right offsets, not getBoundingClientRect(),
+      // so a mid-transition transform can't skew the band. Band = from
+      // 16px above the button down to the viewport bottom (WhatsApp) or
+      // to 16px below the button (back to top).
+      const cs = getComputedStyle(btn);
+      const bottom = parseFloat(cs.bottom);
+      const bandTop = Math.max(0, window.innerHeight - bottom - btn.offsetHeight - 16);
+      const bandBottom = btn === floatBtn ? 0 : Math.max(0, bottom - 16);
+      const columnLeft = document.documentElement.clientWidth - parseFloat(cs.right) - btn.offsetWidth - 16;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const reachesColumn = entry.boundingClientRect.right > columnLeft;
+          if (entry.isIntersecting && reachesColumn) {
+            covering.add(entry.target);
+          } else {
+            covering.delete(entry.target);
+          }
+        });
+        btn.classList.toggle('is-tucked', covering.size > 0);
+      }, { rootMargin: `-${Math.round(bandTop)}px 0px -${Math.round(bandBottom)}px 0px` });
+
+      ctas.forEach((el) => observer.observe(el));
+      return observer;
+    };
+
+    const watch = () => {
+      observers.forEach((o) => o.disconnect());
+      observers = buttons.map(watchButton);
+    };
+
+    watch();
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(watch, 200);
+    });
+  });
+
+  /*---------------------
+    Contacto: A1 form (#contact form.gn-contact-form, index.html only).
+  --------------------- */
+
+  // Proposed form handler for js/main.js (replaces contactform.js on index.html only). It binds only to
+  // form.gn-contact-form, which exists only on index.html, and only once, so the other pages that load main.js and
+  // their .contactForm forms are untouched. Validation mirrors contacto-envio.php (lengths counted as code points with
+  // unified line breaks, like mb_strlen), a signed single-use token is requested by POST on first use (browsers always
+  // send Origin on POST, even when an extension strips Referer), renewed after 90 minutes or any failure, and the
+  // message waits at least 2 s after it. One status message. The visitor's text never goes to analytics.
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#contact form.gn-contact-form');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = 'true';
+
+    const status = form.querySelector('.gn-contact-status');
+    const submit = form.querySelector('.gn-contact-submit');
+    const headers = { 'X-Requested-With': 'GramanatContacto' };
+    const minWait = 2000;
+    const maxTokenAge = 90 * 60 * 1000;
+    let tokenAt = 0;
+    let tokenRequest = null;
+
+    const length = (v) => [...v.trim().replace(/\r\n?/g, '\n')].length;
+    const rules = {
+      name: (v) => length(v) >= 2 || 'Escribe tu nombre.',
+      email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Escribe un correo válido, por ejemplo nombre@empresa.com.',
+      phone: (v) => !v.trim() || /^[0-9+()\-\s]{7,30}$/.test(v.trim()) || 'Escribe un teléfono válido o deja el campo vacío.',
+      message: (v) => {
+        const n = length(v);
+        if (n < 10) return 'Cuéntanos tu consulta en al menos 10 caracteres.';
+        if (n > 5000) return 'Tu mensaje supera los 5.000 caracteres. Acórtalo e inténtalo de nuevo.';
+        return true;
+      },
+    };
+
+    const check = (field) => {
+      const result = rules[field.name](field.value);
+      const bad = result !== true;
+      field.setAttribute('aria-invalid', bad);
+      document.getElementById(field.name + '-error').textContent = bad ? result : '';
+      return !bad;
+    };
+
+    // One token per use of the form: requested on first focus, retried on submit if that failed.
+    const requestToken = () => {
+      if (!tokenRequest) {
+        tokenRequest = fetch(form.action, { method: 'POST', body: new URLSearchParams({ accion: 'token' }), headers, credentials: 'same-origin' })
+          .then(async (res) => {
+            const token = (await res.text()).trim();
+            if (!res.ok || !/^\d+\.[0-9a-f]{16}\.[\w-]{43}$/.test(token)) throw new Error('token');
+            form.elements.token.value = token;
+            tokenAt = Date.now();
+          })
+          .catch((err) => { tokenRequest = null; throw err; });
+      }
+      return tokenRequest;
+    };
+
+    form.addEventListener('focusin', () => { requestToken().catch(() => {}); }, { once: true });
+    Object.keys(rules).forEach((name) => form.elements[name].addEventListener('blur', (e) => { if (e.target.value) check(e.target); }));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (submit.disabled) return;
+      status.className = 'gn-contact-status';
+      status.textContent = '';
+
+      const invalid = Object.keys(rules).map((name) => form.elements[name]).filter((field) => !check(field));
+      if (invalid.length) { invalid[0].focus(); return; }
+
+      submit.disabled = true;
+      submit.textContent = 'Enviando…';
+      try {
+        if (tokenRequest && Date.now() - tokenAt > maxTokenAge) tokenRequest = null;
+        await requestToken();
+        const wait = minWait - (Date.now() - tokenAt);
+        if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers, credentials: 'same-origin' });
+        const text = (await res.text()).trim();
+        if (!res.ok || text !== 'OK') throw new Error('send');
+        form.reset();
+        status.classList.add('is-ok');
+        status.textContent = 'Recibimos tu mensaje. Gracias por escribirnos.';
+      } catch (err) {
+        status.classList.add('is-error');
+        status.innerHTML = 'No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos por <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener" data-cta="contacto-formulario-error">WhatsApp</a> o a igramanat@gmail.com.';
+      } finally {
+        tokenRequest = null; // each token is single-use: the next attempt asks for a new one
+        submit.disabled = false;
+        submit.textContent = 'Enviar mensaje';
+      }
+    });
   });
 
 })(jQuery);

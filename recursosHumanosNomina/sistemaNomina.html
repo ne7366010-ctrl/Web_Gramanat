@@ -35,7 +35,7 @@
     <link href="../css/nivo-slider-theme.css" rel="stylesheet" />
 
     <!-- Main Stylesheet File -->
-    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/style.css?v=145" rel="stylesheet" />
 
     <!-- Responsive Stylesheet File -->
     <link href="../css/responsive.css" rel="stylesheet" />
@@ -54,10 +54,11 @@
     class="page-administrative-business page-centro-impresion-fiscal"
   >
     <a
-      aria-hidden="true"
-      href="https://wa.me/50370043346?text=Hola%20%F0%9F%91%8B%20Los%20encontr%C3%A9%20en%20su%20p%C3%A1gina%20web%20y%20me%20interesa%20agendar%20una%20demo%20gratuita%20de%20Gramanat."
+      aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
+      href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
       class="whatsapp-float"
       target="_blank"
+      rel="noopener"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -67,16 +68,30 @@
     <header>
       <div id="sticker">
         <nav>
-          <div class="logo">
-            <a href="../index.html"
-              ><img src="../img/about/LOGO-removebg-preview.png" alt="Logo"
-            /></a>
-          </div>
+          <a class="logo" href="../index.html" aria-label="Gramanat, ir al inicio">
+            <img
+              src="../img/about/LOGO-removebg-preview.png"
+              alt="Gramanat"
+              width="180"
+              height="180"
+            />
+          </a>
           <ul>
             <li>
-              <a href="../index.html#about"
-                ><i class="fa-solid fa-eye"></i>Nosotros</a
+              <a href="../index.html#about"><i class="fa-solid fa-eye"></i>Nosotros</a>
+            </li>
+            <li>
+              <a href="../index.html#sistemas"
+                ><i class="fa-solid fa-display"></i>Sistemas</a
               >
+            </li>
+            <li>
+              <a href="../index.html#verificador"
+                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
+              >
+            </li>
+            <li>
+              <a href="../index.html#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
@@ -151,14 +166,12 @@
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a
-                        href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
+                      <a href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
                         >Sistema de Historias Médicas</a
                       >
                     </li>
                     <li>
-                      <a
-                        href="../SaludLaboratorios/SistemaClinicasHospitales.html"
+                      <a href="../SaludLaboratorios/SistemaClinicasHospitales.html"
                         >Sistema para Clínicas y Hospitales</a
                       >
                     </li>
@@ -176,185 +189,201 @@
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a href="SistemaNomina.html">Sistema de Nómina</a>
+                      <a href="../recursosHumanosNomina/sistemaNomina.html" aria-current="page"
+                        >Sistema de Nómina</a
+                      >
                     </li>
                     <li>
-                      <a href="sistemaNominaWeb.html">Sistema de Nómina Web</a>
+                      <a href="../recursosHumanosNomina/sistemaNominaWeb.html"
+                        >Sistema de Nómina Web</a
+                      >
                     </li>
                   </ul>
                 </li>
                 <li class="has-flyout">
-                  <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+                  <a href="#"
+                    >Otros sectores <i class="fas fa-chevron-right"></i
+                  ></a>
                   <ul class="submenu-flyout">
                     <li>
                       <a href="../hoteleria/sistemaHoteles.html"
                         >Sistema para Hoteles</a
                       >
                     </li>
-                  </ul>
-                </li>
-                <li class="has-flyout">
-                  <a href="#"
-                    >Talleres y Concesionarios
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
-                  <ul class="submenu-flyout">
                     <li>
                       <a
                         href="../talleresYConcesionarios/talleresYConcesionarios.html"
                         >Talleres y Concesionarios</a
                       >
                     </li>
-                  </ul>
-                </li>
-                <li class="has-flyout">
-                  <a href="#"
-                    >Restaurantes <i class="fas fa-chevron-right"></i
-                  ></a>
-                  <ul class="submenu-flyout">
                     <li>
-                      <a href="../restaurantes/restaurantes.html"
-                        >Restaurantes</a
-                      >
+                      <a href="../restaurantes/restaurantes.html">Restaurantes</a>
                     </li>
                   </ul>
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
                   <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
-                </li>
+                </li> -->
               </ul>
             </li>
-            <li class="has-submenu">
-              <a href="#" class="submenu-toggle"
-                ><i class="fa-solid fa-right-long"></i>Servicios
-                <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="submenu">
-                <li>
-                  <a href="../sistemas.html"
-                    ><i class="fa-solid fa-microchip"></i>Diseño de Sistemas
-                    Informáticos</a
-                  >
-                </li>
-                <li>
-                  <a href="../marketing.html"
-                    ><i class="fa-solid fa-bullhorn"></i>Marketing Digital</a
-                  >
-                </li>
-                <li>
-                  <a href="../casas.html"
-                    ><i class="fa-solid fa-hammer"></i>Equipo de Punto de
-                    Venta</a
-                  >
-                </li>
-                <!--<li><a href="arquitectura.html"><i class="fa-solid fa-sitemap"></i>Arquitectura y Bienes Raíces</a></li>-->
-              </ul>
-            </li>
+            <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
-              <a href="../index.html#equipment"
-                ><i class="fa-solid fa-users"></i>Equipo</a
+              <a href="../index.html#faq"
+                ><i class="fa-solid fa-circle-question"></i>Preguntas</a
               >
             </li>
             <li>
-              <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+              <a
+                href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+                class="cta-demo-header"
+                target="_blank"
+                rel="noopener"
+                data-cta="header-asesoria"
+                >Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
-          <div class="hamburger">
+          <!-- Compact copy of the header CTA, only shown below 790px where
+             the link row above is hidden behind the hamburger. -->
+          <a
+            href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+            class="gn-header-cta"
+            target="_blank"
+            rel="noopener"
+            data-cta="header-asesoria-movil"
+            >Solicita asesoría <span aria-hidden="true">→</span></a
+          >
+          <button
+            type="button"
+            class="hamburger"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="menu-movil"
+          >
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
-          </div>
+          </button>
         </nav>
-        <div class="menubar">
+        <div class="menubar" id="menu-movil">
           <ul>
             <li>
               <a href="../index.html#about">Nosotros</a>
+            </li>
+            <li>
+              <a href="../index.html#sistemas">Sistemas</a>
+            </li>
+            <li>
+              <a href="../index.html#verificador">Encuentra tu solución</a>
+            </li>
+            <li>
+              <a href="../index.html#cotizacion">Cotización</a>
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
                 >Soluciones <i class="fas fa-chevron-down"></i
               ></a>
+              <!-- Same pages as the desktop flyouts, grouped under their
+                 category name (the flyouts are hover-only, so phones get
+                 the real links listed directly). -->
               <ul class="submenu">
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Comercios y PyMEs</li>
                 <li>
-                  <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrative-business.html"
+                    >Administrative Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../administrativo-punto-de-venta.html"
+                    >Administrativo y Punto de Venta</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/personalBusiness.html"
+                    >Personal Business</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../soluciones/centroImpresionFiscal.html"
+                    >Centro de Impresión Fiscal</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Ecommerce y Gestión Digital</li>
                 <li>
-                  <a href="#"
-                    >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../ecommerceGestionDigital/PSKloudEShop.html"
+                    >PSKloud eShop</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+                  <a href="../ecommerceGestionDigital/PSKloudManager.html"
+                    >PSKloud Manager</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Contabilidad y Finanzas</li>
                 <li>
-                  <a href="#"
-                    >Talleres y Concesionarios
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../contabilidadFinanzas/SistemaContabilidad.html"
+                    >Sistema de Contabilidad</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
+                <li class="submenu-heading">Salud y Laboratorios</li>
                 <li>
-                  <a href="#"
-                    >Restaurantes <i class="fas fa-chevron-right"></i
-                  ></a>
+                  <a href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
+                    >Sistema de Historias Médicas</a
+                  >
                 </li>
-                <!-- TODO: reemplazar por el enlace/texto real -->
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="../SaludLaboratorios/SistemaClinicasHospitales.html"
+                    >Sistema para Clínicas y Hospitales</a
+                  >
                 </li>
+                <li>
+                  <a href="../SaludLaboratorios/SistemaLaboratorios.html"
+                    >Sistema de Laboratorios</a
+                  >
+                </li>
+                <li class="submenu-heading">Recursos Humanos y Nómina</li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNomina.html" aria-current="page"
+                    >Sistema de Nómina</a
+                  >
+                </li>
+                <li>
+                  <a href="../recursosHumanosNomina/sistemaNominaWeb.html"
+                    >Sistema de Nómina Web</a
+                  >
+                </li>
+                <li class="submenu-heading">Otros sectores</li>
+                <li>
+                  <a href="../hoteleria/sistemaHoteles.html"
+                    >Sistema para Hoteles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="../talleresYConcesionarios/talleresYConcesionarios.html"
+                    >Talleres y Concesionarios</a
+                  >
+                </li>
+                <li>
+                  <a href="../restaurantes/restaurantes.html">Restaurantes</a>
+                </li>
+                <!-- AppKloud: oculto hasta tener su página (era href="#").
+                <li><a href="#">AppKloud</a></li> -->
               </ul>
             </li>
-            <li>
-              <a href="../index.html#equipment">Equipo</a>
-            </li>
-            <li class="mobile-submenu">
-              <a href="#" class="submenu-toggle mobile-submenu-toggle"
-                >Servicios <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="submenu">
-                <li>
-                  <a href="../sistemas.html">Diseño de Sistemas Informáticos</a>
-                </li>
-                <li><a href="../marketing.html">Marketing Digital</a></li>
-                <li><a href="../casas.html">Equipo de Punto de Venta</a></li>
-                <!--<li><a href="arquitectura.html">Arquitectura y Bienes Raíces</a></li>-->
-              </ul>
-            </li>
+            <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
               <a href="../index.html#contact">Contacto</a>
             </li>
             <li>
-              <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita tu demo</a
+              <a
+                href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+                class="cta-demo-header"
+                target="_blank"
+                rel="noopener"
+                data-cta="menu-asesoria"
+                >Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -369,20 +398,14 @@
         <div class="ab-hero-grid">
           <div class="ab-hero-content">
             <p class="ab-eyebrow">
-              Gestiona el talento humano de tu empresa con precisión,
-              automatización y total cumplimiento legal.
+              Tu planilla, bajo control
             </p>
             <h1 class="ab-title">Sistema de Nómina</h1>
             <p class="ab-lead">
-              El sistema de Nómina Premium Soft le permitirá controlar la
-              gestión e información de todo su capital humano de la forma más
-              eficiente y completa. Con él podrá calcular liquidaciones,
-              prestaciones, vacaciones, utilidades, intereses y pago de
-              fideicomiso de sus trabajadores. También, controlar las entradas y
-              salidas de sus empleados, horas extras, bonificaciones, préstamos,
-              tickets de alimentación, entre otros. Genera además diversos tipos
-              de informes, así como los declarativos para diferentes entes
-              gubernamentales.
+              Lleva el expediente de cada trabajador y calcula pagos, descuentos, préstamos, vacaciones y horas extra, con los reportes que necesita tu empresa.
+            </p>
+            <p class="ab-ideal-for ab-maker">
+              Solución de <strong>Premium Soft</strong>, presentada por Gramanat como parte de su alianza comercial.
             </p>
             <!--<p class="ab-ideal-for">
               <strong>Ideal para:</strong>Comercios en países con obligación de
@@ -390,30 +413,16 @@
             </p>-->
             <p class="ab-region-note">
               <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
-              <em
-                >Algunas soluciones pueden variar según el país en el que te
-                encuentres. Consulta la disponibilidad en tu región para obtener
-                la mejor experiencia con nuestras plataformas.</em
-              >
+              <em>Según la información publicada por el fabricante, esta solución está disponible para El Salvador en versión Web y Desktop. Consulta con Gramanat cuál se ajusta a tu negocio y en qué condiciones.</em>
             </p>
-            <a href="../index.html#contact" class="ab-cta-btn">Obtener Ahora</a>
-            <!-- Placeholders: no hay assets propios de "soporte técnico" ni
-               "chatbot/asistente" en el proyecto — íconos genéricos de
-               FontAwesome mientras se proporcionan las imágenes reales. -->
-            <div class="ab-badges">
-              <span class="ab-badge" title="Soporte técnico"
-                ><i class="fa-solid fa-headset"></i
-              ></span>
-              <span class="ab-badge" title="Asistente virtual"
-                ><i class="fa-solid fa-comment-dots"></i
-              ></span>
-            </div>
+            <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20p%C3%A1gina%20de%20Sistema%20de%20N%C3%B3mina%20en%20el%20sitio%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20esta%20soluci%C3%B3n%20para%20mi%20negocio." class="ab-cta-btn" target="_blank" rel="noopener" data-cta="solucion-sistema-de-nomina"
+              >Solicita asesoría</a>
           </div>
           <div class="ab-hero-media">
             <div class="ab-hero-mockup">
               <img
                 src="../img/soluciones/nomina/sistema-nomina.jpeg"
-                alt="Mockup del sistema administrativo Gramanat"
+                alt="Pantalla de Sistema de Nómina (PSKloud)"
                 width="1536"
                 height="1024"
                 loading="lazy"
@@ -431,47 +440,32 @@
         <h2 class="ab-features-title">Principales Características</h2>
         <div class="ab-features-grid">
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Creación y
-              registro de la ficha de los trabajadores, incluyendo su expediente
-              y fotografía.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Manejo de
-              múltiples tipos de nómina.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Lista con
-              clasificación por cargos, departamento o área donde labora,
-              sucursales, unidades, entre otros.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Generación de
-              constantes y conceptos de pago.
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Ficha de cada trabajador con expediente y fotografía.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Varios tipos de planilla.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Clasificación por cargo, departamento, sucursal o unidad.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Conceptos de pago y constantes configurables.
+              </li>
           </ul>
           <ul class="ab-features-col">
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Control de
-              préstamos o adelantos por trabajador, deducibles de manera
-              programada de cada período de nómina.
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Manejo de
-              diversas condiciones laborales (empleado, obrero, contratado,
-              jubilado, entre otros).
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Posibilidad de
-              incluir las "cargas familiares" de cada trabajador, así como el
-              nivel de instrucción de cada miembro
-            </li>
-            <li>
-              <i class="fa-solid fa-check" aria-hidden="true"></i>Facilidad para
-              incluir el histórico de sueldos y sus varianzas por cada
-              trabajador, ideal para trabajadores con ingreso anterior a la
-              puesta en marcha del sistema de Nómina PSKloud.
-            </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Préstamos y adelantos descontados automáticamente en cada período.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Distintas condiciones laborales: empleados, contratados, jubilados y otras.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Registro del grupo familiar y del nivel de estudios de cada trabajador.
+              </li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>Historial de salarios, útil para quienes ya trabajaban en la empresa antes del sistema.
+              </li>
           </ul>
         </div>
       </div>
@@ -484,14 +478,15 @@
         <div class="ab-video-card">
           <a
             class="ab-video-thumb"
-            href="https://youtu.be/uuJXE1hZ_IY"
+            href="https://youtu.be/C0FpvsqkC8A"
+            aria-label="Ver la demostración de Nómina en YouTube (se abre en una pestaña nueva)"
             target="_blank"
             rel="noopener noreferrer"
-            title="Centro de Impresión Fiscal"
+            title="Ver en YouTube: NÓMINA DESKTOP"
           >
             <img
-              src="../img/centro-impresion-fiscal-video-thumb.jpg"
-              alt="Vista previa del video Centro de Impresión Fiscal"
+              src="../img/videos-soluciones/C0FpvsqkC8A.svg"
+              alt="Demostración en video de Sistema de Nómina"
               width="1280"
               height="720"
               loading="lazy"
@@ -509,13 +504,14 @@
         </a>
         -->
           <div class="ab-video-info">
-            <h3 class="ab-video-title">Nómina Desktop DEMO</h3>
+            <h3 class="ab-video-title">Demostración: Nómina (versión Desktop)</h3>
             <p class="ab-video-desc">
-              Este video presenta una demostración de Nómina Desktop, una
-              solución orientada a la gestión y control de los procesos de
-              nómina dentro de la empresa.
+              Video del fabricante con la configuración de planillas, trabajadores y conceptos, y el cálculo de un período.
             </p>
-            <p class="ab-video-date">26/01/2026</p>
+            <p class="ab-video-date">Video de PSKloud Software · 6 min · publicado el 13/01/2026</p>
+            <p class="ab-video-note">
+              Demostración del fabricante. Algunas configuraciones fiscales y operativas corresponden a otros países y pueden variar para El Salvador. Consulta con Gramanat las opciones disponibles.
+            </p>
           </div>
         </div>
       </div>
@@ -528,8 +524,36 @@
         <h2 class="ab-requirements-title">Requisitos del Sistema</h2>
         <div class="ab-req-card">
           <div class="ab-req-header">
+            <i class="fa-solid fa-server" aria-hidden="true"></i>
+            <span>Servidor</span>
+          </div>
+          <div class="ab-req-grid">
+            <div class="ab-req-item">
+              <h4>Base de Datos</h4>
+              <p>MySQL 5.5.62 o superior</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Memoria RAM</h4>
+              <p>8GB mínimo (16GB recomendado)</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Procesador</h4>
+              <p>Intel i3/i5/i7 2.4GHz 7ma gen o superior, o AMD Ryzen 3/5/7 2.4GHz 5ta gen o superior</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Almacenamiento</h4>
+              <p>SSD 500GB (o superior)</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Sistema Operativo</h4>
+              <p>Windows, Linux o macOS</p>
+            </div>
+          </div>
+        </div>
+        <div class="ab-req-card">
+          <div class="ab-req-header">
             <i class="fa-solid fa-display" aria-hidden="true"></i>
-            <span>Requisitos de Estación de Trabajo</span>
+            <span>Equipo de cada usuario</span>
           </div>
           <div class="ab-req-grid">
             <div class="ab-req-item">
@@ -547,6 +571,22 @@
             <div class="ab-req-item">
               <h4>Almacenamiento</h4>
               <p>SSD 256GB o superior</p>
+            </div>
+          </div>
+        </div>
+        <div class="ab-req-card">
+          <div class="ab-req-header">
+            <i class="fa-solid fa-plug" aria-hidden="true"></i>
+            <span>Componentes adicionales</span>
+          </div>
+          <div class="ab-req-grid">
+            <div class="ab-req-item">
+              <h4>Componentes y conexión</h4>
+              <p>Conexión segura para transferencias bancarias, impresora de cheques opcional</p>
+            </div>
+            <div class="ab-req-item">
+              <h4>Nota</h4>
+              <p>Cifrado de datos recomendado para información sensible de empleados.</p>
             </div>
           </div>
         </div>
@@ -569,142 +609,117 @@
     <!-- End Ver Videos Button -->
 
     <!-- Start Footer -->
-    <footer>
-      <div class="footer-area">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="footer-content">
-                <div class="footer-head">
-                  <div class="footer-logo">
-                    <h2><span>G</span>ramanat</h2>
-                  </div>
+    <footer id="footer" class="gn-footer gn-footer-plegable">
+      <div class="gn-footer-inner">
+        <div class="gn-footer-top">
+          <div class="gn-footer-brand">
+            <a class="gn-footer-logo" href="../index.html">
+              <img src="../img/about/LOGO-removebg-preview.png" alt="Gramanat, ir al inicio" width="180" height="180" loading="lazy" />
+            </a>
+            <p class="gn-footer-about">
+              Tecnología para negocios en El Salvador. Desarrollamos software
+              de facturación electrónica y presentamos soluciones de aliados
+              comerciales, según las necesidades de cada operación.
+            </p>
+            <ul class="gn-footer-social">
+              <li><a href="https://www.facebook.com/gramanatt" target="_blank" rel="noopener" aria-label="Gramanat en Facebook (se abre en una pestaña nueva)"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.instagram.com/gramanatt/" target="_blank" rel="noopener" aria-label="Gramanat en Instagram (se abre en una pestaña nueva)"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.tiktok.com/@gramanatsv" target="_blank" rel="noopener" aria-label="Gramanat en TikTok (se abre en una pestaña nueva)"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
 
-                  <p>
-                    En Gramanat, estamos comprometidos con la excelencia y la
-                    integridad en cada servicio. Nuestra promesa es ser socios
-                    confiables en cada proyecto que emprendemos con cada uno de
-                    nuestros clientes.
-                  </p>
-                  <div class="footer-icons">
-                    <ul>
-                      <li>
-                        <a
-                          href="https://www.facebook.com/gramanatt"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="Gramanat en Facebook"
-                          ><i class="fa-brands fa-facebook"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                          ><i class="fa-brands fa-square-instagram"></i
-                        ></a>
-                      </li>
-                      <li>
-                        <a
-                          href="https://www.tiktok.com/@gramanatsv?_t=8jrvMLUbpsE&_r=1"
-                          ><i class="fa-brands fa-tiktok"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="gn-footer-col" role="navigation" aria-label="Navegación">
+            <h2 id="gn-footer-nav-title" class="gn-footer-heading">Navegación</h2>
+            <ul class="gn-footer-list">
+              <li><a href="../index.html#sistemas">Facturación electrónica</a></li>
+              <li><a href="../index.html#verificador">Encuentra tu solución</a></li>
+              <li><a href="../index.html#cotizacion">Cotización</a></li>
+              <li><a href="../index.html#how-it-works">Cómo funciona</a></li>
+              <li><a href="../index.html#about">Nosotros</a></li>
+              <li><a href="../index.html#faq">Preguntas frecuentes</a></li>
+              <li><a href="../webinars.html">Webinars</a></li>
+            </ul>
+          </div>
 
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="footer-content">
-                <div class="footer-head">
-                  <h4>Instagram</h4>
-                  <div class="flicker-img">
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/1-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/2-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/3-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/4-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/5-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/6-.jpg" alt=""
-                    /></a>
-                  </div>
-                </div>
-              </div>
+          <div class="gn-footer-col">
+            <h2 class="gn-footer-heading">Contacto</h2>
+            <ul class="gn-footer-contact">
+              <li>
+                <span class="gn-footer-label">WhatsApp</span>
+                <a href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio" target="_blank" rel="noopener" data-cta="footer-whatsapp" aria-label="WhatsApp +503 7004 3346 (se abre en una pestaña nueva)">+503 7004 3346</a>
+              </li>
+              <li>
+                <span class="gn-footer-label">Correo</span>
+                <a href="mailto:igramanat@gmail.com">igramanat@gmail.com</a>
+              </li>
+              <li>
+                <span class="gn-footer-label">Oficina</span>
+                <span>San Salvador, El Salvador</span>
+              </li>
+            </ul>
+            <a class="gn-footer-more" href="../index.html#contact">Horario y ubicación<span aria-hidden="true">&nbsp;→</span></a>
+          </div>
+        </div>
+
+        <div class="gn-footer-catalog" role="navigation" aria-label="Soluciones">
+          <div class="gn-footer-catalog-head">
+            <h2 id="gn-footer-sol-title" class="gn-footer-heading">Soluciones</h2>
+            <p class="gn-footer-alliance">
+              Soluciones de Premium Soft, presentadas por Gramanat como parte
+              de su alianza comercial.
+            </p>
+          </div>
+          <div class="gn-footer-groups">
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Comercios y PyMEs</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-1">
+                <li><a href="../administrative-business.html">Administrative Business</a></li>
+                <li><a href="../administrativo-punto-de-venta.html">Administrativo y Punto de Venta</a></li>
+                <li><a href="../soluciones/personalBusiness.html">Personal Business</a></li>
+                <li><a href="../soluciones/centroImpresionFiscal.html">Centro de Impresión Fiscal</a></li>
+              </ul>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="footer-content">
-                <div class="footer-head">
-                  <h4>Facebook</h4>
-                  <div class="flicker-img">
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/7-.jpg"
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/8-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/9-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/10-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/11-.jpg" alt=""
-                    /></a>
-                    <a
-                      href="https://www.instagram.com/gramanatt?igsh=c3hhenMwN3l0cHZu"
-                      ><img src="../img/about/12-.jpg" alt=""
-                    /></a>
-                  </div>
-                </div>
-              </div>
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Ecommerce y Gestión Digital</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-2">
+                <li><a href="../ecommerceGestionDigital/PSKloudEShop.html">PSKloud eShop</a></li>
+                <li><a href="../ecommerceGestionDigital/PSKloudManager.html">PSKloud Manager</a></li>
+              </ul>
+            </div>
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Contabilidad y Finanzas</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-3">
+                <li><a href="../contabilidadFinanzas/SistemaContabilidad.html">Sistema de Contabilidad</a></li>
+              </ul>
+            </div>
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Salud y Laboratorios</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-4">
+                <li><a href="../SaludLaboratorios/SistemaHistoriasMedicas.html">Sistema de Historias Médicas</a></li>
+                <li><a href="../SaludLaboratorios/SistemaClinicasHospitales.html">Sistema para Clínicas y Hospitales</a></li>
+                <li><a href="../SaludLaboratorios/SistemaLaboratorios.html">Sistema de Laboratorios</a></li>
+              </ul>
+            </div>
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Recursos Humanos y Nómina</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-5">
+                <li><a href="../recursosHumanosNomina/sistemaNomina.html" aria-current="page">Sistema de Nómina</a></li>
+                <li><a href="../recursosHumanosNomina/sistemaNominaWeb.html">Sistema de Nómina Web</a></li>
+              </ul>
+            </div>
+            <div class="gn-footer-group">
+              <h3 class="gn-footer-group-title">Otros sectores</h3>
+              <ul class="gn-footer-list" id="gn-footer-grupo-6">
+                <li><a href="../hoteleria/sistemaHoteles.html">Sistema para Hoteles</a></li>
+                <li><a href="../talleresYConcesionarios/talleresYConcesionarios.html">Talleres y Concesionarios</a></li>
+                <li><a href="../restaurantes/restaurantes.html">Restaurantes</a></li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-      <div class="footer-area-bottom">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="copyright text-center">
-                <p>
-                  &copy; Copyright <strong>Gramanat</strong>. Todos los derechos
-                  reservados.
-                </p>
-              </div>
-              <div class="credits">
-                <!--
-                All the links in the footer should remain intact.
-                You can delete the links only if you purchased the pro version.
-                Licensing information: https://bootstrapmade.com/license/
-                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
-              -->
-                Diseñado por <a href="#">Gramanat</a>
-              </div>
-            </div>
-          </div>
+
+        <div class="gn-footer-bottom">
+          <p>&copy; <span id="footerYear">2026</span> Gramanat. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
@@ -733,6 +748,6 @@
     <!-- Contact Form JavaScript File -->
     <script src="../contactform/contactform.js"></script>
 
-    <script src="../js/main.js"></script>
+    <script src="../js/main.js?v=60"></script>
   </body>
 </html>
