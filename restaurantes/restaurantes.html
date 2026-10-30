@@ -68,16 +68,30 @@
     <header>
       <div id="sticker">
         <nav>
-          <div class="logo">
-            <a href="../index.html"
-              ><img src="../img/about/LOGO-removebg-preview.png" alt="Logo"
-            /></a>
-          </div>
+          <a class="logo" href="../index.html" aria-label="Gramanat, ir al inicio">
+            <img
+              src="../img/about/LOGO-removebg-preview.png"
+              alt="Gramanat"
+              width="180"
+              height="180"
+            />
+          </a>
           <ul>
             <li>
-              <a href="../index.html#about"
-                ><i class="fa-solid fa-eye"></i>Nosotros</a
+              <a href="../index.html#about"><i class="fa-solid fa-eye"></i>Nosotros</a>
+            </li>
+            <li>
+              <a href="../index.html#sistemas"
+                ><i class="fa-solid fa-display"></i>Sistemas</a
               >
+            </li>
+            <li>
+              <a href="../index.html#verificador"
+                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
+              >
+            </li>
+            <li>
+              <a href="../index.html#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
@@ -152,14 +166,12 @@
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
-                      <a
-                        href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
+                      <a href="../SaludLaboratorios/SistemaHistoriasMedicas.html"
                         >Sistema de Historias Médicas</a
                       >
                     </li>
                     <li>
-                      <a
-                        href="../SaludLaboratorios/SistemaClinicasHospitales.html"
+                      <a href="../SaludLaboratorios/SistemaClinicasHospitales.html"
                         >Sistema para Clínicas y Hospitales</a
                       >
                     </li>
@@ -189,36 +201,23 @@
                   </ul>
                 </li>
                 <li class="has-flyout">
-                  <a href="#">Hotelería <i class="fas fa-chevron-right"></i></a>
+                  <a href="#"
+                    >Otros sectores <i class="fas fa-chevron-right"></i
+                  ></a>
                   <ul class="submenu-flyout">
                     <li>
                       <a href="../hoteleria/sistemaHoteles.html"
                         >Sistema para Hoteles</a
                       >
                     </li>
-                  </ul>
-                </li>
-                <li class="has-flyout">
-                  <a href="#"
-                    >Talleres y Concesionarios
-                    <i class="fas fa-chevron-right"></i
-                  ></a>
-                  <ul class="submenu-flyout">
                     <li>
                       <a
                         href="../talleresYConcesionarios/talleresYConcesionarios.html"
                         >Talleres y Concesionarios</a
                       >
                     </li>
-                  </ul>
-                </li>
-                <li class="has-flyout">
-                  <a href="#"
-                    >Restaurantes <i class="fas fa-chevron-right"></i
-                  ></a>
-                  <ul class="submenu-flyout">
                     <li>
-                      <a href="restaurantes.html">Restaurantes</a>
+                      <a href="../restaurantes/restaurantes.html" aria-current="page">Restaurantes</a>
                     </li>
                   </ul>
                 </li>
@@ -228,43 +227,33 @@
                 </li> -->
               </ul>
             </li>
-            <li class="has-submenu">
-              <a href="#" class="submenu-toggle"
-                ><i class="fa-solid fa-right-long"></i>Servicios
-                <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="submenu">
-                <li>
-                  <a href="../sistemas.html"
-                    ><i class="fa-solid fa-microchip"></i>Diseño de Sistemas
-                    Informáticos</a
-                  >
-                </li>
-                <li>
-                  <a href="../marketing.html"
-                    ><i class="fa-solid fa-bullhorn"></i>Marketing Digital</a
-                  >
-                </li>
-                <li>
-                  <a href="../casas.html"
-                    ><i class="fa-solid fa-hammer"></i>Equipo de Punto de
-                    Venta</a
-                  >
-                </li>
-                <!--<li><a href="arquitectura.html"><i class="fa-solid fa-sitemap"></i>Arquitectura y Bienes Raíces</a></li>-->
-              </ul>
-            </li>
+            <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
-              <a href="../index.html#equipment"
-                ><i class="fa-solid fa-users"></i>Equipo</a
+              <a href="../index.html#faq"
+                ><i class="fa-solid fa-circle-question"></i>Preguntas</a
               >
             </li>
             <li>
-              <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita asesoría</a
+              <a
+                href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+                class="cta-demo-header"
+                target="_blank"
+                rel="noopener"
+                data-cta="header-asesoria"
+                >Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
+          <!-- Compact copy of the header CTA, only shown below 790px where
+             the link row above is hidden behind the hamburger. -->
+          <a
+            href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+            class="gn-header-cta"
+            target="_blank"
+            rel="noopener"
+            data-cta="header-asesoria-movil"
+            >Solicita asesoría <span aria-hidden="true">→</span></a
+          >
           <button
             type="button"
             class="hamburger"
@@ -281,6 +270,15 @@
           <ul>
             <li>
               <a href="../index.html#about">Nosotros</a>
+            </li>
+            <li>
+              <a href="../index.html#sistemas">Sistemas</a>
+            </li>
+            <li>
+              <a href="../index.html#verificador">Encuentra tu solución</a>
+            </li>
+            <li>
+              <a href="../index.html#cotizacion">Cotización</a>
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
@@ -368,34 +366,24 @@
                   >
                 </li>
                 <li>
-                  <a href="restaurantes.html">Restaurantes</a>
+                  <a href="../restaurantes/restaurantes.html" aria-current="page">Restaurantes</a>
                 </li>
                 <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li><a href="#">AppKloud</a></li> -->
               </ul>
             </li>
-            <li>
-              <a href="../index.html#equipment">Equipo</a>
-            </li>
-            <li class="mobile-submenu">
-              <a href="#" class="submenu-toggle mobile-submenu-toggle"
-                >Servicios <i class="fas fa-chevron-down"></i
-              ></a>
-              <ul class="submenu">
-                <li>
-                  <a href="../sistemas.html">Diseño de Sistemas Informáticos</a>
-                </li>
-                <li><a href="../marketing.html">Marketing Digital</a></li>
-                <li><a href="../casas.html">Equipo de Punto de Venta</a></li>
-                <!--<li><a href="arquitectura.html">Arquitectura y Bienes Raíces</a></li>-->
-              </ul>
-            </li>
+            <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
               <a href="../index.html#contact">Contacto</a>
             </li>
             <li>
-              <a href="../index.html#contact" class="cta-demo-header"
-                >Solicita asesoría</a
+              <a
+                href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
+                class="cta-demo-header"
+                target="_blank"
+                rel="noopener"
+                data-cta="menu-asesoria"
+                >Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -428,17 +416,6 @@
             </p>
             <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20p%C3%A1gina%20de%20Sistema%20para%20Restaurantes%20en%20el%20sitio%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20esta%20soluci%C3%B3n%20para%20mi%20negocio." class="ab-cta-btn" target="_blank" rel="noopener" data-cta="solucion-restaurantes"
               >Solicita asesoría</a>
-            <!-- Placeholders: no hay assets propios de "soporte técnico" ni
-               "chatbot/asistente" en el proyecto — íconos genéricos de
-               FontAwesome mientras se proporcionan las imágenes reales. -->
-            <div class="ab-badges">
-              <span class="ab-badge" title="Soporte técnico"
-                ><i class="fa-solid fa-headset"></i
-              ></span>
-              <span class="ab-badge" title="Asistente virtual"
-                ><i class="fa-solid fa-comment-dots"></i
-              ></span>
-            </div>
           </div>
           <div class="ab-hero-media">
             <div class="ab-hero-mockup">
