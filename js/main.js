@@ -1603,7 +1603,8 @@
   // their .contactForm forms are untouched. Validation mirrors contacto-envio.php (lengths counted as code points with
   // unified line breaks, like mb_strlen), a signed single-use token is requested by POST on first use (browsers always
   // send Origin on POST, even when an extension strips Referer), renewed after 90 minutes or any failure, and the
-  // message waits at least 2 s after it. One status message. The visitor's text never goes to analytics.
+  // message waits at least 2 s after it. One status message. The visitor's text never goes to analytics: the events
+  // (form_start, generate_lead, form_error) go to dataLayer with codes only.
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#contact form.gn-contact-form');
     if (!form || form.dataset.bound) return;
@@ -1616,6 +1617,11 @@
     const maxTokenAge = 90 * 60 * 1000;
     let tokenAt = 0;
     let tokenRequest = null;
+
+    const track = (event, params) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event, form_id: 'contacto' }, params));
+    };
 
     const length = (v) => [...v.trim().replace(/\r\n?/g, '\n')].length;
     const rules = {
@@ -1653,7 +1659,7 @@
       return tokenRequest;
     };
 
-    form.addEventListener('focusin', () => { requestToken().catch(() => {}); }, { once: true });
+    form.addEventListener('focusin', () => { track('form_start'); requestToken().catch(() => {}); }, { once: true });
     Object.keys(rules).forEach((name) => form.elements[name].addEventListener('blur', (e) => { if (e.target.value) check(e.target); }));
 
     form.addEventListener('submit', async (e) => {
@@ -1663,7 +1669,7 @@
       status.textContent = '';
 
       const invalid = Object.keys(rules).map((name) => form.elements[name]).filter((field) => !check(field));
-      if (invalid.length) { invalid[0].focus(); return; }
+      if (invalid.length) { track('form_error', { error: 'validacion', campo: invalid[0].name }); invalid[0].focus(); return; }
 
       submit.disabled = true;
       submit.textContent = 'Enviando…';
@@ -1678,7 +1684,10 @@
         form.reset();
         status.classList.add('is-ok');
         status.textContent = 'Recibimos tu mensaje. Gracias por escribirnos.';
+        track('generate_lead');
       } catch (err) {
+        // token: no valid token from the server; servidor: the server refused the message; red: no answer.
+        track('form_error', { error: err && err.message === 'token' ? 'token' : err && err.message === 'send' ? 'servidor' : 'red' });
         status.classList.add('is-error');
         status.innerHTML = 'No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos por <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener" data-cta="contacto-formulario-error">WhatsApp</a> o a igramanat@gmail.com.';
       } finally {

@@ -13496,3 +13496,23 @@ body.gn-ficha.gn-ficha.gn-ficha .ab-video-thumb:focus-visible {
     right: 0;
   }
 }
+
+/* ==========================================================================
+   Requirement labels (h3): the system pages' requirement cards used h4 right
+   under an h2. They are h3 now; these rules repeat what the h4 rules set, so
+   their look does not change.
+   ========================================================================== */
+body.page-administrative-business.page-personal-business .ab-req-item h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+body.gn-ficha.gn-ficha.gn-ficha .ab-req-item h3 {
+  margin: 0 0 4px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--gf-navy);
+}
