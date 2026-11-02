@@ -499,6 +499,14 @@
         <picture>
           <!-- 3:2 crop of the entrepreneur + tablet for the stacked layout. -->
           <source
+            type="image/webp"
+            media="(max-width: 991px)"
+            srcset="img/hero/hero-principal-movil-800.webp?v=1 800w, img/hero/hero-principal-movil-1200.webp?v=1 1200w"
+            sizes="100vw"
+            width="1200"
+            height="800"
+          />
+          <source
             media="(max-width: 991px)"
             srcset="
               img/hero/hero-principal-movil-800.jpg?v=1   800w,
@@ -507,6 +515,13 @@
             sizes="100vw"
             width="1200"
             height="800"
+          />
+          <source
+            type="image/webp"
+            srcset="img/hero/hero-principal-1200.webp?v=1 1200w, img/hero/hero-principal-2400.webp?v=1 2400w"
+            sizes="50vw"
+            width="2400"
+            height="1792"
           />
           <img
             src="img/hero/hero-principal-1200.jpg?v=1"
@@ -824,7 +839,7 @@
               >
             </div>
           </div>
-          <!-- Motion graphic (video/gramanat_storyboard.mp4, 1080x1920, 10 s,
+          <!-- Motion graphic (video/gramanat_storyboard-720.mp4, 720x1280, 10 s,
              no sound). Shown whole (contain) in a vertical frame: right
              column on desktop, below the CTA on phones/tablets. The file is
              only requested near the viewport; until it plays, the poster
@@ -847,7 +862,7 @@
               </picture>
               <video
                 class="gn-sol-media-video"
-                data-src="video/gramanat_storyboard.mp4"
+                data-src="video/gramanat_storyboard-720.mp4"
                 width="1080"
                 height="1920"
                 muted
