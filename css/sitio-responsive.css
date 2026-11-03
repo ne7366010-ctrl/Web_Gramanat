@@ -1,0 +1,111 @@
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .tab-menu ul.nav li a {
+    padding: 10px 16px;
+  }
+  .work-right-text .ready-btn {
+    font-size: 13px;
+    padding: 7px 20px;
+    margin-top: 5px;
+  }
+}
+
+
+@media screen and (max-width: 790px) {
+  nav .logo img {
+    margin-bottom: -50px;
+    padding: 0px 20px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  
+  nav ul {
+    display: none;
+  }
+  
+  nav {
+    padding: 10px 5%;
+  }
+  
+  nav .logo img {
+    height: 90px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menubar {
+    width: 80%;
+    left: -80%;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .tab-menu ul.nav li {
+    flex: 1;
+    min-width: 0;
+    margin: 0 2px;
+  }
+
+  .tab-menu ul.nav li a {
+    padding: 8px 5px;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav.navbar-nav.navbar-right, .stick .nav.navbar-nav.navbar-right {
+    background-color: #252525;
+    padding: 0;
+    margin-top: 0;
+  }
+  .main-menu ul.navbar-nav li.active a::after, .stick .main-menu ul.navbar-nav li.active a::after {
+    border: 0px solid #fff;
+  }
+  .logo {
+    height: inherit;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: -6px;
+    z-index: 999999;
+  }
+
+  .layer-1-3 a.ready-btn {
+    padding: 8px 15px;
+  }
+  .tab-menu ul.nav li a {
+    padding: 8px 6px;
+  }
+  .wellcome-text {
+    margin: 0px;
+    padding: 70px 0px;
+  }
+  .project-menu li a {
+    padding: 8px 12px;
+    margin: 10px 4px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .tab-menu ul.nav li a {
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  h2 {
+    font-size: 25px;
+  }
+}

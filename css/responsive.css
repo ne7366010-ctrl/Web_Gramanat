@@ -24,19 +24,6 @@
   }
 }
 
-/* Responsive */
-@media (max-width: 991px) {
-  .about-text-content {
-    padding-left: 0;
-    margin-top: 40px;
-  }
-  
-  .about-image-wrapper {
-    height: 400px;
-    margin-top: 0px;
-  }
-}
-
 @media (max-width: 767px) {
   .section-headline {
     margin-bottom: 30px !important;

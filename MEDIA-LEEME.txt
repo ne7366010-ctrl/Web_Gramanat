@@ -11,20 +11,20 @@ Formato de cada entrada:
 ---------------------------------------------------------------------------
 
 video/hero-fondo.mp4 · Hero · 1920x1080 · MP4 H.264, máx. 8 MB, 10–20 s, sin audio · Tomas de un negocio usando el punto de venta / imprimiendo factura.
+  ACTIVACIÓN: este es el único archivo que NO se usa solo. Después de subirlo,
+  en index.html (etiqueta <video class="hero-bg-video">) cambia el atributo
+  data-src-pendiente="video/hero-fondo.mp4" por data-src="video/hero-fondo.mp4".
+  Mientras no exista, el hero muestra la foto y no se pide el archivo (sin error 404).
 
 ---------------------------------------------------------------------------
 
-img/media/sistema-restaurante.jpg · #sistemas (panel "Restaurantes y cafeterías") · 1200x1500 (4:5, escritorio) o 1600x1200 (4:3, se recorta igual en celular) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en un restaurante o cafetería (pantalla/tablet visible, ojalá con alguien usándola). Se le aplica un degradado oscuro abajo y tarjetas flotantes (ticket, DTE, ventas) encima, así que deja espacio despejado en la mitad/parte inferior de la foto para que el texto de las tarjetas no quede sobre un área muy ocupada. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
+img/segmentos/empresas-*.webp / *.jpg · #segmentos (tarjeta "Empresas") · COMPLETADO: foto oficial gramanat-empresas-seccion-02.jpg (original guardado fuera del sitio, en la carpeta Gramanat-respaldos junto al repositorio) recortada a 3:2 (1200x800 y 600x400), WebP con respaldo JPG. Los empresas-*.jpg sí se usan: son la versión para navegadores sin WebP.
 
-img/media/sistema-tienda.jpg · #sistemas (panel "Tiendas y minisúper") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una tienda o minisúper. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
+---------------------------------------------------------------------------
 
-img/media/sistema-farmacia.jpg · #sistemas (panel "Farmacias") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una farmacia. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
+video/gramanat_storyboard.mp4 · #sistemas (tarjeta "Facturación electrónica") · COMPLETADO: video oficial definitivo, 1080x1920 (9:16), 10 s, H.264, 3,9 MB, se muestra completo, sin sonido y en bucle. Reemplaza a los motion graphics anteriores (gramanat_decision.mp4 y gramanat-sistemas-soluciones-motion-v2.mp4), que ya no se usan. Todos los originales están respaldados en Gramanat-respaldos. Portada: video/gramanat_storyboard-portada.webp / .jpg (fotograma de los 2 s, 720x1280). El video solo se descarga cuando la sección se acerca a la pantalla. Pendiente opcional: una versión recodificada sin pista de audio (por ejemplo con ffmpeg) pesaría menos.
 
-img/media/sistema-ferreteria.jpg · #sistemas (panel "Ferreterías y distribuidoras") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una ferretería. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-boutique.jpg · #sistemas (panel "Boutiques y ropa") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una boutique. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
-
-img/media/sistema-servicios.jpg · #sistemas (panel "Servicios y oficinas") · 1200x1500 (4:5) o 1600x1200 (4:3) · JPG/WebP, máx. 400 KB · Foto real del sistema funcionando en una oficina o negocio de servicios. Mismas indicaciones de encuadre que la de restaurante. Si falta, se muestra una escena de punto de venta dibujada con CSS en su lugar.
+img/sistemas/facturacion-electronica-oficina-*.webp / *.jpg · ya no se usan en la página (la foto de oficina se reemplazó por el video); se conservan por si se quiere volver a ella. Original en Gramanat-respaldos.
 
 ---------------------------------------------------------------------------
 
