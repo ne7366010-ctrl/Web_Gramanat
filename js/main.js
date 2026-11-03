@@ -319,7 +319,7 @@
    Scrollspy js
   --------------------- */
   var Body = $('body');
-  Body.scrollspy({
+  if ($.fn.scrollspy) Body.scrollspy({
     target: '.navbar-collapse',
     offset: 80
   });
@@ -328,7 +328,7 @@
     Venobox
   --------------------- */
   var veno_box = $('.venobox');
-  veno_box.venobox();
+  if ($.fn.venobox) veno_box.venobox();
 
   /*---------------------
   Page Scroll
@@ -341,7 +341,7 @@
     if ($target.length) {
       $('html, body').stop().animate({
         scrollTop: $target.offset().top - 55
-      }, 1500, 'easeInOutExpo');
+      }, 1500, $.easing && $.easing.easeInOutExpo ? 'easeInOutExpo' : 'swing');
     }
     event.preventDefault();
   });
@@ -984,10 +984,12 @@
   /*----------------------
    Parallax
   -----------------------*/
-  var well_lax = $('.wellcome-area');
-  well_lax.parallax("50%", 0.4);
-  var well_text = $('.wellcome-text');
-  well_text.parallax("50%", 0.6);
+  if ($.fn.parallax) {
+    var well_lax = $('.wellcome-area');
+    well_lax.parallax("50%", 0.4);
+    var well_text = $('.wellcome-text');
+    well_text.parallax("50%", 0.6);
+  }
 
   /*----------------------
    collapse
@@ -1002,7 +1004,7 @@
    Testimonial carousel
   ----------------------*/
   var test_carousel = $('.testimonial-carousel');
-  test_carousel.owlCarousel({
+  if ($.fn.owlCarousel) test_carousel.owlCarousel({
     loop: true,
     nav: false,
     dots: true,
