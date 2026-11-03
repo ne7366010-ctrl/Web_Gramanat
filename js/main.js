@@ -152,13 +152,14 @@
         const submenu = parentLi.querySelector(".submenu");
         
         parentLi.classList.remove('is-closed');
-        // Enter on the desktop toggle after Escape reopens it (detail is 0 for keyboard clicks).
-        if (e.detail === 0 && parentLi.matches('nav .soluciones-submenu')) parentLi.classList.add('kbd-open');
+        const keyboardDesktop = e.detail === 0 && parentLi.matches('nav .soluciones-submenu');
 
         // Solo alternar si no estamos en scroll
         if (!isScrolling) {
           toggle.classList.toggle("active");
           toggle.setAttribute('aria-expanded', toggle.classList.contains('active') ? 'true' : 'false');
+          // Enter / Space on the desktop toggle: the list opens and closes with it.
+          if (keyboardDesktop) parentLi.classList.toggle('kbd-open', toggle.classList.contains('active'));
           
           if (submenu.classList.contains("submenu-active")) {
             submenu.style.opacity = '0';
@@ -202,13 +203,45 @@
 
     // Keyboard opening of the hover-only desktop dropdown and its flyouts:
     // .kbd-open while keyboard focus is inside the item (see style.css).
-    document.querySelectorAll('nav .soluciones-submenu, nav .has-flyout').forEach(item => {
+    // The "Soluciones" list itself opens only with Enter, Space or Arrow down on its
+    // toggle (click handler above / keydown below), so Tab goes past it while closed.
+    document.querySelectorAll('nav .has-flyout').forEach(item => {
+      const parent = item.querySelector(':scope > a');
+      // "Comercios y PyMEs"... are group buttons, not links: say so, and whether their list is open.
+      if (parent) { parent.setAttribute('role', 'button'); parent.setAttribute('aria-expanded', 'false'); }
+      const sync = () => { if (parent) parent.setAttribute('aria-expanded', String(item.classList.contains('kbd-open') || item.matches(':hover'))); };
       item.addEventListener('focusin', (e) => {
         if (e.target.matches(':focus-visible') && !item.classList.contains('is-closed')) item.classList.add('kbd-open');
+        sync();
       });
       item.addEventListener('focusout', (e) => {
         if (!item.contains(e.relatedTarget)) item.classList.remove('kbd-open');
+        sync();
       });
+      item.addEventListener('mouseenter', sync);
+      item.addEventListener('mouseleave', () => setTimeout(sync, 0));
+    });
+    document.querySelectorAll('nav .soluciones-submenu').forEach(item => {
+      const toggle = item.querySelector('.submenu-toggle');
+      item.addEventListener('focusout', (e) => {
+        if (item.contains(e.relatedTarget)) return;
+        item.classList.remove('kbd-open');
+        if (toggle && toggle.classList.contains('active')) closeDesktopSubmenus();
+      });
+      // Pointer users open it by hovering: keep the state screen readers get in step.
+      item.addEventListener('mouseenter', () => { if (toggle && window.innerWidth > 991) toggle.setAttribute('aria-expanded', 'true'); });
+      item.addEventListener('mouseleave', () => { if (toggle && !toggle.classList.contains('active') && !item.classList.contains('kbd-open')) toggle.setAttribute('aria-expanded', 'false'); });
+    });
+
+    // Links acting as buttons (role="button"): Space activates them like a real button
+    // instead of scrolling the page; Arrow down also opens the desktop "Soluciones" list.
+    document.addEventListener('keydown', (e) => {
+      const el = e.target.closest && e.target.closest('a[role="button"]');
+      if (!el) return;
+      if (e.key === ' ' || (e.key === 'ArrowDown' && el.matches('nav .soluciones-submenu > .submenu-toggle:not(.active)'))) {
+        e.preventDefault();
+        el.click();
+      }
     });
 
     // Escape: closes the hamburger menu (focus back on the hamburger) or the
@@ -226,6 +259,7 @@
       if (!item) return;
       item.classList.add('is-closed');
       item.classList.remove('kbd-open');
+      item.querySelectorAll('.has-flyout > a[role="button"]').forEach(a => a.setAttribute('aria-expanded', 'false'));
       item.querySelectorAll('.kbd-open').forEach(el => el.classList.remove('kbd-open'));
       closeDesktopSubmenus();
       const toggle = item.querySelector('.submenu-toggle');
@@ -236,6 +270,10 @@
         if (!item.contains(e.relatedTarget)) item.classList.remove('is-closed');
       });
       item.addEventListener('mouseleave', () => item.classList.remove('is-closed'));
+    });
+
+    document.addEventListener('focusin', (e) => {
+      if (isMobileMenuOpen && !e.target.closest('.menubar') && !e.target.closest('.hamburger')) toggleNav(true);
     });
 
     // Cerrar menú al hacer clic fuera
@@ -388,10 +426,14 @@
       e.stopPropagation();
       e.preventDefault();
 
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: reduce ? 'auto' : 'smooth'
       });
+      // Keyboard and screen-reader users go back up too, not only the view.
+      const content = document.getElementById('contenido');
+      if (content) content.focus({ preventScroll: true });
     });
   });
 
@@ -687,6 +729,8 @@
       bars.forEach((bar, i) => bar.classList.toggle('is-on', i < n));
       progress.setAttribute('aria-valuenow', String(Math.min(Math.max(n, 1), 3)));
       stepLabel.textContent = n >= 1 && n <= 3 ? `Paso ${n} de 3` : 'Resultado';
+      // Screen readers read "Paso 2 de 3" instead of a bare number or percentage.
+      progress.setAttribute('aria-valuetext', stepLabel.textContent);
       if (n === 1) syncOther();
       if (n >= 1 && n <= 3) syncNext(n);
 
@@ -695,7 +739,8 @@
       const heading = panels[target].querySelector('.gn-diag-q, .gn-diag-res-title, [data-diag="start"]');
       if (heading && target !== 'intro') heading.focus({ preventScroll: true });
       const top = card.getBoundingClientRect().top;
-      if (top < 90) window.scrollBy({ top: top - 100, behavior: 'smooth' });
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (top < 90) window.scrollBy({ top: top - 100, behavior: reduce ? 'auto' : 'smooth' });
     }
 
     function start(preTipo) {
@@ -1209,6 +1254,8 @@
     if (!copyBtn) return;
 
     const label = copyBtn.querySelector('.contact-copy-btn-text');
+    // The button keeps its name; screen readers hear the confirmation here.
+    const status = copyBtn.parentElement.querySelector('[data-copy-status]');
     const defaultText = label ? label.textContent : '';
 
     copyBtn.addEventListener('click', async () => {
@@ -1224,10 +1271,12 @@
 
       copyBtn.classList.add('is-copied');
       label.textContent = 'Correo copiado';
+      if (status) status.textContent = 'Correo copiado';
 
       window.setTimeout(() => {
         copyBtn.classList.remove('is-copied');
         label.textContent = defaultText;
+        if (status) status.textContent = '';
       }, 2000);
     });
   });

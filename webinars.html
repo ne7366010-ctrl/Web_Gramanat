@@ -42,6 +42,7 @@
 
   <!-- Responsive Stylesheet File -->
   <link href="css/sitio-responsive.css?v=1" rel="stylesheet">
+    <link href="css/accesibilidad.css?v=1" rel="stylesheet">
 
   <!-- =======================================================
     Theme Name: eBusiness
@@ -52,6 +53,8 @@
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example" class="page-webinars">
+    <a class="gn-skip" href="#contenido">Saltar al contenido</a>
+    <aside aria-label="Contacto rápido">
     <a
       aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
       href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
@@ -61,14 +64,15 @@
       rel="noopener"
     >
     <span class="whatsapp-float-tooltip" aria-hidden="true">¿Hablamos? Escríbenos por WhatsApp</span>
-    <i class="fa-brands fa-whatsapp"></i>
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
   </a>
+    </aside>
   <div id="preloader"></div>
 
    <!-- header Area -->
   <header>
       <div id="sticker">
-        <nav>
+        <nav aria-label="Principal">
           <a class="logo" href="index.html" aria-label="Gramanat, ir al inicio">
             <img
               src="img/about/LOGO-removebg-preview.png"
@@ -79,25 +83,25 @@
           </a>
           <ul>
             <li>
-              <a href="index.html#about"><i class="fa-solid fa-eye"></i>Nosotros</a>
+              <a href="index.html#about"><i class="fa-solid fa-eye" aria-hidden="true"></i>Nosotros</a>
             </li>
             <li>
               <a href="index.html#sistemas"
-                ><i class="fa-solid fa-display"></i>Sistemas</a
+                ><i class="fa-solid fa-display" aria-hidden="true"></i>Sistemas</a
               >
             </li>
             <li>
               <a href="index.html#verificador"
-                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
+                ><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>Encuentra tu solución</a
               >
             </li>
             <li>
-              <a href="index.html#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
+              <a href="index.html#cotizacion"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
-                ><i class="fa-solid fa-wrench"></i>Soluciones
-                <i class="fas fa-chevron-down"></i
+                ><i class="fa-solid fa-wrench" aria-hidden="true"></i>Soluciones
+                <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <ul class="submenu">
                 <!-- Item con submenú de segundo nivel (flyout). Patrón reutilizable:
@@ -106,7 +110,7 @@
                  flyout agregando esas mismas dos clases, sin tocar el CSS. -->
                 <li class="has-flyout">
                   <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
+                    >Comercios y PyMEs <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -134,7 +138,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -151,7 +155,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
+                    >Contabilidad y Finanzas <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -163,7 +167,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
+                    >Salud y Laboratorios <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -186,7 +190,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -203,7 +207,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Otros sectores <i class="fas fa-chevron-right"></i
+                    >Otros sectores <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -224,14 +228,14 @@
                 </li>
                 <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="#">AppKloud <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
                 </li> -->
               </ul>
             </li>
             <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
               <a href="index.html#faq"
-                ><i class="fa-solid fa-circle-question"></i>Preguntas</a
+                ><i class="fa-solid fa-circle-question" aria-hidden="true"></i>Preguntas</a
               >
             </li>
             <li>
@@ -241,7 +245,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="header-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -253,7 +257,7 @@
             target="_blank"
             rel="noopener"
             data-cta="header-asesoria-movil"
-            >Solicita asesoría <span aria-hidden="true">→</span></a
+             aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
           >
           <button
             type="button"
@@ -283,7 +287,7 @@
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
-                >Soluciones <i class="fas fa-chevron-down"></i
+                >Soluciones <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <!-- Same pages as the desktop flyouts, grouped under their
                  category name (the flyouts are hover-only, so phones get
@@ -384,7 +388,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="menu-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -392,6 +396,7 @@
       </div>
     </header>
   <!-- header end -->
+    <main id="contenido" tabindex="-1">
 
   <!-- Start Webinars Banner -->
   <div class="webinars-hero">
@@ -420,9 +425,11 @@
     <div class="container">
       <h2 class="webinar-filters-title">Explora videos sobre la solución que más te interese</h2>
       <div class="webinar-filters-form">
-        <input type="text" class="webinar-search-input" placeholder="Buscar videos...">
+        <label for="webinar-buscar" class="gn-sr">Buscar videos</label>
+        <input type="search" id="webinar-buscar" class="webinar-search-input" placeholder="Buscar videos...">
         <div class="webinar-select-wrap">
-          <select class="webinar-select webinar-product-select">
+          <label for="webinar-producto" class="gn-sr">Filtrar por producto</label>
+          <select id="webinar-producto" class="webinar-select webinar-product-select">
             <option value="">Todos los productos</option>
             <option value="Sistema Restaurante">Sistema Restaurante</option>
             <option value="Sistemas Administrativos">Sistemas Administrativos</option>
@@ -435,6 +442,7 @@
   <!-- End Webinars Filters -->
 
   <!-- Start Webinars Video Gallery -->
+  <p class="gn-sr" role="status" aria-live="polite" id="webinar-estado"></p>
   <div class="webinar-videos">
     <div class="container">
       <div class="webinar-videos-grid">
@@ -442,12 +450,12 @@
              Administrativos" por error, quitado a pedido del usuario hasta
              confirmar la categoría real. -->
         <div class="ab-video-card">
-          <a class="ab-video-thumb" href="https://youtu.be/uuJXE1hZ_IY" target="_blank" rel="noopener noreferrer" title="Administrative Business Web">
+          <a class="ab-video-thumb" href="https://youtu.be/uuJXE1hZ_IY" target="_blank" rel="noopener noreferrer" title="Administrative Business Web" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/administrative-business-video-thumb.webp" />
               <img src="img/administrative-business-video-thumb.jpg" alt="Vista previa del video Administrative Business Web" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Administrative Business Web</h3>
@@ -459,12 +467,12 @@
              Administrativos" por error, quitado a pedido del usuario hasta
              confirmar la categoría real. -->
         <div class="ab-video-card">
-          <a class="ab-video-thumb" href="https://youtu.be/4UeDxvi-aVM" target="_blank" rel="noopener noreferrer" title="Administrativo Desktop">
+          <a class="ab-video-thumb" href="https://youtu.be/4UeDxvi-aVM" target="_blank" rel="noopener noreferrer" title="Administrativo Desktop" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/administrativo-pos-video-thumb.webp" />
               <img src="img/administrativo-pos-video-thumb.jpg" alt="Vista previa del video Administrativo Desktop" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Administrativo Desktop</h3>
@@ -473,12 +481,12 @@
           </div>
         </div>
         <div class="ab-video-card" data-producto="Sistema Restaurante">
-          <a class="ab-video-thumb" href="https://youtu.be/9wRn1qpEAdE" target="_blank" rel="noopener noreferrer" title="Taller Administrativo WEB – Actualización de Comandas Móviles">
+          <a class="ab-video-thumb" href="https://youtu.be/9wRn1qpEAdE" target="_blank" rel="noopener noreferrer" title="Taller Administrativo WEB – Actualización de Comandas Móviles" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/comandas-moviles-video-thumb.webp" />
               <img src="img/comandas-moviles-video-thumb.jpg" alt="Vista previa del video Taller Administrativo WEB – Actualización de Comandas Móviles" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Taller Administrativo WEB – Actualización de Comandas Móviles</h3>
@@ -487,12 +495,12 @@
           </div>
         </div>
         <div class="ab-video-card" data-producto="Sistema Restaurante">
-          <a class="ab-video-thumb" href="https://youtu.be/ugTaMtkqE74" target="_blank" rel="noopener noreferrer" title="Taller Restaurante WEB">
+          <a class="ab-video-thumb" href="https://youtu.be/ugTaMtkqE74" target="_blank" rel="noopener noreferrer" title="Taller Restaurante WEB" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/restaurante-web-video-thumb.webp" />
               <img src="img/restaurante-web-video-thumb.jpg" alt="Vista previa del video Taller Restaurante WEB" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Taller Restaurante WEB</h3>
@@ -501,12 +509,12 @@
           </div>
         </div>
         <div class="ab-video-card" data-producto="Sistemas Administrativos">
-          <a class="ab-video-thumb" href="https://youtu.be/UyDD9_uQy-w" target="_blank" rel="noopener noreferrer" title="Taller Módulo de Compras y Control de Proveedores Sistema Administrativo PSKloud Todos los países">
+          <a class="ab-video-thumb" href="https://youtu.be/UyDD9_uQy-w" target="_blank" rel="noopener noreferrer" title="Taller Módulo de Compras y Control de Proveedores Sistema Administrativo PSKloud Todos los países" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/compras-proveedores-video-thumb.webp" />
               <img src="img/compras-proveedores-video-thumb.jpg" alt="Vista previa del video Taller Módulo de Compras y Control de Proveedores Sistema Administrativo PSKloud Todos los países" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Taller Módulo de Compras y Control de Proveedores Sistema Administrativo PSKloud Todos los países</h3>
@@ -517,12 +525,12 @@
         <!-- Fecha provisional sin confirmar por el usuario (candidato que él
              mismo sugirió: "20/02/2026 o similar") — corregir si no es exacta. -->
         <div class="ab-video-card" data-producto="Sistemas Administrativos">
-          <a class="ab-video-thumb" href="https://youtu.be/PZxL8yZoPDo" target="_blank" rel="noopener noreferrer" title="Sistema Administrativo Web – Taller Carga Masiva Data Excel">
+          <a class="ab-video-thumb" href="https://youtu.be/PZxL8yZoPDo" target="_blank" rel="noopener noreferrer" title="Sistema Administrativo Web – Taller Carga Masiva Data Excel" aria-describedby="gn-nueva-pestana">
             <picture style="display: contents">
               <source type="image/webp" srcset="img/carga-masiva-excel-video-thumb.webp" />
               <img src="img/carga-masiva-excel-video-thumb.jpg" alt="Vista previa del video Sistema Administrativo Web – Taller Carga Masiva Data Excel" width="1280" height="720" loading="lazy">
             </picture>
-            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+            <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
           </a>
           <div class="ab-video-info">
             <h3 class="ab-video-title">Sistema Administrativo Web – Taller Carga Masiva Data Excel</h3>
@@ -537,6 +545,8 @@
   <!-- End Webinars Video Gallery -->
 
   <!-- Start Footer -->
+  </main>
+  <p id="gn-nueva-pestana" hidden>Se abre en una pestaña nueva.</p>
   <footer id="footer" class="gn-footer gn-footer-plegable">
       <div class="gn-footer-inner">
         <div class="gn-footer-top">
@@ -653,16 +663,16 @@
     </footer>
   <!-- end footer -->
 
-  <button class="back-to-top" id="backToTopBtn"><i class="fas fa-chevron-up"></i></button>
+  <button type="button" class="back-to-top" id="backToTopBtn" aria-label="Volver arriba"><i class="fas fa-chevron-up" aria-hidden="true"></i></button>
 
   <!-- JavaScript Libraries -->
   <script src="lib/jquery/jquery.min.js"></script>
 
   <!-- Contact Form JavaScript File -->
 
-  <script src="js/main.js?v=63"></script>
+  <script src="js/main.js?v=64"></script>
   <script src="js/tracking.js?v=3"></script>
-  <script src="js/webinars.js"></script>
+  <script src="js/webinars.js?v=2"></script>
 </body>
 
 </html>

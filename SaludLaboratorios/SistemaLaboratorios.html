@@ -45,6 +45,7 @@
 
     <!-- Responsive Stylesheet File -->
     <link href="../css/sitio-responsive.css?v=1" rel="stylesheet" />
+    <link href="../css/accesibilidad.css?v=1" rel="stylesheet" />
 
     <!-- =======================================================
     Theme Name: eBusiness
@@ -59,6 +60,8 @@
     data-target="#navbar-example"
     class="page-administrative-business page-centro-impresion-fiscal gn-ficha"
   >
+    <a class="gn-skip" href="#contenido">Saltar al contenido</a>
+    <aside aria-label="Contacto rápido">
     <a
       aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
       href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas."
@@ -67,14 +70,15 @@
       target="_blank"
       rel="noopener"
     >
-      <i class="fa-brands fa-whatsapp"></i>
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
     </a>
+    </aside>
     <div id="preloader"></div>
 
     <!-- header Area -->
     <header>
       <div id="sticker">
-        <nav>
+        <nav aria-label="Principal">
           <a class="logo" href="../index.html" aria-label="Gramanat, ir al inicio">
             <img
               src="../img/about/LOGO-removebg-preview.png"
@@ -85,25 +89,25 @@
           </a>
           <ul>
             <li>
-              <a href="../index.html#about"><i class="fa-solid fa-eye"></i>Nosotros</a>
+              <a href="../index.html#about"><i class="fa-solid fa-eye" aria-hidden="true"></i>Nosotros</a>
             </li>
             <li>
               <a href="../index.html#sistemas"
-                ><i class="fa-solid fa-display"></i>Sistemas</a
+                ><i class="fa-solid fa-display" aria-hidden="true"></i>Sistemas</a
               >
             </li>
             <li>
               <a href="../index.html#verificador"
-                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
+                ><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>Encuentra tu solución</a
               >
             </li>
             <li>
-              <a href="../index.html#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
+              <a href="../index.html#cotizacion"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
-                ><i class="fa-solid fa-wrench"></i>Soluciones
-                <i class="fas fa-chevron-down"></i
+                ><i class="fa-solid fa-wrench" aria-hidden="true"></i>Soluciones
+                <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <ul class="submenu">
                 <!-- Item con submenú de segundo nivel (flyout). Patrón reutilizable:
@@ -112,7 +116,7 @@
                  flyout agregando esas mismas dos clases, sin tocar el CSS. -->
                 <li class="has-flyout">
                   <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
+                    >Comercios y PyMEs <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -140,7 +144,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -157,7 +161,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
+                    >Contabilidad y Finanzas <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -169,7 +173,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
+                    >Salud y Laboratorios <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -192,7 +196,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -209,7 +213,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Otros sectores <i class="fas fa-chevron-right"></i
+                    >Otros sectores <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -230,14 +234,14 @@
                 </li>
                 <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="#">AppKloud <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
                 </li> -->
               </ul>
             </li>
             <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
               <a href="../index.html#faq"
-                ><i class="fa-solid fa-circle-question"></i>Preguntas</a
+                ><i class="fa-solid fa-circle-question" aria-hidden="true"></i>Preguntas</a
               >
             </li>
             <li>
@@ -247,7 +251,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="header-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -259,7 +263,7 @@
             target="_blank"
             rel="noopener"
             data-cta="header-asesoria-movil"
-            >Solicita asesoría <span aria-hidden="true">→</span></a
+             aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
           >
           <button
             type="button"
@@ -289,7 +293,7 @@
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
-                >Soluciones <i class="fas fa-chevron-down"></i
+                >Soluciones <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <!-- Same pages as the desktop flyouts, grouped under their
                  category name (the flyouts are hover-only, so phones get
@@ -390,7 +394,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="menu-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -398,6 +402,7 @@
       </div>
     </header>
     <!-- header end -->
+    <main id="contenido" tabindex="-1">
 
     <!-- Start Sistema de Laboratorios Hero -->
     <div class="ab-hero">
@@ -422,7 +427,7 @@
               <em>Según la información publicada por el fabricante, para El Salvador esta solución no está disponible directamente y requiere adaptación. Consulta con Gramanat su alcance, plazos y condiciones antes de decidir.</em>
             </p>
             <a href="https://api.whatsapp.com/send?phone=50370043346&amp;text=%C2%A1Hola!%20%F0%9F%91%8B%20Vi%20la%20p%C3%A1gina%20de%20Sistema%20para%20Laboratorios%20en%20el%20sitio%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20consultar%20si%20esta%20soluci%C3%B3n%20est%C3%A1%20disponible%20para%20mi%20negocio%20en%20El%20Salvador." class="ab-cta-btn" target="_blank" rel="noopener" data-cta="solucion-sistema-para-laboratorios"
-              >Consulta esta solución</a>
+               aria-describedby="gn-nueva-pestana">Consulta esta solución</a>
           </div>
           <div class="ab-hero-media">
             <div class="ab-hero-mockup">
@@ -501,7 +506,7 @@
               loading="lazy"
             />
             <span class="ab-video-play" aria-hidden="true"
-              ><i class="fa-solid fa-play"></i
+              ><i class="fa-solid fa-play" aria-hidden="true"></i
             ></span>
           </a>
           <!-- Fallback comentado: versión VenoBox/iframe (daba Error 153), por si
@@ -509,7 +514,7 @@
              quiere reactivar el lightbox en vez del enlace directo:
         <a class="venobox ab-video-thumb" href="https://youtu.be/uuJXE1hZ_IY?modestbranding=1" data-vbtype="video" title="Centro de Impresión Fiscal">
           <img src="img/centro-impresion-fiscal-video-thumb.jpg" alt="Vista previa del video Centro de Impresión Fiscal" width="1280" height="720" loading="lazy">
-          <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+          <span class="ab-video-play" aria-hidden="true"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
         </a>
         -->
           <div class="ab-video-info">
@@ -592,6 +597,8 @@
     <!-- End Ver Videos Button -->
 
     <!-- Start Footer -->
+    </main>
+    <p id="gn-nueva-pestana" hidden>Se abre en una pestaña nueva.</p>
     <footer id="footer" class="gn-footer gn-footer-plegable">
       <div class="gn-footer-inner">
         <div class="gn-footer-top">
@@ -708,8 +715,8 @@
     </footer>
     <!-- end footer -->
 
-    <button class="back-to-top" id="backToTopBtn">
-      <i class="fas fa-chevron-up"></i>
+    <button type="button" class="back-to-top" id="backToTopBtn" aria-label="Volver arriba">
+      <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
     <!-- JavaScript Libraries -->
@@ -717,7 +724,7 @@
 
     <!-- Contact Form JavaScript File -->
 
-    <script src="../js/main.js?v=63"></script>
+    <script src="../js/main.js?v=64"></script>
     <script src="../js/tracking.js?v=3"></script>
   </body>
 </html>

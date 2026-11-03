@@ -1,0 +1,234 @@
+/* ==========================================================================
+   Accesibilidad (etapa B3). Loaded last, after sitio.css and
+   sitio-responsive.css, on the 17 redesigned pages only (the old pages and
+   style.css / responsive.css don't load it).
+   Sections 1-4 only show with the keyboard or to screen readers: mouse and
+   touch visitors see no change. Section 4b stops two looping animations
+   after one cycle; sections 5-6 are the colour and text-size fixes that
+   every visitor sees (WCAG 2.2 AA contrast and legibility).
+   ========================================================================== */
+
+/* --- 1. Text for screen readers only ----------------------------------- */
+
+.gn-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- 2. «Saltar al contenido» ---------------------------------------------
+   First keyboard stop of every page. Off-screen until it has focus, then a
+   navy pill over the header (above the preloader's z-index 99999). */
+
+.gn-skip,
+.gn-skip:visited {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100001;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #071c33;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  transform: translateY(-200%);
+  /* The template animates every link (a { transition: all .3s }): the skip
+     link has to be there the moment it gets focus. */
+  transition: none;
+}
+
+.gn-skip:focus,
+.gn-skip:focus-visible {
+  transform: none;
+  color: #fff;
+  outline: 3px solid #1d63b7 !important;
+  outline-offset: 2px;
+}
+
+/* The skip link moves focus here; the content area itself shows no ring. */
+#contenido:focus {
+  outline: none;
+}
+
+/* --- 3. Keyboard focus ring: one colour per background ---------------------
+   The approved ring is 3px sky blue (#63b2f2). On the navy sections it reads
+   at 7.5:1, but on the white and light-grey sections (header, menus, cards,
+   forms, FAQ) only at 2.1-2.3:1, under the 3:1 that WCAG asks of a focus
+   indicator. Same width and offsets; only the colour follows the background:
+   blue #1d63b7 (palette --gn-blue-mid, 5.3-6:1) on light, sky on navy, white
+   on the Webinars blue banner. */
+
+:root {
+  --gn-foco: #1d63b7;
+}
+
+.gn-hero,
+.gn-sol-main,
+.gn-sec-line,
+.gn-hiw,
+.gn-cta,
+.gn-footer {
+  --gn-foco: #63b2f2;
+}
+
+.gn-sol-media-frame {
+  --gn-foco: #1d63b7;
+}
+
+body.page-webinars .webinar-banner-left {
+  --gn-foco: #fff;
+}
+
+/* The page's own focus rules (nav a:focus-visible, .ab-video-thumb...,
+   var(--gn-sky)) are more specific than a plain a:focus-visible. :is() takes
+   the specificity of its strongest argument, so the never-used id lifts this
+   one rule above them without touching sitio.css. */
+:is(a, button, input, select, textarea, #gn-foco-ref):focus-visible,
+.gn-diag-opt:is(:has(input:focus-visible), #gn-foco-ref) {
+  outline-color: var(--gn-foco) !important;
+}
+
+/* Controls that showed no ring at all: the global a:focus { outline: none
+   !important } of the template won over their own :focus-visible rule. */
+.gn-sol-cta:focus-visible,
+.gn-sol-alt:focus-visible,
+.gn-quote-cta:focus-visible,
+.gn-quote-alt:focus-visible,
+body.page-webinars .webinar-cta-btn:focus-visible,
+body.page-webinars .webinar-search-input:focus-visible,
+body.page-webinars .webinar-select:focus-visible {
+  outline: 3px solid var(--gn-foco) !important;
+  outline-offset: 3px !important;
+}
+
+/* The same global rule removed the underline of these two text links when
+   focused, so focus took the underline away instead of adding something. */
+.gn-sol-alt:focus-visible,
+.gn-quote-alt:focus-visible {
+  text-decoration-line: underline !important;
+}
+
+/* Floating buttons (WhatsApp, «Volver arriba») pass over white sections and
+   the navy footer: a two-tone ring (white + blue) reads on both. «Volver
+   arriba» hides itself 3 s after scrolling stops, and both tuck away while a
+   CTA passes under them: neither disappears while it has keyboard focus. */
+:is(.whatsapp-float, #backToTopBtn):focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 7px #1d63b7;
+}
+
+#backToTopBtn:focus-visible,
+.whatsapp-float.is-tucked:focus-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- 4. Reduced motion ----------------------------------------------------
+   Animations already stop with prefers-reduced-motion; in-page jumps (menu,
+   «Saltar al contenido», «Volver arriba») still glided. Now they jump. */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- 4b. Animations that never stopped (WCAG 2.2.2) ------------------------
+   The WhatsApp pulse (3 s) and the floating mockup of the system pages
+   (3.6 s) now play one cycle when the page loads and stop in their resting
+   state: same keyframes, timing and look, under 5 s. The pulse keeps its last
+   frame (invisible): without it, the ring's green circle would come back over
+   the button. Reduced motion still turns both off (sitio.css). */
+
+.whatsapp-float::before {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+body.page-administrative-business .ab-hero-mockup,
+body.page-admin-pos .ab-hero-mockup {
+  animation-iteration-count: 1;
+}
+
+/* --- 5. Contrast (WCAG 1.4.3, 4.5:1 for normal text) ------------------------ */
+
+/* Home, "Tu cotización considera" card: subtitle (4.36:1 → 5.04:1) and the
+   01/02/03 numbers (sky on white 2.28:1 → palette blue 5.96:1). */
+.gn-quote-sheet-head p span {
+  color: #627084;
+}
+
+.gn-quote-num {
+  color: #1d63b7;
+}
+
+/* Home, "Gramanat en breve" card on light grey (4.07:1 → 4.69:1). */
+.gn-about-sheet-label,
+.gn-about-fact dt {
+  color: #627084;
+}
+
+/* --- 6. Webinars: legible sizes and contrast ---------------------------------
+   This page still used the template's rem sizes, read against Bootstrap's
+   html { font-size: 10px }: 8-10.5px body text. Body text now matches the video
+   cards approved on the system pages (title 18px, description 15.5px, date
+   13px); headings keep their size. The banner button takes the site's orange
+   button style (navy text, 6.6:1; white on orange was 2.6:1). */
+
+body.page-webinars .webinar-eyebrow {
+  font-size: 13px;
+}
+
+body.page-webinars .webinar-desc {
+  font-size: 16px;
+  opacity: 1;
+}
+
+body.page-webinars .webinar-cta-btn,
+body.page-webinars .webinar-cta-btn:visited,
+body.page-webinars .webinar-cta-btn:focus,
+body.page-webinars .webinar-cta-btn:hover {
+  font-size: 16px;
+  color: #071c33;
+}
+
+body.page-webinars .webinar-search-input,
+body.page-webinars .webinar-select {
+  font-size: 16px;
+}
+
+body.page-webinars .webinar-search-input::placeholder {
+  color: #6b7280;
+}
+
+body.page-webinars .ab-video-title {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+body.page-webinars .ab-video-desc {
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+body.page-webinars .ab-video-date {
+  font-size: 13px;
+  color: #5f6e83;
+}
+
+body.page-webinars .webinar-no-results {
+  font-size: 16px;
+  color: #5f6e83;
+}

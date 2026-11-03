@@ -49,6 +49,7 @@
 
     <!-- Responsive Stylesheet File -->
     <link href="css/sitio-responsive.css?v=1" rel="stylesheet" />
+    <link href="css/accesibilidad.css?v=1" rel="stylesheet" />
 
     <!-- LocalBusiness structured data -->
     <script type="application/ld+json">
@@ -142,6 +143,8 @@
   </head>
 
   <body data-spy="scroll" data-target="#navbar-example" class="page-home">
+    <a class="gn-skip" href="#contenido">Saltar al contenido</a>
+    <aside aria-label="Contacto rápido">
     <a
       aria-label="Escribir a Gramanat por WhatsApp (se abre en una pestaña nueva)"
       href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio"
@@ -153,14 +156,15 @@
       <span class="whatsapp-float-tooltip" aria-hidden="true"
         >¿Hablamos? Escríbenos por WhatsApp</span
       >
-      <i class="fa-brands fa-whatsapp"></i>
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
     </a>
+    </aside>
     <div id="preloader"></div>
 
     <!-- header Area -->
     <header>
       <div id="sticker">
-        <nav>
+        <nav aria-label="Principal">
           <a class="logo" href="#home" aria-label="Gramanat, ir al inicio">
             <img
               src="img/about/LOGO-removebg-preview.png"
@@ -171,25 +175,25 @@
           </a>
           <ul>
             <li>
-              <a href="#about"><i class="fa-solid fa-eye"></i>Nosotros</a>
+              <a href="#about"><i class="fa-solid fa-eye" aria-hidden="true"></i>Nosotros</a>
             </li>
             <li>
               <a href="#sistemas"
-                ><i class="fa-solid fa-display"></i>Sistemas</a
+                ><i class="fa-solid fa-display" aria-hidden="true"></i>Sistemas</a
               >
             </li>
             <li>
               <a href="#verificador"
-                ><i class="fa-solid fa-clipboard-check"></i>Encuentra tu solución</a
+                ><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>Encuentra tu solución</a
               >
             </li>
             <li>
-              <a href="#cotizacion"><i class="fa-solid fa-file-lines"></i>Cotización</a>
+              <a href="#cotizacion"><i class="fa-solid fa-file-lines" aria-hidden="true"></i>Cotización</a>
             </li>
             <li class="has-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle"
-                ><i class="fa-solid fa-wrench"></i>Soluciones
-                <i class="fas fa-chevron-down"></i
+                ><i class="fa-solid fa-wrench" aria-hidden="true"></i>Soluciones
+                <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <ul class="submenu">
                 <!-- Item con submenú de segundo nivel (flyout). Patrón reutilizable:
@@ -198,7 +202,7 @@
                  flyout agregando esas mismas dos clases, sin tocar el CSS. -->
                 <li class="has-flyout">
                   <a href="#"
-                    >Comercios y PyMEs <i class="fas fa-chevron-right"></i
+                    >Comercios y PyMEs <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -226,7 +230,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Ecommerce y Gestión Digital
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -243,7 +247,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Contabilidad y Finanzas <i class="fas fa-chevron-right"></i
+                    >Contabilidad y Finanzas <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -255,7 +259,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Salud y Laboratorios <i class="fas fa-chevron-right"></i
+                    >Salud y Laboratorios <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -278,7 +282,7 @@
                 <li class="has-flyout">
                   <a href="#"
                     >Recursos Humanos y Nómina
-                    <i class="fas fa-chevron-right"></i
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -295,7 +299,7 @@
                 </li>
                 <li class="has-flyout">
                   <a href="#"
-                    >Otros sectores <i class="fas fa-chevron-right"></i
+                    >Otros sectores <i class="fas fa-chevron-right" aria-hidden="true"></i
                   ></a>
                   <ul class="submenu-flyout">
                     <li>
@@ -316,14 +320,14 @@
                 </li>
                 <!-- AppKloud: oculto hasta tener su página (era href="#").
                 <li>
-                  <a href="#">AppKloud <i class="fas fa-chevron-right"></i></a>
+                  <a href="#">AppKloud <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
                 </li> -->
               </ul>
             </li>
             <!-- Submenú «Servicios» (Marketing Digital, Equipo de Punto de Venta) oculto provisionalmente: marketing.html y casas.html son páginas antiguas pendientes de decisión y siguen en el repositorio. -->
             <li>
               <a href="#faq"
-                ><i class="fa-solid fa-circle-question"></i>Preguntas</a
+                ><i class="fa-solid fa-circle-question" aria-hidden="true"></i>Preguntas</a
               >
             </li>
             <li>
@@ -333,7 +337,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="header-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -345,7 +349,7 @@
             target="_blank"
             rel="noopener"
             data-cta="header-asesoria-movil"
-            >Solicita asesoría <span aria-hidden="true">→</span></a
+             aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
           >
           <button
             type="button"
@@ -375,7 +379,7 @@
             </li>
             <li class="mobile-submenu soluciones-submenu">
               <a href="#" class="submenu-toggle mobile-submenu-toggle"
-                >Soluciones <i class="fas fa-chevron-down"></i
+                >Soluciones <i class="fas fa-chevron-down" aria-hidden="true"></i
               ></a>
               <!-- Same pages as the desktop flyouts, grouped under their
                  category name (the flyouts are hover-only, so phones get
@@ -476,7 +480,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="menu-asesoria"
-                >Solicita asesoría <span aria-hidden="true">→</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría <span aria-hidden="true">→</span></a
               >
             </li>
           </ul>
@@ -484,6 +488,7 @@
       </div>
     </header>
     <!-- header end -->
+    <main id="contenido" tabindex="-1">
 
     <!-- Hero. Replaces the old Nivo slider (one real slide + two empty
        placeholders that still downloaded ~5 MB of images). Two columns
@@ -575,7 +580,7 @@
               target="_blank"
               rel="noopener"
               data-cta="hero-asesoria"
-            >
+             aria-describedby="gn-nueva-pestana">
               <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
               Solicita asesoría <span aria-hidden="true">→</span>
             </a>
@@ -828,7 +833,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="sistemas-asesoria"
-                >Solicita asesoría por <span>WhatsApp →</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría por <span>WhatsApp →</span></a
               >
               <a class="gn-sol-alt" href="#verificador"
                 >¿No sabes qué necesitas? Haz el diagnóstico</a
@@ -963,7 +968,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="cotizacion-whatsapp"
-                >Solicita tu cotización por <span>WhatsApp →</span></a
+                 aria-describedby="gn-nueva-pestana">Solicita tu cotización por <span>WhatsApp →</span></a
               >
               <a class="gn-quote-alt" href="#verificador"
                 >¿Todavía no tienes claro qué necesitas? Haz el diagnóstico</a
@@ -1168,7 +1173,7 @@
           <p>¿Te identificas con alguna? El diagnóstico de tres preguntas te da una orientación inicial.</p>
           <div class="gn-sit-actions">
             <a class="gn-sit-diag" href="#verificador" data-cta="problemas-diagnostico">Hacer el diagnóstico <span aria-hidden="true">↓</span></a>
-            <a class="gn-sit-wa" href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio" target="_blank" rel="noopener" data-cta="problemas-whatsapp">o escríbenos por WhatsApp</a>
+            <a class="gn-sit-wa" href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio" target="_blank" rel="noopener" data-cta="problemas-whatsapp" aria-describedby="gn-nueva-pestana">o escríbenos por WhatsApp</a>
           </div>
         </div>
       </div>
@@ -1454,7 +1459,7 @@
                 target="_blank"
                 rel="noopener"
                 data-cta="diagnostico-asesoria"
-                >Solicita asesoría por WhatsApp&nbsp;<span
+                 aria-describedby="gn-nueva-pestana">Solicita asesoría por WhatsApp&nbsp;<span
                   aria-hidden="true"
                   >→</span
                 ></a
@@ -1474,7 +1479,7 @@
                   href="https://factura.gob.sv"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >factura.gob.sv <span aria-hidden="true">↗</span></a
+                   aria-describedby="gn-nueva-pestana">factura.gob.sv <span aria-hidden="true">↗</span></a
                 >
               </p>
               <p class="gn-diag-disclaimer">
@@ -1577,7 +1582,7 @@
             <p>Soluciones de Premium Soft, presentadas por Gramanat como parte de su alianza comercial.</p>
             <p>La disponibilidad, modalidad de uso y condiciones pueden variar según el sistema. Consulta con Gramanat las opciones aplicables a tu negocio en El Salvador.</p>
           </div>
-          <a class="gn-sec-cta" href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio" target="_blank" rel="noopener" data-cta="sectores-whatsapp">Consultar por WhatsApp <span aria-hidden="true">→</span></a>
+          <a class="gn-sec-cta" href="https://wa.me/50370043346?text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20orientaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20tecnol%C3%B3gica%20adecuada%20para%20mi%20negocio" target="_blank" rel="noopener" data-cta="sectores-whatsapp" aria-describedby="gn-nueva-pestana">Consultar por WhatsApp <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -1626,7 +1631,7 @@
             href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20para%20encontrar%20una%20soluci%C3%B3n%20de%20facturaci%C3%B3n%20electr%C3%B3nica%20adecuada%20para%20mi%20negocio."
             target="_blank"
             rel="noopener"
-            >Solicita asesoría por WhatsApp <span aria-hidden="true">→</span></a
+             aria-describedby="gn-nueva-pestana">Solicita asesoría por WhatsApp <span aria-hidden="true">→</span></a
           >
           <a class="gn-hiw-alt" href="#verificador">¿Prefieres orientarte primero? Haz el diagnóstico</a>
         </div>
@@ -1737,7 +1742,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
               <p>Depende de la solución, su alcance y los recursos que necesite tu negocio. Antes de cotizar revisamos contigo cómo trabajas y qué necesitas gestionar, para presentarte una propuesta clara con la inversión correspondiente.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-1" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFCu%C3%A1nto%20cuesta%20una%20soluci%C3%B3n%20de%20facturaci%C3%B3n%20electr%C3%B3nica%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-1" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFCu%C3%A1nto%20cuesta%20una%20soluci%C3%B3n%20de%20facturaci%C3%B3n%20electr%C3%B3nica%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1748,7 +1753,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
               <p>Puedes empezar con el diagnóstico de tres preguntas o escribirnos directamente. Desarrollamos software propio y también trabajamos con soluciones de otros proveedores, así que te orientamos hacia la alternativa que mejor responda a tu operación.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-2" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFC%C3%B3mo%20s%C3%A9%20qu%C3%A9%20soluci%C3%B3n%20necesita%20mi%20negocio%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-2" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFC%C3%B3mo%20s%C3%A9%20qu%C3%A9%20soluci%C3%B3n%20necesita%20mi%20negocio%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1759,7 +1764,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
               <p>La validez de tus documentos electrónicos depende de que la solución utilizada cumpla los requisitos aplicables del Ministerio de Hacienda y esté correctamente implementada. Te orientamos sobre las características de la solución propuesta y los aspectos que debes verificar antes de contratar.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-3" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFMis%20documentos%20electr%C3%B3nicos%20ser%C3%A1n%20v%C3%A1lidos%20ante%20Hacienda%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-3" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFMis%20documentos%20electr%C3%B3nicos%20ser%C3%A1n%20v%C3%A1lidos%20ante%20Hacienda%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1770,7 +1775,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
               <p>En muchos casos sí. Antes de recomendarte una solución revisamos el equipo que ya tienes, para saber si puedes aprovecharlo o si necesitas algo adicional.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-4" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFPuedo%20usar%20la%20computadora%20o%20el%20equipo%20que%20ya%20tengo%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-4" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFPuedo%20usar%20la%20computadora%20o%20el%20equipo%20que%20ya%20tengo%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1781,7 +1786,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5">
               <p>Depende de la solución, del equipo disponible y del alcance de la implementación. El plazo estimado se indica en la propuesta.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-5" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFCu%C3%A1nto%20tarda%20la%20implementaci%C3%B3n%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-5" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFCu%C3%A1nto%20tarda%20la%20implementaci%C3%B3n%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1792,7 +1797,7 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
               <p>Te orientamos sobre las opciones de capacitación disponibles para que conozcas cómo utilizar la solución elegida. Su alcance se establece según las condiciones de tu propuesta.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-6" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFMe%20ense%C3%B1an%20a%20usar%20el%20sistema%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-6" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFMe%20ense%C3%B1an%20a%20usar%20el%20sistema%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
           <li class="gn-faq-item">
@@ -1803,14 +1808,14 @@
             </h3>
             <div class="gn-faq-a" id="faq-a-7" role="region" aria-labelledby="faq-q-7">
               <p>Si tienes algún inconveniente, puedes escribirnos por WhatsApp durante nuestro horario de atención. Te orientamos sobre las opciones de acompañamiento y soporte que correspondan a tu solución, según las condiciones de tu propuesta.</p>
-              <a class="gn-faq-link" data-cta="faq-respuesta-7" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFQu%C3%A9%20pasa%20si%20tengo%20un%20problema%20despu%C3%A9s%20de%20empezar%3F" target="_blank" rel="noopener">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
+              <a class="gn-faq-link" data-cta="faq-respuesta-7" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%20Gramanat%2C%20tengo%20una%20duda%3A%20%C2%BFQu%C3%A9%20pasa%20si%20tengo%20un%20problema%20despu%C3%A9s%20de%20empezar%3F" target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Preguntar sobre esto por WhatsApp <span aria-hidden="true">→</span></a>
             </div>
           </li>
         </ul>
 
         <div class="gn-faq-help">
           <p>¿Tu pregunta no aparece aquí?</p>
-          <a class="gn-faq-link" data-cta="faq-whatsapp" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener">Escríbenos por WhatsApp <span aria-hidden="true">→</span></a>
+          <a class="gn-faq-link" data-cta="faq-whatsapp" href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." target="_blank" rel="noopener" aria-describedby="gn-nueva-pestana">Escríbenos por WhatsApp <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -1837,7 +1842,7 @@
             href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20para%20encontrar%20una%20soluci%C3%B3n%20de%20facturaci%C3%B3n%20electr%C3%B3nica%20adecuada%20para%20mi%20negocio."
             target="_blank"
             rel="noopener"
-            >Solicita orientación por WhatsApp <span aria-hidden="true">→</span></a
+             aria-describedby="gn-nueva-pestana">Solicita orientación por WhatsApp <span aria-hidden="true">→</span></a
           >
           <a class="gn-cta-alt" href="#contact">¿Prefieres llamar o escribir un correo? Ver contacto</a>
         </div>
@@ -1863,7 +1868,7 @@
               <p class="gn-contact-value"><a href="tel:+50370043346">+503 7004 3346</a></p>
               <div class="gn-contact-actions">
                 <a class="gn-contact-btn" data-cta="contacto-whatsapp" target="_blank" rel="noopener"
-                   href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta.">Escribir por WhatsApp</a>
+                   href="https://api.whatsapp.com/send?phone=50370043346&amp;text=Hola%2C%20visit%C3%A9%20la%20p%C3%A1gina%20web%20de%20Gramanat%20y%20tengo%20una%20pregunta." aria-describedby="gn-nueva-pestana">Escribir por WhatsApp</a>
                 <a class="gn-contact-btn" href="tel:+50370043346" aria-label="Llamar al +503 7004 3346">Llamar</a>
               </div>
             </li>
@@ -1872,15 +1877,16 @@
               <p class="gn-contact-value"><a href="mailto:igramanat@gmail.com">igramanat@gmail.com</a></p>
               <p class="gn-contact-note">Para enviar documentos o solicitudes formales.</p>
               <div class="gn-contact-actions">
-                <button type="button" class="gn-contact-btn contact-copy-btn" data-copy="igramanat@gmail.com" aria-label="Copiar el correo igramanat@gmail.com"><span class="contact-copy-btn-text">Copiar correo</span></button>
+                <button type="button" class="gn-contact-btn contact-copy-btn" data-copy="igramanat@gmail.com" aria-label="Copiar correo igramanat@gmail.com"><span class="contact-copy-btn-text">Copiar correo</span></button>
+                <span class="gn-sr" role="status" aria-live="polite" data-copy-status></span>
               </div>
             </li>
             <li class="gn-contact-channel">
               <h3 class="gn-contact-label">Oficina</h3>
               <p class="gn-contact-value">Calle Motocross, Res. Montemira, San Salvador</p>
               <div class="gn-contact-actions">
-                <a class="gn-contact-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=13.724998986664005,-89.22866672500584" aria-label="Abrir la ubicación en Google Maps">Google Maps</a>
-                <a class="gn-contact-btn" target="_blank" rel="noopener" href="https://waze.com/ul?q=Calle%20Motocross%20Residencial%20Montemira%20San%20Salvador" aria-label="Abrir la ubicación en Waze">Waze</a>
+                <a class="gn-contact-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=13.724998986664005,-89.22866672500584" aria-label="Abrir la ubicación en Google Maps" aria-describedby="gn-nueva-pestana">Google Maps</a>
+                <a class="gn-contact-btn" target="_blank" rel="noopener" href="https://waze.com/ul?q=Calle%20Motocross%20Residencial%20Montemira%20San%20Salvador" aria-label="Abrir la ubicación en Waze" aria-describedby="gn-nueva-pestana">Waze</a>
               </div>
             </li>
             <li class="gn-contact-channel">
@@ -1931,6 +1937,8 @@
     </section>
 
     <!-- Start Footer -->
+    </main>
+    <p id="gn-nueva-pestana" hidden>Se abre en una pestaña nueva.</p>
     <footer id="footer" class="gn-footer gn-footer-plegable">
       <div class="gn-footer-inner">
         <div class="gn-footer-top">
@@ -2047,8 +2055,8 @@
     </footer>
     <!-- end footer -->
 
-    <button class="back-to-top" id="backToTopBtn">
-      <i class="fas fa-chevron-up"></i>
+    <button type="button" class="back-to-top" id="backToTopBtn" aria-label="Volver arriba">
+      <i class="fas fa-chevron-up" aria-hidden="true"></i>
     </button>
 
     <!-- JavaScript Libraries -->
@@ -2057,6 +2065,6 @@
     <!-- Contact Form JavaScript File -->
 
     <script src="js/tracking.js?v=3"></script>
-    <script src="js/main.js?v=63"></script>
+    <script src="js/main.js?v=64"></script>
   </body>
 </html>
